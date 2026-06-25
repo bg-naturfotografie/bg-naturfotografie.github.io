@@ -224,10 +224,28 @@
   right:0;
   bottom:0;
   padding:.8rem 1rem;
-  background:linear-gradient(to top, rgba(17,20,15,.92), transparent);
   font-family:'JetBrains Mono', monospace;
   font-size:.7rem;
   color:var(--text-light);
+  background:none;
+  z-index:2;
+}
+
+.card .tag::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:90px;              /* Höhe des Verlaufs */
+  background:linear-gradient(
+    to top,
+    rgba(17,20,15,.92) 0%,
+    rgba(17,20,15,.55) 40%,
+    rgba(17,20,15,.20) 70%,
+    transparent 100%
+  );
+  z-index:-1;
 }
 
 .card .tag b{
