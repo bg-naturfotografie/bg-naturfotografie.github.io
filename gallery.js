@@ -1,3 +1,24 @@
+/* ============ ZUFÄLLIGE REIHENFOLGE BEI JEDEM AUFRUF ============ */
+(function shuffleMasonry() {
+  var masonry = document.querySelector('.masonry');
+  if (!masonry) return;
+
+  var items = Array.prototype.slice.call(masonry.children);
+
+  // Fisher-Yates-Shuffle: jede Reihenfolge gleich wahrscheinlich
+  for (var i = items.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = items[i];
+    items[i] = items[j];
+    items[j] = tmp;
+  }
+
+  // Elemente in neuer Reihenfolge wieder einsetzen
+  items.forEach(function (item) {
+    masonry.appendChild(item);
+  });
+})();
+
 /* ============ LIGHTBOX FÜR MASONRY-GALERIEN ============
    Wird auf jeder Unterseite eingebunden, die eine .masonry-Galerie
    und das zugehörige .lightbox-Markup enthält. Keine Abhängigkeiten. */
