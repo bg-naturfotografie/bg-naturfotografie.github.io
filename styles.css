@@ -156,8 +156,9 @@
 
   .hero-logo{
   display:block;
-  height:90px;
+  height:110px;
   width:auto;
+  max-width:220px;
   margin:0 auto 1.5rem auto;
   opacity:.95;
   }
