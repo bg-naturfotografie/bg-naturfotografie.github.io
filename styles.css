@@ -158,12 +158,8 @@
   display:block;
   height:90px;
   width:auto;
-  margin-bottom:0 auto 1.5rem auto;
+  margin:0 auto 1.5rem auto;
   opacity:.95;
-  }
-
-  -hero-logo.centered{
-    margin:0 auto 1.5rem auto;
   }
 
   .scroll-cue{
