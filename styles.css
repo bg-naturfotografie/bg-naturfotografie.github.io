@@ -153,6 +153,15 @@
     margin:1.1em 0 2.2em;
   }
   .hero-actions{display:flex; gap:1rem; flex-wrap:wrap;}
+
+  .hero-logo{
+  display:block;
+  height:90px;
+  width:auto;
+  margin-bottom:1.5rem;
+  opacity:.95;
+  }
+
   .scroll-cue{
     position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
     font-family:'JetBrains Mono', monospace; font-size:.7rem;
