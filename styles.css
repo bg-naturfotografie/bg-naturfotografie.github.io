@@ -655,19 +655,7 @@
     font-size:.85rem;
   }
 
-  .price-note{
-    margin:0 0 1.8rem;
-    padding:1.1rem 1.4rem;
-    background:var(--bg-panel-2);
-    border-left:3px solid var(--accent);
-    border-radius:var(--radius);
-    color:var(--text-light);
-    font-size:.92rem;
-    max-width:62ch;
-  }
-  .price-note strong{ color:var(--accent-soft); }
-
-  .etsy-banner{
+  .offer-banner{
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -677,27 +665,45 @@
     border:1px solid var(--accent);
     border-radius:var(--radius);
     padding:1.8rem 2.2rem;
-    margin:0 0 1.8rem;
+    margin:0 0 1.4rem;
   }
-  .etsy-banner-text{ max-width:46ch; }
-  .etsy-banner-text h3{
+  .offer-banner-text{ max-width:48ch; }
+  .offer-banner-text h3{
     font-size:1.3rem;
     margin:0 0 .5rem;
   }
-  .etsy-banner-text p{
+  .offer-banner-text p{
     margin:0;
     color:var(--text-muted);
     font-size:.92rem;
   }
-  .btn-etsy{
+  .offer-banner .btn{
     flex-shrink:0;
-    padding:1.05em 2.2em;
-    font-size:1.02rem;
     white-space:nowrap;
   }
+
+  /* Etsy: bewusst zurückhaltender als der Vor-Ort/Anfrage-Hinweis darüber */
+  .offer-banner--etsy{
+    padding:1.15rem 1.6rem;
+    border-color:var(--line);
+    margin-bottom:0;
+  }
+  .offer-banner--etsy .offer-banner-text h3{
+    font-size:1.02rem;
+    margin-bottom:.3rem;
+  }
+  .offer-banner--etsy .offer-banner-text p{
+    font-size:.84rem;
+  }
+  .offer-banner--etsy .btn{
+    padding:.65em 1.4em;
+    font-size:.86rem;
+  }
+
   @media (max-width:600px){
-    .etsy-banner{ padding:1.5rem 1.6rem; }
-    .btn-etsy{ width:100%; text-align:center; }
+    .offer-banner{ padding:1.5rem 1.6rem; }
+    .offer-banner--etsy{ padding:1rem 1.3rem; }
+    .offer-banner .btn{ width:100%; text-align:center; }
   }
 
   /* ============ TERMINE ============ */
