@@ -79,7 +79,7 @@ const POSTER_FORMAT = 'A4';
    ------------------------------------------------------------- */
 const PREISE = {
   postkarte: 2.50,   // Einzelpreis, siehe Staffel unten
-  poster: 15.00,     // Einzelpreis A4, siehe Staffel unten
+  poster: 12.00,     // Einzelpreis A4, siehe Staffel unten
   download: 4.00
 };
 
@@ -87,8 +87,8 @@ const PREISE = {
    STAFFELPREISE — Mengenrabatt als STÜCKPREIS.
 
    Postkarten:  ab 1 Stück 2,50 EUR | ab 3 Stück 2,00 EUR | ab 5 Stück 1,80 EUR
-   Poster (A4): ab 1 Stück 15,00 EUR | ab 2 Stück 10,00 EUR
-   Lesezeichen: ab 1 Stück 2,00 EUR | ab 3 Stück je 1,67 EUR (= 3 für 5,00 EUR)
+   Poster (A4): ab 1 Stück 12,00 EUR | ab 2 Stück 10,00 EUR
+   Lesezeichen: 2,00 EUR pro Stück, KEINE Staffel (3 für 5 € gibt es nur am Marktstand)
 
    WICHTIG — so wird gezählt: Es zählt die GESAMTZAHL über alle
    Motive hinweg, nicht pro Motiv. Wer 2 Entchen-Postkarten und
@@ -108,18 +108,19 @@ const STAFFEL = {
     { abMenge: 5, proStueck: 1.80 }
   ],
   poster: [
-    { abMenge: 1, proStueck: 15.00 },
+    { abMenge: 1, proStueck: 12.00 },
     { abMenge: 2, proStueck: 10.00 }
   ],
-  /* Lesezeichen — entspricht dem Marktpreis "1 für 2 €, 3 für 5 €".
-     Weil die Staffel mit STÜCKpreisen rechnet, steht hier 5 / 3
-     (= 1,666… EUR). Ergebnis im Shop: 3 Stück = genau 5,00 EUR,
-     4 Stück = 6,67 EUR, 6 Stück = 10,00 EUR. Die Anzeige "je 1,67 €"
-     ist nur gerundet — gerechnet wird mit dem exakten Wert.
-     Lieber einen glatten Preis? Einfach z. B. 1.70 eintragen. */
+  /* Lesezeichen — online bewusst OHNE Mengenrabatt: 2,00 EUR pro
+     Stück, egal wie viele. Der Marktpreis "3 für 5 €" geht als
+     Stückpreis nicht glatt auf (1,666… EUR) und gilt deshalb nur am
+     Stand. Nur eine Stufe = kein "Staffelpreis"-Hinweis und kein
+     "Noch X mehr"-Hinweis im Warenkorb, das regelt der Shop
+     automatisch.
+     Falls du später doch eine Staffel willst, einfach eine zweite
+     Zeile ergänzen, z. B. { abMenge: 5, proStueck: 1.80 }. */
   lesezeichen: [
-    { abMenge: 1, proStueck: 2.00 },
-    { abMenge: 3, proStueck: 5 / 3 }
+    { abMenge: 1, proStueck: 2.00 }
   ]
 };
 

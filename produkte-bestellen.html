@@ -536,17 +536,17 @@
     {
       "@type": "Question",
       "name": "Wie l\u00e4uft eine Bestellung bei BG Naturfotografie ab?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Motiv und Menge ausw\u00e4hlen, zur Anfrage hinzuf\u00fcgen und das kurze Formular abschicken. Es gibt keine Kasse und keinen Sofortkauf \u2014 du bekommst Preis, Versand- oder Abholoption und Zahlungsweg per Mail, meist innerhalb von 2\u20133 Tagen." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Motiv und Menge ausw\u00e4hlen, in den Warenkorb legen und das kurze Formular abschicken \u2014 wahlweise als unverbindliche Anfrage oder als verbindliche Bestellung. Die Best\u00e4tigung mit Zahlungsweg kommt per Mail, meist innerhalb von 2\u20133 Tagen. Verschickt wird aus Halstenbek, Abholung ist auch m\u00f6glich." }
     },
     {
       "@type": "Question",
       "name": "Was kosten Postkarten, Poster und Lesezeichen?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten kosten 2,50 \u20ac pro St\u00fcck, ab 3 St\u00fcck 2,00 \u20ac und ab 5 St\u00fcck 1,80 \u20ac. Ein A4-Poster kostet 15,00 \u20ac, ab 2 St\u00fcck 10,00 \u20ac. Ein Lesezeichen kostet 2,00 \u20ac, 3 St\u00fcck 5,00 \u20ac. Gez\u00e4hlt wird \u00fcber alle Motive zusammen, jede Produktart getrennt. Alle Preise zzgl. Versand." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten kosten 2,50 \u20ac pro St\u00fcck, ab 3 St\u00fcck 2,00 \u20ac und ab 5 St\u00fcck 1,80 \u20ac. Ein A4-Poster kostet 12,00 \u20ac, ab 2 St\u00fcck 10,00 \u20ac. Ein Lesezeichen kostet 2,00 \u20ac. Gez\u00e4hlt wird \u00fcber alle Motive zusammen, Postkarten und Poster jeweils getrennt. Alle Preise zzgl. Versand." }
     },
     {
       "@type": "Question",
       "name": "Wer druckt die Produkte?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten druckt WIRmachenDRUCK, A4-Poster sind Fotoabz\u00fcge von Saal Digital, Lesezeichen kommen von Peterprint. Alles wird vorab in Auflage gedruckt und von mir selbst aus Halstenbek verpackt und verschickt." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten druckt WIRmachenDRUCK, A4-Poster sind Fotoabz\u00fcge von Saal Digital, Lesezeichen kommen von Peterprint. Ich bestelle alles in gr\u00f6\u00dferen Mengen zu mir und verpacke und verschicke jede Bestellung selbst aus Halstenbek. Nur Formate gr\u00f6\u00dfer als A4 liefert Saal Digital direkt." }
     },
     {
       "@type": "Question",
@@ -637,8 +637,9 @@
         <div class="fold-body">
           <ol class="fold-steps">
             <li><b>Motiv &amp; Menge wählen.</b> Postkarte, Poster (A4), Download oder Lesezeichen — die Menge stellst du frei ein.</li>
-            <li><b>Zur Anfrage hinzufügen.</b> Alles landet in deiner Auswahl unten. Kein Kauf-Button, keine Kasse.</li>
-            <li><b>Ich melde mich.</b> Du bekommst Preis, Versand- bzw. Abholoption und Zahlungsweg per Mail — meist innerhalb von 2–3 Tagen.</li>
+            <li><b>In den Warenkorb.</b> Alles landet in deiner Auswahl unten im Formular.</li>
+            <li><b>Anfragen oder bestellen.</b> Unverbindlich anfragen — oder direkt verbindlich bestellen, mit Versand oder Abholung in Halstenbek.</li>
+            <li><b>Ich melde mich.</b> Angebot bzw. Auftragsbestätigung mit Zahlungsweg per Mail, meist innerhalb von 2–3 Tagen. Verschickt wird von mir aus Halstenbek.</li>
           </ol>
         </div>
       </details>
@@ -646,7 +647,7 @@
       <details class="info-fold">
         <summary>Preise, Staffelrabatt &amp; Versand</summary>
         <div class="fold-body">
-          <p>Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b> — Postkarten, Poster und Lesezeichen jeweils getrennt.</p>
+          <p>Bei Postkarten und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b> — Postkarten und Poster jeweils getrennt.</p>
           <div class="staffel-cols">
             <div>
               <span class="staffel-titel">Postkarten</span>
@@ -659,23 +660,22 @@
             <div>
               <span class="staffel-titel">Poster A4</span>
               <ul>
-                <li><b>1 Stück</b> · 15,00 €</li>
+                <li><b>1 Stück</b> · 12,00 €</li>
                 <li><b>ab 2 Stück</b> · je 10,00 €</li>
               </ul>
             </div>
-            <!-- Lesezeichen: Werte stehen in STAFFEL.lesezeichen
-                 (produkte-daten.js). Ändert sich dort etwas, diese
-                 drei Zeilen hier bitte von Hand mitziehen. -->
+            <!-- Lesezeichen: Festpreis, keine Staffel (STAFFEL.lesezeichen
+                 in produkte-daten.js). "3 für 5 €" gilt nur am Marktstand.
+                 Ändert sich der Preis, diese Zeilen von Hand mitziehen. -->
             <div>
               <span class="staffel-titel">Lesezeichen</span>
               <ul>
-                <li><b>1–2 Stück</b> · je 2,00 €</li>
-                <li><b>3 Stück</b> · 5,00 €</li>
-                <li><b>ab 3 Stück</b> · je 1,67 €</li>
+                <li><b>pro Stück</b> · 2,00 €</li>
+                <li>3 für 5 € nur am Marktstand</li>
               </ul>
             </div>
           </div>
-          <p class="fold-note">Alle Preise zzgl. Versand. Du bezahlst nichts direkt hier — die Summe in deiner Auswahl ist ein Richtwert, den ich dir in meiner Antwort verbindlich bestätige. Digitale Downloads sind versandkostenfrei.</p>
+          <p class="fold-note">Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden, ab 30 € Warenwert versandkostenfrei). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.</p>
         </div>
       </details>
 
@@ -747,7 +747,8 @@
     <p class="cat-sub">5 × 18 cm, kräftiger 400-g-Karton, matt kaschiert, abgerundete Ecken — mit QR-Code zur Geschichte hinter dem Foto.</p>
     <div class="origin-legend">
       <span class="item"><span class="star-dot">★</span> = liegt bei mir auf Lager</span>
-      <span class="item"><b style="color:var(--accent-soft); font-weight:400;">Staffel:</b> 1 für 2,00 € · 3 für 5,00 €</span>
+      <span class="item"><b style="color:var(--accent-soft); font-weight:400;">Preis:</b> 2,00 € pro Stück · „3 für 5 €“ gibt’s nur an meinem Marktstand</span>
+      <span class="item"><span class="origin-dot selbst"></span> gedruckt bei Peterprint, von mir aus Halstenbek versendet</span>
     </div>
     <div class="pick-grid" id="lesezeichen-grid"></div>
     <p class="section-idea-note">Lieblingsmotiv als Lesezeichen? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
@@ -827,7 +828,7 @@
           <label class="wahl-opt">
             <input type="radio" name="Bestellart" value="Verbindliche Bestellung" data-art="verbindlich">
             <span class="opt-name">Verbindlich bestellen</span>
-            <span class="opt-sub">Direkt bestellen — du bekommst sofort die Zusammenfassung und den Zahlungsweg per Mail.</span>
+            <span class="opt-sub">Direkt bestellen — du bekommst sofort eine Eingangsbestätigung, die Auftragsbestätigung mit Zahlungsweg folgt per Mail.</span>
           </label>
         </div>
       </div>
@@ -2129,8 +2130,11 @@
       /* Pflichttext nach § 312j BGB — bitte so lassen. */
       submitBtn.textContent = 'Zahlungspflichtig bestellen';
       lead.textContent = (z.lieferart === 'abholung')
-        ? 'Du bestellst verbindlich zur Abholung in Halstenbek. Nach dem Absenden bekommst du sofort eine Bestätigung mit allen Angaben, danach machen wir den Übergabetermin aus.'
-        : 'Du bestellst verbindlich mit Versand. Nach dem Absenden bekommst du sofort eine Bestätigung mit allen Angaben und dem Zahlungsweg.';
+        /* Wortwahl passend zu AGB 2.4: Die automatische Mail ist nur
+           eine EINGANGSbestätigung, der Vertrag kommt erst mit deiner
+           Auftragsbestätigung zustande. Bitte so lassen. */
+        ? 'Du bestellst verbindlich zur Abholung in Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; mit meiner Auftragsbestätigung machen wir den Übergabetermin aus.'
+        : 'Du bestellst verbindlich mit Versand aus Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; meine Auftragsbestätigung mit Zahlungsweg folgt per Mail.';
       note.innerHTML = (z.zahlweg === 'bar')
         ? 'Bezahlt wird bar bei der Übergabe · <abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben'
         : 'Zahlungsdaten kommen per Mail · <abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben';

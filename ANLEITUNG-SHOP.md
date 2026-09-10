@@ -108,9 +108,17 @@ Größere läuft über deinen Saal-Digital-Shop (siehe unten).
 Die Staffel arbeitet mit **Stückpreisen**, nicht mit festen Paketen:
 
 ```
-postkarte:  ab 1 → 2,50 €   ab 3 → 2,00 €   ab 5 → 1,80 €
-poster:     ab 1 → 15,00 €  ab 2 → 10,00 €
+postkarte:    ab 1 → 2,50 €   ab 3 → 2,00 €   ab 5 → 1,80 €
+poster:       ab 1 → 12,00 €  ab 2 → 10,00 €
+lesezeichen:  2,00 € pro Stück (keine Staffel)
 ```
+
+**Wo Preise zusätzlich als fester Text stehen** (bei Änderung von Hand
+mitziehen): Aufklapper „Preise, Staffelrabatt & Versand“ und die
+Staffel-Zeilen in `produkte-bestellen.html`, das FAQ-Schema im `<head>`
+derselben Datei, die Kacheln und das Angebots-Schema (`makesOffer`) in
+`index.html`, `agb.html` Punkt 4 und `portfolio-veranstalter.html`
+(dort stehen die Marktpreise).
 
 **Entscheidend ist die Gesamtmenge über alle Motive hinweg**, nicht
 pro Motiv. Wer 2 Entchen- und 1 Reiher-Postkarte nimmt, hat 3 Karten
@@ -157,11 +165,10 @@ Ausschnitt des Galeriefotos mit „Beispielansicht". Anderer Dateiname?
 Optional `bildLesezeichen: 'bilder/lesezeichen/xyz.png'` in die Zeile.
 Details stehen in `bilder/lesezeichen/LIESMICH.md`.
 
-**Preis:** `STAFFEL.lesezeichen` in `produkte-daten.js` — 1 für 2,00 €,
-ab 3 je 5/3 € (= 3 für 5,00 €). Gezählt wird wie bei Postkarten über
-alle Lesezeichen-Motive zusammen. Die Staffel-Texte im Aufklapper und
-auf der Startseiten-Kachel sind fest geschrieben — bei Preisänderung
-dort mitziehen.
+**Preis:** `STAFFEL.lesezeichen` in `produkte-daten.js` — online fest
+2,00 € pro Stück, ohne Mengenrabatt. „3 für 5 €“ gilt nur am Marktstand
+(geht als Stückpreis nicht glatt auf) und steht so auch im Shop, auf der
+Startseiten-Kachel und in AGB Punkt 4.
 
 **Direktlink** auf ein einzelnes Lesezeichen (z. B. für einen QR-Code):
 `produkte-bestellen.html#lz-teichleben1`.
