@@ -12,8 +12,11 @@ zusammen. Du musst dafür nur Daten pflegen, nicht HTML anfassen:
    "Postkarten & Poster", inklusive Auswahl (Postkarte / Poster A4 /
    Download), Mengen-Staffel und Lagerbestand — getrennt für
    Postkarte und Poster.
+   Außerdem steht dort pro Motiv, ob es davon Lesezeichen gibt und
+   wie viele (`bereitsLesezeichen` / `bestandLesezeichen`) — diese
+   Motive erscheinen automatisch im Bereich „Lesezeichen".
 2. **`produkte-daten.js`** — Sticker (Liste `STICKER`), die Preise
-   (`PREISE`) und die Staffelpreise (`STAFFEL`).
+   (`PREISE`) und die Staffelpreise (`STAFFEL`, inkl. Lesezeichen).
    Merch gibt es hier bewusst nicht mehr, siehe unten.
 3. Der Bestellweg: kein Shop-Checkout, sondern eine Anfrage — siehe
    Abschnitt "Wie eine Bestellung abläuft" unten.
@@ -99,9 +102,8 @@ Zeilen umstellen. (Bei den Postkarten hast du das ja schon gemacht.)
 
 ## Preise & Staffelpreise → `produkte-daten.js`
 
-Es gibt nur noch **ein Poster-Format: A4** (`POSTER_FORMAT`). A5, A6
-und A3 sind raus — Sonderformate laufen ausschließlich über das
-Anfrageformular.
+Es gibt nur noch **ein Poster-Format: A4** (`POSTER_FORMAT`). Alles
+Größere läuft über deinen Saal-Digital-Shop (siehe unten).
 
 Die Staffel arbeitet mit **Stückpreisen**, nicht mit festen Paketen:
 
@@ -135,11 +137,77 @@ aufsteigend nach `abMenge` sortiert lassen.
 - Die Zwischensumme ist ausdrücklich als **Richtwert ohne Versand**
   gekennzeichnet — verbindlich wird erst deine Antwort.
 
+## Lesezeichen pflegen → `galerie-daten.js` + Ordner `bilder/lesezeichen/`
+
+Lesezeichen haben **keine eigene Liste** — sie hängen am Motiv in
+`galerie-daten.js`. Zwei Felder pro Zeile:
+
+- `bereitsLesezeichen: true` → aus diesem Foto gibt es Lesezeichen,
+  es erscheint im Shop unter „Lesezeichen". `false` → taucht dort
+  nicht auf (anders als bei Postkarten wird nichts „auf Bestellung"
+  angeboten).
+- `bestandLesezeichen` → Stückzahl zu Hause (Zahl / `null` / `0`,
+  wie bei `bestand`). `0` zeigt „Gerade vergriffen · wird
+  nachgedruckt".
+
+**Das Produktbild** kommt in den Ordner `bilder/lesezeichen/` und
+heißt genau wie die id: `teichleben1` → `bilder/lesezeichen/teichleben1.jpg`.
+Keine weitere Verknüpfung nötig. Fehlt die Datei, zeigt der Shop einen
+Ausschnitt des Galeriefotos mit „Beispielansicht". Anderer Dateiname?
+Optional `bildLesezeichen: 'bilder/lesezeichen/xyz.png'` in die Zeile.
+Details stehen in `bilder/lesezeichen/LIESMICH.md`.
+
+**Preis:** `STAFFEL.lesezeichen` in `produkte-daten.js` — 1 für 2,00 €,
+ab 3 je 5/3 € (= 3 für 5,00 €). Gezählt wird wie bei Postkarten über
+alle Lesezeichen-Motive zusammen. Die Staffel-Texte im Aufklapper und
+auf der Startseiten-Kachel sind fest geschrieben — bei Preisänderung
+dort mitziehen.
+
+**Direktlink** auf ein einzelnes Lesezeichen (z. B. für einen QR-Code):
+`produkte-bestellen.html#lz-teichleben1`.
+
+## Druckereien & Saal-Digital-Shop → `produkte-daten.js`
+
+**Wer druckt was** steht offen im Shop-Kopf (Kasten „Wer druckt was?“)
+und auf jeder Produktkarte („Gedruckt bei … · aus Halstenbek
+versendet“):
+
+- Postkarten → WIRmachenDRUCK
+- Poster A4 → Saal Digital (Fotoabzug)
+- Lesezeichen → Peterprint
+
+Die Namen auf den **Produktkarten** kommen aus `DRUCKPARTNER` in
+`produkte-daten.js`. An diesen Stellen stehen sie zusätzlich als
+fester Text und müssen bei einem Druckereiwechsel von Hand mit:
+Shop-Kopf in `produkte-bestellen.html` (inkl. FAQ-Schema oben im
+`<head>`), Zeile unter den Mitnehmen-Kacheln in `index.html`,
+`agb.html` Punkt 3, `datenschutz.html` (Abschnitt Bestellanfragen),
+`fuer-veranstalter.html`, `portfolio-veranstalter.html`.
+
+**Saal-Digital-Shop (größer als A4):** Den Link trägst du einmal in
+`SAAL_SHOP_URL` ein. Dann erscheint automatisch
+
+- im Shop-Bereich „Größer als A4“ der Button zu deinem Shop,
+- auf jeder Motivkarte bei „Poster A4“ der Link „Größer als A4? Zum
+  Saal-Digital-Shop ↗“.
+
+Solange die URL leer ist, steht im Bereich nur ein Hinweis aufs
+Anfrageformular. Rechtlich wichtig: Bei Bestellungen dort ist
+**Saal Digital Vertragspartner** (steht so in AGB Punkt 3.1 und in
+der Datenschutzerklärung) — deine AGB gelten dafür nicht.
+
 ## Sticker pflegen → `produkte-daten.js` → `STICKER`
 
 Jeder Eintrag: `id`, `motiv`, `kategorie` (optional), `preis`,
 `mockups` (Bildliste). Ein auskommentiertes Beispiel steht direkt in
 der Datei zum Kopieren.
+
+**Solange `STICKER` leer ist, ist der Sticker-Bereich komplett
+unsichtbar** — auch der Sprunglink oben im Shop. Alte Links auf
+`#sticker` landen dann bei den Lesezeichen. Mit dem ersten Eintrag
+erscheint alles automatisch. Auf der Startseite gibt es aktuell nur
+die Lesezeichen-Kachel; für Sticker später eine vierte Kachel nach
+demselben Muster ergänzen (Kommentar steht in `index.html`).
 
 ## Shop-Kopf: aufklappbare Infos
 

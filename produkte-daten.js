@@ -4,8 +4,11 @@
 
    Poster & Postkarten kommen weiterhin automatisch aus
    galerie-daten.js — jedes Bild, das dort steht, taucht im Shop
-   unter der passenden Themen-Kategorie auf. Hier trägst du nur
-   Sticker ein, plus die Preise für alles.
+   unter der passenden Themen-Kategorie auf.
+   LESEZEICHEN kommen ebenfalls aus galerie-daten.js (Felder
+   bereitsLesezeichen / bestandLesezeichen, Bild im Ordner
+   bilder/lesezeichen/). Hier trägst du nur Sticker ein, plus die
+   Preise für alles.
 
    ------------------------------------------------------------
    BESTELLWEG: Anfrage statt Sofortkauf.
@@ -25,6 +28,44 @@
    Merch später doch wieder fest ins Sortiment nimmst, sag
    Bescheid.
    ============================================================= */
+
+/* ------------------------------------------------------------
+   DRUCKPARTNER — wer druckt was.
+   Wird im Shop auf jeder Produktkarte angezeigt ("Gedruckt bei
+   ... · aus Halstenbek versendet"). Wechselst du mal die
+   Druckerei, reicht es, den Namen HIER zu ändern — die Karten
+   ziehen automatisch nach.
+
+   ACHTUNG: In diesen Dateien steht der Name zusätzlich als
+   fester Text und muss dann von Hand mitgeändert werden:
+     - produkte-bestellen.html  (Kasten "Wer druckt was?" oben)
+     - index.html               (Zeile unter den Mitnehmen-Kacheln)
+     - agb.html                 (Punkt 3)
+     - datenschutz.html         (Abschnitt Bestellanfragen)
+     - fuer-veranstalter.html, portfolio-veranstalter.html
+   ------------------------------------------------------------- */
+const DRUCKPARTNER = {
+  postkarte:   'WIRmachenDRUCK',
+  poster:      'Saal Digital',
+  lesezeichen: 'Peterprint'
+};
+
+/* ------------------------------------------------------------
+   SAAL-DIGITAL-SHOP — dein Shop für Formate GRÖSSER als A4
+   (und für A4 auf anderen Materialien: Alu-Dibond, Acryl,
+   Leinwand, Fine Art ...).
+
+   Einfach den kompletten Link zu deinem Shop bzw. deiner
+   Profilseite zwischen die Anführungszeichen setzen, z. B.
+     const SAAL_SHOP_URL = 'https://www.saal-digital.net/profiles/.../';
+
+   Solange hier '' (leer) steht:
+     - zeigt der Bereich "Größer als A4" im Shop statt des Buttons
+       den Hinweis, Größen über das Anfrageformular anzufragen,
+     - erscheint auf den Motivkarten KEIN Saal-Link.
+   Sobald der Link drinsteht, taucht alles automatisch auf.
+   ------------------------------------------------------------- */
+const SAAL_SHOP_URL = '';
 
 /* ------------------------------------------------------------
    POSTER-FORMAT: es gibt nur noch EIN Standardformat (A4).
@@ -47,12 +88,13 @@ const PREISE = {
 
    Postkarten:  ab 1 Stück 2,50 EUR | ab 3 Stück 2,00 EUR | ab 5 Stück 1,80 EUR
    Poster (A4): ab 1 Stück 15,00 EUR | ab 2 Stück 10,00 EUR
+   Lesezeichen: ab 1 Stück 2,00 EUR | ab 3 Stück je 1,67 EUR (= 3 für 5,00 EUR)
 
    WICHTIG — so wird gezählt: Es zählt die GESAMTZAHL über alle
    Motive hinweg, nicht pro Motiv. Wer 2 Entchen-Postkarten und
    1 Reiher-Postkarte nimmt, hat 3 Karten und zahlt damit 2,00 EUR
-   pro Karte = 6,00 EUR. Postkarten und Poster werden dabei
-   getrennt gezählt.
+   pro Karte = 6,00 EUR. Postkarten, Poster und Lesezeichen werden
+   dabei jeweils getrennt gezählt.
 
    So änderst du es: Zahlen anpassen oder eine Stufe ergänzen,
    z. B. { abMenge: 10, proStueck: 1.60 }. Stufen bitte aufsteigend
@@ -68,6 +110,16 @@ const STAFFEL = {
   poster: [
     { abMenge: 1, proStueck: 15.00 },
     { abMenge: 2, proStueck: 10.00 }
+  ],
+  /* Lesezeichen — entspricht dem Marktpreis "1 für 2 €, 3 für 5 €".
+     Weil die Staffel mit STÜCKpreisen rechnet, steht hier 5 / 3
+     (= 1,666… EUR). Ergebnis im Shop: 3 Stück = genau 5,00 EUR,
+     4 Stück = 6,67 EUR, 6 Stück = 10,00 EUR. Die Anzeige "je 1,67 €"
+     ist nur gerundet — gerechnet wird mit dem exakten Wert.
+     Lieber einen glatten Preis? Einfach z. B. 1.70 eintragen. */
+  lesezeichen: [
+    { abMenge: 1, proStueck: 2.00 },
+    { abMenge: 3, proStueck: 5 / 3 }
   ]
 };
 
@@ -115,7 +167,15 @@ const VERSAND = {
 const ABHOLUNG_HINWEIS = 'Kein Versand, kein Versandkostenanteil. Den Übergabe­termin machen wir per Mail aus.';
 
 /* ------------------------------------------------------------
-   STICKER & LESEZEICHEN
+   STICKER
+   (Lesezeichen stehen NICHT mehr hier — die kommen jetzt direkt
+   aus galerie-daten.js, siehe oben.)
+
+   SOLANGE DIESE LISTE LEER IST, ist der ganze Sticker-Bereich im
+   Shop unsichtbar — inklusive des Sprunglinks "Sticker" oben auf
+   der Shopseite. Sobald hier der erste Eintrag steht, taucht
+   alles automatisch wieder auf. Nichts im HTML umschalten nötig.
+
    Schema pro Eintrag:
    {
      id: "eindeutige-id",

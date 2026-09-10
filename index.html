@@ -10,7 +10,7 @@
      die description darunter als grauer Fließtext.
      ============================================================ -->
 <title>Naturfotografie aus Halstenbek — BG Naturfotografie</title>
-<meta name="description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Sticker direkt beim Fotografen.">
+<meta name="description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Lesezeichen direkt beim Fotografen.">
 <link rel="canonical" href="https://bg-naturfotografie.de/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Benedict Gertz">
@@ -31,14 +31,14 @@
 <meta property="og:site_name" content="BG Naturfotografie">
 <meta property="og:locale" content="de_DE">
 <meta property="og:title" content="BG Naturfotografie — Wildes Leben vor der Haustür">
-<meta property="og:description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Sticker direkt beim Fotografen.">
+<meta property="og:description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Lesezeichen direkt beim Fotografen.">
 <meta property="og:url" content="https://bg-naturfotografie.de/">
 <meta property="og:image" content="https://bg-naturfotografie.de/bilder/waldleben-01.jpg">
 <meta property="og:image:secure_url" content="https://bg-naturfotografie.de/bilder/waldleben-01.jpg">
 <meta property="og:image:alt" content="Eichhörnchen schaut frontal in die Kamera — Naturfotografie von BG Naturfotografie">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="BG Naturfotografie — Wildes Leben vor der Haustür">
-<meta name="twitter:description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Sticker direkt beim Fotografen.">
+<meta name="twitter:description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Lesezeichen direkt beim Fotografen.">
 <meta name="twitter:image" content="https://bg-naturfotografie.de/bilder/waldleben-01.jpg">
 <meta name="twitter:image:alt" content="Eichhörnchen schaut frontal in die Kamera — Naturfotografie von BG Naturfotografie">
 
@@ -72,7 +72,7 @@
   "@id": "https://bg-naturfotografie.de/#betrieb",
   "name": "BG Naturfotografie",
   "alternateName": "Benedict Gertz \u2014 BG Naturfotografie",
-  "description": "Naturfotografie aus Halstenbek: heimische V\u00f6gel, Eichh\u00f6rnchen und ruhige norddeutsche Landschaften. Postkarten, A4-Poster, Sticker und Lesezeichen \u2014 alles selbst gestaltet.",
+  "description": "Naturfotografie aus Halstenbek: heimische V\u00f6gel, Eichh\u00f6rnchen und ruhige norddeutsche Landschaften. Postkarten, A4-Poster und Lesezeichen \u2014 alles selbst gestaltet.",
   "url": "https://bg-naturfotografie.de/",
   "logo": "https://bg-naturfotografie.de/bilder/logo.png",
   "image": "https://bg-naturfotografie.de/bilder/waldleben-01.jpg",
@@ -347,15 +347,34 @@
         </div>
       </a>
 
-      <a class="mn-karte" href="produkte-bestellen.html#sticker">
-        <div class="mn-bild"><img loading="lazy" src="bilder/sticker.jpg" alt="Sticker und Lesezeichen mit Naturmotiven"></div>
+      <!-- Lesezeichen-Kachel (vorher "Sticker & Lesezeichen").
+           Bild: bilder/lesezeichen.jpg — ein Übersichtsfoto, z. B.
+           mehrere Lesezeichen nebeneinander. Liegt die Datei noch
+           nicht da, springt onerror einmalig auf das alte
+           bilder/sticker.jpg zurück (dort sind ja auch Lesezeichen
+           drauf). Sobald lesezeichen.jpg hochgeladen ist, wird
+           automatisch das neue Bild genommen.
+           Kommen später Sticker dazu, einfach eine vierte Kachel
+           nach demselben Muster mit href="...#sticker" ergänzen. -->
+      <a class="mn-karte" href="produkte-bestellen.html#lesezeichen">
+        <div class="mn-bild"><img loading="lazy" src="bilder/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/sticker.jpg';" alt="Lesezeichen mit Naturmotiven"></div>
         <div class="mn-body">
-          <span class="mn-format">Selbst geplottet</span>
-          <h3 class="mn-name">Sticker &amp; Lesezeichen</h3>
-          <span class="mn-preis">auf Anfrage<small>Kleinserien, wechselnde Motive</small></span>
+          <span class="mn-format">5 × 18 cm</span>
+          <h3 class="mn-name">Lesezeichen</h3>
+          <span class="mn-preis">2,00 €<small>3 Stück für 5,00 €</small></span>
         </div>
       </a>
     </div>
+
+    <!-- Wer druckt was — offen, nicht eingeklappt. Namen bei einem
+         Druckereiwechsel hier UND in produkte-daten.js (DRUCKPARTNER)
+         ändern. -->
+    <p style="margin:1.4rem 0 0; font-size:.86rem; color:var(--text-muted); max-width:70ch;">
+      Gedruckt wird in Auflage bei <b style="color:var(--text-light); font-weight:500;">WIRmachenDRUCK</b> (Postkarten),
+      <b style="color:var(--text-light); font-weight:500;">Saal Digital</b> (A4-Poster) und
+      <b style="color:var(--text-light); font-weight:500;">Peterprint</b> (Lesezeichen) — verpackt und verschickt von mir aus Halstenbek.
+      Größer als A4, auf Leinwand oder Alu-Dibond? <a href="produkte-bestellen.html#grossformate">Über meinen Saal-Digital-Shop →</a>
+    </p>
 
     <p style="margin:1.8rem 0 0;">
       <a class="btn btn-fill" href="produkte-bestellen.html">Motiv aussuchen</a>

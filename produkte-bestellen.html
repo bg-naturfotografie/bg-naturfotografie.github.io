@@ -9,8 +9,8 @@
      Der Titel steht im Google-Treffer und im Browser-Tab,
      die description darunter als grauer Fließtext.
      ============================================================ -->
-<title>Postkarten, Poster &amp; Sticker — Shop | BG Naturfotografie</title>
-<meta name="description" content="Postkarten (10 × 15 cm) und A4-Poster mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Karten, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
+<title>Postkarten, Poster &amp; Lesezeichen — Shop | BG Naturfotografie</title>
+<meta name="description" content="Postkarten (10 × 15 cm), A4-Poster und Lesezeichen mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Stück, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
 <link rel="canonical" href="https://bg-naturfotografie.de/produkte-bestellen.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Benedict Gertz">
@@ -31,15 +31,15 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="BG Naturfotografie">
 <meta property="og:locale" content="de_DE">
-<meta property="og:title" content="Shop — Postkarten, Poster &amp; Sticker | BG Naturfotografie">
-<meta property="og:description" content="Postkarten (10 × 15 cm) und A4-Poster mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Karten, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
+<meta property="og:title" content="Shop — Postkarten, Poster &amp; Lesezeichen | BG Naturfotografie">
+<meta property="og:description" content="Postkarten (10 × 15 cm), A4-Poster und Lesezeichen mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Stück, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
 <meta property="og:url" content="https://bg-naturfotografie.de/produkte-bestellen.html">
 <meta property="og:image" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
 <meta property="og:image:secure_url" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
 <meta property="og:image:alt" content="Postkarten mit Naturfotografien von BG Naturfotografie">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Shop — Postkarten, Poster &amp; Sticker | BG Naturfotografie">
-<meta name="twitter:description" content="Postkarten (10 × 15 cm) und A4-Poster mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Karten, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
+<meta name="twitter:title" content="Shop — Postkarten, Poster &amp; Lesezeichen | BG Naturfotografie">
+<meta name="twitter:description" content="Postkarten (10 × 15 cm), A4-Poster und Lesezeichen mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Stück, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
 <meta name="twitter:image" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
 <meta name="twitter:image:alt" content="Postkarten mit Naturfotografien von BG Naturfotografie">
 
@@ -162,6 +162,65 @@
   }
 
   .pick-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:var(--gap); }
+
+  /* ---- "Wer druckt was?" ----
+     Bewusst NICHT in einem Aufklapper, sondern offen sichtbar im
+     Shop-Kopf: Transparenz über die Druckereien ist ein
+     Verkaufsargument, kein Kleingedrucktes. Als schlichte
+     Definitionsliste (dl) — Screenreader lesen das sauber als
+     "Postkarten: WIRmachenDRUCK" usw. vor. */
+  .druck-info{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap:.9rem 1.6rem; margin:1.8rem 0 0; padding:1rem 1.2rem;
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
+    max-width:76ch;   /* gleiche Breite wie die Aufklapper darunter (.info-folds) */
+  }
+  .druck-info dt{
+    font-family:'JetBrains Mono', monospace; font-size:.68rem; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--text-muted); margin:0 0 .15rem;
+  }
+  .druck-info dd{ margin:0; font-size:.9rem; color:var(--text-light); }
+  .druck-info dd small{ display:block; font-size:.74rem; color:var(--text-muted); }
+
+  /* Kleiner Hinweis auf der Motivkarte, nur wenn "Poster A4"
+     gewählt ist: "Größer als A4? → Saal-Digital-Shop" */
+  .saal-link{ font-size:.74rem; color:var(--accent-soft); text-decoration:underline; text-underline-offset:2px; }
+  .saal-link:hover{ color:var(--text-light); }
+
+  /* ---- Lesezeichen-Karten ----
+     Das Lesezeichen-Foto kann jedes Format haben (Lesezeichen
+     freigestellt, auf dem Tisch liegend, im Buch, ...). Deshalb:
+       contain → das ganze Bild ist sichtbar, nichts wird beschnitten
+       Innenabstand + dunklere Fläche → das Lesezeichen "liegt" auf
+       einem ruhigen Untergrund, statt am Rand zu kleben.
+     Die Karte behält das 4/5-Format der Motivkarten, damit das
+     Raster im Shop einheitlich wirkt.
+     Hinweis: bewusst ".pick-card.lz-card" (zwei Klassen) — sonst
+     gewinnen die allgemeinen .pick-card-Regeln weiter unten in
+     dieser Datei, weil sie später stehen. */
+  .pick-card.lz-card .frame{
+    display:flex; align-items:center; justify-content:center;
+    padding:.9rem; background:var(--bg-deep);
+  }
+  .pick-card.lz-card .frame img{ object-fit:contain; }
+
+  /* ERSATZANSICHT: Solange unter bilder/lesezeichen/ noch kein
+     eigenes Bild liegt, wird das Galeriefoto genommen und auf das
+     Lesezeichen-Format 5 × 18 cm zugeschnitten (object-fit:cover in
+     einem schmalen Hochformat). So sieht die Karte nicht kaputt aus,
+     ist aber als Beispielansicht gekennzeichnet — damit niemand
+     denkt, das sei schon das echte Produktfoto. */
+  .pick-card.lz-card .frame.lz-ersatz img{
+    width:auto; height:100%; aspect-ratio:5/18;
+    object-fit:cover; border-radius:6px;
+    box-shadow:0 4px 18px rgba(0,0,0,.45);
+  }
+  .lz-hinweis{
+    position:absolute; top:8px; right:8px; z-index:3;
+    background:rgba(17,20,15,0.82); color:var(--text-muted);
+    font-family:'JetBrains Mono', monospace; font-size:.62rem; letter-spacing:.03em;
+    padding:.2rem .5rem; border-radius:20px; pointer-events:none;
+  }
 
   /* ---- Kategorie-Blöcke mit eigener Seiten-Navigation ---- */
   .kat-block{ margin:0 0 3.4rem; scroll-margin-top:6rem; }
@@ -481,13 +540,23 @@
     },
     {
       "@type": "Question",
-      "name": "Was kosten die Postkarten und Poster?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten kosten 2,50 \u20ac pro St\u00fcck, ab 3 St\u00fcck 2,00 \u20ac und ab 5 St\u00fcck 1,80 \u20ac. Ein A4-Poster kostet 15,00 \u20ac, ab 2 St\u00fcck 10,00 \u20ac. Gez\u00e4hlt wird \u00fcber alle Motive zusammen, Postkarten und Poster jeweils getrennt. Alle Preise zzgl. Versand." }
+      "name": "Was kosten Postkarten, Poster und Lesezeichen?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten kosten 2,50 \u20ac pro St\u00fcck, ab 3 St\u00fcck 2,00 \u20ac und ab 5 St\u00fcck 1,80 \u20ac. Ein A4-Poster kostet 15,00 \u20ac, ab 2 St\u00fcck 10,00 \u20ac. Ein Lesezeichen kostet 2,00 \u20ac, 3 St\u00fcck 5,00 \u20ac. Gez\u00e4hlt wird \u00fcber alle Motive zusammen, jede Produktart getrennt. Alle Preise zzgl. Versand." }
+    },
+    {
+      "@type": "Question",
+      "name": "Wer druckt die Produkte?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten druckt WIRmachenDRUCK, A4-Poster sind Fotoabz\u00fcge von Saal Digital, Lesezeichen kommen von Peterprint. Alles wird vorab in Auflage gedruckt und von mir selbst aus Halstenbek verpackt und verschickt." }
+    },
+    {
+      "@type": "Question",
+      "name": "Gibt es die Motive auch gr\u00f6\u00dfer als A4?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Gr\u00f6\u00dfere Formate und Materialien wie Leinwand, Alu-Dibond oder Acrylglas bestellst du direkt in meinem Shop bei Saal Digital. Saal Digital druckt und liefert dann direkt an dich und ist f\u00fcr diese Bestellungen dein Vertragspartner." }
     },
     {
       "@type": "Question",
       "name": "Gibt es ein Widerrufsrecht?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Postkarten, Poster und Sticker sind vorgefertigte Standardware, daf\u00fcr gilt das gesetzliche Widerrufsrecht von 14 Tagen \u2014 auch wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Postkarten, Poster und Lesezeichen sind vorgefertigte Standardware, daf\u00fcr gilt das gesetzliche Widerrufsrecht von 14 Tagen \u2014 auch wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen." }
     },
     {
       "@type": "Question",
@@ -540,16 +609,34 @@
 
     <nav class="shop-tabs" aria-label="Produktkategorien">
       <a href="#motive">Postkarten &amp; Poster</a>
-      <a href="#sticker">Sticker</a>
+      <a href="#grossformate">Größer als A4</a>
+      <a href="#lesezeichen">Lesezeichen</a>
+      <!-- Startet unsichtbar (hidden). Das Script schaltet den Link
+           erst frei, wenn in produkte-daten.js mindestens ein
+           Sticker steht — so gibt es keinen Link ins Leere. -->
+      <a href="#sticker" id="tab-sticker" hidden>Sticker</a>
       <a href="#merch">Tassen &amp; Co.</a>
     </nav>
+
+    <!-- ============================================================
+         WER DRUCKT WAS — offen sichtbar, nicht eingeklappt.
+         Die Namen stehen hier als fester Text. Wechselst du eine
+         Druckerei, bitte hier UND in DRUCKPARTNER
+         (produkte-daten.js) ändern.
+         ============================================================ -->
+    <dl class="druck-info" aria-label="Wer druckt was">
+      <div><dt>Postkarten</dt><dd>WIRmachenDRUCK<small>350 g, matt</small></dd></div>
+      <div><dt>Poster A4</dt><dd>Saal Digital<small>Fotoabzug, matt</small></dd></div>
+      <div><dt>Lesezeichen</dt><dd>Peterprint<small>400 g, matt kaschiert</small></dd></div>
+      <div><dt>Verpackung &amp; Versand</dt><dd>ich selbst<small>aus Halstenbek</small></dd></div>
+    </dl>
 
     <div class="info-folds">
       <details class="info-fold">
         <summary>So läuft eine Bestellung ab</summary>
         <div class="fold-body">
           <ol class="fold-steps">
-            <li><b>Motiv &amp; Menge wählen.</b> Postkarte, Poster (A4) oder Download — die Menge stellst du frei ein.</li>
+            <li><b>Motiv &amp; Menge wählen.</b> Postkarte, Poster (A4), Download oder Lesezeichen — die Menge stellst du frei ein.</li>
             <li><b>Zur Anfrage hinzufügen.</b> Alles landet in deiner Auswahl unten. Kein Kauf-Button, keine Kasse.</li>
             <li><b>Ich melde mich.</b> Du bekommst Preis, Versand- bzw. Abholoption und Zahlungsweg per Mail — meist innerhalb von 2–3 Tagen.</li>
           </ol>
@@ -559,7 +646,7 @@
       <details class="info-fold">
         <summary>Preise, Staffelrabatt &amp; Versand</summary>
         <div class="fold-body">
-          <p>Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b> — Postkarten und Poster jeweils getrennt.</p>
+          <p>Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b> — Postkarten, Poster und Lesezeichen jeweils getrennt.</p>
           <div class="staffel-cols">
             <div>
               <span class="staffel-titel">Postkarten</span>
@@ -576,6 +663,17 @@
                 <li><b>ab 2 Stück</b> · je 10,00 €</li>
               </ul>
             </div>
+            <!-- Lesezeichen: Werte stehen in STAFFEL.lesezeichen
+                 (produkte-daten.js). Ändert sich dort etwas, diese
+                 drei Zeilen hier bitte von Hand mitziehen. -->
+            <div>
+              <span class="staffel-titel">Lesezeichen</span>
+              <ul>
+                <li><b>1–2 Stück</b> · je 2,00 €</li>
+                <li><b>3 Stück</b> · 5,00 €</li>
+                <li><b>ab 3 Stück</b> · je 1,67 €</li>
+              </ul>
+            </div>
           </div>
           <p class="fold-note">Alle Preise zzgl. Versand. Du bezahlst nichts direkt hier — die Summe in deiner Auswahl ist ein Richtwert, den ich dir in meiner Antwort verbindlich bestätige. Digitale Downloads sind versandkostenfrei.</p>
         </div>
@@ -584,8 +682,9 @@
       <details class="info-fold">
         <summary>Herstellung, Rückgabe &amp; Widerruf</summary>
         <div class="fold-body">
-          <p>Postkarten und Poster lasse ich in Auflage bei WirmachenDruck drucken, Sticker und Lesezeichen fertige ich selbst. Verpackt und verschickt wird alles von mir aus Halstenbek.</p>
-          <p>Weil es sich um vorgefertigte Standardware handelt, gilt für Postkarten, Poster und Sticker das gesetzliche <b>Widerrufsrecht von 14 Tagen</b> — auch dann, wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen wie Sonderformaten oder Merch auf Wunsch.</p>
+          <p>Alles wird vorab in Auflage gedruckt: Postkarten bei WIRmachenDRUCK, A4-Poster als Fotoabzug bei Saal Digital, Lesezeichen bei Peterprint. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.</p>
+          <p>Größere Formate und andere Materialien bestellst du direkt in meinem <a href="#grossformate">Saal-Digital-Shop</a>. Dort ist Saal Digital dein Vertragspartner, druckt und liefert direkt an dich.</p>
+          <p>Weil es sich um vorgefertigte Standardware handelt, gilt für Postkarten, Poster und Lesezeichen das gesetzliche <b>Widerrufsrecht von 14 Tagen</b> — auch dann, wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen wie Merch auf Wunsch.</p>
           <p class="fold-note">Alle Details in den <a href="agb.html">AGB &amp; der Widerrufsbelehrung</a>.</p>
         </div>
       </details>
@@ -597,7 +696,7 @@
 <section class="cat-block-shop" id="motive">
   <div class="wrap">
     <h2>Postkarten &amp; Poster</h2>
-    <p class="cat-sub">Jedes Motiv als Postkarte (10 × 15 cm), A4-Poster oder digitalen Download — Auswahl direkt unter dem Bild.</p>
+    <p class="cat-sub">Jedes Motiv als Postkarte (10 × 15 cm, WIRmachenDRUCK), A4-Poster (Fotoabzug, Saal Digital) oder digitalen Download — Auswahl direkt unter dem Bild.</p>
     <div class="origin-legend">
       <span class="item"><span class="star-dot">★</span> = liegt bei mir auf Lager</span>
       <span class="item"><span class="origin-dot selbst"></span> von mir verpackt &amp; aus Halstenbek versendet</span>
@@ -610,14 +709,59 @@
          eigener Seiten-Navigation und eigener "pro Seite"-Einstellung. -->
     <div id="motiv-bereich"></div>
 
-    <p class="section-idea-note">Motiv oder Format fehlt? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
+    <p class="section-idea-note">Größer als A4? Siehe <a href="#grossformate">gleich hier unten</a>. Motiv fehlt? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
   </div>
 </section>
 
-<!-- ============ STICKER ============ -->
-<section class="cat-block-shop" id="sticker" style="background:var(--bg-panel); padding:4rem 0;">
+<!-- ============ GRÖSSER ALS A4 — Verweis auf den Saal-Digital-Shop ============
+     Kein eigenes Sortiment hier: Bestellung, Bezahlung, Druck und
+     Versand laufen komplett bei Saal Digital. Der Link kommt aus
+     SAAL_SHOP_URL (produkte-daten.js) und wird unten per Script in
+     #saal-aktion eingesetzt. Ist er leer, steht dort stattdessen
+     ein Hinweis aufs Anfrageformular.
+     ============================================================ -->
+<section class="cat-block-shop" id="grossformate" style="padding:3rem 0 1rem;">
   <div class="wrap">
-    <h2>Sticker &amp; Lesezeichen</h2>
+    <h2>Größer als A4</h2>
+    <p class="cat-sub">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
+    <div id="saal-aktion"></div>
+    <div class="info-folds">
+      <details class="info-fold">
+        <summary>Wie läuft das ab — und warum nicht hier?</summary>
+        <div class="fold-body">
+          <p>Große Formate lagere ich nicht auf Vorrat, jedes Bild wird einzeln für dich gefertigt. Das kann Saal Digital schneller und sicherer verpacken als ich — deshalb bestellst du dort direkt: Format und Material aussuchen, bezahlen, Saal Digital druckt und schickt das Bild zu dir nach Hause.</p>
+          <p><b>Vertragspartner für diese Bestellungen ist die Saal Digital Fotoservice GmbH</b>, es gelten deren AGB, Widerrufsbelehrung und Datenschutzerklärung. Bei Fragen zum Motiv bin ich trotzdem gern für dich da.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LESEZEICHEN (aus galerie-daten.js) ============
+     Zeigt automatisch jedes Motiv mit bereitsLesezeichen: true.
+     Bild: bilder/lesezeichen/<id>.jpg (Details in galerie-daten.js).
+     ============================================================ -->
+<section class="cat-block-shop" id="lesezeichen" style="background:var(--bg-panel); padding:4rem 0;">
+  <div class="wrap">
+    <h2>Lesezeichen</h2>
+    <p class="cat-sub">5 × 18 cm, kräftiger 400-g-Karton, matt kaschiert, abgerundete Ecken — mit QR-Code zur Geschichte hinter dem Foto.</p>
+    <div class="origin-legend">
+      <span class="item"><span class="star-dot">★</span> = liegt bei mir auf Lager</span>
+      <span class="item"><b style="color:var(--accent-soft); font-weight:400;">Staffel:</b> 1 für 2,00 € · 3 für 5,00 €</span>
+    </div>
+    <div class="pick-grid" id="lesezeichen-grid"></div>
+    <p class="section-idea-note">Lieblingsmotiv als Lesezeichen? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
+  </div>
+</section>
+
+<!-- ============ STICKER ============
+     Startet mit hidden (unsichtbar). renderStickerGrid() weiter
+     unten nimmt das hidden weg, sobald in produkte-daten.js
+     mindestens ein Sticker eingetragen ist.
+     ============================================================ -->
+<section class="cat-block-shop" id="sticker" style="padding:4rem 0;" hidden>
+  <div class="wrap">
+    <h2>Sticker</h2>
     <p class="cat-sub">Handgeplottet, zugeschnitten und verpackt bei mir zu Hause.</p>
     <span class="origin-badge"><span class="origin-dot selbst"></span> Selbst gefertigt &amp; versendet</span>
     <div class="pick-grid" id="sticker-grid"></div>
@@ -874,7 +1018,9 @@
      ============================================================
      Kein Sofortkauf. Jede Position ist ein Objekt:
        { key, typ, motiv, bezeichnung, menge }
-     typ ist 'postkarte' | 'poster' | 'download' | 'sticker'.
+     typ ist 'postkarte' | 'poster' | 'download' | 'lesezeichen' | 'sticker'.
+     ('lesezeichen' läuft wie Postkarte/Poster über STAFFEL, nur
+     'sticker' hat einen festen Einzelpreis pro Eintrag.)
 
      Der Staffelpreis richtet sich nach der GESAMTMENGE je Typ
      über alle Motive hinweg (siehe STAFFEL in produkte-daten.js) —
@@ -1066,7 +1212,7 @@
     /* ---- Zusammenfassung mit Staffelpreisen ---- */
     var zeilen = '';
     var gesamt = 0;
-    [['postkarte', 'Postkarten'], ['poster', 'Poster A4'], ['download', 'Downloads'], ['sticker', 'Sticker']].forEach(function (paar) {
+    [['postkarte', 'Postkarten'], ['poster', 'Poster A4'], ['lesezeichen', 'Lesezeichen'], ['download', 'Downloads'], ['sticker', 'Sticker']].forEach(function (paar) {
       var typ = paar[0], name = paar[1];
       var menge = gesamtMenge(typ);
       if (!menge) { return; }
@@ -1086,12 +1232,19 @@
     });
 
     var hinweise = '';
-    ['postkarte', 'poster'].forEach(function (typ) {
+    /* Wortformen für den "Noch X mehr"-Hinweis: [Einzahl, Mehrzahl].
+       Poster und Lesezeichen sind in beiden Formen gleich. */
+    var WORT = {
+      postkarte:   ['Postkarte', 'Postkarten'],
+      poster:      ['Poster', 'Poster'],
+      lesezeichen: ['Lesezeichen', 'Lesezeichen']
+    };
+    ['postkarte', 'poster', 'lesezeichen'].forEach(function (typ) {
       var menge = gesamtMenge(typ);
       if (!menge) { return; }
       var naechste = naechsteStufe(typ, menge);
       if (!naechste) { return; }
-      var was = (typ === 'poster') ? 'Poster' : (naechste.fehlt === 1 ? 'Postkarte' : 'Postkarten');
+      var was = WORT[typ][naechste.fehlt === 1 ? 0 : 1];
       hinweise += '<p class="naechste-stufe">↑ Noch ' + naechste.fehlt + ' ' + was + ' mehr und du zahlst je ' + euro(naechste.proStueck) + '.</p>';
     });
 
@@ -1210,6 +1363,48 @@
   }
   document.getElementById('gp-lightbox').addEventListener('click', function (e) { if (e.target === this) { closeGpLightbox(); } });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeGpLightbox(); } });
+
+  /* ============================================================
+     DRUCKEREI & SAAL-DIGITAL-SHOP
+     ============================================================
+     Beide Werte kommen aus produkte-daten.js:
+       DRUCKPARTNER  → Name der Druckerei je Produktart
+       SAAL_SHOP_URL → Link zu deinem Saal-Digital-Shop ('' = aus)
+     ============================================================ */
+
+  /* "Gedruckt bei … · aus Halstenbek versendet" für eine Produktart.
+     Fällt bei fehlendem Eintrag still auf den kurzen Text zurück. */
+  function herkunftText(typ) {
+    var name = (typeof DRUCKPARTNER !== 'undefined') ? DRUCKPARTNER[typ] : '';
+    return name ? 'Gedruckt bei ' + name + ' · aus Halstenbek versendet'
+                : 'Aus Halstenbek versendet';
+  }
+
+  function saalShopUrl() {
+    return (typeof SAAL_SHOP_URL !== 'undefined' && SAAL_SHOP_URL) ? SAAL_SHOP_URL : '';
+  }
+
+  /* Kleiner Link auf der Motivkarte (nur bei Poster A4). Leer, wenn
+     noch keine Shop-URL eingetragen ist. target=_blank, weil der
+     Warenkorb hier sonst beim Wegklicken verloren ginge. */
+  function saalLinkHtml() {
+    var url = saalShopUrl();
+    if (!url) { return ''; }
+    return '<a class="saal-link" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' +
+      'Größer als A4? Zum Saal-Digital-Shop ↗</a>';
+  }
+
+  /* Füllt den Bereich "Größer als A4" — Button zum Shop oder,
+     solange die URL fehlt, den Hinweis aufs Anfrageformular. */
+  function renderSaalBereich() {
+    var el = document.getElementById('saal-aktion');
+    if (!el) { return; }
+    var url = saalShopUrl();
+    el.innerHTML = url
+      ? '<p style="margin:1.2rem 0 0;"><a class="btn btn-fill" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">Zu meinem Saal-Digital-Shop ↗</a></p>' +
+        '<p class="section-idea-note">Öffnet sich in einem neuen Tab — deine Auswahl hier bleibt erhalten.</p>'
+      : '<p class="section-idea-note">Der Shop-Link folgt in Kürze. Bis dahin schreib mir dein Wunschformat einfach ins <a href="#kontakt-anfrage">Anfrageformular</a>.</p>';
+  }
 
   /* ---------- Postkarten & Poster ---------- */
   var MOTIV_THEMEN = ['Teichleben', 'Gartenleben', 'Waldleben', 'Reduktion'];
@@ -1484,7 +1679,11 @@
         '</div>' +
         '<span class="price-line" id="' + cid + '-price"></span>' +
         '<span class="stock-line" id="' + cid + '-stock"></span>' +
-        '<span class="herkunft-line" id="' + cid + '-herkunft">Gedruckt bei WirmachenDruck · aus Halstenbek versendet</span>' +
+        /* Text wird in aktualisieren() je nach Format gesetzt —
+           Postkarte und Poster haben verschiedene Druckereien. */
+        '<span class="herkunft-line" id="' + cid + '-herkunft"></span>' +
+        /* Nur bei "Poster A4" und nur, wenn SAAL_SHOP_URL gesetzt ist */
+        '<span id="' + cid + '-saal"></span>' +
         '<div id="' + cid + '-kauf"></div>' +
         '</div></div>';
   }
@@ -1503,6 +1702,7 @@
       var herkunftEl = document.getElementById(cid + '-herkunft');
       var starEl = document.getElementById(cid + '-star');
       var kaufEl = document.getElementById(cid + '-kauf');
+      var saalEl = document.getElementById(cid + '-saal');
       var typ = formatWahl[b.id] || 'postkarte';
 
       function key() { return b.id + '|' + typ; }
@@ -1517,6 +1717,9 @@
       function aktualisieren() {
         var pos = findePosition(key());
         if (pos) { mengeInput.value = pos.menge; }
+
+        /* "Größer als A4?"-Link: nur bei Poster und nur mit gesetzter URL */
+        saalEl.innerHTML = (typ === 'poster') ? saalLinkHtml() : '';
 
         if (typ === 'download') {
           mengeRow.style.display = '';
@@ -1551,6 +1754,7 @@
         starEl.style.display = stock.vorraetig ? '' : 'none';
 
         herkunftEl.style.display = '';
+        herkunftEl.textContent = herkunftText(typ);   /* Druckerei passend zum gewählten Format */
         kaufEl.innerHTML = renderKaufSlot(key());
       }
 
@@ -1599,13 +1803,196 @@
       aktualisieren();
   }
 
-  /* ---------- Sticker ---------- */
-  function renderStickerGrid() {
-    var grid = document.getElementById('sticker-grid');
-    if (typeof STICKER === 'undefined' || !STICKER.length) {
-      grid.innerHTML = '<p class="empty-note">Noch keine Sticker freigegeben.</p>';
+  /* ============================================================
+     LESEZEICHEN
+     ============================================================
+     Quelle ist galerie-daten.js — es gibt KEINE eigene Liste.
+     Angezeigt wird jedes Motiv mit bereitsLesezeichen: true (und
+     imShop nicht false). Die Karten stehen alle auf einmal da,
+     ohne Blättern — bei ~10 Motiven ist das übersichtlicher.
+
+     Welches Bild? (Reihenfolge)
+       1. bildLesezeichen, falls in galerie-daten.js angegeben
+       2. sonst automatisch  bilder/lesezeichen/<id>.jpg
+       3. fehlt die Datei → Ersatzansicht aus dem Galeriefoto
+          (siehe lesezeichenBildFehlt weiter unten)
+     ============================================================ */
+  function lesezeichenBilder() {
+    var alle = (typeof GALERIE_BILDER === 'undefined') ? [] : GALERIE_BILDER;
+    return alle.filter(function (b) {
+      return b.imShop !== false && b.bereitsLesezeichen === true;
+    });
+  }
+
+  function lesezeichenBildPfad(b) {
+    return b.bildLesezeichen || ('bilder/lesezeichen/' + b.id + '.jpg');
+  }
+
+  /* Lagerzeile — gleiche Logik wie stockInfo() bei Postkarten,
+     nur mit den Lesezeichen-Feldern und eigenem Text bei 0.
+     Einen "wird erst gedruckt"-Fall gibt es hier nicht, weil nur
+     Motive mit bereitsLesezeichen: true überhaupt erscheinen. */
+  function lesezeichenLager(b) {
+    var menge = b.bestandLesezeichen;
+    if (menge === 0) {
+      return { html: 'Gerade vergriffen · wird nachgedruckt', cls: 'back', vorraetig: false };
+    }
+    if (typeof menge === 'number') {
+      return {
+        html: (menge <= 3 ? 'Nur noch ' + menge + ' auf Lager' : 'Noch ' + menge + ' auf Lager'),
+        cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
+      };
+    }
+    return { html: 'Vorrätig', cls: 'ok', vorraetig: true };   /* null = Zahl unbekannt */
+  }
+
+  /* Wird vom onerror-Attribut des Bildes aufgerufen, wenn unter
+     bilder/lesezeichen/ (noch) keine passende Datei liegt.
+     Muss deshalb eine globale Funktion sein (kein var/let davor). */
+  function lesezeichenBildFehlt(img) {
+    img.onerror = null;   /* verhindert eine Endlosschleife, falls auch das Ersatzbild fehlt */
+    var ersatz = img.getAttribute('data-ersatz');
+    var frame = img.closest('.frame');
+    img.src = ersatz;
+    frame.classList.add('lz-ersatz');                   /* schmaler Hochformat-Zuschnitt, siehe CSS */
+    frame.querySelector('.lz-hinweis').hidden = false;  /* "Beispielansicht" einblenden */
+    /* Die Lupe soll dann das Galeriefoto zeigen statt eines
+       Bildes, das es nicht gibt (sonst leere Lightbox). */
+    frame.querySelector('.gp-zoom').setAttribute('data-src', ersatz);
+  }
+
+  function renderLesezeichenGrid() {
+    var grid = document.getElementById('lesezeichen-grid');
+    var liste = lesezeichenBilder();
+
+    if (!liste.length) {
+      grid.innerHTML = '<p class="empty-note">Die Lesezeichen folgen in Kürze.</p>';
       return;
     }
+
+    grid.innerHTML = liste.map(function (b) {
+      var cid = 'lz-' + b.id;
+      var motivPlain = stripHtml(b.beschriftung || b.alt);
+      var titelHtml = b.beschriftung ? b.beschriftung : escapeHtml(motivPlain);
+      var lager = lesezeichenLager(b);
+      var pfad = lesezeichenBildPfad(b);
+
+      return '<div class="pick-card lz-card" id="' + escapeHtml(cid) + '">' +
+        '<div class="frame">' +
+          '<span class="gp-star"' + (lager.vorraetig ? '' : ' style="display:none;"') + '>★ vorrätig</span>' +
+          '<span class="lz-hinweis" hidden>Beispielansicht</span>' +
+          /* Lupe: Pfad und Titel stehen in data-Attributen statt im
+             onclick — sicherer bei Sonderzeichen im Motivnamen. */
+          '<button type="button" class="gp-zoom" data-src="' + escapeHtml(pfad) + '" data-titel="' + escapeHtml('Lesezeichen · ' + motivPlain) + '" aria-label="Lesezeichen in voller Größe ansehen">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Klick für volle Größe</span>' +
+          '</button>' +
+          '<img src="' + escapeHtml(pfad) + '" data-ersatz="' + escapeHtml(b.bild) + '" alt="Lesezeichen mit Motiv: ' + escapeHtml(b.alt) + '" loading="lazy" onerror="lesezeichenBildFehlt(this)">' +
+        '</div>' +
+        '<div class="body"><b>' + titelHtml + '</b>' +
+          '<div class="menge-row">' +
+            '<label>Menge</label>' +
+            '<span class="stepper" id="' + cid + '-stepper">' +
+              '<button type="button" data-schritt="-1" aria-label="Weniger">−</button>' +
+              '<input type="number" value="1" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
+              '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
+            '</span>' +
+          '</div>' +
+          '<span class="price-line" id="' + cid + '-price"></span>' +
+          '<span class="stock-line ' + lager.cls + '">' + lager.html + '</span>' +
+          '<span class="herkunft-line">' + escapeHtml(herkunftText('lesezeichen')) + '</span>' +
+          '<div id="' + cid + '-kauf"></div>' +
+        '</div></div>';
+    }).join('');
+
+    /* Lupe — ein einziger Listener für das ganze Raster */
+    grid.addEventListener('click', function (e) {
+      var zoom = e.target.closest('.gp-zoom');
+      if (!zoom) { return; }
+      openGpLightbox(zoom.getAttribute('data-src'), zoom.getAttribute('data-titel'));
+    });
+
+    liste.forEach(function (b) { verdrahteLesezeichen(b); });
+  }
+
+  /* Verhalten einer Lesezeichen-Karte: Menge, Preis, Warenkorb.
+     Abgespeckte Fassung von verdrahteKarte() — ohne Format-Pillen,
+     weil ein Lesezeichen nur eine Ausführung hat. */
+  function verdrahteLesezeichen(b) {
+    var cid = 'lz-' + b.id;
+    var key = b.id + '|lesezeichen';          /* eindeutig, kollidiert nicht mit b.id|postkarte */
+    var motivPlain = stripHtml(b.beschriftung || b.alt);
+    var stepperEl = document.getElementById(cid + '-stepper');
+    var mengeInput = stepperEl.querySelector('input');
+    var priceEl = document.getElementById(cid + '-price');
+    var kaufEl = document.getElementById(cid + '-kauf');
+
+    function menge() { return Math.max(1, Math.min(parseInt(mengeInput.value, 10) || 1, MAX_MENGE)); }
+
+    function aktualisieren() {
+      var pos = findePosition(key);
+      if (pos) { mengeInput.value = pos.menge; }
+
+      /* Wie bei den Postkarten: Ist das Lesezeichen noch nicht im
+         Warenkorb, wird es testweise zur Gesamtmenge dazugezählt —
+         so sieht man den 3-für-5-Preis schon, bevor man klickt. */
+      var hypothetisch = gesamtMenge('lesezeichen') + (pos ? 0 : menge());
+      var einzel = stueckPreis('lesezeichen', Math.max(hypothetisch, menge()));
+      var basis = STAFFEL.lesezeichen[0].proStueck;
+
+      priceEl.innerHTML = euro(einzel * menge()) +
+        (menge() > 1 ? ' <span class="je">(je ' + euro(einzel) + ')</span>' : '') +
+        (einzel < basis ? ' <span class="rabatt">Staffelpreis</span>' : '');
+
+      kaufEl.innerHTML = renderKaufSlot(key);
+    }
+
+    /* In das Register der immer sichtbaren Karten eintragen — dann
+       rechnet die Karte automatisch neu, wenn woanders ein weiteres
+       Lesezeichen in den Warenkorb kommt (Staffel!). */
+    kartenAktualisierer.push(aktualisieren);
+
+    stepperEl.querySelectorAll('button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var neu = menge() + parseInt(btn.getAttribute('data-schritt'), 10);
+        mengeInput.value = Math.max(1, Math.min(neu, MAX_MENGE));
+        if (findePosition(key)) { positionMenge(key, parseInt(mengeInput.value, 10)); } else { aktualisieren(); }
+      });
+    });
+
+    mengeInput.addEventListener('change', function () {
+      mengeInput.value = menge();
+      if (findePosition(key)) { positionMenge(key, menge()); } else { aktualisieren(); }
+    });
+
+    kaufEl.addEventListener('click', function (e) {
+      if (!e.target.closest('.btn-hinzufuegen')) { return; }
+      if (findePosition(key)) {
+        positionEntfernen(key);
+      } else {
+        positionHinzufuegen({
+          key: key, typ: 'lesezeichen', motiv: motivPlain,
+          bezeichnung: 'Lesezeichen', menge: menge()
+        });
+      }
+    });
+
+    aktualisieren();
+  }
+
+  /* ---------- Sticker ----------
+     Bereich und Sprunglink stehen im HTML mit hidden drin. Erst wenn
+     STICKER (produkte-daten.js) mindestens einen Eintrag hat, werden
+     beide sichtbar geschaltet. Bei leerer Liste passiert gar nichts —
+     die Kunden sehen dann schlicht keinen Sticker-Bereich. */
+  function hatSticker() {
+    return typeof STICKER !== 'undefined' && STICKER.length > 0;
+  }
+
+  function renderStickerGrid() {
+    var grid = document.getElementById('sticker-grid');
+    if (!hatSticker()) { return; }   /* bleibt versteckt */
+    document.getElementById('sticker').hidden = false;
+    document.getElementById('tab-sticker').hidden = false;
     grid.innerHTML = STICKER.map(function (st, i) {
       var img = (st.mockups && st.mockups[0]) ? '<img src="' + escapeHtml(st.mockups[0]) + '" alt="' + escapeHtml(st.motiv) + '" loading="lazy">' : '';
       return '<div class="pick-card" id="sti-' + i + '"><div class="frame">' + img + '</div>' +
@@ -1963,6 +2350,28 @@
      dann hinscrollen und kurz hervorheben. */
   function hervorhebenBeiSprungmarke() {
     var hash = window.location.hash.replace('#', '');
+
+    /* Alte Links/QR-Codes auf #sticker: Solange es keine Sticker
+       gibt, ist der Bereich unsichtbar — dann stattdessen zu den
+       Lesezeichen springen, statt irgendwo oben hängenzubleiben. */
+    if (hash === 'sticker' && !hatSticker()) {
+      var lz = document.getElementById('lesezeichen');
+      if (lz) { lz.scrollIntoView(); }
+      return;
+    }
+
+    /* Direktlink auf ein einzelnes Lesezeichen, z. B.
+       produkte-bestellen.html#lz-teichleben1 (praktisch für QR-Codes).
+       Kein Blättern nötig, die Lesezeichen stehen alle auf einer Seite. */
+    if (hash.indexOf('lz-') === 0) {
+      var lzKarte = document.getElementById(hash);
+      if (!lzKarte) { return; }
+      lzKarte.scrollIntoView({ block: 'center' });
+      lzKarte.classList.add('hervorgehoben');
+      setTimeout(function () { lzKarte.classList.remove('hervorgehoben'); }, 2600);
+      return;
+    }
+
     if (!hash || hash.indexOf('motiv-') !== 0) { return; }
 
     var bildId = hash.slice('motiv-'.length);
@@ -1990,6 +2399,8 @@
 
   renderMotivFilter();
   renderMotivBereich();
+  renderSaalBereich();
+  renderLesezeichenGrid();
   renderStickerGrid();
   setupBestellSchalter();   /* muss vor formularAnpassen() laufen */
   formularAnpassen();
