@@ -10,7 +10,7 @@
      die description darunter als grauer Fließtext.
      ============================================================ -->
 <title>Postkarten, Poster &amp; Lesezeichen — Shop | BG Naturfotografie</title>
-<meta name="description" content="Postkarten (10 × 15 cm), A4-Poster und Lesezeichen mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Stück, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
+<meta name="description" content="Postkarten (10 × 15 cm), A4-Poster, Lesezeichen und Downloads mit heimischen Vögeln aus Norddeutschland. Mengenpreise, Versand aus Halstenbek — direkt beim Fotografen.">
 <link rel="canonical" href="https://bg-naturfotografie.de/produkte-bestellen.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="author" content="Benedict Gertz">
@@ -32,14 +32,14 @@
 <meta property="og:site_name" content="BG Naturfotografie">
 <meta property="og:locale" content="de_DE">
 <meta property="og:title" content="Shop — Postkarten, Poster &amp; Lesezeichen | BG Naturfotografie">
-<meta property="og:description" content="Postkarten (10 × 15 cm), A4-Poster und Lesezeichen mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Stück, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
+<meta property="og:description" content="Postkarten (10 × 15 cm), A4-Poster, Lesezeichen und Downloads mit heimischen Vögeln aus Norddeutschland. Mengenpreise, Versand aus Halstenbek — direkt beim Fotografen.">
 <meta property="og:url" content="https://bg-naturfotografie.de/produkte-bestellen.html">
 <meta property="og:image" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
 <meta property="og:image:secure_url" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
 <meta property="og:image:alt" content="Postkarten mit Naturfotografien von BG Naturfotografie">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Shop — Postkarten, Poster &amp; Lesezeichen | BG Naturfotografie">
-<meta name="twitter:description" content="Postkarten (10 × 15 cm), A4-Poster und Lesezeichen mit heimischen Vögeln aus Norddeutschland. Staffelpreise ab 3 Stück, Versand aus Halstenbek — direkt beim Fotografen anfragen.">
+<meta name="twitter:description" content="Postkarten (10 × 15 cm), A4-Poster, Lesezeichen und Downloads mit heimischen Vögeln aus Norddeutschland. Mengenpreise, Versand aus Halstenbek — direkt beim Fotografen.">
 <meta name="twitter:image" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
 <meta name="twitter:image:alt" content="Postkarten mit Naturfotografien von BG Naturfotografie">
 
@@ -101,15 +101,123 @@
   .section-idea-note{ font-size:.82rem; color:var(--text-muted); margin:1.4rem 0 0; }
   .section-idea-note a{ color:var(--accent-soft); }
 
-  .filter-row{ display:flex; flex-wrap:wrap; gap:.6rem; margin:0 0 1.8rem; }
-  .filter-chip{
-    font-family:'JetBrains Mono', monospace; font-size:.76rem;
-    color:var(--text-muted); background:var(--bg-panel-2); border:1px solid var(--line);
-    padding:.45rem .9rem; border-radius:20px; cursor:pointer;
-    transition:border-color .2s, color .2s, background .2s;
+  /* ============================================================
+     SHOP-LAYOUT: Seitenleiste + Motivraster
+     ============================================================
+     Ab 900px zweispaltig: links die Filter (klebt beim Scrollen
+     mit), rechts die Motive. Darunter einspaltig — dann werden aus
+     den Filterlisten waagerechte Reihen, durch die man wischen
+     kann. Bewusst KEINE ausklappbare Schublade: die kostet auf dem
+     Handy einen zusätzlichen Klick und versteckt genau das, was
+     die Auswahl erklärt.
+     ============================================================ */
+  .shop-layout{ display:grid; grid-template-columns:230px 1fr; gap:2.4rem; align-items:start; }
+  /* Ohne min-width:0 dürfen sich Rasterspalten nicht kleiner machen
+     als ihr breitester Inhalt. Auf dem Handy hätte die waagerechte
+     Filterreihe die ganze Spalte auseinandergezogen und das
+     Motivraster wäre seitlich aus dem Bild gelaufen. */
+  .shop-layout > *{ min-width:0; }
+
+  .shop-filter{
+    position:sticky; top:90px;              /* unter der festen Kopfzeile */
+    display:flex; flex-direction:column; gap:1.6rem;
+    padding-right:.4rem;
   }
-  .filter-chip:hover{ border-color:var(--accent); color:var(--accent-soft); }
-  .filter-chip.active{ border-color:var(--accent); color:var(--accent-soft); background:rgba(201,124,61,0.14); }
+  .filter-gruppe{ display:flex; flex-direction:column; gap:.5rem; }
+  /* display:flex sticht [hidden] aus — deshalb hier ausdrücklich
+     ausblenden. Betrifft "Nur was auf Lager liegt", das bei
+     Downloads keinen Sinn ergibt. */
+  .filter-gruppe[hidden]{ display:none; }
+  .filter-titel{
+    font-family:'JetBrains Mono', monospace; font-size:.68rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--text-muted);
+    padding-bottom:.5rem; border-bottom:1px solid var(--line);
+  }
+  .filter-liste{ display:flex; flex-direction:column; gap:.15rem; }
+
+  /* Eine Filterzeile. Links der Name, rechts die Anzahl. Der
+     aktive Eintrag bekommt einen Balken am linken Rand statt einer
+     vollflächigen Färbung — ruhiger und passt zum Rest der Seite. */
+  .filter-opt{
+    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
+    width:100%; text-align:left; cursor:pointer;
+    background:transparent; border:0; border-left:2px solid transparent;
+    padding:.42rem .6rem; border-radius:0 6px 6px 0;
+    font-family:'Work Sans', sans-serif; font-size:.88rem; color:var(--text-muted);
+    transition:color .18s, background .18s, border-color .18s;
+  }
+  .filter-opt:hover{ color:var(--text-light); background:rgba(255,255,255,0.03); }
+  .filter-opt .zahl{
+    font-family:'JetBrains Mono', monospace; font-size:.7rem; color:var(--text-muted); opacity:.7;
+  }
+  .filter-opt[aria-pressed="true"]{
+    color:var(--accent-soft); border-left-color:var(--accent);
+    background:rgba(201,124,61,0.10);
+  }
+  .filter-opt[aria-pressed="true"] .zahl{ color:var(--accent-soft); opacity:1; }
+  .filter-opt:disabled{ opacity:.4; cursor:default; }
+  .filter-opt:disabled:hover{ background:transparent; color:var(--text-muted); }
+
+  .filter-check{
+    display:flex; align-items:center; gap:.55rem; cursor:pointer;
+    font-size:.85rem; color:var(--text-muted); padding:.2rem .6rem;
+  }
+  .filter-check input{ width:auto; margin:0; flex-shrink:0; accent-color:var(--accent); }
+  .filter-legende{
+    font-size:.72rem; line-height:1.6; color:var(--text-muted);
+    margin:0; padding:.2rem .6rem 0; border-top:1px solid var(--line); padding-top:1rem;
+  }
+
+  /* ---- rechte Spalte ---- */
+  .shop-kopfzeile{
+    display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between;
+    gap:.6rem 1.2rem; margin:0 0 1.2rem; padding-bottom:.9rem;
+    border-bottom:1px solid var(--line);
+  }
+  .shop-kopfzeile h3{ font-size:1.3rem; margin:0; }
+  .shop-treffer{
+    font-family:'JetBrains Mono', monospace; font-size:.74rem;
+    color:var(--text-muted); letter-spacing:.03em; margin:0;
+  }
+  .shop-produktinfo{ font-size:.88rem; color:var(--text-muted); margin:0 0 1.4rem; max-width:62ch; }
+  .shop-produktinfo .staffel-inline{ color:var(--accent-soft); }
+
+  /* Hinweisband über dem Raster (z. B. Verweis auf große Formate) */
+  .shop-band{
+    display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .8rem;
+    margin:0 0 1.4rem; padding:.7rem 1rem;
+    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:var(--radius);
+    font-size:.84rem; color:var(--text-muted);
+  }
+  .shop-band a{ color:var(--accent-soft); }
+
+  /* "Weitere anzeigen" */
+  .shop-mehr{ display:flex; justify-content:center; margin:2rem 0 0; }
+  .shop-mehr button{
+    padding:.7rem 1.6rem; background:transparent; color:var(--text-light);
+    border:1px solid var(--line); border-radius:var(--radius);
+    font-family:'JetBrains Mono', monospace; font-size:.78rem; cursor:pointer;
+    transition:border-color .18s, color .18s;
+  }
+  .shop-mehr button:hover{ border-color:var(--accent); color:var(--accent-soft); }
+
+  /* Serien-Hinweis auf der Karte — klein, damit das Foto wirkt */
+  .karte-serie{
+    font-family:'JetBrains Mono', monospace; font-size:.64rem; letter-spacing:.09em;
+    text-transform:uppercase; color:var(--text-muted); margin-top:-.25rem;
+  }
+  /* Hinweis, dass dasselbe Motiv schon in einer anderen Ausführung
+     im Warenkorb liegt — sonst wundert man sich beim Tabwechsel. */
+  .karte-anderswo{ font-size:.72rem; color:#7fae86; }
+  /* Leer = gar nicht da, sonst entsteht durch den Zeilenabstand
+     der Karte eine Lücke, die nach einem Fehler aussieht. */
+  .karte-anderswo:empty{ display:none; }
+
+  /* Der Knopf klebt unten, damit die Karten trotz unterschiedlich
+     langer Motivnamen unten auf einer Linie abschließen. */
+  .kauf-slot{ margin-top:auto; padding-top:.2rem; }
+
+
 
   .star-dot{ color:#f2c14e; font-size:.9rem; line-height:1; }
   /* ---- Overlays auf dem Bild ----
@@ -162,6 +270,7 @@
   }
 
   .pick-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:var(--gap); }
+
 
   /* ---- "Wer druckt was?" ----
      Bewusst NICHT in einem Aufklapper, sondern offen sichtbar im
@@ -222,52 +331,6 @@
     padding:.2rem .5rem; border-radius:20px; pointer-events:none;
   }
 
-  /* ---- Kategorie-Blöcke mit eigener Seiten-Navigation ---- */
-  .kat-block{ margin:0 0 3.4rem; scroll-margin-top:6rem; }
-  .kat-block:last-child{ margin-bottom:0; }
-  .kat-block h3{
-    font-size:1.35rem; margin:0 0 .3rem;
-    display:flex; align-items:baseline; gap:.7rem; flex-wrap:wrap;
-  }
-  .kat-anzahl{
-    font-family:'JetBrains Mono', monospace; font-size:.72rem;
-    color:var(--text-muted); letter-spacing:.04em; text-transform:uppercase;
-  }
-  .kat-desc{ color:var(--text-muted); font-size:.9rem; margin:0 0 1rem; max-width:60ch; }
-  .kat-toolbar{
-    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
-    gap:.8rem; margin:0 0 1.2rem; padding:.6rem .9rem;
-    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:var(--radius);
-    font-family:'JetBrains Mono', monospace; font-size:.76rem; color:var(--text-muted);
-  }
-  .kat-toolbar .treffer{ letter-spacing:.03em; }
-  .pro-seite{ display:flex; align-items:center; gap:.5rem; }
-  .pro-seite select{
-    background:var(--bg-panel); color:var(--text-light);
-    border:1px solid var(--line); border-radius:6px;
-    padding:.3rem .5rem; font-family:inherit; font-size:.76rem; cursor:pointer;
-  }
-  .pro-seite select:hover{ border-color:var(--accent); }
-  .pro-seite select:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-
-  .pager{
-    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
-    gap:.35rem; margin:1.6rem 0 0;
-  }
-  .pager button{
-    min-width:2.3rem; padding:.42rem .6rem;
-    background:transparent; color:var(--text-muted);
-    border:1px solid var(--line); border-radius:6px;
-    font-family:'JetBrains Mono', monospace; font-size:.78rem; cursor:pointer;
-    transition:border-color .18s, color .18s, background .18s;
-  }
-  .pager button:hover:not(:disabled){ border-color:var(--accent); color:var(--accent-soft); }
-  .pager button[aria-current="page"]{
-    border-color:var(--accent); color:var(--accent-soft); background:rgba(201,124,61,0.14);
-  }
-  .pager button:disabled{ opacity:.32; cursor:default; }
-  .pager .luecke{ padding:0 .25rem; color:var(--text-muted); }
-
   /* ---- Formular: Pflichtangaben & Fehlermeldungen ---- */
   .pflicht{ color:var(--accent-soft); text-decoration:none; border:0; font-weight:600; }
   .optional-tag{
@@ -324,14 +387,6 @@
   .pick-card .body{ padding:.9rem 1rem 1.1rem; display:flex; flex-direction:column; gap:.5rem; flex-grow:1; }
   .pick-card .body b{ font-family:'Fraunces', serif; font-weight:500; font-size:1rem; }
 
-  .fmt-pills{ display:flex; gap:.4rem; flex-wrap:wrap; margin:.1rem 0; }
-  .fmt-pill{
-    flex:1; min-width:80px; background:transparent; border:1px solid var(--line); color:var(--text-muted);
-    font-family:'JetBrains Mono', monospace; font-size:.68rem; letter-spacing:.02em; text-align:center;
-    padding:.5em .4em; border-radius:20px; cursor:pointer; transition:background .2s, color .2s, border-color .2s;
-  }
-  .fmt-pill.active{ background:var(--accent); border-color:var(--accent); color:var(--bg-deep); }
-  .fmt-pill:hover:not(.active){ border-color:var(--accent-soft); color:var(--accent-soft); }
   .pick-card select{
     width:100%; background:var(--bg-panel); border:1px solid var(--line);
     border-radius:var(--radius); color:var(--text-light);
@@ -516,6 +571,53 @@
     font-size:.78rem; color:var(--text-muted); margin:.5rem 0 0;
   }
   .versand-hinweis b{ color:var(--accent-soft); font-weight:400; }
+
+  /* ============================================================
+     KLEINE BILDSCHIRME
+     Bewusst ganz am Ende der Datei: CSS-Regeln gleicher
+     Stärke gewinnen nach Reihenfolge. Stünden diese Blöcke
+     weiter oben, würden die normalen Karten-Regeln darunter
+     sie wieder überschreiben.
+     ============================================================ */
+  @media (max-width:900px){
+    .shop-layout{ grid-template-columns:1fr; gap:1.6rem; }
+    .shop-filter{
+      position:static; gap:1rem;
+      padding:0 0 1.2rem; border-bottom:1px solid var(--line);
+    }
+    /* Waagerecht wischbar statt untereinander — spart Höhe */
+    .filter-liste{
+      flex-direction:row; gap:.5rem; overflow-x:auto; padding-bottom:.3rem;
+      scrollbar-width:thin;
+    }
+    /* width:auto ist wichtig: die Grundregel setzt width:100%, sonst
+       füllt der erste Knopf die ganze Reihe und der Rest liegt
+       unsichtbar rechts daneben. */
+    .filter-opt{
+      flex:0 0 auto; width:auto; justify-content:flex-start; gap:.45rem;
+      border-left:0; border:1px solid var(--line);
+      border-radius:20px; padding:.42rem .9rem;
+      font-family:'JetBrains Mono', monospace; font-size:.76rem;
+    }
+    .filter-opt[aria-pressed="true"]{ border-color:var(--accent); }
+    .filter-titel{ border-bottom:0; padding-bottom:0; }
+  }
+
+  /* Auf dem Handy bewusst ZWEI Karten nebeneinander statt einer.
+     Eine Karte pro Zeile sieht zwar edel aus, macht aus 12 Motiven
+     aber 12 Bildschirme Scrollen — man verliert jeden Überblick.
+     Dafür wird die Karte innen etwas kompakter. */
+  @media (max-width:640px){
+    .pick-grid{ grid-template-columns:repeat(2, 1fr); gap:.7rem; }
+    .pick-card .body{ padding:.7rem .75rem .85rem; gap:.4rem; }
+    .pick-card .body b{ font-size:.9rem; line-height:1.3; }
+    .price-line{ font-size:.8rem; }
+    .stock-line, .karte-anderswo{ font-size:.68rem; }
+    .menge-row{ justify-content:space-between; gap:.3rem; }
+    .menge-row > label{ font-size:.66rem; }
+    .btn-hinzufuegen{ padding:.55rem .3rem; font-size:.66rem; }
+    .gp-zoom span{ display:none; }   /* nur noch die Lupe, der Text passt nicht */
+  }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 <script>
@@ -607,10 +709,15 @@
     <h1>Motiv aussuchen, <em>Produkt anfragen.</em></h1>
     <p class="lead">Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.</p>
 
+    <!-- Die ersten vier Links springen nicht nur zum Shop, sie stellen
+         auch gleich die passende Produktart im Filter ein (data-produkt).
+         Ohne JavaScript bleibt es ein normaler Sprung zu #motive. -->
     <nav class="shop-tabs" aria-label="Produktkategorien">
-      <a href="#motive">Postkarten &amp; Poster</a>
+      <a href="#motive" data-produkt="postkarte">Postkarten</a>
+      <a href="#motive" data-produkt="poster">Poster A4</a>
+      <a href="#motive" data-produkt="lesezeichen">Lesezeichen</a>
+      <a href="#motive" data-produkt="download">Downloads</a>
       <a href="#grossformate">Größer als A4</a>
-      <a href="#lesezeichen">Lesezeichen</a>
       <!-- Startet unsichtbar (hidden). Das Script schaltet den Link
            erst frei, wenn in produkte-daten.js mindestens ein
            Sticker steht — so gibt es keinen Link ins Leere. -->
@@ -636,7 +743,7 @@
         <summary>So läuft eine Bestellung ab</summary>
         <div class="fold-body">
           <ol class="fold-steps">
-            <li><b>Motiv &amp; Menge wählen.</b> Postkarte, Poster (A4), Download oder Lesezeichen — die Menge stellst du frei ein.</li>
+            <li><b>Produkt und Motiv wählen.</b> Links Postkarte, Poster (A4), Lesezeichen oder Download aussuchen, dann das Motiv — die Menge stellst du frei ein.</li>
             <li><b>In den Warenkorb.</b> Alles landet in deiner Auswahl unten im Formular.</li>
             <li><b>Anfragen oder bestellen.</b> Unverbindlich anfragen — oder direkt verbindlich bestellen, mit Versand oder Abholung in Halstenbek.</li>
             <li><b>Ich melde mich.</b> Angebot bzw. Auftragsbestätigung mit Zahlungsweg per Mail, meist innerhalb von 2–3 Tagen. Verschickt wird von mir aus Halstenbek.</li>
@@ -692,24 +799,63 @@
   </div>
 </section>
 
-<!-- ============ POSTKARTEN & POSTER (aus galerie-daten.js) ============ -->
+<!-- ============ SHOP: MOTIVE ============
+     EIN Bereich für alle Produktarten. Links die Seitenleiste
+     (Produkt + Serie + „nur Vorrätiges“), rechts das Motivraster.
+     Was angezeigt wird, entscheidet allein der Filter — die Karten
+     baut renderShop() weiter unten aus galerie-daten.js.
+
+     Warum so und nicht mehrere Blöcke untereinander: Vorher standen
+     Postkarten, Poster und Downloads als drei Knöpfe auf JEDER
+     Karte und alle vier Serien untereinander auf einer Seite. Das
+     waren über 40 Karten am Stück. Jetzt wählt man oben einmal die
+     Produktart, sieht 12 Motive und lädt bei Bedarf nach.
+     ============================================================ -->
 <section class="cat-block-shop" id="motive">
   <div class="wrap">
-    <h2>Postkarten &amp; Poster</h2>
-    <p class="cat-sub">Jedes Motiv als Postkarte (10 × 15 cm, WIRmachenDRUCK), A4-Poster (Fotoabzug, Saal Digital) oder digitalen Download — Auswahl direkt unter dem Bild.</p>
-    <div class="origin-legend">
-      <span class="item"><span class="star-dot">★</span> = liegt bei mir auf Lager</span>
-      <span class="item"><span class="origin-dot selbst"></span> von mir verpackt &amp; aus Halstenbek versendet</span>
-      <span class="item"><b style="color:var(--accent-soft); font-weight:400;">Staffel:</b> ab 3 Karten je 2,00 € · ab 5 je 1,80 € · ab 2 Postern je 10,00 €</span>
+    <h2>Motive</h2>
+    <p class="cat-sub">Alle Motive stammen von mir. Erst das Produkt wählen, dann das Motiv — jedes Motiv gibt es in mehreren Ausführungen.</p>
+
+    <div class="shop-layout">
+      <!-- ---- Seitenleiste: Filter ---- -->
+      <aside class="shop-filter" aria-label="Motive filtern">
+        <div class="filter-gruppe">
+          <span class="filter-titel" id="filter-titel-produkt">Produkt</span>
+          <!-- Knöpfe kommen aus PRODUKTARTEN (Script unten) -->
+          <div class="filter-liste" id="filter-produkt" role="group" aria-labelledby="filter-titel-produkt"></div>
+        </div>
+
+        <div class="filter-gruppe">
+          <span class="filter-titel" id="filter-titel-serie">Serie</span>
+          <div class="filter-liste" id="filter-serie" role="group" aria-labelledby="filter-titel-serie"></div>
+        </div>
+
+        <div class="filter-gruppe" id="filter-lager-gruppe">
+          <label class="filter-check">
+            <input type="checkbox" id="filter-vorraetig">
+            <span>Nur was auf Lager liegt</span>
+          </label>
+        </div>
+
+        <p class="filter-legende">
+          <span class="star-dot">★</span> heißt: liegt bei mir zu Hause und geht sofort raus.<br>
+          Alles andere wird nachgedruckt und dauert ein bis zwei Wochen länger.
+        </p>
+      </aside>
+
+      <!-- ---- Motivraster ---- -->
+      <div class="shop-inhalt">
+        <div class="shop-kopfzeile">
+          <h3 id="shop-produkt-titel">Postkarten</h3>
+          <p class="shop-treffer" id="shop-treffer" role="status" aria-live="polite"></p>
+        </div>
+        <p class="shop-produktinfo" id="shop-produkt-info"></p>
+        <div id="shop-band"></div>
+        <div class="pick-grid" id="shop-grid"></div>
+        <div class="shop-mehr" id="shop-mehr"></div>
+        <p class="section-idea-note">Motiv fehlt oder du hättest es gern anders? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
+      </div>
     </div>
-
-    <div class="filter-row" id="motiv-filter"></div>
-
-    <!-- Wird von unten aufgebaut: pro Kategorie ein eigener Block mit
-         eigener Seiten-Navigation und eigener "pro Seite"-Einstellung. -->
-    <div id="motiv-bereich"></div>
-
-    <p class="section-idea-note">Größer als A4? Siehe <a href="#grossformate">gleich hier unten</a>. Motiv fehlt? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
   </div>
 </section>
 
@@ -734,24 +880,6 @@
         </div>
       </details>
     </div>
-  </div>
-</section>
-
-<!-- ============ LESEZEICHEN (aus galerie-daten.js) ============
-     Zeigt automatisch jedes Motiv mit bereitsLesezeichen: true.
-     Bild: bilder/lesezeichen/<id>.jpg (Details in galerie-daten.js).
-     ============================================================ -->
-<section class="cat-block-shop" id="lesezeichen" style="background:var(--bg-panel); padding:4rem 0;">
-  <div class="wrap">
-    <h2>Lesezeichen</h2>
-    <p class="cat-sub">5 × 18 cm, kräftiger 400-g-Karton, matt kaschiert, abgerundete Ecken — mit QR-Code zur Geschichte hinter dem Foto.</p>
-    <div class="origin-legend">
-      <span class="item"><span class="star-dot">★</span> = liegt bei mir auf Lager</span>
-      <span class="item"><b style="color:var(--accent-soft); font-weight:400;">Preis:</b> 2,00 € pro Stück · „3 für 5 €“ gibt’s nur an meinem Marktstand</span>
-      <span class="item"><span class="origin-dot selbst"></span> gedruckt bei Peterprint, von mir aus Halstenbek versendet</span>
-    </div>
-    <div class="pick-grid" id="lesezeichen-grid"></div>
-    <p class="section-idea-note">Lieblingsmotiv als Lesezeichen? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
   </div>
 </section>
 
@@ -1407,11 +1535,96 @@
       : '<p class="section-idea-note">Der Shop-Link folgt in Kürze. Bis dahin schreib mir dein Wunschformat einfach ins <a href="#kontakt-anfrage">Anfrageformular</a>.</p>';
   }
 
-  /* ---------- Postkarten & Poster ---------- */
+  /* ============================================================
+     SHOP — EIN Raster für alle Produktarten
+     ============================================================
+     Aufbau: links Filter, rechts Motive. Der Zustand (welches
+     Produkt, welche Serie, nur Vorrätiges, wie viele sichtbar)
+     steht in shopZustand; jede Änderung ruft renderShop() auf,
+     das das Raster komplett neu zeichnet.
+
+     Was du hier realistisch anfassen willst:
+       MOTIVE_PRO_SEITE  → wie viele Motive auf einmal erscheinen
+       PRODUKTARTEN      → Reihenfolge, Namen und Infotexte
+     ============================================================ */
+
+  var MOTIVE_PRO_SEITE = 12;   /* 12 geht in 2, 3 und 4 Spalten glatt auf */
+
   var MOTIV_THEMEN = ['Teichleben', 'Gartenleben', 'Waldleben', 'Reduktion'];
 
-  /* Lagerstatus — funktioniert identisch für Postkarte und Poster.
-     art: 'postkarte' | 'poster'
+  /* Die Produktarten der Seitenleiste.
+       id        — muss zu STAFFEL/PREISE in produkte-daten.js passen
+                   und wird als Warenkorb-Schlüssel benutzt
+       label     — Text in der Seitenleiste
+       bezeichnung — wie die Position im Warenkorb und in der Mail heißt
+       info      — eine Zeile unter der Überschrift (Material, Druckerei)
+       filter    — welche Motive überhaupt in Frage kommen
+       lager     — Lagerzeile, oder null wenn es keine gibt (Download)
+       bild      — welches Foto die Karte zeigt
+     Eine neue Produktart hinzuzufügen heißt: hier einen Eintrag
+     ergänzen und in produkte-daten.js Preis bzw. Staffel setzen. */
+  var PRODUKTARTEN = [
+    {
+      id: 'postkarte',
+      label: 'Postkarten',
+      bezeichnung: 'Postkarte',
+      info: function () { return '10 × 15 cm, 350 g matt, Artname und Fundort auf der Rückseite. Gedruckt bei ' + (DRUCKPARTNER.postkarte || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.'; },
+      filter: function (b) { return true; },
+      lager: function (b) { return stockInfo(b, 'postkarte'); },
+      bild: function (b) { return b.bild; }
+    },
+    {
+      id: 'poster',
+      label: 'Poster ' + POSTER_FORMAT,
+      bezeichnung: 'Poster ' + POSTER_FORMAT,
+      info: function () { return 'Fotoabzug im Format ' + POSTER_FORMAT + ', matt, ohne Rahmen. Gedruckt bei ' + (DRUCKPARTNER.poster || 'meinem Fotolabor') + ', von mir aus Halstenbek verschickt.'; },
+      filter: function (b) { return true; },
+      lager: function (b) { return stockInfo(b, 'poster'); },
+      bild: function (b) { return b.bild; }
+    },
+    {
+      id: 'lesezeichen',
+      label: 'Lesezeichen',
+      bezeichnung: 'Lesezeichen',
+      info: function () { return '5 × 18 cm, 400 g matt kaschiert, abgerundete Ecken, mit QR-Code zur Geschichte. Gedruckt bei ' + (DRUCKPARTNER.lesezeichen || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.'; },
+      /* Anders als Postkarte und Poster gibt es Lesezeichen nur von
+         den Motiven, die du wirklich hast drucken lassen. */
+      filter: function (b) { return b.bereitsLesezeichen === true; },
+      lager: lesezeichenLager,
+      bild: lesezeichenBildPfad,
+      leerText: 'Die Lesezeichen folgen in Kürze.'
+    },
+    {
+      id: 'download',
+      label: 'Downloads',
+      bezeichnung: 'Download',
+      info: function () { return 'Die Bilddatei zum Selberdrucken oder als Hintergrundbild — kein Versand, kein Warten.'; },
+      filter: function (b) { return true; },
+      lager: null,
+      bild: function (b) { return b.bild; }
+    }
+  ];
+
+  function produktArt(id) {
+    for (var i = 0; i < PRODUKTARTEN.length; i++) {
+      if (PRODUKTARTEN[i].id === id) { return PRODUKTARTEN[i]; }
+    }
+    return PRODUKTARTEN[0];
+  }
+
+  var shopZustand = {
+    produkt: 'postkarte',
+    serie: 'alle',
+    nurVorraetig: false,
+    sichtbar: MOTIVE_PRO_SEITE
+  };
+
+  /* Aktualisierer der gerade gezeichneten Karten, nach Bild-ID.
+     Wird bei jedem renderShop() geleert — sonst zeigen die
+     Funktionen auf Karten, die es nicht mehr gibt. */
+  var motivAktualisierer = {};
+
+  /* Lagerstatus für Postkarte und Poster.
      Beides ist Auflagenware: liegt es da → Lagerbestand,
      liegt es nicht da → wird in der nächsten Auflage mitgedruckt. */
   function stockInfo(b, art) {
@@ -1436,403 +1649,9 @@
     return { html: 'Vorrätig', cls: 'ok', vorraetig: true };
   }
 
-  /* Staffelpreise: baut die Mengen-Auswahl aus STAFFEL (produkte-daten.js) */
-  function staffelOptionen(art) {
-    return STAFFEL[art].map(function (stufe, idx) {
-      return '<option value="' + idx + '">' + stufe.menge + ' Stück · ' + euro(stufe.preis) + '</option>';
-    }).join('');
-  }
-
-  function preisText(stufe) {
-    if (stufe.menge === 1) { return euro(stufe.preis); }
-    return euro(stufe.preis) + ' <span class="je">(je ' + euro(stufe.preis / stufe.menge) + ')</span>';
-  }
-
-  /* ============================================================
-     KATEGORIE-BLÖCKE MIT EIGENER SEITEN-NAVIGATION
-     ============================================================
-     Statt einer einzigen Wand aus allen Motiven bekommt jede
-     Kategorie einen eigenen Block: Überschrift, "x von y"-Anzeige,
-     eine eigene "pro Seite"-Einstellung und eine eigene
-     Blätter-Navigation. Voreinstellung: 20 Motive pro Seite.
-
-     Ändern willst du das hier:
-       STANDARD_PRO_SEITE  → wie viele Motive anfangs sichtbar sind
-       PRO_SEITE_OPTIONEN  → was im Auswahlmenü zur Wahl steht
-     ============================================================ */
-  var STANDARD_PRO_SEITE = 20;
-  var PRO_SEITE_OPTIONEN = [10, 20, 40, 'alle'];
-
-  var KAT_BESCHREIBUNG = {
-    'Teichleben':  'Schwimmend, putzend, schlafend — das Leben am kühlen Gewässer nebenan.',
-    'Gartenleben': 'Rotkehlchen, Meisen, Gimpel & Co. im Wechsel der Jahreszeiten.',
-    'Waldleben':   'Eichhörnchen, Specht & Co. im grünen Lebensraum.',
-    'Reduktion':   'Echte Naturfotografie, reduziert und bewusst neu interpretiert.'
-  };
-
-  /* Merkt sich pro Kategorie: aktuelle Seite + Motive pro Seite.
-     Bewusst nur im Arbeitsspeicher, nicht im Browser gespeichert —
-     so bleibt die Seite frei von zustimmungspflichtigen Speicherzugriffen. */
-  var katZustand = {};
-
-  /* Merkt sich das gewählte Format (Postkarte/Poster/Download) pro
-     Motiv, damit es beim Blättern nicht zurückspringt. */
-  var formatWahl = {};
-
-  /* Aktualisierer der sichtbaren Motiv-Karten, nach Bild-ID abgelegt. */
-  var motivAktualisierer = {};
-
-  function shopBilder(kategorie) {
-    var alle = (typeof GALERIE_BILDER === 'undefined') ? [] : GALERIE_BILDER;
-    return alle.filter(function (b) {
-      return b.imShop !== false && (!kategorie || b.kategorie === kategorie);
-    });
-  }
-
-  function proSeiteWert(kat) {
-    var w = katZustand[kat].proSeite;
-    return (w === 'alle') ? Number.MAX_SAFE_INTEGER : w;
-  }
-
-  function seitenAnzahl(kat) {
-    var n = shopBilder(kat).length;
-    return Math.max(1, Math.ceil(n / proSeiteWert(kat)));
-  }
-
-  function renderMotivFilter() {
-    var el = document.getElementById('motiv-filter');
-    var html = '<button type="button" class="filter-chip active" data-kategorie="alle">Alle</button>';
-    MOTIV_THEMEN.forEach(function (t) {
-      if (!shopBilder(t).length) { return; }
-      html += '<button type="button" class="filter-chip" data-kategorie="' + t + '">' + t + '</button>';
-    });
-    el.innerHTML = html;
-    el.querySelectorAll('.filter-chip').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        el.querySelectorAll('.filter-chip').forEach(function (c) { c.classList.remove('active'); });
-        chip.classList.add('active');
-        var k = chip.getAttribute('data-kategorie');
-        document.querySelectorAll('#motiv-bereich .kat-block').forEach(function (block) {
-          block.style.display = (k === 'alle' || block.getAttribute('data-kategorie') === k) ? '' : 'none';
-        });
-      });
-    });
-  }
-
-  /* Baut das Grundgerüst: pro Kategorie ein Block. Die Motive selbst
-     kommen danach seitenweise über renderKategorie() hinein. */
-  function renderMotivBereich() {
-    var bereich = document.getElementById('motiv-bereich');
-    if (!shopBilder().length) {
-      bereich.innerHTML = '<p class="empty-note">Noch keine Galerie-Motive im Shop freigegeben.</p>';
-      return;
-    }
-
-    bereich.innerHTML = MOTIV_THEMEN.map(function (kat) {
-      var anzahl = shopBilder(kat).length;
-      if (!anzahl) { return ''; }
-      katZustand[kat] = { seite: 1, proSeite: STANDARD_PRO_SEITE };
-
-      var optionen = PRO_SEITE_OPTIONEN.map(function (o) {
-        var label = (o === 'alle') ? 'alle' : o;
-        var sel = (o === STANDARD_PRO_SEITE) ? ' selected' : '';
-        return '<option value="' + o + '"' + sel + '>' + label + '</option>';
-      }).join('');
-
-      var beschreibung = KAT_BESCHREIBUNG[kat]
-        ? '<p class="kat-desc">' + escapeHtml(KAT_BESCHREIBUNG[kat]) + '</p>' : '';
-
-      return '<div class="kat-block" data-kategorie="' + escapeHtml(kat) + '" id="shop-' + escapeHtml(kat.toLowerCase()) + '">' +
-        '<h3>' + escapeHtml(kat) + ' <span class="kat-anzahl">' + anzahl + (anzahl === 1 ? ' Motiv' : ' Motive') + '</span></h3>' +
-        beschreibung +
-        '<div class="kat-toolbar">' +
-          '<span class="treffer" data-rolle="treffer"></span>' +
-          '<label class="pro-seite">Motive pro Seite' +
-            '<select data-rolle="proseite" aria-label="Motive pro Seite in der Kategorie ' + escapeHtml(kat) + '">' + optionen + '</select>' +
-          '</label>' +
-        '</div>' +
-        '<div class="pick-grid" data-rolle="grid"></div>' +
-        '<nav class="pager" data-rolle="pager" aria-label="Seiten der Kategorie ' + escapeHtml(kat) + '"></nav>' +
-      '</div>';
-    }).join('');
-
-    /* "pro Seite" umstellen → zurück auf Seite 1 und neu zeichnen */
-    bereich.addEventListener('change', function (e) {
-      var sel = e.target.closest('[data-rolle="proseite"]');
-      if (!sel) { return; }
-      var kat = sel.closest('.kat-block').getAttribute('data-kategorie');
-      var wert = sel.value;
-      katZustand[kat].proSeite = (wert === 'alle') ? 'alle' : parseInt(wert, 10);
-      katZustand[kat].seite = 1;
-      renderKategorie(kat);
-    });
-
-    /* Blättern */
-    bereich.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-seite]');
-      if (!btn) { return; }
-      var block = btn.closest('.kat-block');
-      var kat = block.getAttribute('data-kategorie');
-      var ziel = parseInt(btn.getAttribute('data-seite'), 10);
-      if (isNaN(ziel) || ziel < 1 || ziel > seitenAnzahl(kat) || ziel === katZustand[kat].seite) { return; }
-      katZustand[kat].seite = ziel;
-      renderKategorie(kat);
-      block.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-
-    MOTIV_THEMEN.forEach(function (kat) {
-      if (katZustand[kat]) { renderKategorie(kat); }
-    });
-  }
-
-  function renderPager(kat, block) {
-    var pager = block.querySelector('[data-rolle="pager"]');
-    var seiten = seitenAnzahl(kat);
-    var aktuell = katZustand[kat].seite;
-
-    if (seiten <= 1) { pager.innerHTML = ''; return; }
-
-    /* Sichtbares Fenster: immer erste, letzte und die Nachbarn der
-       aktuellen Seite — dazwischen ein „…“. */
-    var zeigen = {};
-    zeigen[1] = true; zeigen[seiten] = true;
-    for (var s = aktuell - 1; s <= aktuell + 1; s++) {
-      if (s >= 1 && s <= seiten) { zeigen[s] = true; }
-    }
-
-    var html = '<button type="button" data-seite="' + (aktuell - 1) + '"' +
-      (aktuell === 1 ? ' disabled' : '') + ' aria-label="Vorherige Seite">‹</button>';
-
-    var letzteGezeichnet = 0;
-    for (var i = 1; i <= seiten; i++) {
-      if (!zeigen[i]) { continue; }
-      if (letzteGezeichnet && i - letzteGezeichnet > 1) { html += '<span class="luecke">…</span>'; }
-      html += '<button type="button" data-seite="' + i + '"' +
-        (i === aktuell ? ' aria-current="page"' : '') +
-        ' aria-label="Seite ' + i + '">' + i + '</button>';
-      letzteGezeichnet = i;
-    }
-
-    html += '<button type="button" data-seite="' + (aktuell + 1) + '"' +
-      (aktuell === seiten ? ' disabled' : '') + ' aria-label="Nächste Seite">›</button>';
-
-    pager.innerHTML = html;
-  }
-
-  /* Zeichnet genau eine Kategorie neu (aktuelle Seite). */
-  function renderKategorie(kat) {
-    var block = document.querySelector('.kat-block[data-kategorie="' + kat + '"]');
-    if (!block) { return; }
-
-    var alle = shopBilder(kat);
-    /* Alte Aktualisierer dieser Kategorie wegwerfen — sonst zeigen sie
-       auf Karten, die es im Dokument gar nicht mehr gibt. */
-    alle.forEach(function (b) { delete motivAktualisierer[b.id]; });
-
-    var proSeite = proSeiteWert(kat);
-    var maxSeite = seitenAnzahl(kat);
-    if (katZustand[kat].seite > maxSeite) { katZustand[kat].seite = maxSeite; }
-
-    var von = (katZustand[kat].seite - 1) * proSeite;
-    var bis = Math.min(von + proSeite, alle.length);
-    var bilder = alle.slice(von, bis);
-
-    block.querySelector('[data-rolle="treffer"]').textContent =
-      (alle.length <= proSeite)
-        ? alle.length + (alle.length === 1 ? ' Motiv' : ' Motive')
-        : 'Motiv ' + (von + 1) + '–' + bis + ' von ' + alle.length;
-
-    var grid = block.querySelector('[data-rolle="grid"]');
-    grid.innerHTML = bilder.map(function (b) { return baueKarte(b); }).join('');
-    bilder.forEach(function (b) { verdrahteKarte(b); });
-
-    renderPager(kat, block);
-  }
-
-  /* HTML einer einzelnen Motiv-Karte */
-  function baueKarte(b) {
-      var cid = 'mot-' + b.id;
-      var gewaehlt = formatWahl[b.id] || 'postkarte';
-      var motivPlain = stripHtml(b.beschriftung || b.alt);
-      var titelHtml = b.beschriftung ? b.beschriftung : escapeHtml(motivPlain);
-      var stockPk = stockInfo(b, gewaehlt === 'poster' ? 'poster' : 'postkarte');
-      var zoomHtml = '<button type="button" class="gp-zoom" aria-label="Bild in voller Größe &amp; im Originalformat ansehen" onclick="openGpLightbox(\'' + escapeHtml(b.bild) + '\',\'' + escapeHtml(motivPlain) + '\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Klick für volle Größe</span></button>';
-
-      return '<div class="pick-card" id="motiv-' + escapeHtml(b.id) + '" data-kategorie="' + escapeHtml(b.kategorie) + '">' +
-        '<div class="frame">' +
-          '<span class="gp-star" id="' + cid + '-star"' + (stockPk.vorraetig ? '' : ' style="display:none;"') + '>★ vorrätig</span>' +
-          zoomHtml +
-          '<img src="' + escapeHtml(b.bild) + '" alt="' + escapeHtml(b.alt) + '" loading="lazy">' +
-        '</div>' +
-        '<div class="body"><b>' + titelHtml + '</b>' +
-        '<div class="fmt-pills" id="' + cid + '-pills">' +
-          '<button type="button" class="fmt-pill' + (gewaehlt === 'postkarte' ? ' active' : '') + '" data-fmt="postkarte">Postkarte</button>' +
-          '<button type="button" class="fmt-pill' + (gewaehlt === 'poster' ? ' active' : '') + '" data-fmt="poster">Poster ' + POSTER_FORMAT + '</button>' +
-          '<button type="button" class="fmt-pill' + (gewaehlt === 'download' ? ' active' : '') + '" data-fmt="download">Download</button>' +
-        '</div>' +
-        '<div class="menge-row" id="' + cid + '-mengerow">' +
-          '<label>Menge</label>' +
-          '<span class="stepper" id="' + cid + '-stepper">' +
-            '<button type="button" data-schritt="-1" aria-label="Weniger">−</button>' +
-            '<input type="number" value="1" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
-            '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
-          '</span>' +
-        '</div>' +
-        '<span class="price-line" id="' + cid + '-price"></span>' +
-        '<span class="stock-line" id="' + cid + '-stock"></span>' +
-        /* Text wird in aktualisieren() je nach Format gesetzt —
-           Postkarte und Poster haben verschiedene Druckereien. */
-        '<span class="herkunft-line" id="' + cid + '-herkunft"></span>' +
-        /* Nur bei "Poster A4" und nur, wenn SAAL_SHOP_URL gesetzt ist */
-        '<span id="' + cid + '-saal"></span>' +
-        '<div id="' + cid + '-kauf"></div>' +
-        '</div></div>';
-  }
-
-  /* Verhalten einer einzelnen Motiv-Karte (Format, Menge, Anfrage-Button).
-     Wird nach jedem Blättern für die sichtbaren Karten neu aufgesetzt. */
-  function verdrahteKarte(b) {
-      var cid = 'mot-' + b.id;
-      var motivPlain = stripHtml(b.beschriftung || b.alt);
-      var pillsEl = document.getElementById(cid + '-pills');
-      var mengeRow = document.getElementById(cid + '-mengerow');
-      var stepperEl = document.getElementById(cid + '-stepper');
-      var mengeInput = stepperEl.querySelector('input');
-      var priceEl = document.getElementById(cid + '-price');
-      var stockEl = document.getElementById(cid + '-stock');
-      var herkunftEl = document.getElementById(cid + '-herkunft');
-      var starEl = document.getElementById(cid + '-star');
-      var kaufEl = document.getElementById(cid + '-kauf');
-      var saalEl = document.getElementById(cid + '-saal');
-      var typ = formatWahl[b.id] || 'postkarte';
-
-      function key() { return b.id + '|' + typ; }
-      function bezeichnung() {
-        return typ === 'poster' ? 'Poster ' + POSTER_FORMAT : (typ === 'download' ? 'Download' : 'Postkarte');
-      }
-      function menge() { return Math.max(1, Math.min(parseInt(mengeInput.value, 10) || 1, MAX_MENGE)); }
-
-      /* Zeichnet die Karte neu — wird auch aufgerufen, wenn sich
-         woanders etwas ändert, weil der Staffelpreis von der
-         Gesamtmenge abhängt. */
-      function aktualisieren() {
-        var pos = findePosition(key());
-        if (pos) { mengeInput.value = pos.menge; }
-
-        /* "Größer als A4?"-Link: nur bei Poster und nur mit gesetzter URL */
-        saalEl.innerHTML = (typ === 'poster') ? saalLinkHtml() : '';
-
-        if (typ === 'download') {
-          mengeRow.style.display = '';
-          stockEl.style.display = 'none';
-          herkunftEl.style.display = 'none';
-          starEl.style.display = 'none';
-          var summeDl = PREISE.download * menge();
-          priceEl.innerHTML = euro(summeDl) + (menge() > 1 ? ' <span class="je">(je ' + euro(PREISE.download) + ')</span>' : '');
-          kaufEl.innerHTML = renderKaufSlot(key());
-          return;
-        }
-
-        /* Stückpreis abhängig von der Gesamtmenge im Warenkorb.
-           Ist die Position noch nicht drin, wird sie testweise
-           dazugerechnet — so sieht man den Rabatt schon vorher. */
-        var imKorb = gesamtMenge(typ);
-        var pos2 = findePosition(key());
-        var hypothetisch = imKorb + (pos2 ? 0 : menge());
-        var einzel = stueckPreis(typ, Math.max(hypothetisch, menge()));
-        var basis = STAFFEL[typ][0].proStueck;
-        var summe = einzel * menge();
-
-        mengeRow.style.display = '';
-        priceEl.innerHTML = euro(summe) +
-          (menge() > 1 ? ' <span class="je">(je ' + euro(einzel) + ')</span>' : '') +
-          (einzel < basis ? ' <span class="rabatt">Staffelpreis</span>' : '');
-
-        var stock = stockInfo(b, typ);
-        stockEl.style.display = '';
-        stockEl.className = 'stock-line ' + stock.cls;
-        stockEl.textContent = stock.html;
-        starEl.style.display = stock.vorraetig ? '' : 'none';
-
-        herkunftEl.style.display = '';
-        herkunftEl.textContent = herkunftText(typ);   /* Druckerei passend zum gewählten Format */
-        kaufEl.innerHTML = renderKaufSlot(key());
-      }
-
-      motivAktualisierer[b.id] = aktualisieren;
-
-      pillsEl.querySelectorAll('.fmt-pill').forEach(function (pill) {
-        pill.addEventListener('click', function () {
-          pillsEl.querySelectorAll('.fmt-pill').forEach(function (p) { p.classList.remove('active'); });
-          pill.classList.add('active');
-          typ = pill.getAttribute('data-fmt');
-          formatWahl[b.id] = typ;   /* merken, damit Blättern die Wahl nicht zurücksetzt */
-          var vorhanden = findePosition(key());
-          mengeInput.value = vorhanden ? vorhanden.menge : 1;
-          aktualisieren();
-        });
-      });
-
-      stepperEl.querySelectorAll('button').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var neu = menge() + parseInt(btn.getAttribute('data-schritt'), 10);
-          mengeInput.value = Math.max(1, Math.min(neu, MAX_MENGE));
-          var pos = findePosition(key());
-          if (pos) { positionMenge(pos.key, parseInt(mengeInput.value, 10)); } else { aktualisieren(); }
-        });
-      });
-
-      mengeInput.addEventListener('change', function () {
-        mengeInput.value = menge();
-        var pos = findePosition(key());
-        if (pos) { positionMenge(pos.key, menge()); } else { aktualisieren(); }
-      });
-
-      kaufEl.addEventListener('click', function (e) {
-        var btn = e.target.closest('.btn-hinzufuegen');
-        if (!btn) { return; }
-        if (findePosition(key())) {
-          positionEntfernen(key());
-        } else {
-          positionHinzufuegen({
-            key: key(), typ: typ, motiv: motivPlain,
-            bezeichnung: bezeichnung(), menge: menge()
-          });
-        }
-      });
-
-      aktualisieren();
-  }
-
-  /* ============================================================
-     LESEZEICHEN
-     ============================================================
-     Quelle ist galerie-daten.js — es gibt KEINE eigene Liste.
-     Angezeigt wird jedes Motiv mit bereitsLesezeichen: true (und
-     imShop nicht false). Die Karten stehen alle auf einmal da,
-     ohne Blättern — bei ~10 Motiven ist das übersichtlicher.
-
-     Welches Bild? (Reihenfolge)
-       1. bildLesezeichen, falls in galerie-daten.js angegeben
-       2. sonst automatisch  bilder/lesezeichen/<id>.jpg
-       3. fehlt die Datei → Ersatzansicht aus dem Galeriefoto
-          (siehe lesezeichenBildFehlt weiter unten)
-     ============================================================ */
-  function lesezeichenBilder() {
-    var alle = (typeof GALERIE_BILDER === 'undefined') ? [] : GALERIE_BILDER;
-    return alle.filter(function (b) {
-      return b.imShop !== false && b.bereitsLesezeichen === true;
-    });
-  }
-
-  function lesezeichenBildPfad(b) {
-    return b.bildLesezeichen || ('bilder/lesezeichen/' + b.id + '.jpg');
-  }
-
-  /* Lagerzeile — gleiche Logik wie stockInfo() bei Postkarten,
-     nur mit den Lesezeichen-Feldern und eigenem Text bei 0.
-     Einen "wird erst gedruckt"-Fall gibt es hier nicht, weil nur
-     Motive mit bereitsLesezeichen: true überhaupt erscheinen. */
+  /* Lagerzeile für Lesezeichen. Einen "gibt es noch gar nicht"-Fall
+     braucht es hier nicht: ohne bereitsLesezeichen erscheint das
+     Motiv in dieser Ansicht erst gar nicht. */
   function lesezeichenLager(b) {
     var menge = b.bestandLesezeichen;
     if (menge === 0) {
@@ -1847,84 +1666,162 @@
     return { html: 'Vorrätig', cls: 'ok', vorraetig: true };   /* null = Zahl unbekannt */
   }
 
-  /* Wird vom onerror-Attribut des Bildes aufgerufen, wenn unter
-     bilder/lesezeichen/ (noch) keine passende Datei liegt.
-     Muss deshalb eine globale Funktion sein (kein var/let davor). */
+  /* Welches Foto zeigt die Lesezeichen-Karte?
+       1. bildLesezeichen aus galerie-daten.js, falls angegeben
+       2. sonst automatisch bilder/lesezeichen/<id>.jpg
+       3. fehlt die Datei → lesezeichenBildFehlt() unten springt ein */
+  function lesezeichenBildPfad(b) {
+    return b.bildLesezeichen || ('bilder/lesezeichen/' + b.id + '.jpg');
+  }
+
+  /* Wird vom onerror des Bildes aufgerufen, wenn unter
+     bilder/lesezeichen/ noch keine passende Datei liegt. Muss
+     deshalb global sein (kein var davor). */
   function lesezeichenBildFehlt(img) {
-    img.onerror = null;   /* verhindert eine Endlosschleife, falls auch das Ersatzbild fehlt */
+    img.onerror = null;   /* verhindert eine Endlosschleife */
     var ersatz = img.getAttribute('data-ersatz');
     var frame = img.closest('.frame');
     img.src = ersatz;
-    frame.classList.add('lz-ersatz');                   /* schmaler Hochformat-Zuschnitt, siehe CSS */
-    frame.querySelector('.lz-hinweis').hidden = false;  /* "Beispielansicht" einblenden */
-    /* Die Lupe soll dann das Galeriefoto zeigen statt eines
-       Bildes, das es nicht gibt (sonst leere Lightbox). */
-    frame.querySelector('.gp-zoom').setAttribute('data-src', ersatz);
+    frame.classList.add('lz-ersatz');                    /* schmaler Hochformat-Zuschnitt, siehe CSS */
+    var hinweis = frame.querySelector('.lz-hinweis');
+    if (hinweis) { hinweis.hidden = false; }             /* "Beispielansicht" einblenden */
+    var zoom = frame.querySelector('.gp-zoom');
+    if (zoom) { zoom.setAttribute('data-src', ersatz); } /* Lupe soll nicht ins Leere zeigen */
   }
 
-  function renderLesezeichenGrid() {
-    var grid = document.getElementById('lesezeichen-grid');
-    var liste = lesezeichenBilder();
+  /* Alle Motive, die für die aktuelle Produktart in Frage kommen —
+     vor Serien- und Lagerfilter. */
+  function motiveFuer(produktId) {
+    var art = produktArt(produktId);
+    var alle = (typeof GALERIE_BILDER === 'undefined') ? [] : GALERIE_BILDER;
+    return alle.filter(function (b) { return b.imShop !== false && art.filter(b); });
+  }
 
-    if (!liste.length) {
-      grid.innerHTML = '<p class="empty-note">Die Lesezeichen folgen in Kürze.</p>';
-      return;
-    }
+  /* Dieselbe Liste, zusätzlich durch Serie und "nur Vorrätiges"
+     gefiltert. serieUeberschreiben: für die Zählung in der
+     Seitenleiste, die ja pro Serie eine eigene Zahl braucht. */
+  function motiveGefiltert(serieUeberschreiben) {
+    var art = produktArt(shopZustand.produkt);
+    var serie = serieUeberschreiben || shopZustand.serie;
+    return motiveFuer(shopZustand.produkt).filter(function (b) {
+      if (serie !== 'alle' && b.kategorie !== serie) { return false; }
+      if (shopZustand.nurVorraetig && art.lager && !art.lager(b).vorraetig) { return false; }
+      return true;
+    });
+  }
 
-    grid.innerHTML = liste.map(function (b) {
-      var cid = 'lz-' + b.id;
-      var motivPlain = stripHtml(b.beschriftung || b.alt);
-      var titelHtml = b.beschriftung ? b.beschriftung : escapeHtml(motivPlain);
-      var lager = lesezeichenLager(b);
-      var pfad = lesezeichenBildPfad(b);
+  /* Preisspanne als Fließtext, direkt aus STAFFEL erzeugt — so kann
+     die Anzeige nicht mehr von produkte-daten.js abweichen. */
+  function staffelText(typ) {
+    if (typ === 'download') { return euro(PREISE.download) + ' pro Bild'; }
+    var stufen = STAFFEL[typ] || [];
+    if (!stufen.length) { return ''; }
+    if (stufen.length === 1) { return euro(stufen[0].proStueck) + ' pro Stück'; }
+    return stufen.map(function (st, i) {
+      return (i === 0 ? 'ab 1' : 'ab ' + st.abMenge) + ' je ' + euro(st.proStueck);
+    }).join(' · ');
+  }
 
-      return '<div class="pick-card lz-card" id="' + escapeHtml(cid) + '">' +
-        '<div class="frame">' +
-          '<span class="gp-star"' + (lager.vorraetig ? '' : ' style="display:none;"') + '>★ vorrätig</span>' +
-          '<span class="lz-hinweis" hidden>Beispielansicht</span>' +
-          /* Lupe: Pfad und Titel stehen in data-Attributen statt im
-             onclick — sicherer bei Sonderzeichen im Motivnamen. */
-          '<button type="button" class="gp-zoom" data-src="' + escapeHtml(pfad) + '" data-titel="' + escapeHtml('Lesezeichen · ' + motivPlain) + '" aria-label="Lesezeichen in voller Größe ansehen">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Klick für volle Größe</span>' +
-          '</button>' +
-          '<img src="' + escapeHtml(pfad) + '" data-ersatz="' + escapeHtml(b.bild) + '" alt="Lesezeichen mit Motiv: ' + escapeHtml(b.alt) + '" loading="lazy" onerror="lesezeichenBildFehlt(this)">' +
-        '</div>' +
-        '<div class="body"><b>' + titelHtml + '</b>' +
-          '<div class="menge-row">' +
-            '<label>Menge</label>' +
-            '<span class="stepper" id="' + cid + '-stepper">' +
-              '<button type="button" data-schritt="-1" aria-label="Weniger">−</button>' +
-              '<input type="number" value="1" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
-              '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
-            '</span>' +
-          '</div>' +
-          '<span class="price-line" id="' + cid + '-price"></span>' +
-          '<span class="stock-line ' + lager.cls + '">' + lager.html + '</span>' +
-          '<span class="herkunft-line">' + escapeHtml(herkunftText('lesezeichen')) + '</span>' +
-          '<div id="' + cid + '-kauf"></div>' +
-        '</div></div>';
+  /* Liegt dasselbe Motiv schon in einer ANDEREN Ausführung im
+     Warenkorb? Ohne diesen Hinweis wundert man sich beim Wechsel
+     der Produktart, warum der Knopf wieder "hinzufügen" sagt. */
+  function anderswoImKorb(b, typ) {
+    var treffer = auswahl.filter(function (pos) {
+      return pos.key.indexOf(b.id + '|') === 0 && pos.typ !== typ;
+    });
+    if (!treffer.length) { return ''; }
+    return treffer.map(function (pos) { return pos.menge + '× als ' + pos.bezeichnung; }).join(', ') + ' im Warenkorb';
+  }
+
+  /* ---------- Seitenleiste ---------- */
+
+  function filterKnopf(wert, label, anzahl, aktiv, attr) {
+    return '<button type="button" class="filter-opt" ' + attr + '="' + escapeHtml(wert) + '"' +
+      ' aria-pressed="' + (aktiv ? 'true' : 'false') + '"' +
+      (anzahl === 0 ? ' disabled' : '') + '>' +
+      '<span>' + escapeHtml(label) + '</span>' +
+      '<span class="zahl">' + anzahl + '</span></button>';
+  }
+
+  function renderFilter() {
+    /* Produktarten. Die Zahl zeigt, wie viele Motive es dort gibt —
+       Lesezeichen stehen so auch bei 0 sichtbar, aber ausgegraut. */
+    document.getElementById('filter-produkt').innerHTML = PRODUKTARTEN.map(function (art) {
+      return filterKnopf(art.id, art.label, motiveFuer(art.id).length,
+        art.id === shopZustand.produkt, 'data-produkt');
     }).join('');
 
-    /* Lupe — ein einziger Listener für das ganze Raster */
-    grid.addEventListener('click', function (e) {
-      var zoom = e.target.closest('.gp-zoom');
-      if (!zoom) { return; }
-      openGpLightbox(zoom.getAttribute('data-src'), zoom.getAttribute('data-titel'));
+    /* Serien. Zählung immer bezogen auf die aktuelle Produktart. */
+    var serienHtml = filterKnopf('alle', 'Alle Serien', motiveGefiltert('alle').length,
+      shopZustand.serie === 'alle', 'data-serie');
+    MOTIV_THEMEN.forEach(function (serie) {
+      serienHtml += filterKnopf(serie, serie, motiveGefiltert(serie).length,
+        shopZustand.serie === serie, 'data-serie');
     });
+    document.getElementById('filter-serie').innerHTML = serienHtml;
 
-    liste.forEach(function (b) { verdrahteLesezeichen(b); });
+    /* Bei Downloads gibt es keinen Lagerbestand — Häkchen ausblenden. */
+    document.getElementById('filter-lager-gruppe').hidden = !produktArt(shopZustand.produkt).lager;
   }
 
-  /* Verhalten einer Lesezeichen-Karte: Menge, Preis, Warenkorb.
-     Abgespeckte Fassung von verdrahteKarte() — ohne Format-Pillen,
-     weil ein Lesezeichen nur eine Ausführung hat. */
-  function verdrahteLesezeichen(b) {
-    var cid = 'lz-' + b.id;
-    var key = b.id + '|lesezeichen';          /* eindeutig, kollidiert nicht mit b.id|postkarte */
+  /* ---------- Karte ---------- */
+
+  function baueKarte(b, art) {
+    var cid = 'mot-' + b.id;
+    var motivPlain = stripHtml(b.beschriftung || b.alt);
+    var titelHtml = b.beschriftung ? b.beschriftung : escapeHtml(motivPlain);
+    var pfad = art.bild(b);
+    var lager = art.lager ? art.lager(b) : null;
+    var istLesezeichen = (art.id === 'lesezeichen');
+
+    /* Lupe: Pfad und Titel in data-Attributen statt im onclick —
+       robuster bei Anführungszeichen im Motivnamen. */
+    var zoom = '<button type="button" class="gp-zoom" data-src="' + escapeHtml(pfad) + '"' +
+      ' data-titel="' + escapeHtml(istLesezeichen ? 'Lesezeichen · ' + motivPlain : motivPlain) + '"' +
+      ' aria-label="Bild in voller Größe ansehen">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>' +
+      '<span>Klick für volle Größe</span></button>';
+
+    var bildTag = istLesezeichen
+      ? '<img src="' + escapeHtml(pfad) + '" data-ersatz="' + escapeHtml(b.bild) + '" alt="Lesezeichen mit Motiv: ' + escapeHtml(b.alt) + '" loading="lazy" onerror="lesezeichenBildFehlt(this)">'
+      : '<img src="' + escapeHtml(pfad) + '" alt="' + escapeHtml(b.alt) + '" loading="lazy">';
+
+    return '<div class="pick-card' + (istLesezeichen ? ' lz-card' : '') + '" id="motiv-' + escapeHtml(b.id) + '">' +
+      '<div class="frame">' +
+        (lager ? '<span class="gp-star" id="' + cid + '-star"' + (lager.vorraetig ? '' : ' style="display:none;"') + '>★ vorrätig</span>' : '') +
+        (istLesezeichen ? '<span class="lz-hinweis" hidden>Beispielansicht</span>' : '') +
+        zoom + bildTag +
+      '</div>' +
+      '<div class="body">' +
+        '<b>' + titelHtml + '</b>' +
+        '<span class="karte-serie">' + escapeHtml(b.kategorie) + '</span>' +
+        '<span class="price-line" id="' + cid + '-price"></span>' +
+        (lager ? '<span class="stock-line ' + lager.cls + '" id="' + cid + '-stock">' + lager.html + '</span>' : '') +
+        '<span class="karte-anderswo" id="' + cid + '-anderswo"></span>' +
+        '<div class="menge-row">' +
+          '<label for="' + cid + '-menge">Menge</label>' +
+          '<span class="stepper" id="' + cid + '-stepper">' +
+            '<button type="button" data-schritt="-1" aria-label="Weniger">−</button>' +
+            '<input type="number" id="' + cid + '-menge" value="1" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
+            '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
+          '</span>' +
+        '</div>' +
+        '<div class="kauf-slot" id="' + cid + '-kauf"></div>' +
+      '</div></div>';
+  }
+
+  /* Verhalten einer Karte: Menge, Preis, Warenkorb.
+     Die Produktart steht fest — sie kommt vom Filter, nicht mehr
+     von Knöpfen auf der Karte. */
+  function verdrahteKarte(b, art) {
+    var cid = 'mot-' + b.id;
+    var typ = art.id;
+    var key = b.id + '|' + typ;
     var motivPlain = stripHtml(b.beschriftung || b.alt);
     var stepperEl = document.getElementById(cid + '-stepper');
     var mengeInput = stepperEl.querySelector('input');
     var priceEl = document.getElementById(cid + '-price');
+    var anderswoEl = document.getElementById(cid + '-anderswo');
     var kaufEl = document.getElementById(cid + '-kauf');
 
     function menge() { return Math.max(1, Math.min(parseInt(mengeInput.value, 10) || 1, MAX_MENGE)); }
@@ -1933,29 +1830,31 @@
       var pos = findePosition(key);
       if (pos) { mengeInput.value = pos.menge; }
 
-      /* Wie bei den Postkarten: Ist das Lesezeichen noch nicht im
-         Warenkorb, wird es testweise zur Gesamtmenge dazugezählt —
-         so sieht man den 3-für-5-Preis schon, bevor man klickt. */
-      var hypothetisch = gesamtMenge('lesezeichen') + (pos ? 0 : menge());
-      var einzel = stueckPreis('lesezeichen', Math.max(hypothetisch, menge()));
-      var basis = STAFFEL.lesezeichen[0].proStueck;
+      if (typ === 'download') {
+        var summeDl = PREISE.download * menge();
+        priceEl.innerHTML = euro(summeDl) +
+          (menge() > 1 ? ' <span class="je">(je ' + euro(PREISE.download) + ')</span>' : '');
+      } else {
+        /* Stückpreis hängt an der Gesamtmenge dieser Produktart.
+           Ist die Position noch nicht im Korb, wird sie testweise
+           dazugerechnet — so sieht man den Staffelpreis vorher. */
+        var hypothetisch = gesamtMenge(typ) + (pos ? 0 : menge());
+        var einzel = stueckPreis(typ, Math.max(hypothetisch, menge()));
+        var basis = STAFFEL[typ][0].proStueck;
+        priceEl.innerHTML = euro(einzel * menge()) +
+          (menge() > 1 ? ' <span class="je">(je ' + euro(einzel) + ')</span>' : '') +
+          (einzel < basis ? ' <span class="rabatt">Staffelpreis</span>' : '');
+      }
 
-      priceEl.innerHTML = euro(einzel * menge()) +
-        (menge() > 1 ? ' <span class="je">(je ' + euro(einzel) + ')</span>' : '') +
-        (einzel < basis ? ' <span class="rabatt">Staffelpreis</span>' : '');
-
+      anderswoEl.textContent = anderswoImKorb(b, typ);
       kaufEl.innerHTML = renderKaufSlot(key);
     }
 
-    /* In das Register der immer sichtbaren Karten eintragen — dann
-       rechnet die Karte automatisch neu, wenn woanders ein weiteres
-       Lesezeichen in den Warenkorb kommt (Staffel!). */
-    kartenAktualisierer.push(aktualisieren);
+    motivAktualisierer[b.id] = aktualisieren;
 
     stepperEl.querySelectorAll('button').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var neu = menge() + parseInt(btn.getAttribute('data-schritt'), 10);
-        mengeInput.value = Math.max(1, Math.min(neu, MAX_MENGE));
+        mengeInput.value = Math.max(1, Math.min(menge() + parseInt(btn.getAttribute('data-schritt'), 10), MAX_MENGE));
         if (findePosition(key)) { positionMenge(key, parseInt(mengeInput.value, 10)); } else { aktualisieren(); }
       });
     });
@@ -1971,13 +1870,115 @@
         positionEntfernen(key);
       } else {
         positionHinzufuegen({
-          key: key, typ: 'lesezeichen', motiv: motivPlain,
-          bezeichnung: 'Lesezeichen', menge: menge()
+          key: key, typ: typ, motiv: motivPlain,
+          bezeichnung: art.bezeichnung, menge: menge()
         });
       }
     });
 
     aktualisieren();
+  }
+
+  /* ---------- Raster ---------- */
+
+  function renderShop() {
+    var art = produktArt(shopZustand.produkt);
+    var liste = motiveGefiltert();
+    var gesamt = liste.length;
+    var zeigen = Math.min(shopZustand.sichtbar, gesamt);
+
+    document.getElementById('shop-produkt-titel').textContent = art.label;
+
+    var infoEl = document.getElementById('shop-produkt-info');
+    var staffel = staffelText(art.id);
+    infoEl.innerHTML = escapeHtml(art.info()) +
+      (staffel ? ' <span class="staffel-inline">' + escapeHtml(staffel) + '</span>' : '') +
+      (art.id === 'lesezeichen' ? ' <span class="staffel-inline">„3 für 5 €“ gibt es nur am Marktstand.</span>' : '');
+
+    /* Hinweisband: bei Postern der Verweis auf große Formate. */
+    document.getElementById('shop-band').innerHTML =
+      (art.id === 'poster')
+        ? '<div class="shop-band"><span>Du möchtest es größer, auf Leinwand oder Alu-Dibond?</span><a href="#grossformate">Große Formate über Saal Digital →</a></div>'
+        : '';
+
+    document.getElementById('shop-treffer').textContent =
+      gesamt === 0 ? '' : (zeigen < gesamt ? zeigen + ' von ' + gesamt + ' Motiven' : gesamt + (gesamt === 1 ? ' Motiv' : ' Motive'));
+
+    var grid = document.getElementById('shop-grid');
+    motivAktualisierer = {};   /* Karten von eben sind gleich weg */
+
+    if (!gesamt) {
+      grid.innerHTML = '<p class="empty-note">' +
+        escapeHtml(art.leerText || 'Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.') +
+        '</p>';
+      document.getElementById('shop-mehr').innerHTML = '';
+      return;
+    }
+
+    var sichtbare = liste.slice(0, zeigen);
+    grid.innerHTML = sichtbare.map(function (b) { return baueKarte(b, art); }).join('');
+    sichtbare.forEach(function (b) { verdrahteKarte(b, art); });
+
+    var rest = gesamt - zeigen;
+    document.getElementById('shop-mehr').innerHTML = rest > 0
+      ? '<button type="button" id="shop-mehr-btn">Weitere ' + Math.min(rest, MOTIVE_PRO_SEITE) + ' Motive anzeigen</button>'
+      : '';
+
+    renderFilter();
+  }
+
+  /* Produktart wechseln — auch von außen aufgerufen (Sprunglinks,
+     Direktlinks aus Galerie und Geschichten). */
+  function shopProduktSetzen(id, serieBeibehalten) {
+    if (!id || id === shopZustand.produkt) { return; }
+    shopZustand.produkt = id;
+    if (!serieBeibehalten) { shopZustand.serie = 'alle'; }
+    shopZustand.sichtbar = MOTIVE_PRO_SEITE;
+    renderShop();
+  }
+
+  function setupShop() {
+    /* Ein Klick-Zuhörer für die ganze Seitenleiste statt einem pro
+       Knopf — die Knöpfe werden ja bei jedem Zeichnen neu gebaut. */
+    document.querySelector('.shop-filter').addEventListener('click', function (e) {
+      var btn = e.target.closest('.filter-opt');
+      if (!btn) { return; }
+      if (btn.hasAttribute('data-produkt')) {
+        shopProduktSetzen(btn.getAttribute('data-produkt'));
+      } else if (btn.hasAttribute('data-serie')) {
+        shopZustand.serie = btn.getAttribute('data-serie');
+        shopZustand.sichtbar = MOTIVE_PRO_SEITE;
+        renderShop();
+      }
+    });
+
+    document.getElementById('filter-vorraetig').addEventListener('change', function (e) {
+      shopZustand.nurVorraetig = e.target.checked;
+      shopZustand.sichtbar = MOTIVE_PRO_SEITE;
+      renderShop();
+    });
+
+    document.getElementById('shop-mehr').addEventListener('click', function (e) {
+      if (!e.target.closest('#shop-mehr-btn')) { return; }
+      shopZustand.sichtbar += MOTIVE_PRO_SEITE;
+      renderShop();
+    });
+
+    /* Lupe — ein Zuhörer für das ganze Raster */
+    document.getElementById('shop-grid').addEventListener('click', function (e) {
+      var zoom = e.target.closest('.gp-zoom');
+      if (!zoom) { return; }
+      openGpLightbox(zoom.getAttribute('data-src'), zoom.getAttribute('data-titel'));
+    });
+
+    /* Die Links im Kopf stellen die Produktart gleich mit ein. */
+    document.querySelectorAll('.shop-tabs a[data-produkt]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        shopProduktSetzen(a.getAttribute('data-produkt'));
+      });
+    });
+
+    renderShop();
   }
 
   /* ---------- Sticker ----------
@@ -2347,64 +2348,76 @@
   }
 
   /* ============================================================
-     SPRUNG AUS DER GALERIE (…#motiv-teichleben1)
+     SPRUNG AUS GALERIE, GESCHICHTE ODER QR-CODE
      ============================================================
-     Weil jetzt geblättert wird, kann das gesuchte Motiv auf Seite 2
-     oder 3 liegen. Deshalb zuerst die richtige Seite aufschlagen,
-     dann hinscrollen und kurz hervorheben. */
+     Mögliche Adressen:
+       #motiv-teichleben1  → Motiv als Postkarte zeigen
+       #lz-teichleben1     → dasselbe Motiv als Lesezeichen
+       #lesezeichen        → Produktart Lesezeichen aufschlagen
+     Weil immer nur ein Ausschnitt der Motive im Raster steht, muss
+     erst der Filter passend gestellt und notfalls nachgeladen
+     werden — sonst zeigt der Link auf eine Karte, die es im
+     Dokument gerade nicht gibt. */
   function hervorhebenBeiSprungmarke() {
     var hash = window.location.hash.replace('#', '');
+    if (!hash) { return; }
 
+    /* Alte Links auf die früheren eigenen Bereiche: Die gibt es so
+       nicht mehr, sie sind jetzt Produktarten im Filter. */
+    if (hash === 'lesezeichen' || hash === 'downloads') {
+      shopProduktSetzen(hash === 'downloads' ? 'download' : 'lesezeichen');
+      document.getElementById('motive').scrollIntoView();
+      return;
+    }
     /* Alte Links/QR-Codes auf #sticker: Solange es keine Sticker
-       gibt, ist der Bereich unsichtbar — dann stattdessen zu den
-       Lesezeichen springen, statt irgendwo oben hängenzubleiben. */
+       gibt, ist der Bereich unsichtbar — dann zu den Lesezeichen. */
     if (hash === 'sticker' && !hatSticker()) {
-      var lz = document.getElementById('lesezeichen');
-      if (lz) { lz.scrollIntoView(); }
+      shopProduktSetzen('lesezeichen');
+      document.getElementById('motive').scrollIntoView();
       return;
     }
 
-    /* Direktlink auf ein einzelnes Lesezeichen, z. B.
-       produkte-bestellen.html#lz-teichleben1 (praktisch für QR-Codes).
-       Kein Blättern nötig, die Lesezeichen stehen alle auf einer Seite. */
-    if (hash.indexOf('lz-') === 0) {
-      var lzKarte = document.getElementById(hash);
-      if (!lzKarte) { return; }
-      lzKarte.scrollIntoView({ block: 'center' });
-      lzKarte.classList.add('hervorgehoben');
-      setTimeout(function () { lzKarte.classList.remove('hervorgehoben'); }, 2600);
-      return;
+    /* Einzelnes Motiv. "lz-" zeigt es als Lesezeichen, "motiv-" in
+       der gerade eingestellten Produktart (beim Laden: Postkarte). */
+    var istLesezeichen = (hash.indexOf('lz-') === 0);
+    if (!istLesezeichen && hash.indexOf('motiv-') !== 0) { return; }
+
+    var bildId = istLesezeichen ? hash.slice('lz-'.length) : hash.slice('motiv-'.length);
+    if (istLesezeichen) { shopProduktSetzen('lesezeichen'); }
+
+    /* Serienfilter aufheben und so weit nachladen, dass das Motiv
+       wirklich im Raster steht. */
+    var index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
+    if (index === -1 && shopZustand.serie !== 'alle') {
+      shopZustand.serie = 'alle';
+      index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
     }
-
-    if (!hash || hash.indexOf('motiv-') !== 0) { return; }
-
-    var bildId = hash.slice('motiv-'.length);
-    var bild = shopBilder().filter(function (b) { return b.id === bildId; })[0];
-
-    if (bild && katZustand[bild.kategorie]) {
-      var kat = bild.kategorie;
-      var liste = shopBilder(kat);
-      var index = liste.map(function (b) { return b.id; }).indexOf(bildId);
-      if (index > -1) {
-        var seite = Math.floor(index / proSeiteWert(kat)) + 1;
-        if (seite !== katZustand[kat].seite) {
-          katZustand[kat].seite = seite;
-          renderKategorie(kat);
-        }
-      }
+    if (index === -1 && shopZustand.nurVorraetig) {
+      shopZustand.nurVorraetig = false;
+      document.getElementById('filter-vorraetig').checked = false;
+      index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
     }
+    if (index === -1) { return; }   /* Motiv gibt es in dieser Ausführung nicht */
 
-    var el = document.getElementById(hash);
-    if (!el || !el.classList.contains('pick-card')) { return; }
+    if (index + 1 > shopZustand.sichtbar) {
+      shopZustand.sichtbar = Math.ceil((index + 1) / MOTIVE_PRO_SEITE) * MOTIVE_PRO_SEITE;
+    }
+    renderShop();
+
+    var el = document.getElementById('motiv-' + bildId);
+    if (!el) { return; }
     el.scrollIntoView({ block: 'center' });
     el.classList.add('hervorgehoben');
     setTimeout(function () { el.classList.remove('hervorgehoben'); }, 2600);
   }
 
-  renderMotivFilter();
-  renderMotivBereich();
+  /* Wechselt der Anker, ohne dass die Seite neu lädt (Link auf
+     derselben Seite, Zurück-Taste), muss der Filter trotzdem
+     nachziehen. */
+  window.addEventListener('hashchange', hervorhebenBeiSprungmarke);
+
+  setupShop();
   renderSaalBereich();
-  renderLesezeichenGrid();
   renderStickerGrid();
   setupBestellSchalter();   /* muss vor formularAnpassen() laufen */
   formularAnpassen();

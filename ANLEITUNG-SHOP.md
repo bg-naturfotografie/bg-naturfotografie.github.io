@@ -203,6 +203,55 @@ Anfrageformular. Rechtlich wichtig: Bei Bestellungen dort ist
 **Saal Digital Vertragspartner** (steht so in AGB Punkt 3.1 und in
 der Datenschutzerklärung) — deine AGB gelten dafür nicht.
 
+## So ist der Shop aufgebaut
+
+Es gibt **einen** Motivbereich, nicht mehrere untereinander. Links
+steht die Filterleiste, rechts das Raster:
+
+- **Produkt** — Postkarten, Poster A4, Lesezeichen, Downloads.
+  Immer genau eines ist aktiv. Die Formatknöpfe auf den einzelnen
+  Karten gibt es nicht mehr.
+- **Serie** — Teichleben, Gartenleben, Waldleben, Reduktion. Die
+  Serien stehen also nicht mehr als eigene Blöcke untereinander;
+  stattdessen mischen sich alle Serien im Raster und jede Karte
+  trägt ihren Seriennamen klein unter dem Motivtitel.
+- **Nur was auf Lager liegt** — blendet Nachdrucke aus. Bei
+  Downloads ist das Häkchen automatisch weg.
+- Die Zahl hinter jedem Filter sagt, wie viele Motive dahinter
+  stecken. Ist sie 0, ist der Eintrag ausgegraut.
+
+Angezeigt werden **12 Motive**, der Rest kommt über „Weitere Motive
+anzeigen“ nach. Ändern: `MOTIVE_PRO_SEITE` oben im Script von
+`produkte-bestellen.html`. 12 geht in 2, 3 und 4 Spalten glatt auf —
+bei 10 bleibt in der letzten Zeile eine Lücke.
+
+Auf dem Handy wird aus der Seitenleiste eine waagerechte Reihe zum
+Wischen, und das Raster zeigt zwei Karten nebeneinander.
+
+### Eine Produktart ändern oder ergänzen
+
+Alles steckt in der Liste `PRODUKTARTEN` im Script. Ein Eintrag
+sagt, wie das Produkt heißt (`label`), wie die Position im
+Warenkorb und in deiner Mail heißt (`bezeichnung`), welcher
+Infotext unter der Überschrift steht (`info`), welche Motive
+überhaupt in Frage kommen (`filter`), woher die Lagerzeile kommt
+(`lager`) und welches Foto die Karte zeigt (`bild`). Der Preis
+kommt aus `STAFFEL`/`PREISE` in `produkte-daten.js` und muss
+denselben `id` benutzen.
+
+### Direktlinks
+
+- `produkte-bestellen.html#motiv-teichleben1` — Motiv in der
+  gerade eingestellten Produktart, standardmäßig als Postkarte.
+- `produkte-bestellen.html#lz-teichleben1` — dasselbe Motiv als
+  Lesezeichen; die Produktart wird automatisch umgestellt.
+- `produkte-bestellen.html#lesezeichen` — schlägt gleich die
+  Lesezeichen auf (so verlinkt die Startseite).
+
+Liegt das Motiv weiter hinten, lädt die Seite selbstständig so weit
+nach, bis die Karte wirklich da ist, und hebt sie kurz hervor. Steht
+ein Serienfilter im Weg, wird er dafür aufgehoben.
+
 ## Sticker pflegen → `produkte-daten.js` → `STICKER`
 
 Jeder Eintrag: `id`, `motiv`, `kategorie` (optional), `preis`,
@@ -211,7 +260,7 @@ der Datei zum Kopieren.
 
 **Solange `STICKER` leer ist, ist der Sticker-Bereich komplett
 unsichtbar** — auch der Sprunglink oben im Shop. Alte Links auf
-`#sticker` landen dann bei den Lesezeichen. Mit dem ersten Eintrag
+`#sticker` schlagen dann die Lesezeichen auf. Mit dem ersten Eintrag
 erscheint alles automatisch. Auf der Startseite gibt es aktuell nur
 die Lesezeichen-Kachel; für Sticker später eine vierte Kachel nach
 demselben Muster ergänzen (Kommentar steht in `index.html`).
@@ -227,8 +276,9 @@ den Motiven ist. Wer es wissen will, klappt auf.
 Willst du einen Block standardmäßig offen haben, im HTML einfach
 `<details class="info-fold" open>` schreiben.
 
-Über dem Motivraster steht nur noch eine kompakte Staffel-Zeile —
-die Details stehen im aufklappbaren Bereich, nicht doppelt.
+Die Staffelpreise stehen zusätzlich als eine Zeile über dem
+Motivraster — die baut sich automatisch aus `STAFFEL` und kann
+deshalb nicht mehr von den echten Preisen abweichen.
 
 ## Merch — bewusst raus aus dem Sortiment
 
