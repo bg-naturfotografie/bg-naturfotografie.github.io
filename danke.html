@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     DANKE-SEITE
+     Hierhin leitet Formspree nach dem Absenden des Formulars im
+     Shop weiter. Die Adresse dafür steht im versteckten Feld
+     "_next" und wird beim Absenden zusammengebaut — siehe
+     dankeSeiteVorbereiten() in produkte-bestellen.html.
+
+     Die Seite arbeitet ausschließlich mit den Parametern in der
+     Adresszeile:
+       art     = bestellung | anfrage
+       liefer  = versand | abholung | digital
+       zahl    = vorab | bar
+       ware    = Warenwert in Euro, z. B. 24.50
+       versand = Versandkosten in Euro
+       pos     = Positionen, Zeilen mit | getrennt,
+                 je Zeile: Menge~Motiv~Ausführung~Zeilensumme
+       viele   = Ersatz für pos, wenn die Liste zu lang war
+
+     Ruft jemand die Seite ohne Parameter auf (Lesezeichen,
+     Zurück-Taste), erscheint eine allgemeine Fassung ohne
+     Bestellübersicht. Kaputt geht dabei nichts.
+
+     WICHTIG, falls du hier Texte änderst: Der Hinweis, dass die
+     automatische Mail nur eine EINGANGSbestätigung ist und der
+     Vertrag erst mit deiner Auftragsbestätigung zustande kommt,
+     steht so auch in den AGB unter Punkt 2.4. Beides muss
+     zusammenpassen.
+     ============================================================ -->
+<title>Danke — deine Nachricht ist da | BG Naturfotografie</title>
+<meta name="description" content="Bestätigung nach dem Absenden einer Bestellung oder Anfrage bei BG Naturfotografie.">
+<link rel="canonical" href="https://bg-naturfotografie.de/danke.html">
+
+<!-- Bewusst noindex: Eine Bestätigungsseite gehört nicht in die
+     Google-Suche. Sie steht deshalb auch nicht in sitemap.xml und
+     ist zusätzlich in robots.txt ausgeschlossen. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="author" content="Benedict Gertz">
+<meta name="theme-color" content="#11140F">
+<link rel="icon" href="bilder/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="bilder/logo.png">
+
+<link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
+
+<style>
+  .danke-wrap{ max-width:56rem; margin:0 auto; padding:8rem 1.6rem 4rem; }
+
+  /* Kopf: Häkchen und Überschrift nebeneinander, auf schmalen
+     Bildschirmen untereinander. */
+  .danke-kopf{ display:flex; align-items:flex-start; gap:1.2rem; margin-bottom:1.6rem; }
+  .danke-haken{
+    flex-shrink:0; width:52px; height:52px; border-radius:50%;
+    border:1px solid var(--accent); color:var(--accent-soft);
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(201,124,61,0.12);
+  }
+  .danke-haken svg{ width:26px; height:26px; }
+  .danke-kopf h1{ font-size:clamp(1.7rem, 3.4vw, 2.3rem); margin:0 0 .4rem; }
+  .danke-kopf .unter{ color:var(--text-muted); font-size:1rem; margin:0; line-height:1.6; }
+
+  .danke-wrap h2{
+    font-size:1.15rem; margin:2.6rem 0 .9rem;
+    padding-bottom:.5rem; border-bottom:1px solid var(--line);
+  }
+  .danke-wrap p{ color:var(--text-muted); line-height:1.75; font-size:.94rem; margin:0 0 1rem; }
+  /* Bewusst nur Links im Fließtext: ein pauschales .danke-wrap a
+     würde auch die Knöpfe unten einfärben und deren Beschriftung
+     auf dem orangen Knopf unlesbar machen. */
+  .danke-wrap p a, .danke-wrap li a{ color:var(--accent-soft); }
+
+  /* Kasten mit dem rechtlich wichtigen Hinweis zum Vertragsschluss */
+  .danke-hinweis{
+    padding:1rem 1.2rem; margin:1.6rem 0;
+    background:var(--bg-panel); border:1px solid var(--line);
+    border-left:2px solid var(--accent); border-radius:var(--radius);
+  }
+  .danke-hinweis p{ margin:0; font-size:.9rem; }
+  .danke-hinweis p + p{ margin-top:.7rem; }
+  .danke-hinweis strong{ color:var(--text-light); font-weight:500; }
+
+  /* Bestellübersicht */
+  .danke-uebersicht{
+    background:var(--bg-panel-2); border:1px solid var(--line);
+    border-radius:var(--radius); padding:1.2rem 1.4rem;
+  }
+  .danke-uebersicht ul{ list-style:none; margin:0; padding:0; }
+  .danke-uebersicht li{
+    display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+    padding:.5rem 0; border-bottom:1px solid var(--line);
+    font-size:.9rem; color:var(--text-light);
+  }
+  .danke-uebersicht .pos-typ{
+    display:block; font-family:'JetBrains Mono', monospace;
+    font-size:.68rem; letter-spacing:.05em; text-transform:uppercase; color:var(--text-muted);
+  }
+  .danke-uebersicht .betrag{
+    font-family:'JetBrains Mono', monospace; font-size:.86rem;
+    color:var(--accent-soft); white-space:nowrap;
+  }
+  .danke-summe{ margin-top:.9rem; display:flex; flex-direction:column; gap:.35rem; }
+  .danke-summe div{
+    display:flex; justify-content:space-between; gap:1rem;
+    font-family:'JetBrains Mono', monospace; font-size:.84rem; color:var(--text-muted);
+  }
+  .danke-summe .gesamt{
+    color:var(--text-light); font-size:1rem;
+    padding-top:.6rem; border-top:1px solid var(--line);
+  }
+  .danke-klein{
+    font-family:'JetBrains Mono', monospace; font-size:.7rem;
+    color:var(--text-muted); margin:.9rem 0 0;
+  }
+
+  /* Ablauf in Schritten */
+  .danke-schritte{ list-style:none; margin:0; padding:0; counter-reset:schritt; }
+  .danke-schritte li{
+    counter-increment:schritt; position:relative;
+    padding:0 0 1.2rem 2.6rem; color:var(--text-muted);
+    font-size:.94rem; line-height:1.7;
+  }
+  .danke-schritte li::before{
+    content:counter(schritt); position:absolute; left:0; top:0;
+    width:1.7rem; height:1.7rem; border-radius:50%;
+    border:1px solid var(--line); color:var(--accent-soft);
+    font-family:'JetBrains Mono', monospace; font-size:.75rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .danke-schritte li b{ color:var(--text-light); font-weight:500; }
+
+  .danke-knoepfe{ display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2.4rem; }
+
+  @media (max-width:520px){
+    .danke-kopf{ flex-direction:column; gap:.9rem; }
+    .danke-uebersicht{ padding:1rem; }
+  }
+</style>
+</head>
+<body>
+
+<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<nav class="nav" aria-label="Hauptmenü">
+  <div class="wrap">
+    <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
+      <b>BG</b> Naturfotografie</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="produkte-bestellen.html">Shop</a></li>
+      <li><a href="geschichten.html">Geschichten</a></li>
+      <li><a href="karte.html">Karte</a></li>
+      <li><a href="index.html#ueber-mich">Über mich</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="danke-wrap" id="inhalt" tabindex="-1">
+
+  <div class="danke-kopf">
+    <span class="danke-haken" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 12.5 9.5 18 20 6.5"></polyline></svg>
+    </span>
+    <div>
+      <!-- Überschrift und Unterzeile setzt das Script je nach Bestellart. -->
+      <h1 id="danke-titel">Danke — deine Nachricht ist da</h1>
+      <p class="unter" id="danke-unter">Ich habe sie bekommen und melde mich bei dir.</p>
+    </div>
+  </div>
+
+  <!-- Rechtlicher Hinweis, nur bei einer verbindlichen Bestellung -->
+  <div class="danke-hinweis" id="danke-vertrag" hidden>
+    <p><strong>Diese Seite und die automatische E-Mail sind eine Eingangsbestätigung — noch keine Annahme deiner Bestellung.</strong>
+      Der Kaufvertrag kommt zustande, sobald ich dir die Bestellung ausdrücklich per E-Mail bestätige (Auftragsbestätigung, in der Regel innerhalb von 2–3 Werktagen) oder die Ware übergebe bzw. verschicke.</p>
+    <p>Nehme ich deine Bestellung nicht innerhalb von 5 Werktagen an, bist du nicht mehr daran gebunden. Nachzulesen in den <a href="agb.html">AGB unter Punkt 2.4</a>.</p>
+  </div>
+
+  <!-- Bestellübersicht — nur, wenn Parameter in der Adresse stehen -->
+  <div id="danke-uebersicht-block" hidden>
+    <h2 id="danke-uebersicht-titel">Deine Auswahl</h2>
+    <div class="danke-uebersicht">
+      <ul id="danke-positionen"></ul>
+      <div class="danke-summe" id="danke-summen"></div>
+      <p class="danke-klein">Kleinunternehmer nach § 19 UStG — es wird keine Umsatzsteuer ausgewiesen.</p>
+    </div>
+  </div>
+
+  <h2>Wie es weitergeht</h2>
+  <ol class="danke-schritte" id="danke-schritte"></ol>
+
+  <h2>Falls du es dir anders überlegst</h2>
+  <p id="danke-widerruf">Schreib mir einfach — solange ich noch nichts bestätigt oder verschickt habe, ist eine Änderung völlig unkompliziert.</p>
+
+  <h2>Keine E-Mail bekommen?</h2>
+  <p>Die Bestätigung kommt sofort. Taucht sie nach ein paar Minuten nicht auf, schau bitte kurz in den Spam-Ordner. Ist sie auch dort nicht, melde dich über das <a href="produkte-bestellen.html#kontakt-anfrage">Formular im Shop</a> oder direkt per E-Mail an <a href="mailto:impressum.skarvaan@web.de">impressum.skarvaan@web.de</a> — dann ist bei der Zustellung etwas schiefgegangen und ich schicke dir alles noch einmal.</p>
+
+  <div class="danke-knoepfe">
+    <a class="btn btn-fill" href="produkte-bestellen.html">Weiter im Shop</a>
+    <a class="btn btn-outline" href="geschichten.html">Geschichten lesen</a>
+    <a class="btn btn-outline" href="index.html">Zur Startseite</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 BG Naturfotografie</span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Kleine Helfer ---------- */
+
+  function euro(n) {
+    return n.toFixed(2).replace('.', ',') + ' €';
+  }
+
+  /* Alles, was aus der Adresszeile kommt, wird als Text eingesetzt
+     (textContent), nie als HTML — sonst könnte man über einen
+     manipulierten Link fremde Inhalte einschleusen. */
+  function zeile(text, betrag, typ) {
+    var li = document.createElement('li');
+    var links = document.createElement('span');
+    links.textContent = text;
+    if (typ) {
+      var kl = document.createElement('span');
+      kl.className = 'pos-typ';
+      kl.textContent = typ;
+      links.appendChild(kl);
+    }
+    var rechts = document.createElement('span');
+    rechts.className = 'betrag';
+    rechts.textContent = betrag;
+    li.appendChild(links);
+    li.appendChild(rechts);
+    return li;
+  }
+
+  function summenZeile(label, wert, istGesamt) {
+    var div = document.createElement('div');
+    if (istGesamt) { div.className = 'gesamt'; }
+    var a = document.createElement('span');
+    a.textContent = label;
+    var b = document.createElement('span');
+    b.textContent = wert;
+    div.appendChild(a);
+    div.appendChild(b);
+    return div;
+  }
+
+  function schritt(titel, text) {
+    var li = document.createElement('li');
+    var b = document.createElement('b');
+    b.textContent = titel + ' ';
+    li.appendChild(b);
+    li.appendChild(document.createTextNode(text));
+    return li;
+  }
+
+  /* ---------- Parameter lesen ---------- */
+
+  var p = new URLSearchParams(window.location.search);
+  var istBestellung = (p.get('art') === 'bestellung');
+  var liefer = p.get('liefer') || 'versand';          /* versand | abholung | digital */
+  var barzahlung = (p.get('zahl') === 'bar');
+  var ware = parseFloat(p.get('ware'));
+  var versand = parseFloat(p.get('versand'));
+  var posRoh = p.get('pos');
+  var viele = parseInt(p.get('viele'), 10);
+
+  /* ---------- Kopf ---------- */
+
+  /* Ohne jeden Parameter (jemand ruft die Seite direkt auf oder
+     geht mit der Zurück-Taste darauf) bleibt die neutrale
+     Überschrift aus dem HTML stehen — nichts wird behauptet, was
+     gar nicht passiert ist. */
+  var ohneAngaben = !p.get('art');
+
+  if (istBestellung) {
+    document.getElementById('danke-titel').textContent = 'Bestellung eingegangen';
+    document.getElementById('danke-unter').textContent =
+      'Vielen Dank. Deine Bestellung liegt bei mir — die Bestätigung mit allen Angaben ist gerade unterwegs in dein Postfach.';
+    document.getElementById('danke-vertrag').hidden = false;
+    document.title = 'Bestellung eingegangen | BG Naturfotografie';
+  } else if (!ohneAngaben) {
+    document.getElementById('danke-titel').textContent = 'Anfrage ist angekommen';
+    document.getElementById('danke-unter').textContent =
+      'Vielen Dank. Bis ich mich melde, ist für dich nichts verbindlich — du entscheidest erst, wenn du mein Angebot vor dir hast.';
+  }
+
+  /* ---------- Bestellübersicht ---------- */
+
+  var block = document.getElementById('danke-uebersicht-block');
+  var listeEl = document.getElementById('danke-positionen');
+  var summenEl = document.getElementById('danke-summen');
+
+  if (posRoh) {
+    document.getElementById('danke-uebersicht-titel').textContent =
+      istBestellung ? 'Deine Bestellung' : 'Deine Auswahl';
+
+    posRoh.split('|').forEach(function (roh) {
+      var teile = roh.split('~');
+      if (teile.length < 4) { return; }
+      var betrag = parseFloat(teile[3]);
+      listeEl.appendChild(zeile(
+        teile[0] + '× ' + teile[1],
+        isNaN(betrag) ? '' : euro(betrag),
+        teile[2]
+      ));
+    });
+
+    if (!isNaN(ware)) {
+      summenEl.appendChild(summenZeile('Zwischensumme', euro(ware)));
+
+      if (liefer === 'abholung') {
+        summenEl.appendChild(summenZeile('Versand', 'entfällt (Abholung)'));
+      } else if (liefer === 'digital') {
+        summenEl.appendChild(summenZeile('Versand', 'entfällt (Download)'));
+      } else if (!isNaN(versand)) {
+        summenEl.appendChild(summenZeile('Versand', versand === 0 ? 'kostenlos' : euro(versand)));
+      }
+
+      var gesamt = ware + (isNaN(versand) ? 0 : versand);
+      summenEl.appendChild(summenZeile('Gesamt', euro(gesamt), true));
+    }
+    block.hidden = false;
+  } else if (viele > 0) {
+    /* Die Liste war zu lang für die Adresszeile — dann nur die Anzahl. */
+    document.getElementById('danke-uebersicht-titel').textContent = 'Deine Auswahl';
+    listeEl.appendChild(zeile(viele + ' Positionen', 'Details in der E-Mail'));
+    block.hidden = false;
+  }
+
+  /* ---------- Wie es weitergeht ---------- */
+
+  var schritte = document.getElementById('danke-schritte');
+
+  if (istBestellung) {
+    schritte.appendChild(schritt('Bestätigung im Postfach.',
+      'Du bekommst sofort eine E-Mail mit allem, was du gerade abgeschickt hast.'));
+
+    if (barzahlung && liefer === 'abholung') {
+      schritte.appendChild(schritt('Ich melde mich.',
+        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und wir machen einen Termin für die Übergabe in Halstenbek aus.'));
+      schritte.appendChild(schritt('Bezahlt wird vor Ort.',
+        'Bar bei der Übergabe. Passend wäre schön, Wechselgeld habe ich aber dabei.'));
+    } else if (liefer === 'abholung') {
+      schritte.appendChild(schritt('Ich melde mich.',
+        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.'));
+      schritte.appendChild(schritt('Abholung in Halstenbek.',
+        'Sobald die Zahlung da ist, machen wir einen Termin aus.'));
+    } else if (liefer === 'digital') {
+      schritte.appendChild(schritt('Ich melde mich.',
+        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.'));
+      schritte.appendChild(schritt('Datei per E-Mail.',
+        'Nach dem Zahlungseingang bekommst du das Bild zum Herunterladen.'));
+    } else {
+      schritte.appendChild(schritt('Ich melde mich.',
+        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten für PayPal oder Überweisung.'));
+      schritte.appendChild(schritt('Verpacken und ab die Post.',
+        'Vorrätige Motive gehen in der Regel innerhalb von 3 Werktagen nach Zahlungseingang von mir aus Halstenbek raus. Wird ein Motiv nachgedruckt, dauert es ein bis zwei Wochen länger — das steht dann in meiner Bestätigung.'));
+    }
+  } else {
+    schritte.appendChild(schritt('Eingang bestätigt.',
+      'Du bekommst sofort eine E-Mail mit deiner Nachricht — damit du weißt, dass alles angekommen ist.'));
+    schritte.appendChild(schritt('Mein Angebot.',
+      'Innerhalb von 2–3 Werktagen melde ich mich mit Preis, Versand- oder Abholoption und Zahlungsweg.'));
+    schritte.appendChild(schritt('Du entscheidest.',
+      'Erst wenn du zusagst, wird daraus eine Bestellung. Vorher ist nichts verbindlich.'));
+  }
+
+  /* ---------- Widerruf ---------- */
+
+  if (istBestellung) {
+    var w = document.getElementById('danke-widerruf');
+    w.textContent = liefer === 'digital'
+      ? 'Bei digitalen Dateien erlischt das Widerrufsrecht, sobald ich mit deiner ausdrücklichen Zustimmung mit der Bereitstellung beginne. Diese Zustimmung hole ich vorher per E-Mail bei dir ein — vorher passiert nichts. '
+      : 'Für Postkarten, Poster und Lesezeichen hast du 14 Tage Widerrufsrecht ab Erhalt der Ware. Eine kurze E-Mail genügt, ein Grund ist nicht nötig. ';
+    var a = document.createElement('a');
+    a.href = 'agb.html';
+    a.textContent = 'Die vollständige Widerrufsbelehrung steht in den AGB.';
+    w.appendChild(a);
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -8,5 +8,7 @@ Allow: /
 Disallow: /qr-werkzeug.html
 Disallow: /gebiet-zeichnen.html
 Disallow: /persona-startseiten-vorschau.html
+# Bestätigungsseite nach dem Absenden — kein Suchergebnis
+Disallow: /danke.html
 
 Sitemap: https://bg-naturfotografie.de/sitemap.xml

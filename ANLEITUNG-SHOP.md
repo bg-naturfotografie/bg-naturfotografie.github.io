@@ -265,6 +265,50 @@ erscheint alles automatisch. Auf der Startseite gibt es aktuell nur
 die Lesezeichen-Kachel; für Sticker später eine vierte Kachel nach
 demselben Muster ergänzen (Kommentar steht in `index.html`).
 
+## Nach dem Absenden → `danke.html`
+
+Früher landete man nach dem Absenden auf einer fremden
+Formspree-Seite. Jetzt geht es auf **`danke.html`**.
+
+**Wie das technisch läuft:** Im Formular steckt ein verstecktes Feld
+`_next`. Beim Absenden schreibt `dankeSeiteVorbereiten()` dort die
+Adresse der Danke-Seite hinein, samt einer kurzen Zusammenfassung als
+Parameter (`art`, `liefer`, `zahl`, `ware`, `versand`, `pos`).
+Formspree leitet dann dorthin weiter, und `danke.html` baut daraus die
+Bestellübersicht.
+
+Bewusst **nicht** übertragen werden Name, Anschrift und Nachricht —
+die stünden sonst in der Adresszeile und im Browserverlauf. Und
+bewusst kein `localStorage`: die Seite soll ohne Zustimmungsbanner
+auskommen, ein Adressparameter ist kein Speicherzugriff. Ist die
+Positionsliste zu lang für eine Adresse, steht dort nur die Anzahl
+und der Verweis auf die E-Mail.
+
+**Die Seite zeigt zwei Fassungen:**
+
+- *Verbindliche Bestellung* — mit dem Hinweis, dass Seite und
+  automatische Mail nur eine **Eingangsbestätigung** sind und der
+  Vertrag erst mit deiner Auftragsbestätigung zustande kommt. Dieser
+  Text muss zu **AGB Punkt 2.4** passen; änderst du eines, zieh das
+  andere mit.
+- *Unverbindliche Anfrage* — ohne diesen Hinweis, dafür mit „vorher
+  ist nichts verbindlich“.
+
+Die Schritte unter „Wie es weitergeht“ und der Widerrufstext
+wechseln zusätzlich je nach Versand, Abholung, Barzahlung oder
+Download. Ruft jemand `danke.html` ohne Parameter auf (Lesezeichen,
+Zurück-Taste), erscheint eine neutrale Fassung ohne Übersicht.
+
+**Zum Testen** kannst du die Seite direkt mit Parametern aufrufen:
+
+```
+danke.html?art=bestellung&liefer=versand&zahl=vorab&ware=14.50&versand=4.50&pos=1~Entenk%C3%BCken~Postkarte~2.50
+```
+
+Die Seite steht auf `noindex`, ist nicht in `sitemap.xml` und in
+`robots.txt` ausgeschlossen — eine Bestätigungsseite gehört nicht in
+die Google-Suche.
+
 ## Shop-Kopf: aufklappbare Infos
 
 Der Erklärtext oben auf der Shop-Seite steckt in drei

@@ -1111,6 +1111,14 @@
            Das Sichtbare heißt "E-Mail" (schöner in deiner Mail), also
            spiegelt das Script den Wert hierher. -->
       <input type="hidden" name="email" id="af-email-spiegel" value="">
+
+      <!-- Wohin Formspree nach dem Absenden weiterleitet. Ohne diesen
+           Wert landet man auf einer fremden Formspree-Seite — bei
+           einer verbindlichen Bestellung ein ziemlich unschöner
+           Moment. Der Wert wird beim Absenden gesetzt (siehe
+           dankeSeiteVorbereiten() im Script), samt einer kurzen
+           Zusammenfassung als Adressparameter. -->
+      <input type="hidden" name="_next" id="af-next" value="">
     </form>
   </div>
 </section>
@@ -2344,7 +2352,65 @@
           nachrichtEl.value = block + nachrichtEl.value;
         }
       }
+
+      dankeSeiteVorbereiten(z);
     });
+  }
+
+  /* ============================================================
+     DANKE-SEITE VORBEREITEN
+     ============================================================
+     Formspree leitet nach dem Absenden auf die Adresse im
+     versteckten Feld "_next" weiter. Dort hängen wir eine kurze
+     Zusammenfassung als Parameter an, damit danke.html zeigen
+     kann, was gerade bestellt wurde.
+
+     Warum über die Adresse und nicht über den Browserspeicher:
+     Die Seite kommt bewusst ohne localStorage & Co. aus, damit sie
+     keinen Zustimmungsbanner braucht. Ein Parameter in der Adresse
+     ist kein Speicherzugriff.
+
+     Bewusst NICHT übertragen werden Name, Anschrift und Nachricht —
+     die stünden sonst in der Adresszeile und im Browserverlauf.
+     Die vollständigen Angaben hast du ohnehin in der Mail.
+     ============================================================ */
+  function dankeSeiteVorbereiten(z) {
+    var feld = document.getElementById('af-next');
+    if (!feld) { return; }
+
+    /* Adresse der Danke-Seite im selben Ordner wie diese Seite —
+       funktioniert also auch, wenn die Seite mal woanders liegt. */
+    var basis = window.location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/, '') + 'danke.html';
+
+    var warenwert = auswahl.reduce(function (n, pos) {
+      return n + stueckPreis(pos.typ, gesamtMenge(pos.typ), pos) * pos.menge;
+    }, 0);
+    var versand = versandKosten(warenwert, z.lieferart);
+
+    var param = [
+      'art=' + (z.art === 'verbindlich' ? 'bestellung' : 'anfrage'),
+      'liefer=' + encodeURIComponent(z.hatPhysisches ? z.lieferart : 'digital'),
+      'zahl=' + encodeURIComponent(z.zahlweg || 'vorab'),
+      'ware=' + warenwert.toFixed(2),
+      'versand=' + versand.toFixed(2)
+    ];
+
+    /* Positionen kompakt: Menge ~ Motiv ~ Ausführung ~ Zeilensumme,
+       Zeilen mit "|" getrennt. Adressen sollten unter etwa 2000
+       Zeichen bleiben — deshalb wird notfalls gekürzt und die
+       Danke-Seite verweist dann auf die Mail. */
+    var zeilen = auswahl.map(function (pos) {
+      var einzel = stueckPreis(pos.typ, gesamtMenge(pos.typ), pos);
+      return [pos.menge, pos.motiv, pos.bezeichnung, (einzel * pos.menge).toFixed(2)].join('~');
+    });
+    var posText = zeilen.join('|');
+    if (auswahl.length && encodeURIComponent(posText).length < 1400) {
+      param.push('pos=' + encodeURIComponent(posText));
+    } else if (auswahl.length) {
+      param.push('viele=' + auswahl.length);
+    }
+
+    feld.value = basis + '?' + param.join('&');
   }
 
   /* ============================================================
