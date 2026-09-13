@@ -198,20 +198,25 @@
    <!-- ============================================================
         COLLAGE
         ============================================================
-        Vier Kacheln liegen fest im HTML, das Stylesheet blendet je
-        nach Fensterbreite zwei, drei oder vier davon ein. Welches
-        Motiv in welcher Kachel landet, würfelt das Skript unten bei
-        jedem Seitenaufruf neu — das Raster bleibt aber immer gleich,
-        damit es nicht beliebig wirkt.
+        Drei gleich große Kacheln nebeneinander, alle im
+        A6-Hochformat (105 × 148 mm) — also genau dem Verhältnis,
+        in dem du die Bilder auch drucken lässt. Auf dem Handy
+        bleibt nur die erste stehen.
 
-        Kachel 1 ist die große. Ohne JavaScript bleibt das hier
-        eingetragene Startbild stehen.
+        Welches Motiv in welcher Kachel landet, würfelt das Skript
+        unten bei jedem Seitenaufruf neu; danach wechselt immer nur
+        eine Kachel auf einmal. Ohne JavaScript bleibt das hier
+        eingetragene Startbild in Kachel 1 stehen.
+
+        Welche Motive laufen, steht in startseite-bilder.js.
         ============================================================ -->
    <div class="buehne-collage" id="buehne-collage">
      <div class="buehne-kachel">
-       <img src="bilder/waldleben-01.jpg" alt="Eichhörnchen schaut frontal in die Kamera" width="1600" height="1067">
+       <img src="bilder/waldleben-01.jpg" alt="Eichhörnchen schaut frontal in die Kamera">
+       <!-- Jedes Feld hat die Form eines A6-Hochformats. Ein
+            querformatiges Foto liegt darin mittig und ist ganz zu
+            sehen — beschnitten wird nie. -->
      </div>
-     <div class="buehne-kachel"></div>
      <div class="buehne-kachel"></div>
      <div class="buehne-kachel"></div>
    </div>
@@ -660,7 +665,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ============================================================
      COLLAGE FÜLLEN
      ============================================================
-     Die vier Kacheln stehen fest im HTML. Jede bekommt hier zwei
+     Die drei Kacheln stehen fest im HTML. Jede bekommt hier zwei
      Bildebenen übereinander: eine sichtbare und eine, die im
      Hintergrund auf den nächsten Wechsel wartet. Dadurch blendet
      ein Motivwechsel weich über, statt hart umzuspringen.
@@ -669,6 +674,17 @@ document.addEventListener('DOMContentLoaded', function () {
      merkt sich "belegt", was gerade wo hängt.
      ============================================================ */
   var kacheln = Array.prototype.slice.call(behaelter.querySelectorAll('.buehne-kachel'));
+
+  /* Merkt sich, ob das Foto quer liegt. Gebraucht wird das nur noch
+     für die Textausgabe und mögliche spätere Feinheiten — die
+     Darstellung selbst regelt das Stylesheet: Jedes Feld hat die
+     Form eines A6-Hochformats, ein Querformat liegt darin mittig
+     und vollständig sichtbar. Dadurch springt beim Motivwechsel
+     nichts. */
+  function kachelFormat(kachel, img) {
+    if (!img.naturalWidth || !img.naturalHeight) { return; }
+    kachel.classList.toggle('ist-quer', img.naturalWidth > img.naturalHeight);
+  }
 
   /* Genug Motive? Sonst die Liste so lange wiederholen, bis alle
      Kacheln etwas haben — sonst bliebe eine leer. */
@@ -689,12 +705,15 @@ document.addEventListener('DOMContentLoaded', function () {
       var img = document.createElement('img');
       if (rolle === 'a') {
         img.src = motiv.bild;
-        /* Nur das große Motiv wird vorgelesen — die übrigen sind
+        /* Nur die erste Kachel wird vorgelesen — die übrigen sind
            Dekoration und würden die Vorlesereihenfolge zumüllen. */
         img.alt = (i === 0) ? (motiv.alt || '') : '';
         img.loading = (i === 0) ? 'eager' : 'lazy';
         img.setAttribute('fetchpriority', (i === 0) ? 'high' : 'low');
         if (motiv.ausschnitt) { img.style.objectPosition = motiv.ausschnitt; }
+        /* Hoch- oder Querformat? Steht erst fest, wenn das Bild da
+           ist — dann bekommt die Kachel das passende A6-Verhältnis. */
+        img.addEventListener('load', function () { kachelFormat(kachel, img); });
       } else {
         img.alt = '';
         img.className = 'ist-weg';
@@ -704,7 +723,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* Feldnotiz gehört immer zur großen Kachel (Nummer 1). */
+  /* Feldnotiz gehört immer zur ersten Kachel — der einzigen, die
+     auch auf dem Handy zu sehen ist. */
   function zeigeNotiz(motiv) {
     elSerie.textContent = motiv.kategorie;
     elOrt.textContent = (motiv.ort && motiv.ort.label) ? motiv.ort.label : ohneHtml(motiv.beschriftung);
@@ -752,6 +772,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Erst laden, dann überblenden — sonst blitzt kurz nichts auf. */
     wartend.onload = function () {
+      kachelFormat(kachel, wartend);   /* neues Foto, evtl. andere Lage */
       wartend.classList.remove('ist-weg');
       sichtbar.classList.add('ist-weg');
       belegt[index] = motiv;

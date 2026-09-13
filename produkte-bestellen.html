@@ -269,7 +269,11 @@
     .gp-zoom span{ display:none; }
   }
 
-  .pick-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:var(--gap); }
+  /* align-items:start ist wichtig, seit Hoch- und Querformate
+     gemischt vorkommen: Ohne das würden alle Karten einer Zeile
+     auf die Höhe der höchsten gedehnt, und unter den flachen
+     Querformat-Karten klaffte eine leere Fläche. */
+  .pick-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:var(--gap); align-items:start; }
 
 
   /* ---- "Wer druckt was?" ----
@@ -382,7 +386,12 @@
     overflow:hidden; display:flex; flex-direction:column; position:relative;
     scroll-margin-top:90px;
   }
-  .pick-card .frame{ position:relative; aspect-ratio:4/5; overflow:hidden; background:var(--bg-panel); }
+  /* Bildfeld der Produktkarte. A6 hochkant als Standard; liegt ein
+     Querformat vor, setzt das Skript beim Laden die Klasse
+     "ist-quer" auf die Karte und das Feld dreht sich mit. So wird
+     nie beschnitten, obwohl alle Karten dasselbe Raster teilen. */
+  .pick-card .frame{ position:relative; aspect-ratio:105/148; overflow:hidden; background:var(--bg-panel); }
+  .pick-card.ist-quer .frame{ aspect-ratio:148/105; }
   .pick-card .frame img{ width:100%; height:100%; object-fit:cover; }
   .pick-card .body{ padding:.9rem 1rem 1.1rem; display:flex; flex-direction:column; gap:.5rem; flex-grow:1; }
   .pick-card .body b{ font-family:'Fraunces', serif; font-weight:500; font-size:1rem; }
@@ -585,10 +594,12 @@
       position:static; gap:1rem;
       padding:0 0 1.2rem; border-bottom:1px solid var(--line);
     }
-    /* Waagerecht wischbar statt untereinander — spart Höhe */
+    /* Waagerecht, aber mit UMBRUCH statt Schiebebalken: Alle
+       Möglichkeiten sind auf einen Blick da, man muss nichts zur
+       Seite wischen und nichts übersehen. */
     .filter-liste{
-      flex-direction:row; gap:.5rem; overflow-x:auto; padding-bottom:.3rem;
-      scrollbar-width:thin;
+      flex-direction:row; flex-wrap:wrap; gap:.45rem;
+      overflow:visible; padding-bottom:0;
     }
     /* width:auto ist wichtig: die Grundregel setzt width:100%, sonst
        füllt der erste Knopf die ganze Reihe und der Rest liegt
@@ -1678,17 +1689,50 @@
   }
 
   /* Welches Foto zeigt die Lesezeichen-Karte?
+     Es gibt zwei sinnvolle Arten, die Dateien zu benennen, und
+     beide werden unterstützt — der Reihe nach probiert:
+
        1. bildLesezeichen aus galerie-daten.js, falls angegeben
-       2. sonst automatisch bilder/lesezeichen/<id>.jpg
-       3. fehlt die Datei → lesezeichenBildFehlt() unten springt ein */
-  function lesezeichenBildPfad(b) {
-    return b.bildLesezeichen || ('bilder/lesezeichen/' + b.id + '.jpg');
+       2. bilder/lesezeichen/<Dateiname des Galeriefotos>
+          also z. B. bilder/teichleben/entchen1.jpg
+          →         bilder/lesezeichen/entchen1.jpg
+       3. bilder/lesezeichen/<id>.jpg
+          also z. B. bilder/lesezeichen/teichleben1.jpg
+       4. nichts davon gefunden → Ersatzansicht aus dem Galeriefoto
+
+     Die Liste hängt als data-kandidaten am Bild; schlägt einer
+     fehl, nimmt lesezeichenBildFehlt() den nächsten. */
+  function lesezeichenKandidaten(b) {
+    var liste = [];
+    if (b.bildLesezeichen) { liste.push(b.bildLesezeichen); }
+    /* Dateiname des Galeriefotos, also alles hinter dem letzten / */
+    var datei = String(b.bild || '').split('/').pop();
+    if (datei) { liste.push('bilder/lesezeichen/' + datei); }
+    liste.push('bilder/lesezeichen/' + b.id + '.jpg');
+    /* Doppelte raus, falls id und Dateiname gleich heißen */
+    return liste.filter(function (pfad, i) { return liste.indexOf(pfad) === i; });
   }
 
-  /* Wird vom onerror des Bildes aufgerufen, wenn unter
-     bilder/lesezeichen/ noch keine passende Datei liegt. Muss
-     deshalb global sein (kein var davor). */
+  function lesezeichenBildPfad(b) {
+    return lesezeichenKandidaten(b)[0];
+  }
+
+  /* Wird vom onerror des Bildes aufgerufen. Nimmt erst den nächsten
+     Kandidaten aus der Liste; erst wenn keiner mehr übrig ist,
+     erscheint die Ersatzansicht. Muss global sein (kein var davor). */
   function lesezeichenBildFehlt(img) {
+    var rest = (img.getAttribute('data-kandidaten') || '').split('|').filter(Boolean);
+
+    if (rest.length) {
+      /* Nächsten Dateinamen versuchen */
+      img.setAttribute('data-kandidaten', rest.slice(1).join('|'));
+      img.src = rest[0];
+      var lupe = img.closest('.frame').querySelector('.gp-zoom');
+      if (lupe) { lupe.setAttribute('data-src', rest[0]); }
+      return;
+    }
+
+    /* Wirklich keine Datei da → Galeriefoto als Beispielansicht */
     img.onerror = null;   /* verhindert eine Endlosschleife */
     var ersatz = img.getAttribute('data-ersatz');
     var frame = img.closest('.frame');
@@ -1698,6 +1742,18 @@
     if (hinweis) { hinweis.hidden = false; }             /* "Beispielansicht" einblenden */
     var zoom = frame.querySelector('.gp-zoom');
     if (zoom) { zoom.setAttribute('data-src', ersatz); } /* Lupe soll nicht ins Leere zeigen */
+  }
+
+  /* Hoch- oder Querformat? Wird beim Laden jedes Bildes aufgerufen
+     und setzt bei Querformat die Klasse "ist-quer" auf die Karte —
+     dann dreht sich das Bildfeld mit (siehe CSS oben) und es wird
+     nichts beschnitten. Muss global sein, weil es im onload-Attribut
+     der Bilder steht. */
+  function kartenFormatPruefen(img) {
+    if (!img.naturalWidth || !img.naturalHeight) { return; }
+    var karte = img.closest('.pick-card');
+    if (!karte) { return; }
+    karte.classList.toggle('ist-quer', img.naturalWidth > img.naturalHeight);
   }
 
   /* Alle Motive, die für die aktuelle Produktart in Frage kommen —
@@ -1793,9 +1849,19 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>' +
       '<span>Klick für volle Größe</span></button>';
 
-    var bildTag = istLesezeichen
-      ? '<img src="' + escapeHtml(pfad) + '" data-ersatz="' + escapeHtml(b.bild) + '" alt="Lesezeichen mit Motiv: ' + escapeHtml(b.alt) + '" loading="lazy" onerror="lesezeichenBildFehlt(this)">'
-      : '<img src="' + escapeHtml(pfad) + '" alt="' + escapeHtml(b.alt) + '" loading="lazy">';
+    var bildTag;
+    if (istLesezeichen) {
+      /* Alle Kandidaten außer dem ersten kommen als Reserve mit. */
+      var reserve = lesezeichenKandidaten(b).slice(1).join('|');
+      bildTag = '<img src="' + escapeHtml(pfad) + '"' +
+        ' data-kandidaten="' + escapeHtml(reserve) + '"' +
+        ' data-ersatz="' + escapeHtml(b.bild) + '"' +
+        ' alt="Lesezeichen mit Motiv: ' + escapeHtml(b.alt) + '" loading="lazy"' +
+        ' onerror="lesezeichenBildFehlt(this)" onload="kartenFormatPruefen(this)">';
+    } else {
+      bildTag = '<img src="' + escapeHtml(pfad) + '" alt="' + escapeHtml(b.alt) + '"' +
+        ' loading="lazy" onload="kartenFormatPruefen(this)">';
+    }
 
     return '<div class="pick-card' + (istLesezeichen ? ' lz-card' : '') + '" id="motiv-' + escapeHtml(b.id) + '">' +
       '<div class="frame">' +

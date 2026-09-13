@@ -277,8 +277,10 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 }
 @media (min-width:900px){
   .buehne-inner{
-    grid-template-columns:minmax(0,1.02fr) minmax(0,1.05fr);
-    gap:3.2rem;
+    /* Die Bildspalte bekommt bewusst etwas mehr Platz als der Text:
+       drei Hochformate nebeneinander werden sonst briefmarkenklein. */
+    grid-template-columns:minmax(0,0.92fr) minmax(0,1.18fr);
+    gap:3rem;
   }
   .buehne{ padding:10rem 0 5rem; }
 }
@@ -341,20 +343,34 @@ section{padding:5rem 0; scroll-margin-top:64px;}
    Wichtigkeit: Kachel 1 ist immer die große.
    ============================================================ */
 .buehne-collage{
+  /* Drei gleich breite Spalten. Jedes Feld nimmt das Format seines
+     Fotos an: A6 hochkant (105 × 148 mm) oder dasselbe Maß gekippt
+     (148 × 105 mm). Das Foto füllt sein Feld randlos aus, ohne dass
+     etwas beschnitten wird — die Feldform passt ja zum Bild.
+
+     Der Behälter hat eine feste Gesamtform (aspect-ratio). Das ist
+     der Trick, damit beim Motivwechsel nichts springt: Die Höhe des
+     Blocks steht fest, egal ob gerade ein hohes oder ein liegendes
+     Foto in einem der Felder hängt. Querformate sind dann einfach
+     flacher und sitzen mittig in ihrer Spalte. */
   display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
   gap:.7rem;
-  /* Zwei Reihen gleicher Höhe; die Gesamthöhe ergibt sich aus dem
-     Seitenverhältnis, damit die Collage nie ins Riesenhafte wächst. */
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  grid-template-rows:repeat(2, minmax(0,1fr));
-  aspect-ratio:16/11;
+  align-items:center;
+  aspect-ratio:2.15/1;
 }
 .buehne-kachel{
   position:relative; overflow:hidden;
   border-radius:var(--radius);
   background:var(--bg-panel);
+  width:100%;
+  aspect-ratio:105/148;          /* A6 hochkant — Standard */
 }
-/* Zwei Bildebenen pro Kachel: eine sichtbar, eine wartet im
+/* Setzt das Skript, sobald es am geladenen Foto sieht, dass es
+   breiter als hoch ist. */
+.buehne-kachel.ist-quer{ aspect-ratio:148/105; }
+
+/* Zwei Bildebenen pro Feld: eine sichtbar, eine wartet im
    Hintergrund auf den nächsten Wechsel. So blendet der Tausch
    weich über, statt hart umzuspringen. */
 .buehne-kachel img{
@@ -365,33 +381,30 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 }
 .buehne-kachel img.ist-weg{ opacity:0; }
 
-/* --- unter 560px: nur zwei Kacheln, nebeneinander --- */
-.buehne-kachel:nth-child(3),
-.buehne-kachel:nth-child(4){ display:none; }
-.buehne-collage{ grid-template-rows:minmax(0,1fr); aspect-ratio:16/9; }
+/* Das mittlere Feld steht etwas tiefer. Das nimmt dem Dreierblock
+   die Strenge, ohne dass es nach Zufall aussieht — wie drei Abzüge,
+   die man nebeneinander legt. */
+.buehne-kachel:nth-child(2){ transform:translateY(1.2rem); z-index:2; }
 
-/* --- ab 560px: drei Kacheln, große links --- */
-@media (min-width:560px){
+/* --- unter 620px: nur EIN Feld, mittig ---
+   Hier gibt das Bild die Höhe vor, es steht ja nichts daneben. */
+@media (max-width:620px){
   .buehne-collage{
-    grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
-    grid-template-rows:repeat(2, minmax(0,1fr));
-    aspect-ratio:16/11;
+    grid-template-columns:minmax(0,1fr);
+    justify-items:center; aspect-ratio:auto;
   }
-  .buehne-kachel:nth-child(1){ grid-row:span 2; }
-  .buehne-kachel:nth-child(3){ display:block; }
+  .buehne-kachel:nth-child(2),
+  .buehne-kachel:nth-child(3){ display:none; }
+  .buehne-kachel:nth-child(1){ max-width:300px; transform:none; }
 }
 
-/* --- ab 1400px: vier Kacheln, breiter Streifen unten rechts --- */
-@media (min-width:1400px){
-  .buehne-collage{
-    grid-template-columns:minmax(0,1.45fr) minmax(0,.85fr) minmax(0,.85fr);
-    aspect-ratio:16/12;
-  }
-  .buehne-kachel:nth-child(4){ display:block; grid-column:2 / span 2; }
+@media (min-width:620px) and (max-width:899px){
+  .buehne-collage{ max-width:520px; }
 }
 
 @media (prefers-reduced-motion:reduce){
   .buehne-kachel img{ transition:none; }
+  .buehne-kachel:nth-child(2){ transform:none; }
 }
 
 
@@ -425,83 +438,38 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 .cat-block .cat-desc{color:var(--text-muted); max-width:48ch; margin-bottom:2rem;}
 
 .grid{
+  /* Drei gleich breite Spalten, jede Karte behält ihr eigenes
+     Bildformat. Vorher stand hier ein starres Raster mit einem
+     hohen und zwei querformatigen Feldern — seit alle Fotos im
+     A6-Format vorliegen, wurde darin beschnitten. Jetzt gibt das
+     Bild die Höhe vor und nichts geht verloren. */
   display:grid;
-  grid-template-columns: 1.08fr 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  gap:24px;
-  align-items:stretch;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:16px;
+  align-items:start;
   margin-top:2rem;
-  /* Breite des Inhaltsbereichs minus Fuge, halbiert, mal 1.25 */
-  height: calc(((min(1240px, 100vw - 3.2rem) - 24px) / 2) * 1.25);
 }
 
 .card{
   position:relative;
   overflow:hidden;
-  min-height:0;
   border-radius:var(--radius);
   border:1px solid rgba(237,231,214,0.08);
-  /* schräge Streifen als Platzhalter, solange ein Bild lädt */
-  background:
-    repeating-linear-gradient(
-      135deg,
-      var(--bg-panel) 0 14px,
-      var(--bg-panel-2) 14px 28px
-    );
+  /* Ruhige Fläche statt der früheren Streifen: Die Karte ist jetzt
+     nur so hoch wie das Bild, deshalb wäre unter der Beschriftung
+     sonst ein Streifenrest zu sehen. */
+  background:var(--bg-panel);
 }
-
-/* Das hohe Bild links füllt beide Zeilen */
-.card.hero{ grid-row: span 2 / span 2; min-height:0; }
-
-/* Das zweite Querformat rutscht in die rechte Spalte */
-.card.side:nth-of-type(3){ grid-column-start:2; }
 
 .card img{
-  position:absolute; inset:0;
-  width:100%; height:100%;
-  object-fit:cover; display:block;
+  width:100%; height:auto;
+  display:block;
 }
 
-.card .tag{
-  position:absolute; left:0; right:0; bottom:0;
-  padding:.8rem 1rem;
-  font-family:'JetBrains Mono', monospace;
-  font-size:.75rem;
-  color:var(--text-light);
-  background:none;
-  z-index:2;
-}
-/* Verlauf hinter der Beschriftung, damit sie auf hellen Bildern
-   lesbar bleibt, ohne das ganze Foto abzudunkeln. */
-.card .tag::before{
-  content:""; position:absolute; left:0; right:0; bottom:0;
-  height:90px;
-  background:linear-gradient(
-    to top,
-    rgba(14,17,12,.92) 0%,
-    rgba(14,17,12,.55) 40%,
-    rgba(14,17,12,.20) 70%,
-    transparent 100%);
-  z-index:-1;
-}
-.card .tag b{ color:var(--accent-soft); font-weight:500; }
-
-/* Ab Tablet-Breite untereinander und ungeschnitten — auf einem
-   schmalen Bildschirm wirkt das Raster sonst gequetscht. */
-@media (max-width:900px){
-  .grid{ display:block; height:auto; }
-  .card, .card.hero, .card.side{
-    display:block; height:auto; min-height:0;
-    aspect-ratio:unset; margin-bottom:20px;
-    background:none; border:none; overflow:visible;
-  }
-  .card img, .card.hero img, .card.side img{
-    position:static;
-    width:100%; height:auto;
-    object-fit:contain; display:block;
-    border:1px solid rgba(237,231,214,0.08);
-    border-radius:var(--radius);
-  }
+/* Ab Tablet-Breite untereinander und ungeschnitten — drei Karten
+   nebeneinander werden auf einem schmalen Bildschirm zu klein. */
+@media (max-width:760px){
+  .grid{ grid-template-columns:minmax(0,1fr); gap:20px; }
 }
 
 /* "Mehr entdecken" unter jedem Block */
@@ -758,13 +726,17 @@ textarea{min-height:120px; resize:vertical;}
    schneidet also nichts weg. Vier Spalten am PC, drei ab 900 px,
    zwei ab 600 px. Die Bildunterschrift steht unter dem Foto.
    ============================================================ */
+/* Drei Spalten wie überall sonst auf der Seite, auf dem Handy
+   eine. Die Höhe kommt aus dem Bild, hoch- und querformatige
+   A6-Aufnahmen stehen also nebeneinander, ohne dass etwas
+   beschnitten wird. */
 .masonry{
-  column-count:4;
-  column-gap:8px;
+  column-count:3;
+  column-gap:16px;
   margin-top:2rem;
 }
 .m-item{
-  margin:0 0 8px;
+  margin:0 0 16px;
   break-inside:avoid;
   -webkit-column-break-inside:avoid;
   position:relative;
@@ -793,10 +765,9 @@ textarea{min-height:120px; resize:vertical;}
 }
 .m-item figcaption b{color:var(--accent-soft); font-weight:500;}
 
-@media (max-width:900px){ .masonry{column-count:3;} }
-@media (max-width:600px){
-  .masonry{column-count:2; column-gap:8px;}
-  .m-item{margin-bottom:8px;}
+@media (max-width:760px){
+  .masonry{ column-count:1; column-gap:0; }
+  .m-item{ margin-bottom:20px; }
 }
 
 /* Die beiden Ecksymbole: Shop (rechts) und Geschichte (links).
@@ -969,7 +940,10 @@ textarea{min-height:120px; resize:vertical;}
   transition:border-color .2s;
 }
 .geschichten-card:hover{ border-color:var(--accent); color:var(--text-light); }
-.geschichten-card img{ width:100%; aspect-ratio:4/3; object-fit:cover; }
+/* Kein festes Seitenverhältnis mehr: Seit alle Fotos im A6-Format
+   vorliegen, hätte 4/3 bei Hochformaten oben und unten
+   abgeschnitten. So bestimmt das Bild selbst seine Höhe. */
+.geschichten-card img{ width:100%; height:auto; display:block; }
 .geschichten-card-body{ padding:1rem 1.1rem 1.2rem; }
 .geschichten-card-body h3{
   font-size:1rem; margin:0 0 .5em;
