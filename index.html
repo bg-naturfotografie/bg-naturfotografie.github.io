@@ -160,15 +160,14 @@
 <!-- ============================================================
      BÜHNE
      ============================================================
-     Ein bildschirmfüllendes Foto, das langsam durch mehrere
-     Motive wechselt. Die Zeile darunter ("Feldnotiz") nennt
-     Serie und Aufnahmeort des gerade gezeigten Bildes und führt
-     per Klick direkt zu dessen Geschichte.
+     Drei Felder nebeneinander, in denen die Motive langsam
+     durchwechseln. Bewusst ohne Beschriftung: Die Bilder sollen
+     für sich stehen, Serie und Ort stehen ohnehin in der Galerie
+     und in den Geschichten.
 
      WELCHE BILDER HIER LAUFEN, STEHT IN startseite-bilder.js.
      Dort trägst du die Motiv-IDs ein und kannst pro Bild auch den
-     Bildausschnitt festlegen. Serie, Aufnahmeort und der Link zur
-     Geschichte kommen weiterhin automatisch aus galerie-daten.js.
+     Bildausschnitt festlegen.
 
      Das Bild unten im HTML ist der Notfall-Stand für den Fall,
      dass JavaScript aus ist — dann bleibt es einfach stehen.
@@ -179,15 +178,6 @@
     <span class="eyebrow">Naturfotografie · Halstenbek · Schleswig-Holstein</span>
     <h1>Wildes Leben<br><em>vor der Haustür.</em></h1>
 
-    <!-- Feldnotiz: gehört zur großen Kachel und wechselt mit ihr.
-         Text und Ziel setzt das Skript unten. -->
-    <a class="buehne-notiz" id="buehne-notiz" href="geschichten.html">
-      <span class="buehne-serie" id="buehne-serie">Waldleben</span>
-      <span class="trenner" aria-hidden="true">·</span>
-      <span id="buehne-ort">Halstenbek</span>
-      <span class="pfeil" aria-hidden="true">→</span>
-      <span class="nur-vorlesen">Geschichte zu diesem Foto lesen</span>
-    </a>
 
     <div class="buehne-aktionen">
       <a class="btn btn-fill" href="#galerie">Galerie ansehen</a>
@@ -594,13 +584,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---- kleine Helfer ---- */
 
-  // HTML aus einer Beschriftung entfernen ("<b>Reiher</b> · Winter" -> "Reiher · Winter")
-  function ohneHtml(str) {
-    var div = document.createElement('div');
-    div.innerHTML = str || '';
-    return div.textContent || '';
-  }
-
   // Fisher-Yates: mischt eine Kopie der Liste, jede Reihenfolge gleich wahrscheinlich
   function gemischt(liste) {
     var a = liste.slice();
@@ -657,10 +640,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!auswahl.length) return;
 
   var behaelter = document.getElementById('buehne-collage');
-  var notiz     = document.getElementById('buehne-notiz');
-  var elSerie   = document.getElementById('buehne-serie');
-  var elOrt     = document.getElementById('buehne-ort');
-  if (!behaelter || !notiz) return;
+  if (!behaelter) return;
 
   /* ============================================================
      COLLAGE FÜLLEN
@@ -723,15 +703,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* Feldnotiz gehört immer zur ersten Kachel — der einzigen, die
-     auch auf dem Handy zu sehen ist. */
-  function zeigeNotiz(motiv) {
-    elSerie.textContent = motiv.kategorie;
-    elOrt.textContent = (motiv.ort && motiv.ort.label) ? motiv.ort.label : ohneHtml(motiv.beschriftung);
-    notiz.href = 'geschichte.html?id=' + encodeURIComponent(motiv.id);
-  }
-
-  zeigeNotiz(belegt[0]);
 
   /* Wer im Betriebssystem "Bewegung reduzieren" eingestellt hat,
      bekommt eine feste Collage ohne Wechsel. */
@@ -776,10 +747,11 @@ document.addEventListener('DOMContentLoaded', function () {
       wartend.classList.remove('ist-weg');
       sichtbar.classList.add('ist-weg');
       belegt[index] = motiv;
+      /* Nur das erste Feld wird vorgelesen — die anderen beiden
+         sind Dekoration und würden die Vorlesereihenfolge zumüllen. */
       if (index === 0) {
         wartend.alt = motiv.alt || '';
         sichtbar.alt = '';
-        zeigeNotiz(motiv);
       }
     };
     wartend.style.objectPosition = motiv.ausschnitt || 'center';

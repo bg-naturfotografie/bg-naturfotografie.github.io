@@ -304,24 +304,11 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 }
 .buehne h1 em{ color:var(--accent-soft); font-style:italic; font-weight:400; }
 
-/* Die Feldnotiz unter der Überschrift — gehört zum großen Motiv
-   der Collage und wechselt mit ihm. */
-.buehne-notiz{
-  font-family:'JetBrains Mono', monospace;
-  font-size:.78rem; letter-spacing:.05em;
-  color:var(--text-light);
-  display:inline-flex; align-items:center; gap:.6rem;
-  padding:.45rem 0;
-  border-bottom:1px solid var(--line-strong);
-  margin-bottom:1.7rem;
-  transition:border-color .2s, color .2s;
-}
-.buehne-notiz:hover{ color:var(--accent-soft); border-color:var(--accent); }
-.buehne-notiz .buehne-serie{ color:var(--accent-soft); }
-.buehne-notiz .trenner{ color:var(--text-muted); }
-.buehne-notiz .pfeil{ opacity:.6; }
-
-.buehne-aktionen{ display:flex; gap:.7rem; flex-wrap:wrap; margin-bottom:0; }
+/* Die frühere "Feldnotiz" (Serie · Ort mit Link zur Geschichte)
+   stand hier unter der Überschrift und ist entfernt — die Bilder
+   oben stehen jetzt ohne Beschriftung für sich. Der Abstand, den
+   sie nach unten gehalten hat, sitzt jetzt an den Knöpfen. */
+.buehne-aktionen{ display:flex; gap:.7rem; flex-wrap:wrap; margin:1.7rem 0 0; }
 
 /* ============================================================
    COLLAGE
