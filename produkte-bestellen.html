@@ -1112,12 +1112,15 @@
            spiegelt das Script den Wert hierher. -->
       <input type="hidden" name="email" id="af-email-spiegel" value="">
 
-      <!-- Wohin Formspree nach dem Absenden weiterleitet. Ohne diesen
-           Wert landet man auf einer fremden Formspree-Seite — bei
-           einer verbindlichen Bestellung ein ziemlich unschöner
-           Moment. Der Wert wird beim Absenden gesetzt (siehe
-           dankeSeiteVorbereiten() im Script), samt einer kurzen
-           Zusammenfassung als Adressparameter. -->
+      <!-- Ziel nach dem Absenden. ACHTUNG: Formspree wertet dieses
+           Feld auf dem kostenlosen Tarif NICHT aus — dort landet man
+           immer auf der Formspree-Danke-Seite. Deshalb schickt das
+           Script das Formular im Hintergrund ab (fetch) und leitet
+           selbst auf danke.html weiter; siehe formularAbsenden().
+           Das Feld bleibt trotzdem drin: Ohne JavaScript geht das
+           Formular ganz normal ab, und wer irgendwann einen bezahlten
+           Formspree-Tarif hat, bekommt die Weiterleitung dann auch
+           ohne Script. -->
       <input type="hidden" name="_next" id="af-next" value="">
     </form>
   </div>
@@ -2353,7 +2356,16 @@
         }
       }
 
-      dankeSeiteVorbereiten(z);
+      var ziel = dankeSeiteVorbereiten(z);
+
+      /* Ab hier übernimmt das Script: Standard-Absenden abbrechen,
+         selbst schicken, danach auf die eigene Danke-Seite.
+         Kann der Browser kein fetch (sehr alt), bleibt es beim
+         normalen Absenden — dann eben mit Formspree-Danke-Seite. */
+      if (window.fetch && ziel) {
+        e.preventDefault();
+        formularAbsenden(form, ziel, sammelEl, document.getElementById('af-submit'));
+      }
     });
   }
 
@@ -2410,7 +2422,65 @@
       param.push('viele=' + auswahl.length);
     }
 
-    feld.value = basis + '?' + param.join('&');
+    var ziel = basis + '?' + param.join('&');
+    feld.value = ziel;
+    return ziel;
+  }
+
+  /* ============================================================
+     ABSENDEN IM HINTERGRUND (fetch) + eigene Weiterleitung
+     ============================================================
+     Warum nicht einfach das Formular abschicken? Weil Formspree die
+     eigene Danke-Seite nur in bezahlten Tarifen erlaubt. Auf dem
+     kostenlosen Tarif landet man sonst immer auf deren Seite mit
+     "Das Formular wurde erfolgreich übermittelt".
+
+     Deshalb: Wir schicken dieselben Formulardaten selbst per fetch
+     an Formspree und leiten danach auf danke.html weiter. Mit dem
+     Kopf "Accept: application/json" antwortet Formspree mit einer
+     kurzen JSON-Meldung statt mit einer Seite.
+
+     Geht dabei etwas schief (kein Netz, Formspree gestört, Monats-
+     kontingent voll), wird NICHT weitergeleitet — dann steht die
+     Fehlermeldung direkt über dem Knopf und die Eingaben bleiben
+     erhalten, damit nichts verloren geht.
+     ============================================================ */
+  function formularAbsenden(form, ziel, sammelEl, submitBtn) {
+    var knopfText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Wird gesendet …';
+    sammelEl.classList.remove('sichtbar');
+
+    function fehler(text) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = knopfText;
+      sammelEl.textContent = text;
+      sammelEl.classList.add('sichtbar');
+      sammelEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function (antwort) {
+      if (antwort.ok) {
+        window.location.href = ziel;
+        return null;
+      }
+      /* Formspree schickt bei Problemen eine Begründung mit. */
+      return antwort.json().catch(function () { return null; }).then(function (daten) {
+        var grund = (daten && daten.errors && daten.errors.length)
+          ? daten.errors.map(function (f) { return f.message; }).join(' ')
+          : '';
+        fehler('Das Absenden hat leider nicht geklappt' + (grund ? ' (' + grund + ')' : '') +
+          '. Bitte versuch es gleich noch einmal — oder schreib mir direkt an impressum.skarvaan@web.de.');
+      });
+    }).catch(function () {
+      fehler('Ich konnte das Formular nicht abschicken — vermutlich ist gerade die Verbindung weg. ' +
+        'Deine Eingaben stehen noch da, probier es in einem Moment noch einmal. ' +
+        'Oder schreib mir direkt an impressum.skarvaan@web.de.');
+    });
   }
 
   /* ============================================================

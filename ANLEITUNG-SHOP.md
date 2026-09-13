@@ -270,12 +270,22 @@ demselben Muster ergänzen (Kommentar steht in `index.html`).
 Früher landete man nach dem Absenden auf einer fremden
 Formspree-Seite. Jetzt geht es auf **`danke.html`**.
 
-**Wie das technisch läuft:** Im Formular steckt ein verstecktes Feld
-`_next`. Beim Absenden schreibt `dankeSeiteVorbereiten()` dort die
-Adresse der Danke-Seite hinein, samt einer kurzen Zusammenfassung als
-Parameter (`art`, `liefer`, `zahl`, `ware`, `versand`, `pos`).
-Formspree leitet dann dorthin weiter, und `danke.html` baut daraus die
+**Wie das technisch läuft:** Formspree erlaubt eine eigene Danke-Seite
+nur in bezahlten Tarifen — das versteckte Feld `_next` wird im
+kostenlosen Tarif schlicht ignoriert. Deshalb schickt das Script das
+Formular selbst im Hintergrund ab (`formularAbsenden()`, ein `fetch`
+mit dem Kopf `Accept: application/json`) und leitet danach selbst auf
+`danke.html` weiter. Die Adresse dafür baut `dankeSeiteVorbereiten()`,
+samt einer kurzen Zusammenfassung als Parameter (`art`, `liefer`,
+`zahl`, `ware`, `versand`, `pos`); `danke.html` macht daraus die
 Bestellübersicht.
+
+Geht beim Absenden etwas schief — kein Netz, Formspree gestört, das
+Monatskontingent von 50 Einsendungen aufgebraucht —, wird **nicht**
+weitergeleitet. Stattdessen steht die Fehlermeldung über dem Knopf,
+alle Eingaben und der Warenkorb bleiben stehen, und es gibt einen
+Hinweis auf deine E-Mail-Adresse. Ohne JavaScript geht das Formular
+ganz normal ab; dann landet man auf der Formspree-Seite.
 
 Bewusst **nicht** übertragen werden Name, Anschrift und Nachricht —
 die stünden sonst in der Adresszeile und im Browserverlauf. Und
