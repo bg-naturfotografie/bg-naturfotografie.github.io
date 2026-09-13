@@ -381,10 +381,7 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 }
 .buehne-kachel img.ist-weg{ opacity:0; }
 
-/* Das mittlere Feld steht etwas tiefer. Das nimmt dem Dreierblock
-   die Strenge, ohne dass es nach Zufall aussieht — wie drei Abzüge,
-   die man nebeneinander legt. */
-.buehne-kachel:nth-child(2){ transform:translateY(1.2rem); z-index:2; }
+/* Alle drei Felder stehen auf einer Linie — kein Versatz. */
 
 /* --- unter 620px: nur EIN Feld, mittig ---
    Hier gibt das Bild die Höhe vor, es steht ja nichts daneben. */
@@ -395,7 +392,7 @@ section{padding:5rem 0; scroll-margin-top:64px;}
   }
   .buehne-kachel:nth-child(2),
   .buehne-kachel:nth-child(3){ display:none; }
-  .buehne-kachel:nth-child(1){ max-width:300px; transform:none; }
+  .buehne-kachel:nth-child(1){ max-width:300px; }
 }
 
 @media (min-width:620px) and (max-width:899px){
@@ -404,7 +401,6 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 
 @media (prefers-reduced-motion:reduce){
   .buehne-kachel img{ transition:none; }
-  .buehne-kachel:nth-child(2){ transform:none; }
 }
 
 
@@ -438,38 +434,98 @@ section{padding:5rem 0; scroll-margin-top:64px;}
 .cat-block .cat-desc{color:var(--text-muted); max-width:48ch; margin-bottom:2rem;}
 
 .grid{
-  /* Drei gleich breite Spalten, jede Karte behält ihr eigenes
-     Bildformat. Vorher stand hier ein starres Raster mit einem
-     hohen und zwei querformatigen Feldern — seit alle Fotos im
-     A6-Format vorliegen, wurde darin beschnitten. Jetzt gibt das
-     Bild die Höhe vor und nichts geht verloren. */
+  /* Das gewohnte Raster: links ein hohes Bild über beide Zeilen,
+     rechts zwei liegende untereinander.
+
+     Die Maße sind so gerechnet, dass alle drei Felder exakt das
+     A6-Verhältnis treffen — links 105 × 148, rechts zweimal
+     148 × 105. Dadurch füllen die Fotos ihre Felder randlos aus,
+     ohne dass etwas beschnitten wird.
+
+     Herleitung der Zahlen, falls du die Fuge (gap) mal änderst:
+       Höhe        H  = linke Spaltenbreite × 148/105
+       Höhe rechts    = (H − Fuge) / 2
+       rechte Breite  = Höhe rechts × 148/105
+     Daraus folgt das Spaltenverhältnis 1.035 : 1 und
+       H = (Inhaltsbreite − 7px) × 0.7071 */
   display:grid;
-  grid-template-columns:repeat(3, minmax(0,1fr));
-  gap:16px;
-  align-items:start;
+  grid-template-columns:1.035fr 1fr;
+  grid-template-rows:repeat(2, 1fr);
+  gap:24px;
+  align-items:stretch;
   margin-top:2rem;
+  /* Inhaltsbreite = Seitenbreite gedeckelt auf 1240px, minus die
+     seitlichen 1.6rem Innenabstand von .wrap auf beiden Seiten. */
+  height:calc((min(1240px, 100vw) - 3.2rem - 7px) * 0.7071);
 }
 
 .card{
   position:relative;
   overflow:hidden;
+  min-height:0;
   border-radius:var(--radius);
   border:1px solid rgba(237,231,214,0.08);
-  /* Ruhige Fläche statt der früheren Streifen: Die Karte ist jetzt
-     nur so hoch wie das Bild, deshalb wäre unter der Beschriftung
-     sonst ein Streifenrest zu sehen. */
-  background:var(--bg-panel);
+  /* schräge Streifen als Platzhalter, solange ein Bild lädt */
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--bg-panel) 0 14px,
+      var(--bg-panel-2) 14px 28px
+    );
 }
+
+/* Das hohe Bild links füllt beide Zeilen */
+.card.hero{ grid-row:span 2 / span 2; min-height:0; }
+
+/* Das zweite Querformat rutscht in die rechte Spalte */
+.card.side:nth-of-type(3){ grid-column-start:2; }
 
 .card img{
-  width:100%; height:auto;
-  display:block;
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover; display:block;
 }
 
-/* Ab Tablet-Breite untereinander und ungeschnitten — drei Karten
-   nebeneinander werden auf einem schmalen Bildschirm zu klein. */
-@media (max-width:760px){
-  .grid{ grid-template-columns:minmax(0,1fr); gap:20px; }
+.card .tag{
+  position:absolute; left:0; right:0; bottom:0;
+  padding:.8rem 1rem;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.75rem;
+  color:var(--text-light);
+  background:none;
+  z-index:2;
+}
+/* Verlauf hinter der Beschriftung, damit sie auf hellen Bildern
+   lesbar bleibt, ohne das ganze Foto abzudunkeln. */
+.card .tag::before{
+  content:""; position:absolute; left:0; right:0; bottom:0;
+  height:90px;
+  background:linear-gradient(
+    to top,
+    rgba(14,17,12,.92) 0%,
+    rgba(14,17,12,.55) 40%,
+    rgba(14,17,12,.20) 70%,
+    transparent 100%);
+  z-index:-1;
+}
+.card .tag b{ color:var(--accent-soft); font-weight:500; }
+
+/* Ab Tablet-Breite untereinander und ungeschnitten — auf einem
+   schmalen Bildschirm wirkt das Raster sonst gequetscht. */
+@media (max-width:900px){
+  .grid{ display:block; height:auto; }
+  .card, .card.hero, .card.side{
+    display:block; height:auto; min-height:0;
+    aspect-ratio:unset; margin-bottom:20px;
+    background:none; border:none; overflow:visible;
+  }
+  .card img, .card.hero img, .card.side img{
+    position:static;
+    width:100%; height:auto;
+    object-fit:contain; display:block;
+    border:1px solid rgba(237,231,214,0.08);
+    border-radius:var(--radius);
+  }
 }
 
 /* "Mehr entdecken" unter jedem Block */
