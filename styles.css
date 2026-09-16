@@ -1000,20 +1000,6 @@ textarea{min-height:120px; resize:vertical;}
 }
 .empty-note{ font-size:.9rem; color:var(--text-muted); font-style:italic; }
 
-/* Begrüßung für alle, die gerade einen QR-Code gescannt haben */
-.qr-willkommen{
-  margin:1.6rem 0 0; max-width:60ch;
-  padding:1.1rem 1.3rem;
-  background:var(--bg-panel);
-  border-left:2px solid var(--accent);
-}
-.qr-label{
-  display:block; font-family:'JetBrains Mono', monospace; font-size:.72rem;
-  letter-spacing:.08em; text-transform:uppercase; color:var(--accent-soft);
-  margin-bottom:.5rem;
-}
-.qr-willkommen p{ color:var(--text-muted); font-size:.91rem; margin:0; }
-
 
 /* ============================================================
    KARTE (karte.html)
@@ -1295,3 +1281,126 @@ details:focus-visible, [tabindex]:focus-visible{
   padding:0; margin:-1px; overflow:hidden;
   clip:rect(0 0 0 0); white-space:nowrap; border:0;
 }
+
+
+/* ============================================================
+   PERSÖNLICHERE FASSUNG (September 2026)
+   ============================================================
+   Ziel: Die Seite soll nach einem Menschen klingen, nicht nach
+   einem Werkzeug. Der größte Einzelgrund für den "kühlen" Eindruck
+   war die Monospace-Schrift in Großbuchstaben: Sie stand in Menü,
+   Rubriken, Aufklappern und Sprungleiste — also überall, wo man
+   zuerst hinschaut. Das liest sich wie ein Programmierwerkzeug.
+
+   Deshalb gilt ab jetzt:
+   - Rubriken & Etiketten  → Fraunces kursiv (die "Handschrift")
+   - Menü, Aufklapper, Links → Work Sans in normaler Schreibweise
+   - Monospace bleibt NUR für echte Feldnotizen: Preise, Datum,
+     Formate, Bildunterschriften. Dort passt sie weiterhin.
+
+   ALLES IN DIESEM BLOCK ÜBERSCHREIBT WERTE WEITER OBEN.
+   Gefällt es dir nicht, lösch einfach den ganzen Block bis zum
+   Dateiende — dann ist die alte Optik vollständig zurück.
+   (Ausnahme: .buehne-gruss und .termine-mitte gibt es nur hier;
+   ohne diesen Block sähen Gruß und Termine ungestylt aus.)
+   ============================================================ */
+
+/* ---- Rubrikköpfe ("Galerie", "Über mich", "Kontakt") ----
+   Statt winziger gesperrter Großbuchstaben: kursive Serifenschrift
+   in lesbarer Größe. Wirkt wie eine handschriftliche Randnotiz. */
+.rubrik-label{
+  font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+  font-size:1.15rem; letter-spacing:0; text-transform:none;
+}
+.rubrik-link{
+  font-family:'Work Sans', sans-serif;
+  font-size:.86rem; letter-spacing:0;
+}
+
+/* ---- Kleine Überzeilen (z. B. über "Wildes Leben") ---- */
+.eyebrow{
+  font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+  font-size:1rem; letter-spacing:0; text-transform:none;
+}
+
+/* ---- Menü oben ----
+   Normale Schrift in normaler Größe. .76rem Monospace war auf dem
+   Handy kaum lesbar. */
+.nav-links a{
+  font-family:'Work Sans', sans-serif;
+  font-size:.92rem; letter-spacing:0;
+}
+
+/* ---- Sprungleiste der Galerie (Teichleben, Gartenleben …) ---- */
+.cat-nav{
+  font-family:'Work Sans', sans-serif;
+  font-size:.92rem; letter-spacing:0; text-transform:none;
+}
+
+/* ---- Aufklapper ("Wie ich fotografiere" …) ----
+   Das sind Fragen bzw. Einladungen — die dürfen wie Sätze aussehen. */
+.info-fold summary{
+  font-family:'Work Sans', sans-serif;
+  font-size:.96rem; letter-spacing:0;
+}
+
+/* ---- "Nächster Termin"-Etikett ---- */
+.status-badge{
+  font-family:'Fraunces', serif; font-style:italic;
+  font-size:1rem; letter-spacing:0; text-transform:none;
+}
+
+/* ---- Porträt unter "Über mich" ----
+   Etwas größer: Dein Gesicht ist das persönlichste Element der
+   ganzen Seite und war bisher nur briefmarkengroß. */
+.ueber-grid{ grid-template-columns:240px 1fr; }
+@media (max-width:720px){
+  .ueber-grid{ grid-template-columns:1fr; }
+  .ueber-portrait{ max-width:180px; }
+}
+
+
+/* ============================================================
+   PERSÖNLICHER GRUSS IN DER BÜHNE (index.html)
+   ============================================================
+   Kleines rundes Porträt + ein Satz. Der ganze Block ist ein Link
+   zu "Über mich". Rund statt eckig, damit man ihn sofort als
+   Person und nicht als weiteres Naturfoto erkennt. */
+.buehne-gruss{
+  display:flex; align-items:center; gap:.9rem;
+  margin:1.4rem 0 0; max-width:44ch;
+  color:var(--text-muted); font-size:.98rem; line-height:1.5;
+  text-decoration:none;
+}
+.buehne-gruss b{ color:var(--text-light); font-weight:500; }
+.buehne-gruss:hover b{ color:var(--accent-soft); }
+.buehne-gruss-bild{
+  width:52px; height:52px; flex-shrink:0;
+  border-radius:50%; object-fit:cover;
+  border:1px solid var(--line);
+}
+
+
+/* ============================================================
+   TERMINE MITTIG (index.html, #termine)
+   ============================================================
+   Eine schmale Spalte in der Mitte statt über die volle Breite.
+   max-width bestimmt, wie breit die Spalte höchstens wird;
+   margin-inline:auto schiebt sie in die Mitte. */
+.termine-mitte{
+  max-width:640px; margin-inline:auto;
+  text-align:center;
+}
+.termine-titel{
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  margin:0 0 1.6rem;
+}
+/* Der einzelne Termin: Datum und Ort nebeneinander, als Paar
+   mittig. Bricht auf schmalen Bildschirmen untereinander um. */
+.termine-mitte .termin-liste li{
+  justify-content:center; text-align:left;
+}
+.termine-mitte .termin-datum{ min-width:0; }
+/* Hinweis unter der Liste ebenfalls mittig (max-width allein
+   würde den Absatz sonst links in der Spalte stehen lassen). */
+.termine-mitte .termin-note{ margin-inline:auto; }

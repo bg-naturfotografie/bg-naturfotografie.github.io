@@ -178,6 +178,17 @@
     <span class="eyebrow">Naturfotografie · Halstenbek · Schleswig-Holstein</span>
     <h1>Wildes Leben<br><em>vor der Haustür.</em></h1>
 
+    <!-- PERSÖNLICHER GRUSS
+         Direkt unter der Überschrift: Wer die Seite öffnet, sieht
+         sofort, dass hier ein Mensch fotografiert und kein Shop.
+         Das kleine Porträt ist dasselbe Bild wie unter "Über mich"
+         (bilder/profile.jpg) — tauschst du es dort, ändert es sich
+         hier mit. alt="" ist Absicht: Der Name steht im Text
+         daneben, ein Screenreader müsste ihn sonst doppelt vorlesen. -->
+    <a class="buehne-gruss" href="#ueber-mich">
+      <img src="bilder/profile.jpg" alt="" class="buehne-gruss-bild" width="52" height="52">
+      <span>Hallo, ich bin <b>Bene</b>. Ich fotografiere Vögel und Wildtiere in Halstenbek und im Hamburger Westen — meist nur ein paar Schritte von zu Hause.</span>
+    </a>
 
     <div class="buehne-aktionen">
       <a class="btn btn-fill" href="#galerie">Galerie ansehen</a>
@@ -438,7 +449,9 @@
       <div class="ueber-text">
         <h2>Die Natur im Jetzt und Hier.</h2>
         <p class="gross">Ich fotografiere die Tiere unserer Heimat ruhig und ehrlich. Für die besonderen Momente braucht es keine weite Reise — ein paar Schritte vor die Haustür reichen.</p>
-        <p>Benedict Gertz, Halstenbek. Ehrenamtlicher Beisitzer beim NABU vor Ort. Aus einzelnen Aufnahmen entstehen daneben künstlerische Arbeiten — das ist die Serie <a href="galerie-reduktion.html">Reduktion</a>.</p>
+        <!-- Früher stand hier ein Steckbrief ("Benedict Gertz, Halstenbek.").
+             In ganzen Sätzen und in Ich-Form wirkt es wie ein Gespräch. -->
+        <p>Ich bin Benedict Gertz, meistens einfach Bene, und wohne in Halstenbek. Beim NABU vor Ort bin ich ehrenamtlicher Beisitzer. Aus einzelnen Aufnahmen entstehen daneben künstlerische Arbeiten — das ist die Serie <a href="galerie-reduktion.html">Reduktion</a>.</p>
 
         <div class="info-folds">
           <details class="info-fold">
@@ -480,7 +493,13 @@
   <!-- .wrap begrenzt die Inhaltsbreite wie in allen anderen Sektionen.
        Das schließende </div> unten gehört zu diesem Wrapper. -->
   <div class="wrap">
+    <!-- .termine-mitte hält alles in einer schmalen, zentrierten
+         Spalte (CSS: Abschnitt "PERSÖNLICHERE FASSUNG" ganz unten
+         in styles.css). Das schließende </div> steht unten direkt
+         vor dem </div> des .wrap. -->
+    <div class="termine-mitte">
     <span class="status-badge"><span class="dot"></span>Nächster Termin</span>
+    <h2 class="termine-titel">Komm am Stand vorbei.</h2>
 
     <ul class="termin-liste">
       <li>
@@ -490,6 +509,7 @@
     </ul>
 
     <p class="termin-note">Weitere Märkte für Herbst und Advent sind angefragt — sobald etwas fest ist, steht es hier zuerst.</p>
+    </div><!-- /.termine-mitte -->
 
   </div>
 </section>
@@ -508,7 +528,7 @@
     <div class="contact-grid">
       <div>
         <h2 style="font-size:clamp(1.5rem,2.8vw,2rem);">Schreib mir.</h2>
-        <p style="color:var(--text-muted); max-width:38ch;">Feedback, Kooperation oder ein einfaches Hallo. Antwort meist innerhalb von 2–3 Tagen.</p>
+        <p style="color:var(--text-muted); max-width:38ch;">Eine Frage zu einem Foto, ein Motivwunsch oder einfach Hallo — die Nachricht landet direkt bei mir. Ich antworte meist innerhalb von 2–3 Tagen.</p>
         <div class="socials">
           <a href="https://www.instagram.com/bg.naturfotografie/" target="_blank" rel="noopener">Instagram</a>
         </div>
