@@ -42,7 +42,7 @@
      - index.html               (Zeile unter den Mitnehmen-Kacheln)
      - agb.html                 (Punkt 3)
      - datenschutz.html         (Abschnitt Bestellanfragen)
-     - fuer-veranstalter.html, portfolio-veranstalter.html
+     - portfolio-veranstalter.html
    ------------------------------------------------------------- */
 const DRUCKPARTNER = {
   postkarte:   'WIRmachenDRUCK',

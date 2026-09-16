@@ -189,7 +189,7 @@ fester Text und müssen bei einem Druckereiwechsel von Hand mit:
 Shop-Kopf in `produkte-bestellen.html` (inkl. FAQ-Schema oben im
 `<head>`), Zeile unter den Mitnehmen-Kacheln in `index.html`,
 `agb.html` Punkt 3, `datenschutz.html` (Abschnitt Bestellanfragen),
-`fuer-veranstalter.html`, `portfolio-veranstalter.html`.
+`portfolio-veranstalter.html`.
 
 **Saal-Digital-Shop (größer als A4):** Den Link trägst du einmal in
 `SAAL_SHOP_URL` ein. Dann erscheint automatisch
