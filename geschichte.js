@@ -6,7 +6,12 @@
    einzigen HTML/JS-Zeile auf GitHub. Falls die Tabelle mal nicht
    erreichbar ist oder für ein Motiv noch keine Zeile hat, greift
    ersatzweise motiv.geschichte aus galerie-daten.js (falls dort noch
-   etwas steht), sonst der Platzhaltertext. */
+   etwas steht), sonst der Platzhaltertext.
+
+   Ganz unten kann jede Geschichte zusätzliche Bilder haben (Spalten
+   "zusatzbilder" / "zusatzbildtexte" in der Tabelle). Diese Bilder
+   gehören absichtlich NICHT zur Galerie — sie existieren nur auf
+   dieser Seite. Siehe zeigeZusatzbilder() weiter unten. */
 
 (function () {
   // ---- Zuordnung Kategorie -> Galerie-Unterseite (für den "Zurück"-Link) ----
@@ -126,9 +131,70 @@
     box.style.display = '';
   }
 
+  /* ---- Zusatzbilder ganz unten auf der Seite ----
+     Das sind bewusst EXTRA-Aufnahmen, die es sonst nirgends gibt:
+     Originalaufnahmen vor der Bearbeitung, Bildvarianten, Situations-
+     fotos. Sie stehen NUR in der Google-Tabelle (Spalten "zusatzbilder"
+     und "zusatzbildtexte") und NICHT in galerie-daten.js — tauchen
+     also in keiner Galerie, keiner Lightbox und nicht im Shop auf.
+
+     Ist die Spalte leer, bleibt der ganze Abschnitt unsichtbar. Für
+     alle bestehenden Geschichten ändert sich dadurch nichts. */
+  function zeigeZusatzbilder(eintrag) {
+    var abschnitt = document.getElementById('geschichte-zusatzbilder');
+    if (!abschnitt) return; // Seite ohne den Abschnitt — einfach nichts tun
+
+    var galerie = document.getElementById('zusatzbilder-galerie');
+    var bilder = (window.GeschichtenTabelle && window.GeschichtenTabelle.holeZusatzbilder)
+      ? window.GeschichtenTabelle.holeZusatzbilder(eintrag)
+      : [];
+
+    if (!bilder.length) { abschnitt.style.display = 'none'; return; }
+
+    galerie.innerHTML = '';
+
+    bilder.forEach(function (bild) {
+      var figure = document.createElement('figure');
+      figure.className = 'zusatzbild';
+
+      var img = document.createElement('img');
+      img.src = bild.quelle;
+      // Alt-Text: die Bildunterschrift, falls vorhanden — sonst ein
+      // sinnvoller Ersatz, damit Screenreader nicht ins Leere laufen.
+      img.alt = bild.text || ('Weitere Aufnahme zum Motiv ' + titelText);
+      img.loading = 'lazy';      // lädt erst, wenn man hinunterscrollt
+      img.decoding = 'async';
+
+      // Tippfehler im Dateinamen sollen keine kaputten Bildsymbole
+      // hinterlassen: das betroffene Bild verschwindet dann still.
+      img.addEventListener('error', function () {
+        figure.style.display = 'none';
+        // Bleibt kein einziges Bild übrig, verschwindet auch die Überschrift.
+        if (!galerie.querySelector('figure:not([style*="none"])')) {
+          abschnitt.style.display = 'none';
+        }
+      });
+
+      figure.appendChild(img);
+
+      if (bild.text) {
+        var caption = document.createElement('figcaption');
+        caption.textContent = bild.text;
+        figure.appendChild(caption);
+      }
+
+      galerie.appendChild(figure);
+    });
+
+    // Bei nur einem Bild nicht auf halbe Breite quetschen.
+    galerie.classList.toggle('ist-einzeln', bilder.length === 1);
+    abschnitt.style.display = '';
+  }
+
   holeZeileAusTabelle(motiv.id).then(function (ausTabelle) {
     zeigeGeschichte((ausTabelle && ausTabelle.geschichte) || motiv.geschichte);
     zeigeFussblock(ausTabelle);
+    zeigeZusatzbilder(ausTabelle);
   });
 
   // ---- Ort (nur anzeigen, wenn hinterlegt) ----

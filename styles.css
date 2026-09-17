@@ -957,6 +957,46 @@ textarea{min-height:120px; resize:vertical;}
   .geschichte-bild{position:static;}
 }
 
+/* ---- Zusatzbilder unter der Geschichte ----
+   Extra-Aufnahmen, die nur auf dieser Seite existieren (Original vor
+   der Bearbeitung, Bildvarianten). Gefüllt von geschichte.js aus der
+   Google-Tabelle; ohne Einträge ist der ganze Abschnitt ausgeblendet.
+
+   Zwei Spalten, damit Vorher/Nachher direkt nebeneinander liegt und
+   man zum Vergleichen nicht scrollen muss. Bei genau einem Bild setzt
+   geschichte.js die Klasse "ist-einzeln" und es läuft einspaltig. */
+.zusatzbilder-galerie{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:1.6rem;
+  margin-top:1.2rem;
+}
+.zusatzbilder-galerie.ist-einzeln{
+  grid-template-columns:1fr;
+  max-width:620px;   /* ein einzelnes Bild nicht über die volle Breite ziehen */
+}
+.zusatzbild{
+  margin:0;
+  background:var(--bg-panel);
+  border-radius:var(--radius-foto);
+  overflow:hidden;
+}
+.zusatzbild img{
+  width:100%; height:auto; display:block;
+}
+.zusatzbild figcaption{
+  padding:.7rem .9rem .9rem;
+  font-family:'JetBrains Mono', monospace;
+  font-size:.75rem; line-height:1.55;
+  color:var(--text-muted);
+}
+
+@media (max-width:640px){
+  /* Auf dem Handy untereinander — zwei Spalten wären zu klein,
+     um im Vergleich noch etwas zu erkennen. */
+  .zusatzbilder-galerie{ grid-template-columns:1fr; gap:1.2rem; }
+}
+
 
 /* ============================================================
    GESCHICHTEN-ÜBERSICHT (geschichten.html)
