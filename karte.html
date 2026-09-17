@@ -33,7 +33,10 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="styles.css">
+<!-- ?v=… zwingt den Browser, die neue Datei zu laden statt einer
+     gespeicherten alten. Bei Änderungen an styles.css / karte.js
+     einfach die Zeichen hinter ?v= ändern (z. B. Datum). -->
+<link rel="stylesheet" href="styles.css?v=2026-09-17">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 <script>
   document.addEventListener('contextmenu', function (e) {
@@ -102,6 +105,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="galerie-daten.js" defer></script>
-<script src="karte.js" defer></script>
+<script src="karte.js?v=2026-09-17" defer></script>
 </body>
 </html>

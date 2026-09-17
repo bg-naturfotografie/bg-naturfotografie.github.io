@@ -201,11 +201,81 @@
     element.on('popupopen', function () { element.closeTooltip(); });
   });
 
-  if (grenzen.length > 1) {
-    karte.fitBounds(grenzen, { padding: [50, 50], maxZoom: 12 });
-  } else if (grenzen.length === 1) {
-    karte.setView(grenzen[0], 12);
+  // ---- STARTANSICHT: nah an Halstenbek ----
+  // Früher hat die Karte so weit herausgezoomt, dass ALLE Punkte
+  // drauf waren — wegen der Motive aus Schottland war dann ganz
+  // Nordeuropa zu sehen und Halstenbek nur ein Klecks.
+  //
+  // Jetzt startet sie auf dem Rechteck HALSTENBEK_BEREICH. Darin
+  // liegen die meisten Punkte (Blocksberger Moor, Ahornweg,
+  // Friedrichshulder See). fitBounds passt den Zoom automatisch an
+  // die Bildschirmbreite an — auf dem Handy wie am Monitor ist
+  // dasselbe Gebiet zu sehen, ohne dass etwas abgeschnitten wird.
+  //
+  // ANPASSEN:
+  //   - Mehr Umgebung zeigen → die Zahlen weiter auseinanderziehen
+  //     (z. B. 9.80 statt 9.815 als linke Grenze nimmt die LSE mit)
+  //   - Näher ran → maxZoom erhöhen (15 = einzelne Häuser, 13 = Ortsteile)
+  //   [ [Süden, Westen], [Norden, Osten] ]
+  var HALSTENBEK_BEREICH = [[53.6045, 9.815], [53.6175, 9.858]];
+
+  function zeigeHalstenbek() {
+    karte.fitBounds(HALSTENBEK_BEREICH, { padding: [30, 30], maxZoom: 15 });
   }
+  function zeigeAlleOrte() {
+    if (grenzen.length > 1) {
+      karte.fitBounds(grenzen, { padding: [50, 50], maxZoom: 12 });
+    } else if (grenzen.length === 1) {
+      karte.setView(grenzen[0], 12);
+    }
+  }
+  zeigeHalstenbek();
+
+  // ---- Startansicht ERZWINGEN ----
+  // Leaflet berechnet den Zoom aus der Größe des Kartenkastens.
+  // Ist die Seite beim ersten Aufruf noch nicht fertig aufgebaut
+  // (Schriften, CSS), kann der Kasten kurz eine falsche Größe
+  // haben — dann stimmt der Ausschnitt nicht. Deshalb wird er nach
+  // dem vollständigen Laden noch einmal gesetzt.
+  // Ausnahme: Wer schon selbst gezoomt/verschoben hat oder über
+  // einen QR-Link (?motiv=…) kommt, wird nicht zurückgeworfen.
+  var nutzerHatBewegt = false;
+  karte.on('dragstart zoomstart', function (e) {
+    // zoomstart feuert auch bei unseren eigenen fitBounds-Aufrufen;
+    // nur echte Bedienung mit Maus/Finger hat ein originalEvent.
+    if (e.originalEvent) nutzerHatBewegt = true;
+  });
+  function erzwingeStart() {
+    if (nutzerHatBewegt || new URLSearchParams(window.location.search).get('motiv')) return;
+    karte.invalidateSize();   // Kartengröße neu messen
+    zeigeHalstenbek();
+  }
+  window.addEventListener('load', erzwingeStart);
+  setTimeout(erzwingeStart, 600); // Sicherheitsnetz, falls "load" schon vorbei war
+
+  // ---- Knöpfe "Halstenbek" / "Alle Orte" oben rechts ----
+  // Damit man die Motive weiter weg (Himmelmoor, Klövensteen,
+  // Schottland) trotzdem mit einem Klick findet.
+  var AnsichtKnoepfe = L.Control.extend({
+    options: { position: 'topright' },
+    onAdd: function () {
+      var box = L.DomUtil.create('div', 'leaflet-bar karte-ansicht');
+      // Klicks und Scrollen auf den Knöpfen nicht an die Karte durchreichen
+      L.DomEvent.disableClickPropagation(box);
+      [['Halstenbek', zeigeHalstenbek], ['Alle Orte', zeigeAlleOrte]].forEach(function (k) {
+        var knopf = L.DomUtil.create('a', '', box);
+        knopf.href = '#';
+        knopf.setAttribute('role', 'button');
+        knopf.textContent = k[0];
+        L.DomEvent.on(knopf, 'click', function (e) {
+          L.DomEvent.preventDefault(e);
+          k[1]();
+        });
+      });
+      return box;
+    }
+  });
+  karte.addControl(new AnsichtKnoepfe());
 
   // ---- Falls über die URL ein bestimmtes Motiv verlinkt wurde (?motiv=id), dorthin zentrieren ----
   var params = new URLSearchParams(window.location.search);
