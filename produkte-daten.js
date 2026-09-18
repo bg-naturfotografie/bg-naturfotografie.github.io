@@ -65,7 +65,7 @@ const DRUCKPARTNER = {
      - erscheint auf den Motivkarten KEIN Saal-Link.
    Sobald der Link drinsteht, taucht alles automatisch auf.
    ------------------------------------------------------------- */
-const SAAL_SHOP_URL = '';
+const SAAL_SHOP_URL = 'https://photo-portal.shop/share/ktL7QZy/';
 
 /* ------------------------------------------------------------
    POSTER-FORMAT: es gibt nur noch EIN Standardformat (A4).
