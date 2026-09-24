@@ -76,52 +76,95 @@ const POSTER_FORMAT = 'A4';
 
 /* ------------------------------------------------------------
    PREISE — Einzelpreise, gelten für alle Motive gleich.
+   postkarte/poster stehen hier nur noch zur Orientierung — der
+   Shop rechnet ausschließlich mit STAFFEL (unten). Wirklich
+   benutzt wird aus diesem Block nur PREISE.download.
    ------------------------------------------------------------- */
 const PREISE = {
-  postkarte: 2.50,   // Einzelpreis, siehe Staffel unten
-  poster: 12.00,     // Einzelpreis A4, siehe Staffel unten
+  postkarte: 2.00,   // Einzelpreis, siehe Staffel unten
+  poster: 9.00,      // Einzelpreis A4, siehe Staffel unten
   download: 4.00
 };
 
 /* ------------------------------------------------------------
-   STAFFELPREISE — Mengenrabatt als STÜCKPREIS.
+   STAFFELPREISE — Mengenrabatt als PAKETPREIS je Stufe.
 
-   Postkarten:  ab 1 Stück 2,50 EUR | ab 3 Stück 2,00 EUR | ab 5 Stück 1,80 EUR
-   Poster (A4): ab 1 Stück 12,00 EUR | ab 2 Stück 10,00 EUR
-   Lesezeichen: 2,00 EUR pro Stück, KEINE Staffel (3 für 5 € gibt es nur am Marktstand)
+   Postkarten:  1 für 2,00 EUR | 3 für 5,00 EUR | 5 für 7,50 EUR
+   Lesezeichen: 1 für 2,00 EUR | 3 für 5,00 EUR | 5 für 7,50 EUR
+   Poster (A4): 1 für 9,00 EUR | 2 für 15,00 EUR
+
+   So ist eine Stufe zu lesen:
+     { abMenge: 3, fuer: 5.00 }  =  "3 Stück kosten zusammen 5,00 EUR"
+   Daraus ergibt sich der Stückpreis dieser Stufe (fuer / abMenge),
+   und der gilt für JEDES Stück, sobald die Stufe erreicht ist —
+   auch über die Paketgröße hinaus:
+     4 Postkarten  -> 4 × 1,666… = 6,67 EUR   (3er-Stufe)
+     5 Postkarten  -> 5 × 1,50   = 7,50 EUR   (5er-Stufe)
+     7 Postkarten  -> 7 × 1,50   = 10,50 EUR
+     3 Poster      -> 3 × 7,50   = 22,50 EUR  (2er-Stufe)
+
+   Warum Paketpreis statt Stückpreis? "3 für 5 €" geht als
+   Stückpreis nicht glatt auf (1,666… EUR). Früher stand hier
+   proStueck, und genau deshalb gab es die Lesezeichen-Staffel nur
+   am Marktstand. Jetzt rechnet der Shop mit dem exakten Bruch und
+   rundet erst die SUMME je Produktart auf den Cent. 3 Karten
+   kosten damit wirklich 5,00 EUR und nicht 3 × 1,67 = 5,01 EUR.
+   Die Zeilen im Warenkorb werden so verteilt, dass sie zusammen
+   exakt diese Summe ergeben (siehe zeilenSumme im Shop).
 
    WICHTIG — so wird gezählt: Es zählt die GESAMTZAHL über alle
    Motive hinweg, nicht pro Motiv. Wer 2 Entchen-Postkarten und
-   1 Reiher-Postkarte nimmt, hat 3 Karten und zahlt damit 2,00 EUR
-   pro Karte = 6,00 EUR. Postkarten, Poster und Lesezeichen werden
-   dabei jeweils getrennt gezählt.
+   1 Reiher-Postkarte nimmt, hat 3 Karten und zahlt 5,00 EUR.
+   Postkarten und Lesezeichen sind außerdem MISCHBAR (siehe
+   STAFFEL_GRUPPEN unten): 2 Postkarten + 1 Lesezeichen = 3 Stück
+   = 5,00 EUR. Poster werden immer getrennt gezählt.
 
    So änderst du es: Zahlen anpassen oder eine Stufe ergänzen,
-   z. B. { abMenge: 10, proStueck: 1.60 }. Stufen bitte aufsteigend
+   z. B. { abMenge: 10, fuer: 13.00 }. Stufen bitte aufsteigend
    nach abMenge sortiert lassen — der Shop nimmt automatisch die
-   höchste Stufe, die erreicht ist.
+   höchste Stufe, die erreicht ist. Die erste Stufe muss
+   abMenge: 1 haben (das ist der Einzelpreis).
    ------------------------------------------------------------- */
 const STAFFEL = {
   postkarte: [
-    { abMenge: 1, proStueck: 2.50 },
-    { abMenge: 3, proStueck: 2.00 },
-    { abMenge: 5, proStueck: 1.80 }
+    { abMenge: 1, fuer: 2.00 },   // 1 Karte    = 2,00 EUR
+    { abMenge: 3, fuer: 5.00 },   // 3 Karten   = 5,00 EUR (je 1,666…)
+    { abMenge: 5, fuer: 7.50 }    // 5 Karten   = 7,50 EUR (je 1,50)
   ],
   poster: [
-    { abMenge: 1, proStueck: 12.00 },
-    { abMenge: 2, proStueck: 10.00 }
+    { abMenge: 1, fuer: 9.00 },   // 1 Poster   = 9,00 EUR
+    { abMenge: 2, fuer: 15.00 }   // 2 Poster   = 15,00 EUR (je 7,50)
   ],
-  /* Lesezeichen — online bewusst OHNE Mengenrabatt: 2,00 EUR pro
-     Stück, egal wie viele. Der Marktpreis "3 für 5 €" geht als
-     Stückpreis nicht glatt auf (1,666… EUR) und gilt deshalb nur am
-     Stand. Nur eine Stufe = kein "Staffelpreis"-Hinweis und kein
-     "Noch X mehr"-Hinweis im Warenkorb, das regelt der Shop
-     automatisch.
-     Falls du später doch eine Staffel willst, einfach eine zweite
-     Zeile ergänzen, z. B. { abMenge: 5, proStueck: 1.80 }. */
+  /* Lesezeichen — gleiche Staffel wie Postkarten, gilt jetzt auch
+     online (vorher nur am Marktstand, weil "3 für 5 €" als
+     Stückpreis nicht aufging — das löst der Paketpreis). */
   lesezeichen: [
-    { abMenge: 1, proStueck: 2.00 }
+    { abMenge: 1, fuer: 2.00 },
+    { abMenge: 3, fuer: 5.00 },
+    { abMenge: 5, fuer: 7.50 }
   ]
+};
+
+/* ------------------------------------------------------------
+   STAFFEL-GRUPPEN — welche Produktarten gemeinsam zählen.
+
+   Alle Typen in einer Gruppe werden für die Staffel ZUSAMMEN-
+   gezählt: 2 Postkarten + 1 Lesezeichen erreichen also die
+   3er-Stufe, 3 Postkarten + 2 Lesezeichen die 5er-Stufe.
+
+   Maßgeblich ist die Staffel des ERSTEN Typs der Gruppe (hier
+   STAFFEL.postkarte). STAFFEL.lesezeichen bitte trotzdem gleich
+   halten — sie wird benutzt, sobald du die Gruppe auflöst.
+
+   Mischung wieder abschalten: die Zeile "karten: […]" löschen
+   (oder das Objekt leer lassen: const STAFFEL_GRUPPEN = {};).
+   Dann zählt jede Produktart wieder für sich.
+
+   Neue Gruppe, z. B. später Sticker dazu: einfach 'sticker' in
+   die Liste aufnehmen UND eine gleiche STAFFEL.sticker anlegen.
+   ------------------------------------------------------------- */
+const STAFFEL_GRUPPEN = {
+  karten: ['postkarte', 'lesezeichen']
 };
 
 /* Höchstmenge, die pro Position im Anfrageformular wählbar ist. */

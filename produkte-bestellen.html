@@ -654,7 +654,7 @@
     {
       "@type": "Question",
       "name": "Was kosten Postkarten, Poster und Lesezeichen?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten kosten 2,50 \u20ac pro St\u00fcck, ab 3 St\u00fcck 2,00 \u20ac und ab 5 St\u00fcck 1,80 \u20ac. Ein A4-Poster kostet 12,00 \u20ac, ab 2 St\u00fcck 10,00 \u20ac. Ein Lesezeichen kostet 2,00 \u20ac. Gez\u00e4hlt wird \u00fcber alle Motive zusammen, Postkarten und Poster jeweils getrennt. Alle Preise zzgl. Versand." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten und Lesezeichen kosten je 2,00 \u20ac pro St\u00fcck, 3 St\u00fcck 5,00 \u20ac und 5 St\u00fcck 7,50 \u20ac (ab 5 St\u00fcck also 1,50 \u20ac pro St\u00fcck). Ein A4-Poster kostet 9,00 \u20ac, ab 2 St\u00fcck 7,50 \u20ac pro St\u00fcck. Gez\u00e4hlt wird \u00fcber alle Motive zusammen; Postkarten und Lesezeichen sind frei mischbar, Poster z\u00e4hlen f\u00fcr sich. Alle Preise zzgl. Versand." }
     },
     {
       "@type": "Question",
@@ -765,31 +765,35 @@
       <details class="info-fold">
         <summary>Preise, Staffelrabatt &amp; Versand</summary>
         <div class="fold-body">
-          <p>Bei Postkarten und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b> — Postkarten und Poster jeweils getrennt.</p>
+          <p>Bei Postkarten, Lesezeichen und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 5 €“. Poster zählen für sich.</p>
+          <!-- Diese Zeilen sind fester Text. Ändert sich STAFFEL in
+               produkte-daten.js, hier von Hand mitziehen (der Warenkorb
+               selbst rechnet automatisch mit den neuen Werten). -->
           <div class="staffel-cols">
             <div>
               <span class="staffel-titel">Postkarten</span>
               <ul>
-                <li><b>1–2 Stück</b> · je 2,50 €</li>
-                <li><b>ab 3 Stück</b> · je 2,00 €</li>
-                <li><b>ab 5 Stück</b> · je 1,80 €</li>
+                <li><b>1 Stück</b> · 2,00 €</li>
+                <li><b>3 Stück</b> · 5,00 €</li>
+                <li><b>ab 5 Stück</b> · je 1,50 €</li>
               </ul>
             </div>
             <div>
               <span class="staffel-titel">Poster A4</span>
               <ul>
-                <li><b>1 Stück</b> · 12,00 €</li>
-                <li><b>ab 2 Stück</b> · je 10,00 €</li>
+                <li><b>1 Stück</b> · 9,00 €</li>
+                <li><b>ab 2 Stück</b> · je 7,50 €</li>
               </ul>
             </div>
-            <!-- Lesezeichen: Festpreis, keine Staffel (STAFFEL.lesezeichen
-                 in produkte-daten.js). "3 für 5 €" gilt nur am Marktstand.
-                 Ändert sich der Preis, diese Zeilen von Hand mitziehen. -->
+            <!-- Lesezeichen: gleiche Staffel wie Postkarten
+                 (STAFFEL.lesezeichen in produkte-daten.js), gilt jetzt
+                 auch online — nicht mehr nur am Marktstand. -->
             <div>
               <span class="staffel-titel">Lesezeichen</span>
               <ul>
-                <li><b>pro Stück</b> · 2,00 €</li>
-                <li>3 für 5 € nur am Marktstand</li>
+                <li><b>1 Stück</b> · 2,00 €</li>
+                <li><b>3 Stück</b> · 5,00 €</li>
+                <li><b>ab 5 Stück</b> · je 1,50 €</li>
               </ul>
             </div>
           </div>
@@ -1176,7 +1180,7 @@
      Der Staffelpreis richtet sich nach der GESAMTMENGE je Typ
      über alle Motive hinweg (siehe STAFFEL in produkte-daten.js) —
      wer 2 Entchen- und 1 Reiher-Postkarte nimmt, hat 3 Karten und
-     zahlt damit den 3er-Stückpreis auf alle drei.
+     zahlt damit den 3er-Paketpreis (3 für 5 €) auf alle drei.
      ============================================================ */
   var auswahl = [];
 
@@ -1194,26 +1198,149 @@
     }, 0);
   }
 
-  /* Stückpreis für einen Typ bei gegebener Gesamtmenge */
+  /* ============================================================
+     PREISBERECHNUNG (Paketpreis-Staffel)
+     ============================================================
+     STAFFEL in produkte-daten.js speichert pro Stufe einen
+     PAKETPREIS: { abMenge: 3, fuer: 5.00 } = "3 für 5,00 €".
+     Der Stückpreis einer Stufe ist fuer / abMenge und darf ein
+     krummer Bruch sein (5 / 3 = 1,666…). Damit daraus keine
+     Cent-Fehler werden, gilt überall dieselbe Regel:
+
+       1. Die Stufe richtet sich nach der GESAMTMENGE des Typs.
+       2. Gerechnet wird in CENT mit dem exakten Bruch und erst
+          ganz am Ende auf ganze Cent gerundet (betragCent).
+       3. Die Summe je Typ ist maßgeblich (typSumme). Einzelne
+          Warenkorbzeilen werden so aufgeteilt, dass sie
+          zusammen exakt diese Summe ergeben (zeilenSumme).
+
+     Beispiel 4 Postkarten (2× Entchen, 2× Reiher), 3er-Stufe:
+       Summe  = 4 × 5/3 = 6,666… -> 6,67 €
+       Zeile 1: bis Stück 2 = 3,33 € − bis Stück 0 = 0     -> 3,33 €
+       Zeile 2: bis Stück 4 = 6,67 € − bis Stück 2 = 3,33 € -> 3,34 €
+       zusammen 6,67 € — kein verlorener oder doppelter Cent.
+     ============================================================ */
+
+  /* ---------- Mischbare Staffel-Gruppen ----------
+     STAFFEL_GRUPPEN (produkte-daten.js) legt fest, welche Typen
+     gemeinsam zählen — aktuell Postkarten + Lesezeichen.
+     Fehlt die Konstante (ältere produkte-daten.js), zählt jeder
+     Typ einfach für sich; der Shop bricht also nicht. */
+
+  /* Alle Typen, die mit "typ" zusammen zählen (inkl. typ selbst).
+     Ohne Gruppe: nur [typ]. */
+  function gruppeVon(typ) {
+    var gruppen = (typeof STAFFEL_GRUPPEN !== 'undefined') ? STAFFEL_GRUPPEN : {};
+    for (var name in gruppen) {
+      if (gruppen[name].indexOf(typ) !== -1) { return gruppen[name]; }
+    }
+    return [typ];
+  }
+
+  /* Der Typ, dessen STAFFEL für die Gruppe gilt = erster Eintrag. */
+  function staffelTyp(typ) { return gruppeVon(typ)[0]; }
+
+  /* Zählmenge für die Staffel: Summe über die ganze Gruppe.
+     2 Postkarten + 1 Lesezeichen -> 3 (für beide Typen). */
+  function staffelMenge(typ) {
+    return gruppeVon(typ).reduce(function (n, t) { return n + gesamtMenge(t); }, 0);
+  }
+
+  /* Welche Stufe gilt bei dieser Gesamtmenge? Rückgabe ist das
+     Stufen-Objekt aus STAFFEL (oder null bei Downloads/Stickern).
+     Innerhalb einer Gruppe gilt immer die Staffel des ersten Typs,
+     damit Postkarten und Lesezeichen garantiert gleich rechnen.
+     "menge" ist die ZÄHLMENGE, also normalerweise staffelMenge(typ). */
+  function aktiveStufe(typ, menge) {
+    var stufen = STAFFEL[staffelTyp(typ)];
+    if (!stufen || !stufen.length) { return null; }
+    var treffer = stufen[0];
+    for (var i = 0; i < stufen.length; i++) {
+      if (menge >= stufen[i].abMenge) { treffer = stufen[i]; }
+    }
+    return treffer;
+  }
+
+  /* Betrag in ganzen CENT für "anzahl" Stück zum Satz einer Stufe.
+     Erst multiplizieren, dann teilen, dann runden — so bleibt
+     z. B. 3 × 500 / 3 exakt 500 und wird nicht zu 500,0000001. */
+  function betragCent(stufe, anzahl) {
+    return Math.round(anzahl * stufe.fuer * 100 / stufe.abMenge);
+  }
+
+  /* Rechnerischer Stückpreis (kann krumm sein, z. B. 1,666…).
+     Nur für Vergleiche ("ist das schon Staffelpreis?") und die
+     Anzeige bei glatten Stufen — NIE direkt × Menge rechnen,
+     dafür gibt es typSumme/zeilenSumme. */
   function stueckPreis(typ, menge, pos) {
     if (typ === 'download') { return PREISE.download; }
     if (typ === 'sticker') { return (pos && pos.festpreis) || 0; }
-    var stufen = STAFFEL[typ];
-    if (!stufen) { return 0; }
-    var preis = stufen[0].proStueck;
-    for (var i = 0; i < stufen.length; i++) {
-      if (menge >= stufen[i].abMenge) { preis = stufen[i].proStueck; }
-    }
-    return preis;
+    var stufe = aktiveStufe(typ, menge);
+    return stufe ? stufe.fuer / stufe.abMenge : 0;
   }
 
-  /* Nächste erreichbare Staffelstufe — für den "nur noch X"-Hinweis */
+  /* Geht der Stückpreis einer Stufe glatt in Cent auf?
+     2,00 / 1 -> ja · 7,50 / 5 -> ja (1,50) · 5,00 / 3 -> nein */
+  function stufeGlatt(stufe) {
+    return Math.round(stufe.fuer * 100) % stufe.abMenge === 0;
+  }
+
+  /* Kurzer Anzeigetext einer Stufe für Hinweise und Zusammenfassung:
+     glatt -> "je 1,50 €" · krumm -> "3 für 5,00 €" */
+  function stufeKurz(stufe) {
+    return stufeGlatt(stufe)
+      ? 'je ' + euro(stufe.fuer / stufe.abMenge)
+      : stufe.abMenge + ' für ' + euro(stufe.fuer);
+  }
+
+  /* Summe eines ganzen Typs in Euro.
+     Für alle Typen = Summe seiner Zeilen (zeilenSumme). Weil die
+     Zeilen einer Gruppe zusammen exakt den gerundeten Gruppen-
+     betrag ergeben, stimmt auch die Summe über alle Typen auf
+     den Cent. "menge" wird nur noch als Kurzschluss für 0 genutzt. */
+  function typSumme(typ, menge) {
+    if (!menge) { return 0; }
+    return auswahl.reduce(function (n, pos) {
+      return n + (pos.typ === typ ? zeilenSumme(pos) : 0);
+    }, 0);
+  }
+
+  /* Betrag EINER Warenkorbzeile. Bei Staffel-Typen wird der
+     Gruppenbetrag über die Zeilen verteilt: kumulierter Betrag bis
+     einschließlich dieser Zeile minus kumulierter Betrag davor
+     (Reihenfolge = Reihenfolge im Warenkorb, über alle Typen der
+     Gruppe hinweg). Dadurch ergeben die Zeilen zusammen immer
+     exakt den gerundeten Betrag — auch bei 5/3-Brüchen und bei
+     gemischten Postkarten + Lesezeichen.
+     Beispiel 2 Postkarten + 1 Lesezeichen: 3,33 € + 1,67 € = 5,00 € */
+  function zeilenSumme(pos) {
+    if (pos.typ === 'download') { return PREISE.download * pos.menge; }
+    if (pos.typ === 'sticker') { return (pos.festpreis || 0) * pos.menge; }
+    var gruppe = gruppeVon(pos.typ);
+    var stufe = aktiveStufe(pos.typ, staffelMenge(pos.typ));
+    if (!stufe) { return 0; }
+    var davor = 0;
+    for (var i = 0; i < auswahl.length && auswahl[i] !== pos; i++) {
+      if (gruppe.indexOf(auswahl[i].typ) !== -1) { davor += auswahl[i].menge; }
+    }
+    return (betragCent(stufe, davor + pos.menge) - betragCent(stufe, davor)) / 100;
+  }
+
+  /* Warenwert des ganzen Korbs (ohne Versand) — Summe der Typsummen. */
+  function warenwertGesamt() {
+    return ['postkarte', 'poster', 'lesezeichen', 'download', 'sticker'].reduce(function (n, typ) {
+      return n + typSumme(typ, gesamtMenge(typ));
+    }, 0);
+  }
+
+  /* Nächste erreichbare Staffelstufe — für den "Noch X mehr"-Hinweis.
+     Rückgabe: { fehlt: Stückzahl bis zur Stufe, stufe: Stufen-Objekt } */
   function naechsteStufe(typ, menge) {
-    var stufen = STAFFEL[typ];
+    var stufen = STAFFEL[staffelTyp(typ)];
     if (!stufen) { return null; }
     for (var i = 0; i < stufen.length; i++) {
       if (menge < stufen[i].abMenge) {
-        return { fehlt: stufen[i].abMenge - menge, proStueck: stufen[i].proStueck };
+        return { fehlt: stufen[i].abMenge - menge, stufe: stufen[i] };
       }
     }
     return null;
@@ -1344,8 +1471,9 @@
     leer.style.display = 'none';
 
     liste.innerHTML = auswahl.map(function (pos) {
-      var einzel = stueckPreis(pos.typ, gesamtMenge(pos.typ), pos);
-      var zeilenSumme = einzel * pos.menge;
+      /* Zeilenbetrag über zeilenSumme, damit die Zeilen zusammen
+         exakt die Typsumme ergeben (siehe PREISBERECHNUNG). */
+      var betrag = zeilenSumme(pos);
       return '<li>' +
         '<span class="pos-text">' + escapeHtml(pos.motiv) + ' <span class="pos-typ">' + escapeHtml(pos.bezeichnung) + '</span></span>' +
         '<span class="pos-rechts">' +
@@ -1354,7 +1482,7 @@
             '<input type="number" value="' + pos.menge + '" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
             '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
           '</span>' +
-          '<span class="pos-preis">' + euro(zeilenSumme) + '</span>' +
+          '<span class="pos-preis">' + euro(betrag) + '</span>' +
           '<button type="button" class="pos-weg" data-key="' + escapeHtml(pos.key) + '" aria-label="Entfernen">&times;</button>' +
         '</span>' +
         '</li>';
@@ -1363,20 +1491,35 @@
     /* ---- Zusammenfassung mit Staffelpreisen ---- */
     var zeilen = '';
     var gesamt = 0;
-    [['postkarte', 'Postkarten'], ['poster', 'Poster A4'], ['lesezeichen', 'Lesezeichen'], ['download', 'Downloads'], ['sticker', 'Sticker']].forEach(function (paar) {
-      var typ = paar[0], name = paar[1];
-      var menge = gesamtMenge(typ);
+    /* Anzeigenamen der Typen — auch für gemischte Gruppenzeilen. */
+    var NAME = {
+      postkarte: 'Postkarten', poster: 'Poster A4', lesezeichen: 'Lesezeichen',
+      download: 'Downloads', sticker: 'Sticker'
+    };
+    ['postkarte', 'poster', 'lesezeichen', 'download', 'sticker'].forEach(function (typ) {
+      /* Gemischte Gruppen (Postkarten + Lesezeichen) bekommen EINE
+         Zeile, geschrieben vom ersten Typ der Gruppe. Die anderen
+         Typen der Gruppe werden hier übersprungen. */
+      if (staffelTyp(typ) !== typ) { return; }
+      var gruppe = gruppeVon(typ);
+      var menge = staffelMenge(typ);
       if (!menge) { return; }
-      var summe, label;
+      /* Name aus den Typen, die tatsächlich im Korb liegen:
+         nur Karten -> "Postkarten", beides -> "Postkarten & Lesezeichen" */
+      var name = gruppe.filter(function (t) { return gesamtMenge(t) > 0; })
+        .map(function (t) { return NAME[t]; }).join(' & ');
+      /* Summe über alle Typen der Gruppe (Cent-genau, siehe typSumme). */
+      var summe = gruppe.reduce(function (n, t) { return n + typSumme(t, gesamtMenge(t)); }, 0);
+      var label;
       if (typ === 'sticker') {
-        summe = auswahl.reduce(function (n, pos) {
-          return n + (pos.typ === 'sticker' ? (pos.festpreis || 0) * pos.menge : 0);
-        }, 0);
         label = menge + ' × ' + name;
+      } else if (typ === 'download') {
+        label = menge + ' × ' + name + ' · je ' + euro(PREISE.download);
       } else {
-        var einzel = stueckPreis(typ, menge);
-        summe = einzel * menge;
-        label = menge + ' × ' + name + ' · je ' + euro(einzel);
+        /* Staffel-Typen: bei glattem Stückpreis "je 1,50 €", bei
+           krummem der Paketpreis "3 für 5,00 €" — "je 1,67 €"
+           wäre bei 3 Stück sichtbar falsch (3 × 1,67 = 5,01). */
+        label = menge + ' × ' + name + ' · ' + stufeKurz(aktiveStufe(typ, menge));
       }
       gesamt += summe;
       zeilen += '<span class="summe-zeile"><span>' + label + '</span><span>' + euro(summe) + '</span></span>';
@@ -1391,12 +1534,21 @@
       lesezeichen: ['Lesezeichen', 'Lesezeichen']
     };
     ['postkarte', 'poster', 'lesezeichen'].forEach(function (typ) {
-      var menge = gesamtMenge(typ);
+      /* Pro Gruppe nur EIN Hinweis (vom ersten Typ der Gruppe). */
+      if (staffelTyp(typ) !== typ) { return; }
+      var menge = staffelMenge(typ);
       if (!menge) { return; }
       var naechste = naechsteStufe(typ, menge);
       if (!naechste) { return; }
-      var was = WORT[typ][naechste.fehlt === 1 ? 0 : 1];
-      hinweise += '<p class="naechste-stufe">↑ Noch ' + naechste.fehlt + ' ' + was + ' mehr und du zahlst je ' + euro(naechste.proStueck) + '.</p>';
+      var form = naechste.fehlt === 1 ? 0 : 1;
+      /* Gemischte Gruppe: "Noch 1 Postkarte oder Lesezeichen mehr …" */
+      var was = gruppeVon(typ).map(function (t) { return WORT[t][form]; }).join(' oder ');
+      /* Glatte Stufe: "… und du zahlst je 1,50 €."
+         Krumme Stufe: "… und es gilt 3 für 5,00 €." */
+      var vorteil = stufeGlatt(naechste.stufe)
+        ? 'du zahlst ' + stufeKurz(naechste.stufe)
+        : 'es gilt ' + stufeKurz(naechste.stufe);
+      hinweise += '<p class="naechste-stufe">↑ Noch ' + naechste.fehlt + ' ' + was + ' mehr und ' + vorteil + '.</p>';
     });
 
     /* ---- Versandzeile ----
@@ -1445,8 +1597,15 @@
        die Proforma-Rechnung überträgst bzw. bei einer verbindlichen
        Bestellung als Bestellbeleg brauchst. */
     var text = auswahl.map(function (pos) {
-      var einzel = stueckPreis(pos.typ, gesamtMenge(pos.typ), pos);
-      return pos.menge + '× ' + pos.motiv + ' — ' + pos.bezeichnung + ' (je ' + euro(einzel) + ' = ' + euro(einzel * pos.menge) + ')';
+      /* Preisangabe je Zeile: bei Staffel-Typen die gerade gültige
+         Stufe ("je 1,50 €" bzw. "Staffel 3 für 5,00 €"), bei
+         Downloads/Stickern der feste Stückpreis. Der Betrag ist
+         derselbe wie im Warenkorb (zeilenSumme). */
+      var stufe = aktiveStufe(pos.typ, staffelMenge(pos.typ));
+      var satz = stufe
+        ? (stufeGlatt(stufe) ? stufeKurz(stufe) : 'Staffel ' + stufeKurz(stufe))
+        : 'je ' + euro(stueckPreis(pos.typ, pos.menge, pos));
+      return pos.menge + '× ' + pos.motiv + ' — ' + pos.bezeichnung + ' (' + satz + ' = ' + euro(zeilenSumme(pos)) + ')';
     }).join('\n');
 
     text += '\n\nZwischensumme: ' + euro(gesamt);
@@ -1783,9 +1942,14 @@
     if (typ === 'download') { return euro(PREISE.download) + ' pro Bild'; }
     var stufen = STAFFEL[typ] || [];
     if (!stufen.length) { return ''; }
-    if (stufen.length === 1) { return euro(stufen[0].proStueck) + ' pro Stück'; }
+    /* Erste Stufe = Einzelpreis. Weitere Stufen: glatt als
+       "ab 5 je 1,50 €", krumm als Paket "3 für 5,00 €".
+       Ergebnis z. B.: "2,00 € pro Stück · 3 für 5,00 € · ab 5 je 1,50 €" */
     return stufen.map(function (st, i) {
-      return (i === 0 ? 'ab 1' : 'ab ' + st.abMenge) + ' je ' + euro(st.proStueck);
+      if (i === 0) { return euro(st.fuer / st.abMenge) + ' pro Stück'; }
+      return stufeGlatt(st)
+        ? 'ab ' + st.abMenge + ' je ' + euro(st.fuer / st.abMenge)
+        : st.abMenge + ' für ' + euro(st.fuer);
     }).join(' · ');
   }
 
@@ -1915,12 +2079,25 @@
         /* Stückpreis hängt an der Gesamtmenge dieser Produktart.
            Ist die Position noch nicht im Korb, wird sie testweise
            dazugerechnet — so sieht man den Staffelpreis vorher. */
-        var hypothetisch = gesamtMenge(typ) + (pos ? 0 : menge());
-        var einzel = stueckPreis(typ, Math.max(hypothetisch, menge()));
-        var basis = STAFFEL[typ][0].proStueck;
-        priceEl.innerHTML = euro(einzel * menge()) +
-          (menge() > 1 ? ' <span class="je">(je ' + euro(einzel) + ')</span>' : '') +
-          (einzel < basis ? ' <span class="rabatt">Staffelpreis</span>' : '');
+        /* Zählmenge inkl. gemischter Gruppe: eine Postkarte
+           profitiert auch von Lesezeichen im Korb und umgekehrt. */
+        var hypothetisch = Math.max(staffelMenge(typ) + (pos ? 0 : menge()), menge());
+        var stufe = aktiveStufe(typ, hypothetisch);
+        var basis = STAFFEL[typ][0];
+        /* Betrag für die Menge auf DIESER Karte zum gültigen Satz,
+           Cent-genau gerundet (3 Karten -> 5,00 €, nicht 5,01 €). */
+        var betrag = betragCent(stufe, menge()) / 100;
+        /* "(je …)" nur bei glattem Stückpreis; bei 3 für 5 € wäre
+           "je 1,67 €" irreführend, dort steht der Paketpreis. */
+        var jeText = '';
+        if (menge() > 1) {
+          jeText = stufeGlatt(stufe)
+            ? ' <span class="je">(je ' + euro(stufe.fuer / stufe.abMenge) + ')</span>'
+            : ' <span class="je">(' + stufeKurz(stufe) + ')</span>';
+        }
+        var istRabatt = stufe.fuer / stufe.abMenge < basis.fuer / basis.abMenge;
+        priceEl.innerHTML = euro(betrag) + jeText +
+          (istRabatt ? ' <span class="rabatt">Staffelpreis</span>' : '');
       }
 
       anderswoEl.textContent = anderswoImKorb(b, typ);
@@ -1970,7 +2147,13 @@
     var staffel = staffelText(art.id);
     infoEl.innerHTML = escapeHtml(art.info()) +
       (staffel ? ' <span class="staffel-inline">' + escapeHtml(staffel) + '</span>' : '') +
-      (art.id === 'lesezeichen' ? ' <span class="staffel-inline">„3 für 5 €“ gibt es nur am Marktstand.</span>' : '');
+      /* Hinweis auf die Mischbarkeit, nur wenn der Typ in einer
+         Gruppe mit anderen steckt (Postkarten ↔ Lesezeichen). */
+      (gruppeVon(art.id).length > 1
+        ? ' <span class="staffel-inline">Postkarten und Lesezeichen frei mischbar.</span>'
+        : '');
+    /* (Früher stand hier für Lesezeichen „3 für 5 € nur am
+       Marktstand“ — die Staffel gilt jetzt auch online.) */
 
     /* Hinweisband: bei Postern der Verweis auf große Formate. */
     document.getElementById('shop-band').innerHTML =
@@ -2460,9 +2643,8 @@
        funktioniert also auch, wenn die Seite mal woanders liegt. */
     var basis = window.location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/, '') + 'danke.html';
 
-    var warenwert = auswahl.reduce(function (n, pos) {
-      return n + stueckPreis(pos.typ, gesamtMenge(pos.typ), pos) * pos.menge;
-    }, 0);
+    /* Gleiche Rechnung wie im Warenkorb (Typsummen, Cent-genau). */
+    var warenwert = warenwertGesamt();
     var versand = versandKosten(warenwert, z.lieferart);
 
     var param = [
@@ -2478,8 +2660,7 @@
        Zeichen bleiben — deshalb wird notfalls gekürzt und die
        Danke-Seite verweist dann auf die Mail. */
     var zeilen = auswahl.map(function (pos) {
-      var einzel = stueckPreis(pos.typ, gesamtMenge(pos.typ), pos);
-      return [pos.menge, pos.motiv, pos.bezeichnung, (einzel * pos.menge).toFixed(2)].join('~');
+      return [pos.menge, pos.motiv, pos.bezeichnung, zeilenSumme(pos).toFixed(2)].join('~');
     });
     var posText = zeilen.join('|');
     if (auswahl.length && encodeURIComponent(posText).length < 1400) {

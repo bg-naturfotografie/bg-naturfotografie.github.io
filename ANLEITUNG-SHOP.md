@@ -105,13 +105,23 @@ Zeilen umstellen. (Bei den Postkarten hast du das ja schon gemacht.)
 Es gibt nur noch **ein Poster-Format: A4** (`POSTER_FORMAT`). Alles
 Größere läuft über deinen Saal-Digital-Shop (siehe unten).
 
-Die Staffel arbeitet mit **Stückpreisen**, nicht mit festen Paketen:
+Die Staffel arbeitet mit **Paketpreisen je Stufe** (`abMenge` Stück
+kosten zusammen `fuer` €). Der daraus folgende Stückpreis gilt für
+jedes Stück, sobald die Stufe erreicht ist — auch über die Paketgröße
+hinaus (4 Karten = 4 × 5/3 = 6,67 €, 7 Karten = 7 × 1,50 = 10,50 €):
 
 ```
-postkarte:    ab 1 → 2,50 €   ab 3 → 2,00 €   ab 5 → 1,80 €
-poster:       ab 1 → 12,00 €  ab 2 → 10,00 €
-lesezeichen:  2,00 € pro Stück (keine Staffel)
+postkarte:    1 → 2,00 €   3 → 5,00 €   5 → 7,50 € (je 1,50)
+lesezeichen:  1 → 2,00 €   3 → 5,00 €   5 → 7,50 € (je 1,50)
+poster:       1 → 9,00 €   2 → 15,00 € (je 7,50)
 ```
+
+Krumme Stückpreise (5 ÷ 3 = 1,666…) sind kein Problem: Der Shop
+rechnet mit dem exakten Bruch und rundet erst die Summe je
+Produktart auf den Cent; die Warenkorbzeilen werden so verteilt,
+dass sie zusammen genau diese Summe ergeben. Angezeigt wird bei
+krummen Stufen der Paketpreis („3 für 5,00 €“), bei glatten der
+Stückpreis („je 1,50 €“).
 
 **Wo Preise zusätzlich als fester Text stehen** (bei Änderung von Hand
 mitziehen): Aufklapper „Preise, Staffelrabatt & Versand“ und die
@@ -122,12 +132,17 @@ derselben Datei, die Kacheln und das Angebots-Schema (`makesOffer`) in
 
 **Entscheidend ist die Gesamtmenge über alle Motive hinweg**, nicht
 pro Motiv. Wer 2 Entchen- und 1 Reiher-Postkarte nimmt, hat 3 Karten
-und zahlt 2,00 € auf alle drei = 6,00 €. Postkarten und Poster werden
-dabei getrennt gezählt. Genau deshalb kann jeder frei kombinieren —
+und zahlt 5,00 €. **Postkarten und Lesezeichen sind mischbar**
+(`STAFFEL_GRUPPEN` in `produkte-daten.js`): 2 Karten + 1 Lesezeichen
+= 3 Stück = 5,00 €. Im Warenkorb erscheint dann eine gemeinsame Zeile
+„Postkarten & Lesezeichen“. Poster zählen immer für sich. Mischung
+abschalten: die Zeile `karten: [...]` in `STAFFEL_GRUPPEN` löschen.
+
+Genau deshalb kann jeder frei kombinieren —
 niemand muss 3 gleiche Karten nehmen, um den Rabatt zu bekommen.
 
-Eine Stufe ändern oder ergänzen (z. B. `{ abMenge: 10, proStueck:
-1.60 }`) reicht in der einen Zeile — Karten, Auswahl-Liste, Summe und
+Eine Stufe ändern oder ergänzen (z. B. `{ abMenge: 10, fuer:
+13.00 }`) reicht in der einen Zeile — Karten, Auswahl-Liste, Summe und
 der Text in der Anfrage-Mail ziehen automatisch nach. Stufen bitte
 aufsteigend nach `abMenge` sortiert lassen.
 
@@ -141,7 +156,8 @@ aufsteigend nach `abMenge` sortiert lassen.
   sinkt — auch auf allen anderen Karten gleichzeitig.
 - In der Auswahl unten steht eine Zusammenfassung je Typ mit
   Stückpreis, eine Zwischensumme und ggf. der Hinweis „Noch 2
-  Postkarten mehr und du zahlst je 1,80 €".
+  Postkarten mehr und du zahlst je 1,50 €" bzw. „… und es gilt 3 für
+  5,00 €".
 - Die Zwischensumme ist ausdrücklich als **Richtwert ohne Versand**
   gekennzeichnet — verbindlich wird erst deine Antwort.
 
@@ -165,10 +181,10 @@ Ausschnitt des Galeriefotos mit „Beispielansicht". Anderer Dateiname?
 Optional `bildLesezeichen: 'bilder/lesezeichen/xyz.png'` in die Zeile.
 Details stehen in `bilder/lesezeichen/LIESMICH.md`.
 
-**Preis:** `STAFFEL.lesezeichen` in `produkte-daten.js` — online fest
-2,00 € pro Stück, ohne Mengenrabatt. „3 für 5 €“ gilt nur am Marktstand
-(geht als Stückpreis nicht glatt auf) und steht so auch im Shop, auf der
-Startseiten-Kachel und in AGB Punkt 4.
+**Preis:** gleiche Staffel wie Postkarten (1 für 2 €, 3 für 5 €, 5 für
+7,50 €) und mit ihnen mischbar. Solange die Gruppe in
+`STAFFEL_GRUPPEN` besteht, rechnet der Shop mit `STAFFEL.postkarte`;
+`STAFFEL.lesezeichen` trotzdem gleich halten.
 
 **Direktlink** auf ein einzelnes Lesezeichen (z. B. für einen QR-Code):
 `produkte-bestellen.html#lz-teichleben1`.
