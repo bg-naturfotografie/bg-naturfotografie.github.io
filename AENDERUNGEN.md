@@ -1,3 +1,5 @@
+> **Hinweis (09.10.2026):** Inhalte wie Termine, Motive, Preise, Geschichten und Texte pflegst du inzwischen im Admin-Bereich unter `bg-naturfotografie.de/admin/`. `galerie-daten.js`, `produkte-daten.js` und `startseite-bilder.js` gibt es nicht mehr — die Daten stehen jetzt in `daten/*.json`. Alles Aktuelle steht in **ANLEITUNG-ADMIN.md**; Stellen hier, die die alten Dateien nennen, sind überholt.
+
 # Änderungen — SEO, Vorschaubilder, Shop, Barrierefreiheit & Schriften
 
 Stand: 14.08.2026 · zweite Lieferung, ersetzt die erste vollständig
