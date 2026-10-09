@@ -93,8 +93,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: adresse
       label: Adresse
       widget: string
@@ -117,8 +117,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'z. B. „Stand Nr. 12, neben dem Café“. Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
       required: false
   - name: hinweis
@@ -133,8 +133,8 @@ singletons:
       label: English
       widget: text
       required: false
-      hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-        korrigiertes Englisch bleibt erhalten.
+      hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+        „⚠ Übersetzung fehlt“.
     hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     required: false
   - name: keinTermin
@@ -149,8 +149,8 @@ singletons:
       label: English
       widget: text
       required: false
-      hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-        korrigiertes Englisch bleibt erhalten.
+      hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+        „⚠ Übersetzung fehlt“.
     required: false
 - name: motive
   label: Motive & Serien
@@ -203,8 +203,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: z. B. Rotkehlchen
     - name: zusatz
       label: Zusatz hinter dem Punkt
@@ -218,8 +218,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: z. B. „im Schnee“ → „Rotkehlchen · im Schnee“
       required: false
     - name: alt
@@ -234,8 +234,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: Ein sachlicher Satz für Screenreader und Google, z. B. „Rotkehlchen sitzt auf einem verschneiten Ast“.
     - name: imShop
       label: Im Shop anbieten
@@ -340,8 +340,8 @@ singletons:
           label: English
           widget: string
           required: false
-          hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes
-            oder korrigiertes Englisch bleibt erhalten.
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
         hint: Motive mit GLEICHEM deutschen Ortsnamen werden auf der Karte zu einer Markierung zusammengefasst.
         required: false
       - name: koordinaten
@@ -391,8 +391,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: titelStartseite
       label: Überschrift auf der Startseite (optional)
       widget: object
@@ -405,8 +405,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: Leer = Anzeigename
       required: false
     - name: kurz
@@ -421,8 +421,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: seite
       label: Eigene Seite (nur bei den vier alten Serien)
       widget: string
@@ -486,8 +486,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: Zeilenumbrüche bleiben erhalten.
     - name: datum
       label: Aufnahmedatum (Text)
@@ -506,8 +506,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       required: false
     - name: tier
       label: Artname
@@ -521,8 +521,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: z. B. Stockente / Mallard
       required: false
     - name: tier_lat
@@ -542,8 +542,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: z. B. „Die Stockente ist nicht gefährdet.“
       required: false
     - name: zusatzbilder
@@ -574,8 +574,8 @@ singletons:
           label: English
           widget: string
           required: false
-          hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes
-            oder korrigiertes Englisch bleibt erhalten.
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
         required: false
 - name: startseite
   label: 'Startseite: Bilder oben'
@@ -741,8 +741,8 @@ singletons:
           label: English
           widget: string
           required: false
-          hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes
-            oder korrigiertes Englisch bleibt erhalten.
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
     - name: mittel
       label: Mittlere Stufe (mehr Teile)
       widget: object
@@ -765,8 +765,8 @@ singletons:
           label: English
           widget: string
           required: false
-          hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes
-            oder korrigiertes Englisch bleibt erhalten.
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
     - name: gross
       label: Große Stufe (sobald ein Poster dabei ist)
       widget: object
@@ -789,8 +789,8 @@ singletons:
           label: English
           widget: string
           required: false
-          hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes
-            oder korrigiertes Englisch bleibt erhalten.
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
   - name: abholungHinweis
     label: Hinweis bei „Abholung in Halstenbek“
     widget: object
@@ -803,8 +803,8 @@ singletons:
       label: English
       widget: text
       required: false
-      hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-        korrigiertes Englisch bleibt erhalten.
+      hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+        „⚠ Übersetzung fehlt“.
   - name: druckpartner
     label: Druckpartner
     widget: object
@@ -862,8 +862,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: kategorie
       label: Serie (optional)
       widget: relation
@@ -907,8 +907,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: titel1
       label: Überschrift, Zeile 1
       widget: object
@@ -921,8 +921,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: titel2
       label: Überschrift, Zeile 2 (kursiv, orange)
       widget: object
@@ -935,8 +935,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: gruss
       label: Begrüßung neben dem Porträt
       widget: object
@@ -949,8 +949,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: bandTitel
       label: 'Geschichten-Band: Überschrift'
@@ -964,8 +964,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: bandText
       label: 'Geschichten-Band: Text'
       widget: object
@@ -978,8 +978,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: ueberTitel
       label: 'Über mich: Überschrift'
@@ -993,8 +993,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: ueberLead
       label: 'Über mich: großer erster Satz'
       widget: object
@@ -1007,8 +1007,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: ueberText
       label: 'Über mich: Text'
@@ -1022,8 +1022,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: wieIchFotografiere
       label: Aufklapper „Wie ich fotografiere“
@@ -1037,8 +1037,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: karteHinweis
       label: 'Aufklapper „Wie ich fotografiere“: kleiner Hinweis'
@@ -1052,8 +1052,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: schwerpunkte
       label: Aufklapper „Schwerpunkte & Orte“
@@ -1067,8 +1067,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: termineTitel
       label: 'Termine: Überschrift'
@@ -1082,8 +1082,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: kontaktTitel
       label: 'Kontakt: Überschrift'
       widget: object
@@ -1096,8 +1096,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: kontaktText
       label: 'Kontakt: Text'
       widget: object
@@ -1110,8 +1110,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
   - name: shop
     label: Shop
@@ -1130,8 +1130,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: titel1
       label: Überschrift, Teil 1
       widget: object
@@ -1144,8 +1144,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: titel2
       label: Überschrift, Teil 2 (kursiv, orange)
       widget: object
@@ -1158,8 +1158,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: intro
       label: Einleitung
       widget: object
@@ -1172,8 +1172,8 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
   - name: geschichten
     label: Geschichten-Übersicht
@@ -1192,8 +1192,8 @@ singletons:
         label: English
         widget: string
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
     - name: intro
       label: Einleitung
       widget: object
@@ -1206,6 +1206,6 @@ singletons:
         label: English
         widget: text
         required: false
-        hint: Leer lassen = wird automatisch übersetzt (1–2 Minuten nach dem Speichern). Selbst geschriebenes oder
-          korrigiertes Englisch bleibt erhalten.
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'

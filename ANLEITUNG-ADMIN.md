@@ -1,6 +1,6 @@
 # Admin-Bereich & Englisch — so funktioniert's
 
-Stand: 09.10.2026 (ergänzt: Übersetzung, Anmelde-Knopf, Geschichten)
+Stand: 09.10.2026 (ergänzt: Übersetzungs-Hinweis, Anmelde-Knopf, Geschichten)
 
 Seit diesem Umbau musst du für Termine, Texte, Motive, Lagerbestände,
 Geschichten und Preise **keinen Code mehr anfassen**. Alles geht über
@@ -56,8 +56,11 @@ der kostenlos bei Cloudflare läuft. Einmalig ca. 15 Minuten:
    (E-Mail bestätigen).
 2. Die Seite **github.com/sveltia/sveltia-cms-auth** öffnen und im
    Text auf den Knopf **„Deploy to Cloudflare“** klicken.
-3. Cloudflare fragt nach deinem GitHub-Konto (um eine Kopie des kleinen
-   Programms anzulegen) — erlauben, dann **Deploy** bzw. **Create and deploy**.
+3. Auf der Seite „Set up your application“: bei **Git account** auf
+   **New GitHub connection** klicken und Zugriff erlauben (dein
+   persönliches Konto reicht), Haken bei **Create private Git repository**
+   setzen, **Project name** `sveltia-cms-auth` lassen, **Build command**
+   und **Deploy command** leer lassen → **Deploy**.
 4. Am Ende zeigt Cloudflare eine Adresse wie
    `https://sveltia-cms-auth.DEIN-NAME.workers.dev`. **Diese Adresse
    notieren.**
@@ -129,9 +132,9 @@ der kostenlos bei Cloudflare läuft. Einmalig ca. 15 Minuten:
 | **Seitentexte** | `daten/texte.json` | Begrüßung, Über mich, Kontakt, Shop-Einleitung usw. |
 
 Bei jedem Text gibt es ein Feld **Deutsch** und eins **English**.
-**English einfach leer lassen** — es wird automatisch übersetzt
-(siehe Abschnitt 4). Schreibst oder korrigierst du das Englisch selbst,
-bleibt deine Fassung erhalten.
+Lässt du English leer, steht auf der englischen Seite vorerst der
+deutsche Text, und unten links erscheint **„⚠ Übersetzung fehlt“**
+(siehe Abschnitt 4).
 
 **Formatierung in Texten:** `**fett**`, `*kursiv*`,
 `[Linktext](adresse)`. HTML wird bewusst nicht ausgeführt.
@@ -178,32 +181,26 @@ Admin-Bereich unter **Geschichten** an.
 
 ## 4. Englisch
 
-### Automatische Übersetzung (einmal einrichten, ca. 10 Minuten)
+### Neue Texte übersetzen
 
-Nach jedem Speichern im Admin-Bereich füllt GitHub alle leeren
-englischen Felder mit **DeepL** und veröffentlicht die Seite neu
-(ca. 1–2 Minuten). Dafür braucht es einen kostenlosen DeepL-Schlüssel:
+Es gibt **keine automatische Übersetzung** — du trägst das Englisch
+selbst ein (oder lässt es von mir übersetzen, siehe unten). Damit nichts
+untergeht, zeigt der Admin-Bereich **unten links** einen Hinweis:
 
-1. Auf **deepl.com/pro-api** den Tarif **„DeepL API Free“** wählen und
-   registrieren (500.000 Zeichen pro Monat kostenlos; DeepL verlangt zur
-   Prüfung eine Kreditkarte, berechnet im Free-Tarif aber nichts).
-2. Im DeepL-Konto unter **API Keys** den Schlüssel kopieren (endet auf `:fx`).
-3. Auf GitHub: Repo `bg-naturfotografie.github.io` → **Settings** →
-   **Secrets and variables** → **Actions** → **New repository secret**:
-   - Name: `DEEPL_API_KEY`
-   - Secret: den kopierten Schlüssel → **Add secret**
-4. Fertig. Prüfen kannst du es unter **Actions** → „Englisch automatisch
-   übersetzen“: Nach jedem Speichern erscheint dort ein Lauf mit grünem
-   Haken.
+- **⚠ 3 Übersetzungen fehlen** — anklicken: Liste, wo genau Deutsch
+  steht, aber das Englisch fehlt (z. B. „gartenleben26 › Bildbeschreibung“),
+  mit Link „bearbeiten →“ zum passenden Bereich.
+- **✓ Englisch vollständig** — alles da.
 
-Wie das Programm entscheidet:
-- Englisch **leer** → wird übersetzt.
-- Englisch stammt von DeepL und du hast danach das **Deutsch geändert** →
-  wird neu übersetzt.
-- Englisch hast du **selbst geschrieben oder korrigiert** → bleibt.
+Nach dem Speichern dauert es 1–2 Minuten, bis der Hinweis den neuen
+Stand zeigt (er prüft jede Minute, „Neu prüfen“ geht sofort).
 
-Ohne Schlüssel passiert einfach nichts — dann steht auf der englischen
-Seite bei leeren Feldern der deutsche Text.
+Solange das Englisch fehlt, steht auf der englischen Seite einfach der
+deutsche Text — kaputt geht nichts.
+
+**Bequem:** Schreib mir „übersetze die fehlenden Texte“ — ich trage
+alles, was im Hinweis steht, auf Englisch ein und schicke es dir als
+Änderung zum Ansehen.
 
 ### Allgemein
 
@@ -240,9 +237,8 @@ deutsche Text im Element, die englische Fassung im Attribut `data-en`.
 
 - `daten.js` lädt die JSON-Dateien und stellt sie den Seiten bereit.
 - `sprache.js` regelt Deutsch/Englisch und baut den Umschalter ein.
-- `werkzeuge/uebersetzen.py` + `.github/workflows/uebersetzen.yml`:
-  die automatische Übersetzung; `daten/.uebersetzungen.json` merkt sich,
-  welche Texte von DeepL stammen.
+- `admin/uebersetzungen-pruefen.js`: der Hinweis „Übersetzung fehlt“
+  unten links im Admin-Bereich (liest nur, ändert nichts).
 - `admin/` enthält den Admin-Bereich (Sveltia CMS, kostenlos, Open
   Source); die Formulare stehen in `admin/config.yml`.
 - Lokal (Doppelklick auf eine HTML-Datei) laden die Daten nicht — der
