@@ -1,6 +1,6 @@
 # Admin-Bereich & Englisch — so funktioniert's
 
-Stand: 09.10.2026
+Stand: 09.10.2026 (ergänzt: Übersetzung, Anmelde-Knopf, Geschichten)
 
 Seit diesem Umbau musst du für Termine, Texte, Motive, Lagerbestände,
 Geschichten und Preise **keinen Code mehr anfassen**. Alles geht über
@@ -46,31 +46,74 @@ Dateien speichern.
 
 ### b) Bequemer, auf Dauer: Knopf „Sign In with GitHub“
 
-Dafür braucht es einen kleinen, kostenlosen Anmelde-Dienst (GitHub
-erlaubt die Anmeldung nicht direkt von einer statischen Seite aus).
-Einmalige Einrichtung, ca. 15 Minuten:
+GitHub erlaubt die Anmeldung nicht direkt von einer reinen Webseite aus.
+Dazwischen braucht es einen winzigen Vermittler (den „Anmelde-Dienst“),
+der kostenlos bei Cloudflare läuft. Einmalig ca. 15 Minuten:
 
-1. Kostenloses Konto bei **Cloudflare** anlegen (dash.cloudflare.com).
-2. Auf **github.com/sveltia/sveltia-cms-auth** den Knopf
-   **„Deploy to Cloudflare“** drücken und den Schritten folgen.
-   Am Ende hast du eine Adresse wie
-   `https://sveltia-cms-auth.DEIN-NAME.workers.dev`.
-3. Auf GitHub: Organisation `bg-naturfotografie` → **Settings** →
-   **Developer settings** → **OAuth Apps** → **New OAuth App**:
+**Teil A — Anmelde-Dienst bei Cloudflare anlegen**
+
+1. Auf **dash.cloudflare.com** ein kostenloses Konto anlegen
+   (E-Mail bestätigen).
+2. Die Seite **github.com/sveltia/sveltia-cms-auth** öffnen und im
+   Text auf den Knopf **„Deploy to Cloudflare“** klicken.
+3. Cloudflare fragt nach deinem GitHub-Konto (um eine Kopie des kleinen
+   Programms anzulegen) — erlauben, dann **Deploy** bzw. **Create and deploy**.
+4. Am Ende zeigt Cloudflare eine Adresse wie
+   `https://sveltia-cms-auth.DEIN-NAME.workers.dev`. **Diese Adresse
+   notieren.**
+
+**Teil B — GitHub den Anmelde-Dienst bekannt machen**
+
+5. Auf GitHub: **github.com/organizations/bg-naturfotografie/settings/applications**
+   öffnen (Organisation → Settings → Developer settings → **OAuth Apps**)
+   → **New OAuth App**.
+6. Ausfüllen:
    - Application name: `BG Naturfotografie Admin`
    - Homepage URL: `https://bg-naturfotografie.de`
    - Authorization callback URL:
      `https://sveltia-cms-auth.DEIN-NAME.workers.dev/callback`
-   - Danach **Client ID** kopieren und ein **Client secret** erzeugen.
-4. Bei Cloudflare im Worker unter **Settings → Variables** eintragen:
-   - `GITHUB_CLIENT_ID` = die Client ID
-   - `GITHUB_CLIENT_SECRET` = das Client secret (als „Secret“)
-   - `ALLOWED_DOMAINS` = `bg-naturfotografie.de`
-5. In `admin/config.yml` die Zeile `# base_url: …` aktivieren (die `#`
-   entfernen) und deine Worker-Adresse eintragen — oder mir die Adresse
-   schicken, dann mache ich das.
+     (deine Adresse aus Schritt 4 **plus `/callback`**)
+   - → **Register application**
+7. Auf der nächsten Seite die **Client ID** kopieren, dann
+   **Generate a new client secret** klicken und das **Secret** kopieren
+   (wird nur einmal angezeigt).
 
-Danach reicht ein Klick auf **Sign In with GitHub**.
+**Teil C — die beiden Werte bei Cloudflare eintragen**
+
+8. Bei Cloudflare: **Workers & Pages** → `sveltia-cms-auth` →
+   **Settings** → **Variables and Secrets** → **Add**:
+   - `GITHUB_CLIENT_ID` = die Client ID (Typ: Text)
+   - `GITHUB_CLIENT_SECRET` = das Secret (Typ: **Secret**)
+   - `ALLOWED_DOMAINS` = `bg-naturfotografie.de` (Typ: Text)
+   → **Deploy** / speichern.
+
+**Teil D — Adresse in den Admin-Bereich eintragen**
+
+9. Schick mir die Adresse aus Schritt 4 — ich trage sie ein.
+   (Oder selbst: auf GitHub die Datei `admin/config.yml` öffnen → Stift-Symbol
+   → bei `# base_url: …` die `# ` am Anfang löschen und deine Adresse
+   einsetzen → **Commit changes**.)
+10. Fertig: Auf `bg-naturfotografie.de/admin/` erscheint jetzt der Knopf
+    **Sign In with GitHub**. Beim ersten Mal fragt GitHub einmal, ob du
+    der App vertraust — bestätigen.
+
+### Wer kann sich anmelden? Nur du.
+
+- Sehen kann den Anmelde-Knopf jeder, der die Adresse kennt. Entscheidend
+  ist aber, was danach passiert: Der Admin-Bereich speichert jede Änderung
+  **mit deinem GitHub-Konto direkt ins Repo**. GitHub lässt das nur zu,
+  wenn das Konto **Schreibrecht** auf `bg-naturfotografie.github.io` hat.
+  Ein fremdes Konto kann also nichts speichern — es könnte höchstens die
+  Inhalte ansehen, die ohnehin öffentlich auf deiner Webseite stehen.
+- `ALLOWED_DOMAINS` sorgt zusätzlich dafür, dass dein Anmelde-Dienst nur
+  für deine eigene Webseite arbeitet.
+- **Einmal prüfen, wer Schreibrecht hat:** GitHub → Repo
+  `bg-naturfotografie.github.io` → **Settings** → **Collaborators and teams**
+  bzw. Organisation → **People**. Dort sollte nur dein Konto mit
+  „Write“/„Admin“/„Owner“ stehen.
+- Schütze dein GitHub-Konto mit **Zwei-Faktor-Anmeldung** (GitHub →
+  Settings → Password and authentication). Dann reicht selbst ein
+  gestohlenes Passwort nicht für den Admin-Bereich.
 
 ---
 
@@ -85,8 +128,10 @@ Danach reicht ein Klick auf **Sign In with GitHub**.
 | **Shop: Preise & Versand** | `daten/shop.json` | Staffelpreise, Download-Preis, Versandkosten, Druckpartner, Saal-Digital-Link, Sticker. Preise ändern sich automatisch überall (Shop, Startseite, Warenkorb). |
 | **Seitentexte** | `daten/texte.json` | Begrüßung, Über mich, Kontakt, Shop-Einleitung usw. |
 
-Bei jedem Text gibt es ein Feld **Deutsch** und eins **English**. Lässt
-du English leer, steht auf der englischen Seite einfach der deutsche Text.
+Bei jedem Text gibt es ein Feld **Deutsch** und eins **English**.
+**English einfach leer lassen** — es wird automatisch übersetzt
+(siehe Abschnitt 4). Schreibst oder korrigierst du das Englisch selbst,
+bleibt deine Fassung erhalten.
 
 **Formatierung in Texten:** `**fett**`, `*kursiv*`,
 `[Linktext](adresse)`. HTML wird bewusst nicht ausgeführt.
@@ -123,19 +168,44 @@ wiederherstellen — notfalls einfach melden.
 
 ---
 
-## 3. Geschichten: Umzug aus der Google-Tabelle
+## 3. Geschichten
 
-Solange `daten/geschichten.json` leer ist, liest die Seite die
-Geschichten weiter aus der Google-Tabelle. Sobald dort die erste
-Geschichte steht, wird nur noch der Admin-Bereich benutzt.
-
-Für den Umzug: Tabelle als CSV herunterladen (Datei → Herunterladen →
-CSV) und mir schicken — ich übernehme alle Geschichten samt
-englischer Übersetzung.
+Alle 32 Geschichten aus der Google-Tabelle sind umgezogen und übersetzt.
+Die Tabelle wird nicht mehr benutzt — neue Geschichten legst du im
+Admin-Bereich unter **Geschichten** an.
 
 ---
 
 ## 4. Englisch
+
+### Automatische Übersetzung (einmal einrichten, ca. 10 Minuten)
+
+Nach jedem Speichern im Admin-Bereich füllt GitHub alle leeren
+englischen Felder mit **DeepL** und veröffentlicht die Seite neu
+(ca. 1–2 Minuten). Dafür braucht es einen kostenlosen DeepL-Schlüssel:
+
+1. Auf **deepl.com/pro-api** den Tarif **„DeepL API Free“** wählen und
+   registrieren (500.000 Zeichen pro Monat kostenlos; DeepL verlangt zur
+   Prüfung eine Kreditkarte, berechnet im Free-Tarif aber nichts).
+2. Im DeepL-Konto unter **API Keys** den Schlüssel kopieren (endet auf `:fx`).
+3. Auf GitHub: Repo `bg-naturfotografie.github.io` → **Settings** →
+   **Secrets and variables** → **Actions** → **New repository secret**:
+   - Name: `DEEPL_API_KEY`
+   - Secret: den kopierten Schlüssel → **Add secret**
+4. Fertig. Prüfen kannst du es unter **Actions** → „Englisch automatisch
+   übersetzen“: Nach jedem Speichern erscheint dort ein Lauf mit grünem
+   Haken.
+
+Wie das Programm entscheidet:
+- Englisch **leer** → wird übersetzt.
+- Englisch stammt von DeepL und du hast danach das **Deutsch geändert** →
+  wird neu übersetzt.
+- Englisch hast du **selbst geschrieben oder korrigiert** → bleibt.
+
+Ohne Schlüssel passiert einfach nichts — dann steht auf der englischen
+Seite bei leeren Feldern der deutsche Text.
+
+### Allgemein
 
 - Oben rechts im Menü sitzt der Umschalter **DE | EN**. Die Wahl wird
   im Browser gemerkt.
@@ -170,8 +240,40 @@ deutsche Text im Element, die englische Fassung im Attribut `data-en`.
 
 - `daten.js` lädt die JSON-Dateien und stellt sie den Seiten bereit.
 - `sprache.js` regelt Deutsch/Englisch und baut den Umschalter ein.
+- `werkzeuge/uebersetzen.py` + `.github/workflows/uebersetzen.yml`:
+  die automatische Übersetzung; `daten/.uebersetzungen.json` merkt sich,
+  welche Texte von DeepL stammen.
 - `admin/` enthält den Admin-Bereich (Sveltia CMS, kostenlos, Open
   Source); die Formulare stehen in `admin/config.yml`.
 - Lokal (Doppelklick auf eine HTML-Datei) laden die Daten nicht — der
   Browser erlaubt das bei `file://` nicht. Zum Testen am Rechner im
   Ordner `python -m http.server` starten und `localhost:8000` öffnen.
+
+---
+
+## 7. Änderungen von Claude: ansehen, übernehmen, rückgängig machen
+
+Größere Umbauten bekommst du als **Pull Request** („Änderungsvorschlag“).
+Solange du ihn nicht übernimmst, ändert sich an der echten Seite nichts.
+
+**Ansehen, bevor es live geht:** Zu jedem Pull Request bekommst du von mir
+einen **Vorschau-Link** — die komplette neue Seite zum Durchklicken.
+Einziger Unterschied zur echten Seite: Formulare dort bitte nicht
+abschicken, und Statistik/Karte können in der Vorschau eingeschränkt sein.
+
+**Übernehmen (live schalten):**
+1. Den Link zum Pull Request öffnen (github.com/bg-naturfotografie/bg-naturfotografie.github.io/pulls).
+2. Unten auf **Merge pull request** → **Confirm merge** klicken.
+3. Nach ca. 1–2 Minuten ist alles auf bg-naturfotografie.de live
+   (einmal neu laden, ggf. mit Strg+F5).
+
+**Rückgängig machen:**
+1. Den (zusammengeführten) Pull Request auf GitHub öffnen — er steht unter
+   **Pull requests → Closed**.
+2. Unten auf **Revert** klicken. GitHub legt einen neuen Pull Request an,
+   der genau diese Änderungen zurücknimmt.
+3. Dort **Merge pull request** → **Confirm merge**. Nach 1–2 Minuten ist
+   die alte Seite wieder da.
+
+Nichts geht dabei verloren — GitHub hebt jede Version auf, und ein
+Rückgängig lässt sich selbst wieder rückgängig machen.

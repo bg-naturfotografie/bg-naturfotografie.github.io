@@ -1,0 +1,65 @@
+# ============================================================
+# Automatische Übersetzung ins Englische
+# ============================================================
+# Startet jedes Mal, wenn sich etwas in daten/ ändert (also nach
+# jedem Speichern im Admin-Bereich). Leere englische Felder werden
+# mit DeepL gefüllt und als eigene Änderung gespeichert; danach
+# wird die Webseite neu veröffentlicht.
+#
+# Voraussetzung: Unter Settings → Secrets and variables → Actions
+# ein Secret namens DEEPL_API_KEY (siehe ANLEITUNG-ADMIN.md).
+# Ohne Schlüssel läuft der Schritt einfach leer durch.
+# ============================================================
+name: Englisch automatisch übersetzen
+
+on:
+  push:
+    branches: [main]
+    paths: ['daten/**.json']
+  workflow_dispatch:   # zusätzlich per Hand startbar (Actions → Run workflow)
+
+# Mehrere Speicherungen kurz hintereinander nacheinander abarbeiten
+concurrency:
+  group: uebersetzen
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # übersetzte Dateien zurückschreiben
+  pages: write      # Webseite danach neu veröffentlichen
+
+jobs:
+  uebersetzen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Leere englische Felder übersetzen
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+        run: python3 werkzeuge/uebersetzen.py
+
+      - name: Änderungen speichern
+        id: speichern
+        run: |
+          if git diff --quiet; then
+            echo "Nichts zu speichern."
+            echo "geaendert=nein" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "Übersetzungs-Roboter"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add daten/
+          git commit -m "Automatische Übersetzung ins Englische"
+          # Falls inzwischen schon wieder gespeichert wurde: erst nachziehen
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "geaendert=ja" >> "$GITHUB_OUTPUT"
+
+      - name: Webseite neu veröffentlichen
+        if: steps.speichern.outputs.geaendert == 'ja'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds"
