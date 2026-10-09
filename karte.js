@@ -1,4 +1,4 @@
-/* ============ KARTE AUS galerie-daten.js AUFBAUEN ============
+/* ============ KARTE AUS daten/motive.json AUFBAUEN ============
    Liest alle Motive mit hinterlegtem "ort" aus GALERIE_BILDER und
    setzt dafür Punkte bzw. Gebiete auf eine Leaflet-Karte (kostenlos,
    kein API-Key nötig).
@@ -10,13 +10,14 @@
    dieses Ortes — es bleibt offen, bis man daneben klickt. Erst ein
    Klick auf ein einzelnes Bild führt zu dessen Geschichte.
 
-   DREI ARTEN VON ORTEN (siehe galerie-daten.js):
+   DREI ARTEN VON ORTEN (siehe daten/motive.json):
    - Punkt:           kein "bereich"        → schlichter kleiner Punkt
    - Gebiet (Kreis):  bereich:true + radius → weicher, unscharfer Kreis
    - Gebiet (Form):   bereich:true + polygon → frei gezeichnete Fläche
                        (z. B. ein Stadtteil-Umriss, erzeugt mit
                        gebiet-zeichnen.html) */
-(function () {
+/* Läuft erst, wenn daten.js alles geladen hat (BG.bereit) */
+BG.bereit(function () {
   var kartenElement = document.getElementById('foto-karte');
   if (!kartenElement || typeof L === 'undefined' || typeof GALERIE_BILDER === 'undefined') return;
 
@@ -63,7 +64,7 @@
      bittet bei hoher Last darum, einen eigenen Kachel-Dienst zu
      nutzen. Bei deinen Zahlen ist das weit entfernt. */
   L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>-Mitwirkende',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>' + BG.t('-Mitwirkende', ' contributors'),
     maxZoom: 19,
     className: 'karte-kacheln'
   }).addTo(karte);
@@ -85,8 +86,11 @@
      Nur wenn kein label gesetzt ist, wird auf die Koordinaten
      zurückgegriffen. */
   function ortSchluessel(ort) {
-    if (ort.label && ort.label.trim()) {
-      return 'name:' + ort.label.trim().toLowerCase();
+    // "schluessel" = deutscher Ortsname (von daten.js gesetzt), damit
+    // die Gruppen auf Deutsch und Englisch gleich aussehen
+    var name = ort.schluessel || ort.label;
+    if (name && name.trim()) {
+      return 'name:' + name.trim().toLowerCase();
     }
     if (ort.polygon && ort.polygon.length >= 3) {
       return 'flaeche:' + ort.polygon.map(function (p) {
@@ -118,8 +122,8 @@
         '<div class="karte-marker-label">' + escapeAttr(titelVon(m)) + '</div>';
     }
     return '<div class="karte-marker-label karte-marker-sammel">' +
-      escapeAttr(gruppe.ort.label || 'Mehrere Motive') +
-      '<br><span>' + gruppe.motive.length + ' Motive &middot; klicken</span></div>';
+      escapeAttr(gruppe.ort.label || BG.t('Mehrere Motive', 'Several motifs')) +
+      '<br><span>' + gruppe.motive.length + BG.t(' Motive &middot; klicken', ' motifs &middot; click') + '</span></div>';
   }
 
   /* ---- Inhalt des Klick-Fensters: alle Bilder dieses Ortes ----
@@ -127,8 +131,8 @@
      offen, bis man daneben auf die Karte klickt (Leaflet-Standard). */
   function popupHtml(gruppe) {
     var kopf = '<div class="karte-popup-kopf">' +
-      escapeAttr(gruppe.ort.label || 'Aufnahmeort') +
-      (gruppe.motive.length > 1 ? ' <span>&middot; ' + gruppe.motive.length + ' Motive</span>' : '') +
+      escapeAttr(gruppe.ort.label || BG.t('Aufnahmeort', 'Location')) +
+      (gruppe.motive.length > 1 ? ' <span>&middot; ' + gruppe.motive.length + BG.t(' Motive', ' motifs') + '</span>' : '') +
       '</div>';
 
     var eintraege = gruppe.motive.map(function (m) {
@@ -262,7 +266,7 @@
       var box = L.DomUtil.create('div', 'leaflet-bar karte-ansicht');
       // Klicks und Scrollen auf den Knöpfen nicht an die Karte durchreichen
       L.DomEvent.disableClickPropagation(box);
-      [['Halstenbek', zeigeHalstenbek], ['Alle Orte', zeigeAlleOrte]].forEach(function (k) {
+      [['Halstenbek', zeigeHalstenbek], [BG.t('Alle Orte', 'All places'), zeigeAlleOrte]].forEach(function (k) {
         var knopf = L.DomUtil.create('a', '', box);
         knopf.href = '#';
         knopf.setAttribute('role', 'button');
@@ -290,4 +294,4 @@
       }
     }
   }
-})();
+}); // Ende BG.bereit

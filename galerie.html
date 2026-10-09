@@ -4,32 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title data-en="Pond Life — ducks, herons &amp; coots | BG Naturfotografie">Teichleben — Enten, Reiher &amp; Blässhuhn | BG Naturfotografie</title>
-<meta name="description" content="Fotos vom Wasser: Entenküken, Graureiher, Blässhühner und Stockenten aus Halstenbek und Umgebung. Jedes Motiv gibt es als Postkarte oder A4-Poster.">
-<link rel="canonical" href="https://bg-naturfotografie.de/galerie-teichleben.html">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<title data-en="Series | BG Naturfotografie">Serie | BG Naturfotografie</title>
+<meta name="description" content="Eine Fotoserie von BG Naturfotografie — Naturfotografie aus Halstenbek.">
+
+<meta name="robots" content="noindex, follow">
 <meta name="author" content="Benedict Gertz">
 <meta name="geo.region" content="DE-SH">
 <meta name="geo.placename" content="Halstenbek">
 <meta name="theme-color" content="#0E110C">
 <link rel="icon" href="bilder/logo.png" type="image/png">
 <link rel="apple-touch-icon" href="bilder/logo.png">
-
-<!-- Vorschaubild beim Teilen -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="BG Naturfotografie">
-<meta property="og:locale" content="de_DE">
-<meta property="og:title" content="Teichleben — Enten, Reiher &amp; Blässhuhn | BG Naturfotografie">
-<meta property="og:description" content="Fotos vom Wasser: Entenküken, Graureiher, Blässhühner und Stockenten aus Halstenbek und Umgebung. Jedes Motiv gibt es als Postkarte oder A4-Poster.">
-<meta property="og:url" content="https://bg-naturfotografie.de/galerie-teichleben.html">
-<meta property="og:image" content="https://bg-naturfotografie.de/bilder/teichleben/entchen1.jpg">
-<meta property="og:image:secure_url" content="https://bg-naturfotografie.de/bilder/teichleben/entchen1.jpg">
-<meta property="og:image:alt" content="Teichleben — Naturfotografie von BG Naturfotografie">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Teichleben — Enten, Reiher &amp; Blässhuhn | BG Naturfotografie">
-<meta name="twitter:description" content="Fotos vom Wasser: Entenküken, Graureiher, Blässhühner und Stockenten aus Halstenbek und Umgebung. Jedes Motiv gibt es als Postkarte oder A4-Poster.">
-<meta name="twitter:image" content="https://bg-naturfotografie.de/bilder/teichleben/entchen1.jpg">
-<meta name="twitter:image:alt" content="Teichleben — Naturfotografie von BG Naturfotografie">
 
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
@@ -45,9 +29,6 @@
   });
 </script>
 
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Startseite","item":"https://bg-naturfotografie.de/"},{"@type":"ListItem","position":2,"name":"Teichleben","item":"https://bg-naturfotografie.de/galerie-teichleben.html"}]}
-</script>
 </head>
 <body>
 
@@ -75,8 +56,8 @@
   <div class="wrap">
     <a href="index.html#galerie" class="zurueck-link" data-en="&larr; All series">&larr; Alle Serien</a>
     <!-- Name und Beschreibung der Serie kommen aus daten/motive.json (Admin → Serien) -->
-    <h1 id="serie-name">Teichleben</h1>
-    <p class="lead" id="serie-kurz">Schwimmend, putzend, schlafend — das Leben am kühlen Gewässer nebenan.</p>
+    <h1 id="serie-name"></h1>
+    <p class="lead" id="serie-kurz"></p>
   </div>
 </header>
 
@@ -87,7 +68,14 @@
      Shop. ============ -->
 <section style="padding-top:2rem;">
   <div class="wrap">
-    <div class="masonry" data-galerie-kategorie="Teichleben"></div>
+    <!-- Welche Serie gezeigt wird, steht in der Adresse: galerie.html?serie=Name
+         Diese Seite ist für Serien gedacht, die du neu im Admin-Bereich
+         anlegst — die vier alten Serien haben weiter ihre eigenen Seiten. -->
+    <div class="masonry" data-galerie-kategorie=""></div>
+    <script>
+      document.querySelector('.masonry').setAttribute('data-galerie-kategorie',
+        new URLSearchParams(location.search).get('serie') || '');
+    </script>
 
     <div class="info-folds">
       <details class="info-fold">
@@ -135,5 +123,12 @@
 
 <script src="daten.js" data-brauche="motive" defer></script>
 <script src="gallery.js" defer></script>
+<script>
+  BG.bereit(function () {
+    var id = new URLSearchParams(location.search).get('serie');
+    var serie = (window.SERIEN || []).filter(function (s) { return s.id === id; })[0];
+    if (serie) document.title = serie.name + ' | BG Naturfotografie';
+  });
+</script>
 </body>
 </html>

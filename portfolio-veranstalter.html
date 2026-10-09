@@ -50,6 +50,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 
 <style>
@@ -127,6 +129,11 @@
 .pv-preis{
   font-family:'JetBrains Mono', monospace;
   font-size:.8rem; color:var(--accent-soft); white-space:nowrap;
+}
+/* Am Handy darf die Preiszeile umbrechen — sonst ist sie breiter
+   als der Bildschirm und die ganze Seite lässt sich seitlich wischen. */
+@media (max-width:600px){
+  .pv-preis{ white-space:normal; display:inline-block; }
 }
 .pv-fussnote{
   color:var(--text-muted); font-size:.86rem;
@@ -222,25 +229,25 @@
 <body>
 
 <!-- Sprunglink für Tastatur- und Screenreader-Bedienung -->
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
 
 <!-- ============ NAVIGATION ============
      Bewusst identisch zu den anderen Seiten, damit Veranstalter
      von hier aus die Galerie und den Shop ansehen können.
      Diese Seite selbst taucht im Menü NICHT auf — sie soll ja
      nur über den Link erreichbar sein. -->
-<nav class="nav" aria-label="Hauptmenü">
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -541,7 +548,7 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html">Geschichten</a> &middot; <a href="karte.html">Karte</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="karte.html" data-en="Map">Karte</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seite nicht gefunden — BG Naturfotografie</title>
+<title data-en="Page not found — BG Naturfotografie">Seite nicht gefunden — BG Naturfotografie</title>
 <meta name="robots" content="noindex, follow">
 <meta name="theme-color" content="#11140F">
 <link rel="icon" href="/bilder/logo.png" type="image/png">
@@ -14,44 +14,46 @@
 <link rel="preload" href="/schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="/sprache.js"></script>
 </head>
 <body>
 
 
 <!-- Sprunglink: erste Station für Tastatur- und Screenreader-Nutzung.
      Unsichtbar, bis er den Fokus bekommt. -->
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
-<nav class="nav" aria-label="Hauptmenü">
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="/"><img src="/bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="/#galerie">Galerie</a></li>
+      <li><a href="/#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="/produkte-bestellen.html">Shop</a></li>
-      <li><a href="/geschichten.html">Geschichten</a></li>
-      <li><a href="/karte.html">Karte</a></li>
-      <li><a href="/#ueber-mich">Über mich</a></li>
+      <li><a href="/geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="/karte.html" data-en="Map">Karte</a></li>
+      <li><a href="/#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
 
 <section id="inhalt" tabindex="-1" style="padding-top:9rem;">
   <div class="wrap">
-    <span class="eyebrow">Fehler 404</span>
-    <h1 style="font-size:clamp(2rem,4.4vw,3rem); max-width:20ch;">Diese Seite gibt es nicht (mehr).</h1>
-    <p style="color:var(--text-muted); max-width:56ch; font-size:1.02rem;">
+    <span class="eyebrow" data-en="Error 404">Fehler 404</span>
+    <h1 style="font-size:clamp(2rem,4.4vw,3rem); max-width:20ch;" data-en="This page doesn&#39;t exist (any more).">Diese Seite gibt es nicht (mehr).</h1>
+    <p style="color:var(--text-muted); max-width:56ch; font-size:1.02rem;" data-en="Maybe a typo in the address — or a QR code that wasn&#39;t read quite cleanly. Here is where to go next:">
       Vielleicht ein Tippfehler in der Adresse — oder ein QR-Code, der nicht ganz sauber
       erkannt wurde. Hier geht es weiter:</p>
 
     <div style="display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1.8rem;">
-      <a class="btn btn-fill" href="/">Zur Startseite</a>
-      <a class="btn btn-outline" href="/geschichten.html">Geschichten zu den Motiven</a>
-      <a class="btn btn-outline" href="/produkte-bestellen.html">Zum Shop</a>
+      <a class="btn btn-fill" href="/" data-en="Go to the home page">Zur Startseite</a>
+      <a class="btn btn-outline" href="/geschichten.html" data-en="Stories behind the motifs">Geschichten zu den Motiven</a>
+      <a class="btn btn-outline" href="/produkte-bestellen.html" data-en="Go to the shop">Zum Shop</a>
     </div>
 
-    <p style="color:var(--text-muted); max-width:56ch; font-size:.88rem; margin-top:2.2rem;">
+    <p style="color:var(--text-muted); max-width:56ch; font-size:.88rem; margin-top:2.2rem;" data-en="Did you land here via a QR code on a postcard? Then you will almost certainly find the motif in the &lt;a href=&quot;/geschichten.html&quot; style=&quot;color:var(--accent-soft);&quot;&gt;stories overview&lt;/a&gt;.">
       Du bist über einen QR-Code von einer Postkarte hier gelandet? Dann findest du das
       Motiv mit ziemlicher Sicherheit in der
       <a href="/geschichten.html" style="color:var(--accent-soft);">Geschichten-Übersicht</a>.</p>
@@ -61,7 +63,7 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 BG Naturfotografie</span>
-    <span><a href="/produkte-bestellen.html">Shop</a> &middot; <a href="/impressum.html">Impressum</a> &middot; <a href="/datenschutz.html">Datenschutz</a> &middot; <a href="/agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="/produkte-bestellen.html">Shop</a> &middot; <a href="/impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="/datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="/agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 

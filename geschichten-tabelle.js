@@ -1,47 +1,28 @@
-/* ============ GEMEINSAME GESCHICHTEN-TABELLE ============
-   Eine einzige Stelle für die Google-Tabellen-URL und das Laden/
-   Parsen der Geschichten-Texte. Wird von geschichte.js (Einzelseite
-   pro Motiv) UND geschichten.js (Übersichtsseite) genutzt — so
-   pflegst du die URL nur hier, nicht doppelt.
+/* ============ GESCHICHTEN LADEN ============
+   Eine gemeinsame Stelle für das Laden der Geschichten-Texte. Wird
+   von geschichte.js (Einzelseite pro Motiv) UND geschichten.js
+   (Übersichtsseite) genutzt.
 
-   Spalten in der Tabelle:
-   - id          (Pflicht, muss zur id in galerie-daten.js passen)
-   - geschichte  (Pflicht, der persönliche Text)
-   - datum       (optional, z.B. "14.05.2025")
-   - ort         (optional, z.B. "Schenefeld/Halstenbek")
-   - tier_de     (optional, deutscher Artname, z.B. "Stockente")
-   - tier_lat    (optional, lateinischer Artname, z.B. "Anas platyrhynchos")
-   - gefaehrdung (optional, z.B. "Die Stockente ist nicht gefährdet.")
-   Diese fünf Spalten erscheinen automatisch als sachlicher
-   Fußblock unter der Geschichte auf geschichte.html — getrennt von
-   der persönlichen Erzählung. Leere Spalten werden einfach ausgelassen.
+   QUELLE 1 (neu): daten/geschichten.json
+   ------------------------------------------------------------
+   Die Geschichten pflegst du jetzt im Admin-Bereich unter
+   "Geschichten" — auf Deutsch und Englisch. Pro Geschichte:
+   - id           (Pflicht, muss zur id eines Motivs passen)
+   - geschichte   (Pflicht, der persönliche Text, de + en)
+   - datum, ort, tier (de + en), tier_lat, gefaehrdung (de + en)
+     → erscheinen als sachlicher Fußblock unter der Geschichte
+   - zusatzbilder (Liste aus Bild + Bildunterschrift de/en)
+     → erscheinen ganz unten auf der Geschichte-Seite. Diese Bilder
+       sind bewusst NICHT in der Galerie und nicht im Shop.
 
-   ---- NEU: Zusatzbilder ganz unten auf der Geschichte-Seite ----
-   - zusatzbilder     (optional, Dateinamen mit SEMIKOLON getrennt)
-   - zusatzbildtexte  (optional, Bildunterschriften, gleiche Reihenfolge,
-                       ebenfalls mit SEMIKOLON getrennt)
+   QUELLE 2 (Übergang): die alte Google-Tabelle
+   ------------------------------------------------------------
+   Solange daten/geschichten.json noch leer ist, liest die Seite
+   weiter aus der Google-Tabelle (nur Deutsch). Sobald dort die
+   erste Geschichte steht, wird die Tabelle nicht mehr benutzt.
 
-   Beispielzeile:
-     zusatzbilder      entenkueken-original.jpg; entenkueken-schnitt.jpg
-     zusatzbildtexte   Die Originalaufnahme; Der gewählte Bildausschnitt
-
-   Warum Semikolon und nicht Komma? Weil in Bildunterschriften fast
-   immer Kommas vorkommen — mit Komma als Trennzeichen würdest du
-   dir den Text zerschneiden.
-
-   Alternativ kannst du Datei und Text auch in EINER Zelle mit einem
-   senkrechten Strich koppeln, dann brauchst du die zweite Spalte nicht:
-     zusatzbilder   entenkueken-original.jpg | Die Originalaufnahme; entenkueken-schnitt.jpg | Der gewählte Ausschnitt
-
-   WICHTIG: Diese Bilder sind bewusst NUR hier zu sehen. Sie gehören
-   nicht in galerie-daten.js, tauchen also in keiner Galerie, keiner
-   Lightbox und nicht im Shop auf. Deshalb stehen Dateiname und
-   Bildunterschrift auch direkt in der Tabelle und nicht als Foto-ID.
-
-   Die Tabelle ist die EINZIGE Quelle für Geschichten-Texte.
-   Das geschichte-Feld in galerie-daten.js wird nicht mehr gebraucht
-   (bleibt aber als Rückfallebene erhalten, falls die Tabelle mal
-   nicht erreichbar ist). */
+   Beide Quellen liefern dasselbe Format, damit geschichte.js und
+   geschichten.js nicht wissen müssen, woher die Texte kommen. */
 (function (global) {
   // ---- HIER die veröffentlichte CSV-URL deiner Google-Tabelle eintragen ----
   var GESCHICHTEN_TABELLE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTX6NJb2qa-jyx29imIn47l7sjM1130W_PxaNiNhdv206vnv3DbPOgvTIZx8ORVW1hXaxAEuC0W3R39/pub?gid=0&single=true&output=csv';
@@ -79,6 +60,37 @@
 
   var cachePromise = null;
 
+  /* ---- Quelle 1: daten/geschichten.json (über daten.js geladen) ----
+     Liefert dieselbe Map wie die Tabelle: { id: { geschichte, datum,
+     ort, tier_de, tier_lat, gefaehrdung, zusatzbilderListe } } — alle
+     Texte bereits in der gewählten Sprache. "tier_de" heißt aus
+     Kompatibilitätsgründen weiter so, enthält aber bei Englisch den
+     englischen Artnamen. */
+  function ausJson() {
+    var BG = global.BG || {};
+    var json = BG.rohdaten && BG.rohdaten.geschichten;
+    var liste = (json && json.geschichten) || [];
+    if (!liste.length) return null;   // → Tabelle als Übergang
+    var tx = BG.tx || function (w) { return (w && w.de) || w || ''; };
+    var map = {};
+    liste.forEach(function (g) {
+      if (!g || !g.id) return;
+      var text = tx(g.geschichte);
+      if (!text) return;
+      map[g.id] = {
+        geschichte: text,
+        datum: g.datum || '',
+        ort: tx(g.ort),
+        tier_de: tx(g.tier),
+        tier_lat: g.tier_lat || '',
+        gefaehrdung: tx(g.gefaehrdung),
+        zusatzbilderListe: (g.zusatzbilder || []).filter(function (z) { return z && z.bild; })
+          .map(function (z) { return { datei: z.bild, text: tx(z.text) }; })
+      };
+    });
+    return map;
+  }
+
   // Lädt die komplette Tabelle EINMAL pro Seitenaufruf und liefert eine
   // Map { id: { geschichte, datum, ort, tier_de, tier_lat, gefaehrdung, ... } } —
   // also ALLE Spalten deiner Tabelle, nicht nur den Geschichte-Text.
@@ -86,6 +98,12 @@
   // zweiter Netzwerk-Request nötig).
   function holeAlleGeschichten() {
     if (cachePromise) return cachePromise;
+
+    var json = ausJson();
+    if (json) {
+      cachePromise = Promise.resolve(json);
+      return cachePromise;
+    }
 
     if (!GESCHICHTEN_TABELLE_URL || GESCHICHTEN_TABELLE_URL.indexOf('HIER_DEINE') === 0) {
       cachePromise = Promise.resolve({});
@@ -148,6 +166,14 @@
      erscheint dann schlicht ohne Unterschrift. */
   function holeZusatzbilder(eintrag) {
     if (!eintrag) return [];
+
+    // Neue Quelle (geschichten.json): fertige Liste aus Bild + Text
+    if (eintrag.zusatzbilderListe) {
+      return eintrag.zusatzbilderListe.map(function (z) {
+        var datei = String(z.datei).replace(/^\//, ''); // führenden "/" vom Admin-Upload entfernen
+        return { quelle: datei.indexOf('/') !== -1 ? datei : ZUSATZBILDER_ORDNER + datei, text: z.text };
+      });
+    }
 
     var dateien = zerlegeListe(eintrag.zusatzbilder);
     if (!dateien.length) return [];

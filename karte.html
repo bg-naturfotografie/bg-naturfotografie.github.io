@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Wo die Fotos entstanden sind | BG Naturfotografie</title>
+<title data-en="Where the photos were taken | BG Naturfotografie">Wo die Fotos entstanden sind | BG Naturfotografie</title>
 <meta name="description" content="Die Aufnahmeorte meiner Naturfotos in Hamburg und Schleswig-Holstein auf einer Karte — mit allen Motiven pro Ort.">
 <link rel="canonical" href="https://bg-naturfotografie.de/karte.html">
 <meta name="robots" content="index, follow">
@@ -37,6 +37,8 @@
      gespeicherten alten. Bei Änderungen an styles.css / karte.js
      einfach die Zeichen hinter ?v= ändern (z. B. Datum). -->
 <link rel="stylesheet" href="styles.css?v=2026-09-17">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 <script>
   document.addEventListener('contextmenu', function (e) {
@@ -50,21 +52,21 @@
 </head>
 <body>
 
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
 
 <!-- ============ NAVIGATION ============ -->
-<nav class="nav" aria-label="Hauptmenü">
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html" class="ist-hier">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" class="ist-hier" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -72,9 +74,9 @@
 <!-- ============ KOPF ============ -->
 <header id="inhalt" tabindex="-1" class="seitenkopf">
   <div class="wrap">
-    <a href="index.html#galerie" class="zurueck-link">&larr; Zur&uuml;ck zur Galerie</a>
-    <h1>Wo die Fotos entstanden sind</h1>
-    <p class="lead">Klick auf einen Punkt, um alle Motive dieses Ortes zu sehen — und von dort weiter zur jeweiligen Geschichte.</p>
+    <a href="index.html#galerie" class="zurueck-link" data-en="&larr; Back to the gallery">&larr; Zur&uuml;ck zur Galerie</a>
+    <h1 data-en="Where the photos were taken">Wo die Fotos entstanden sind</h1>
+    <p class="lead" data-en="Click a spot to see all the motifs from that place — and from there go on to each story.">Klick auf einen Punkt, um alle Motive dieses Ortes zu sehen — und von dort weiter zur jeweiligen Geschichte.</p>
   </div>
 </header>
 
@@ -82,14 +84,14 @@
 <section style="padding-top:2rem;">
   <div class="wrap">
     <div id="foto-karte"></div>
-    <p id="karte-leer-hinweis" style="display:none; color:var(--text-muted); margin-top:1.5rem; font-size:.9rem;">Noch sind keine Fotostandorte hinterlegt — die Karte füllt sich nach und nach.</p>
+    <p id="karte-leer-hinweis" style="display:none; color:var(--text-muted); margin-top:1.5rem; font-size:.9rem;" data-en="No photo locations yet — the map will fill up bit by bit.">Noch sind keine Fotostandorte hinterlegt — die Karte füllt sich nach und nach.</p>
 
     <div class="info-folds">
       <details class="info-fold">
-        <summary>Warum manche Orte nur ein weicher Fleck sind</summary>
+        <summary data-en="Why some places are just a soft patch">Warum manche Orte nur ein weicher Fleck sind</summary>
         <div class="fold-body">
-          <p>Punktgenau eingezeichnet ist nur, was unbedenklich ist — etwa ein öffentlicher Weg oder ein Parkplatz. Brut- und Ruheplätze bekommen bewusst nur einen unscharfen Bereich, damit dort nicht plötzlich Betrieb herrscht.</p>
-          <p class="fold-note">Kartendaten von OpenStreetMap, Darstellung angepasst.</p>
+          <p data-en="Only harmless places are marked precisely — a public path or a car park, for example. Breeding and resting sites deliberately get only a blurred area, so that they don&#39;t suddenly become busy.">Punktgenau eingezeichnet ist nur, was unbedenklich ist — etwa ein öffentlicher Weg oder ein Parkplatz. Brut- und Ruheplätze bekommen bewusst nur einen unscharfen Bereich, damit dort nicht plötzlich Betrieb herrscht.</p>
+          <p class="fold-note" data-en="Map data from OpenStreetMap, styling adjusted.">Kartendaten von OpenStreetMap, Darstellung angepasst.</p>
         </div>
       </details>
     </div>
@@ -99,12 +101,12 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html">Geschichten</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="galerie-daten.js" defer></script>
-<script src="karte.js?v=2026-09-17" defer></script>
+<script src="daten.js" data-brauche="motive" defer></script>
+<script src="karte.js?v=2026-10-09" defer></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
      Der Titel steht im Google-Treffer und im Browser-Tab,
      die description darunter als grauer Fließtext.
      ============================================================ -->
-<title>AGB &amp; Widerrufsbelehrung | BG Naturfotografie</title>
+<title data-en="Terms &amp; cancellation policy (German) | BG Naturfotografie">AGB &amp; Widerrufsbelehrung | BG Naturfotografie</title>
 <meta name="description" content="Allgemeine Geschäftsbedingungen und Widerrufsbelehrung für Postkarten, Poster, Lesezeichen und digitale Downloads von BG Naturfotografie.">
 <link rel="canonical" href="https://bg-naturfotografie.de/agb.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -50,6 +50,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 </head>
 <body>
@@ -57,19 +59,19 @@
 
 <!-- Sprunglink: erste Station für Tastatur- und Screenreader-Nutzung.
      Unsichtbar, bis er den Fokus bekommt. -->
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
-<nav class="nav" aria-label="Hauptmenü">
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -77,6 +79,11 @@
 <div class="legal" id="inhalt" tabindex="-1">
   <a class="zurueck" href="index.html">← Zurück zur Startseite</a>
   <h1>Allgemeine Geschäftsbedingungen &amp; Widerrufsbelehrung</h1>
+  <!-- Nur in der englischen Fassung sichtbar (Klasse nur-en, siehe styles.css).
+       Rechtstexte bleiben bewusst deutsch: Eine Übersetzung wäre
+       rechtlich heikel, maßgeblich ist ohnehin die deutsche Fassung. -->
+  <p class="nur-en rechts-hinweis" lang="en">This page is only available in German. The German version is the legally binding one. If you have any questions, just write to me — I'm happy to explain anything in English.</p>
+
 
   <!-- ============================================================
        KURZFASSUNG OBEN
@@ -96,7 +103,7 @@
   <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen und Anfragen über
   den Shop auf <a href="produkte-bestellen.html">produkte-bestellen.html</a> sowie über das
   dortige Anfrageformular bei Benedict Gertz, tätig unter der Bezeichnung
-  „BG Naturfotografie“ (Kontaktdaten siehe <a href="impressum.html">Impressum</a>).
+  „BG Naturfotografie“ (Kontaktdaten siehe <a href="impressum.html" data-en="Legal notice">Impressum</a>).
   Als Kleinunternehmer im Sinne von § 19 UStG weise ich keine Umsatzsteuer gesondert aus.</p>
   <p>Nicht erfasst sind Bestellungen über meinen Shop bei Saal Digital (Formate größer als
   A4) — dafür gelten ausschließlich die Bedingungen von Saal Digital, siehe Punkt 3.1.
@@ -331,7 +338,7 @@
   <p>Bei Fragen zu deiner Bestellung erreichst du mich über das
   <a href="produkte-bestellen.html#kontakt-anfrage">Formular im Shop</a>, das
   <a href="index.html#kontakt">allgemeine Kontaktformular</a> auf der Startseite oder
-  die im <a href="impressum.html">Impressum</a> genannte E-Mail-Adresse.</p>
+  die im <a href="impressum.html" data-en="Legal notice">Impressum</a> genannte E-Mail-Adresse.</p>
 
   <p class="stand">Stand: September 2026</p>
 </div>
@@ -339,7 +346,7 @@
 <footer>
   <div class="wrap">
     <span>© 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 

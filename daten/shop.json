@@ -1,0 +1,82 @@
+{
+  "druckpartner": {
+    "postkarte": "WIRmachenDRUCK",
+    "poster": "Saal Digital",
+    "lesezeichen": "Peterprint"
+  },
+  "saalShopUrl": "https://photo-portal.shop/share/ktL7QZy/",
+  "posterFormat": "A4",
+  "preisDownload": 4,
+  "staffel": {
+    "postkarte": [
+      {
+        "abMenge": 1,
+        "fuer": 2
+      },
+      {
+        "abMenge": 3,
+        "fuer": 5
+      },
+      {
+        "abMenge": 5,
+        "fuer": 7.5
+      }
+    ],
+    "poster": [
+      {
+        "abMenge": 1,
+        "fuer": 9
+      },
+      {
+        "abMenge": 2,
+        "fuer": 15
+      }
+    ],
+    "lesezeichen": [
+      {
+        "abMenge": 1,
+        "fuer": 2
+      },
+      {
+        "abMenge": 3,
+        "fuer": 5
+      },
+      {
+        "abMenge": 5,
+        "fuer": 7.5
+      }
+    ]
+  },
+  "kartenMischbar": true,
+  "maxMenge": 50,
+  "versand": {
+    "kostenlosAb": 30,
+    "kleinMaxStueck": 5,
+    "klein": {
+      "preis": 1.8,
+      "label": {
+        "de": "Warensendung / Großbrief",
+        "en": "Large letter"
+      }
+    },
+    "mittel": {
+      "preis": 2.9,
+      "label": {
+        "de": "Maxibrief",
+        "en": "Maxi letter"
+      }
+    },
+    "gross": {
+      "preis": 4.5,
+      "label": {
+        "de": "Maxibrief / Päckchen (mit A4-Poster)",
+        "en": "Maxi letter / small parcel (with A4 poster)"
+      }
+    }
+  },
+  "abholungHinweis": {
+    "de": "Kein Versand, kein Versandkostenanteil. Den Übergabetermin machen wir per Mail aus.",
+    "en": "No shipping, no shipping cost. We will arrange the hand-over by e-mail."
+  },
+  "sticker": []
+}

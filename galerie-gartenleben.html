@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gartenleben — Rotkehlchen, Meisen &amp; Co. | BG Naturfotografie</title>
+<title data-en="Garden Life — robins, tits &amp; co. | BG Naturfotografie">Gartenleben — Rotkehlchen, Meisen &amp; Co. | BG Naturfotografie</title>
 <meta name="description" content="Gartenvögel aus Schleswig-Holstein: Rotkehlchen, Schwanzmeisen, Gimpel und Goldammer — im Wechsel der Jahreszeiten fotografiert, ohne Anfüttern und ohne Locken.">
 <link rel="canonical" href="https://bg-naturfotografie.de/galerie-gartenleben.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -34,6 +34,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 <script>
   /* Rechtsklick auf Bilder unterbinden (kein echter Kopierschutz,
@@ -49,21 +51,21 @@
 </head>
 <body>
 
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
 
 <!-- ============ NAVIGATION ============ -->
-<nav class="nav" aria-label="Hauptmenü">
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie" class="ist-hier">Galerie</a></li>
+      <li><a href="index.html#galerie" class="ist-hier" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -71,14 +73,15 @@
 <!-- ============ SERIEN-KOPF ============ -->
 <header id="inhalt" tabindex="-1" class="seitenkopf">
   <div class="wrap">
-    <a href="index.html#galerie" class="zurueck-link">&larr; Alle Serien</a>
-    <h1>Gartenleben</h1>
-    <p class="lead">Rotkehlchen, Meisen, Gimpel &amp; Co. im Wechsel der Jahreszeiten.</p>
+    <a href="index.html#galerie" class="zurueck-link" data-en="&larr; All series">&larr; Alle Serien</a>
+    <!-- Name und Beschreibung der Serie kommen aus daten/motive.json (Admin → Serien) -->
+    <h1 id="serie-name">Gartenleben</h1>
+    <p class="lead" id="serie-kurz">Rotkehlchen, Meisen, Gimpel &amp; Co. im Wechsel der Jahreszeiten.</p>
   </div>
 </header>
 
 <!-- ============ VOLLSTÄNDIGE SERIE ============
-     Wird automatisch aus galerie-daten.js befüllt (gallery.js).
+     Wird automatisch aus daten/motive.json befüllt (gallery.js).
      Neue Fotos also nur dort eintragen — hier ist nichts zu tun.
      Die beiden Symbole an jedem Bild: links Geschichte, rechts
      Shop. ============ -->
@@ -88,10 +91,10 @@
 
     <div class="info-folds">
       <details class="info-fold">
-        <summary>Zur Bildqualität und zu den Symbolen an den Fotos</summary>
+        <summary data-en="About image quality and the icons on the photos">Zur Bildqualität und zu den Symbolen an den Fotos</summary>
         <div class="fold-body">
-          <p>Hier laufen weboptimierte Vorschaubilder — für flüssiges Laden und zum Schutz der Werke. Drucke entstehen selbstverständlich aus den Originaldateien.</p>
-          <p>Die beiden Symbole an jedem Bild: <b>links oben</b> geht es zur Geschichte hinter der Aufnahme, <b>rechts oben</b> direkt zu diesem Motiv im Shop.</p>
+          <p data-en="These are web-optimised previews — for fast loading and to protect the work. Prints are of course made from the original files.">Hier laufen weboptimierte Vorschaubilder — für flüssiges Laden und zum Schutz der Werke. Drucke entstehen selbstverständlich aus den Originaldateien.</p>
+          <p data-en="The two icons on each picture: &lt;b&gt;top left&lt;/b&gt; takes you to the story behind the shot, &lt;b&gt;top right&lt;/b&gt; straight to this motif in the shop.">Die beiden Symbole an jedem Bild: <b>links oben</b> geht es zur Geschichte hinter der Aufnahme, <b>rechts oben</b> direkt zu diesem Motiv im Shop.</p>
         </div>
       </details>
     </div>
@@ -103,12 +106,12 @@
   <div class="wrap">
     <div class="band">
       <div class="band-text">
-        <h2>Weiter zu Waldleben</h2>
-        <p>Eichhörnchen, Specht und Birke im grünen Lebensraum.</p>
+        <h2 id="naechste-titel">Weiter zu Waldleben</h2>
+        <p id="naechste-kurz">Eichhörnchen, Specht und Birke im grünen Lebensraum.</p>
       </div>
       <span style="display:flex; gap:.6rem; flex-wrap:wrap;">
-        <a class="btn btn-outline" href="galerie-waldleben.html">Waldleben ansehen</a>
-        <a class="btn btn-fill" href="produkte-bestellen.html#motive">Zum Shop</a>
+        <a class="btn btn-outline" id="naechste-link" href="galerie-waldleben.html">Waldleben ansehen</a>
+        <a class="btn btn-fill" href="produkte-bestellen.html#motive" data-en="Go to the shop">Zum Shop</a>
       </span>
     </div>
   </div>
@@ -116,7 +119,7 @@
 
 <!-- ============ LIGHTBOX (gleiches Markup auf jeder Serien-Seite) ============ -->
 <div class="lightbox">
-  <button class="lightbox-close" aria-label="Schließen">&times;</button>
+  <button class="lightbox-close" aria-label="Schließen" data-en-aria-label="Close">&times;</button>
   <figure>
     <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
     <figcaption></figcaption>
@@ -126,11 +129,11 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html">Geschichten</a> &middot; <a href="karte.html">Karte</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="karte.html" data-en="Map">Karte</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
-<script src="galerie-daten.js" defer></script>
+<script src="daten.js" data-brauche="motive" defer></script>
 <script src="gallery.js" defer></script>
 </body>
 </html>

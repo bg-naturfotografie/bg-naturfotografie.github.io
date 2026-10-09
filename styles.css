@@ -1444,3 +1444,83 @@ details:focus-visible, [tabindex]:focus-visible{
 /* Hinweis unter der Liste ebenfalls mittig (max-width allein
    würde den Absatz sonst links in der Spalte stehen lassen). */
 .termine-mitte .termin-note{ margin-inline:auto; }
+
+
+/* ============================================================
+   SPRACHUMSCHALTER DE | EN (wird von sprache.js eingesetzt)
+   ============================================================
+   Sitzt am PC rechts neben dem Menü, am Handy links neben dem
+   Burger-Knopf — also immer sichtbar, nie im Klappmenü versteckt.
+   Die Reihenfolge regelt "order", weil das Menü in der HTML-Datei
+   vor dem Umschalter steht. */
+.nav .wrap .brand{ order:0; }
+.nav .wrap .nav-links{ order:1; margin-left:auto; }
+.nav .wrap .sprach-schalter{ order:2; }
+.nav .wrap .nav-burger{ order:3; }
+
+.sprach-schalter{
+  display:flex; align-items:center;
+  margin-left:1.6rem;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  font-family:'JetBrains Mono', monospace;
+  font-size:.72rem; letter-spacing:.06em;
+}
+.sprach-schalter a{
+  display:block; padding:.32rem .5rem;
+  color:var(--text-muted); text-decoration:none;
+  line-height:1;
+}
+.sprach-schalter a + a{ border-left:1px solid var(--line); }
+.sprach-schalter a:hover{ color:var(--accent-soft); }
+/* Die aktive Sprache ist gefüllt, damit man sofort sieht, wo man ist */
+.sprach-schalter a[aria-current="true"]{
+  background:var(--accent); color:var(--bg-deep);
+}
+@media (max-width:820px){
+  /* margin-left:auto schiebt Umschalter + Burger gemeinsam nach rechts */
+  .sprach-schalter{ margin-left:auto; margin-right:1.1rem; }
+}
+
+/* Texte aus dem Admin-Bereich (daten/texte.json): kurz unsichtbar,
+   bis der aktuelle Stand geladen ist — sonst blitzt der alte Text
+   aus der HTML-Datei auf. Siehe sprache.js / daten.js. */
+html.texte-laden [data-txt]{ visibility:hidden; }
+/* Englisch: ganze Seite für einen Wimpernschlag ausblenden, bis
+   die Übersetzung eingesetzt ist (Sicherung nach 1,5 s). */
+html.vor-uebersetzung body{ opacity:0; }
+
+
+/* ============================================================
+   NÄCHSTER TERMIN IN DER BÜHNE (index.html)
+   ============================================================
+   Ein kleiner Hinweis direkt unter den Knöpfen oben. Neue
+   Besucher (z. B. von Instagram) sehen so sofort, wo man dich
+   persönlich treffen kann — ohne ganz nach unten zu scrollen.
+   Ist kein Termin eingetragen, bleibt der Hinweis unsichtbar. */
+.buehne-termin{
+  display:inline-flex; align-items:center; gap:.6rem;
+  margin-top:1.3rem; padding:.45rem .8rem;
+  border:1px solid var(--line); border-left:2px solid var(--accent);
+  font-family:'JetBrains Mono', monospace; font-size:.76rem;
+  color:var(--text-muted); text-decoration:none; line-height:1.4;
+  background:rgba(14,17,12,.55);
+}
+.buehne-termin b{ color:var(--text-light); font-weight:500; }
+.buehne-termin:hover b{ color:var(--accent-soft); }
+.buehne-termin .dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--accent); flex-shrink:0;
+}
+/* "hidden" muss gegen das display oben gewinnen */
+.buehne-termin[hidden], .termin-note[hidden]{ display:none; }
+
+/* Hinweis, der nur in der englischen Fassung erscheint
+   (z. B. "Diese Seite gibt es nur auf Deutsch" bei Rechtstexten) */
+.nur-en{ display:none; }
+html.sprache-en .nur-en{ display:block; }
+.rechts-hinweis{
+  border-left:2px solid var(--accent); padding:.6rem .9rem;
+  background:var(--bg-panel); color:var(--text-light);
+  font-size:.92rem; max-width:70ch;
+}

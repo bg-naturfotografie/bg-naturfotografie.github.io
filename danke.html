@@ -32,7 +32,7 @@
      steht so auch in den AGB unter Punkt 2.4. Beides muss
      zusammenpassen.
      ============================================================ -->
-<title>Danke — deine Nachricht ist da | BG Naturfotografie</title>
+<title data-en="Thank you — your message has arrived | BG Naturfotografie">Danke — deine Nachricht ist da | BG Naturfotografie</title>
 <meta name="description" content="Bestätigung nach dem Absenden einer Bestellung oder Anfrage bei BG Naturfotografie.">
 <link rel="canonical" href="https://bg-naturfotografie.de/danke.html">
 
@@ -48,6 +48,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 
 <style>
@@ -145,19 +147,19 @@
 </head>
 <body>
 
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
-<nav class="nav" aria-label="Hauptmenü">
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -170,48 +172,48 @@
     </span>
     <div>
       <!-- Überschrift und Unterzeile setzt das Script je nach Bestellart. -->
-      <h1 id="danke-titel">Danke — deine Nachricht ist da</h1>
-      <p class="unter" id="danke-unter">Ich habe sie bekommen und melde mich bei dir.</p>
+      <h1 id="danke-titel" data-en="Thank you — your message has arrived">Danke — deine Nachricht ist da</h1>
+      <p class="unter" id="danke-unter" data-en="I have received it and will get back to you.">Ich habe sie bekommen und melde mich bei dir.</p>
     </div>
   </div>
 
   <!-- Rechtlicher Hinweis, nur bei einer verbindlichen Bestellung -->
   <div class="danke-hinweis" id="danke-vertrag" hidden>
-    <p><strong>Diese Seite und die automatische E-Mail sind eine Eingangsbestätigung — noch keine Annahme deiner Bestellung.</strong>
+    <p data-en="&lt;strong&gt;This page and the automatic e-mail are a confirmation of receipt — not yet an acceptance of your order.&lt;/strong&gt; The purchase contract is concluded as soon as I expressly confirm the order by e-mail (order confirmation, usually within 2–3 working days) or hand over or ship the goods."><strong>Diese Seite und die automatische E-Mail sind eine Eingangsbestätigung — noch keine Annahme deiner Bestellung.</strong>
       Der Kaufvertrag kommt zustande, sobald ich dir die Bestellung ausdrücklich per E-Mail bestätige (Auftragsbestätigung, in der Regel innerhalb von 2–3 Werktagen) oder die Ware übergebe bzw. verschicke.</p>
-    <p>Nehme ich deine Bestellung nicht innerhalb von 5 Werktagen an, bist du nicht mehr daran gebunden. Nachzulesen in den <a href="agb.html">AGB unter Punkt 2.4</a>.</p>
+    <p data-en="If I do not accept your order within 5 working days, you are no longer bound by it. See the &lt;a href=&quot;agb.html&quot;&gt;terms, section 2.4&lt;/a&gt; (German).">Nehme ich deine Bestellung nicht innerhalb von 5 Werktagen an, bist du nicht mehr daran gebunden. Nachzulesen in den <a href="agb.html">AGB unter Punkt 2.4</a>.</p>
   </div>
 
   <!-- Bestellübersicht — nur, wenn Parameter in der Adresse stehen -->
   <div id="danke-uebersicht-block" hidden>
-    <h2 id="danke-uebersicht-titel">Deine Auswahl</h2>
+    <h2 id="danke-uebersicht-titel" data-en="Your selection">Deine Auswahl</h2>
     <div class="danke-uebersicht">
       <ul id="danke-positionen"></ul>
       <div class="danke-summe" id="danke-summen"></div>
-      <p class="danke-klein">Kleinunternehmer nach § 19 UStG — es wird keine Umsatzsteuer ausgewiesen.</p>
+      <p class="danke-klein" data-en="Small business under § 19 UStG (German VAT Act) — no VAT is shown.">Kleinunternehmer nach § 19 UStG — es wird keine Umsatzsteuer ausgewiesen.</p>
     </div>
   </div>
 
-  <h2>Wie es weitergeht</h2>
+  <h2 data-en="What happens next">Wie es weitergeht</h2>
   <ol class="danke-schritte" id="danke-schritte"></ol>
 
-  <h2>Falls du es dir anders überlegst</h2>
-  <p id="danke-widerruf">Schreib mir einfach — solange ich noch nichts bestätigt oder verschickt habe, ist eine Änderung völlig unkompliziert.</p>
+  <h2 data-en="If you change your mind">Falls du es dir anders überlegst</h2>
+  <p id="danke-widerruf" data-en="Just write to me — as long as I haven&#39;t confirmed or shipped anything yet, a change is no problem at all.">Schreib mir einfach — solange ich noch nichts bestätigt oder verschickt habe, ist eine Änderung völlig unkompliziert.</p>
 
-  <h2>Keine E-Mail bekommen?</h2>
-  <p>Die Bestätigung kommt sofort. Taucht sie nach ein paar Minuten nicht auf, schau bitte kurz in den Spam-Ordner. Ist sie auch dort nicht, melde dich über das <a href="produkte-bestellen.html#kontakt-anfrage">Formular im Shop</a> oder direkt per E-Mail an <a href="mailto:impressum.skarvaan@web.de">impressum.skarvaan@web.de</a> — dann ist bei der Zustellung etwas schiefgegangen und ich schicke dir alles noch einmal.</p>
+  <h2 data-en="No e-mail received?">Keine E-Mail bekommen?</h2>
+  <p data-en="The confirmation is sent immediately. If it hasn&#39;t arrived after a few minutes, please check your spam folder. If it isn&#39;t there either, get in touch via the &lt;a href=&quot;produkte-bestellen.html#kontakt-anfrage&quot;&gt;form in the shop&lt;/a&gt; or directly at &lt;a href=&quot;mailto:impressum.skarvaan@web.de&quot;&gt;impressum.skarvaan@web.de&lt;/a&gt; — then something went wrong with the delivery and I&#39;ll send you everything again.">Die Bestätigung kommt sofort. Taucht sie nach ein paar Minuten nicht auf, schau bitte kurz in den Spam-Ordner. Ist sie auch dort nicht, melde dich über das <a href="produkte-bestellen.html#kontakt-anfrage">Formular im Shop</a> oder direkt per E-Mail an <a href="mailto:impressum.skarvaan@web.de">impressum.skarvaan@web.de</a> — dann ist bei der Zustellung etwas schiefgegangen und ich schicke dir alles noch einmal.</p>
 
   <div class="danke-knoepfe">
-    <a class="btn btn-fill" href="produkte-bestellen.html">Weiter im Shop</a>
-    <a class="btn btn-outline" href="geschichten.html">Geschichten lesen</a>
-    <a class="btn btn-outline" href="index.html">Zur Startseite</a>
+    <a class="btn btn-fill" href="produkte-bestellen.html" data-en="Back to the shop">Weiter im Shop</a>
+    <a class="btn btn-outline" href="geschichten.html" data-en="Read the stories">Geschichten lesen</a>
+    <a class="btn btn-outline" href="index.html" data-en="Go to the home page">Zur Startseite</a>
   </div>
 </div>
 
 <footer>
   <div class="wrap">
     <span>© 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
@@ -221,8 +223,21 @@
 
   /* ---------- Kleine Helfer ---------- */
 
+  /* Sprache (sprache.js): T('Deutsch', 'English') */
+  var EN = (window.BG && BG.sprache === 'en');
+  function T(de, en) { return EN ? en : de; }
+
+  /* Setzt Text UND entfernt data-en, damit sprache.js den Text
+     danach nicht mit der festen Übersetzung überschreibt. */
+  function setzeText(id, text) {
+    var el = document.getElementById(id);
+    el.removeAttribute('data-en');
+    el.textContent = text;
+    return el;
+  }
+
   function euro(n) {
-    return n.toFixed(2).replace('.', ',') + ' €';
+    return EN ? '€' + n.toFixed(2) : n.toFixed(2).replace('.', ',') + ' €';
   }
 
   /* Alles, was aus der Adresszeile kommt, wird als Text eingesetzt
@@ -287,15 +302,16 @@
   var ohneAngaben = !p.get('art');
 
   if (istBestellung) {
-    document.getElementById('danke-titel').textContent = 'Bestellung eingegangen';
-    document.getElementById('danke-unter').textContent =
-      'Vielen Dank. Deine Bestellung liegt bei mir — die Bestätigung mit allen Angaben ist gerade unterwegs in dein Postfach.';
+    setzeText('danke-titel', T('Bestellung eingegangen', 'Order received'));
+    setzeText('danke-unter', T('Vielen Dank. Deine Bestellung liegt bei mir — die Bestätigung mit allen Angaben ist gerade unterwegs in dein Postfach.',
+      'Thank you. Your order is with me — the confirmation with all the details is on its way to your inbox.'));
     document.getElementById('danke-vertrag').hidden = false;
-    document.title = 'Bestellung eingegangen | BG Naturfotografie';
+    document.title = T('Bestellung eingegangen | BG Naturfotografie', 'Order received | BG Naturfotografie');
+    var titelTag = document.querySelector('title'); if (titelTag) titelTag.removeAttribute('data-en');
   } else if (!ohneAngaben) {
-    document.getElementById('danke-titel').textContent = 'Anfrage ist angekommen';
-    document.getElementById('danke-unter').textContent =
-      'Vielen Dank. Bis ich mich melde, ist für dich nichts verbindlich — du entscheidest erst, wenn du mein Angebot vor dir hast.';
+    setzeText('danke-titel', T('Anfrage ist angekommen', 'Your request has arrived'));
+    setzeText('danke-unter', T('Vielen Dank. Bis ich mich melde, ist für dich nichts verbindlich — du entscheidest erst, wenn du mein Angebot vor dir hast.',
+      'Thank you. Until I get back to you, nothing is binding — you only decide once you have my offer in front of you.'));
   }
 
   /* ---------- Bestellübersicht ---------- */
@@ -305,8 +321,7 @@
   var summenEl = document.getElementById('danke-summen');
 
   if (posRoh) {
-    document.getElementById('danke-uebersicht-titel').textContent =
-      istBestellung ? 'Deine Bestellung' : 'Deine Auswahl';
+    setzeText('danke-uebersicht-titel', istBestellung ? T('Deine Bestellung', 'Your order') : T('Deine Auswahl', 'Your selection'));
 
     posRoh.split('|').forEach(function (roh) {
       var teile = roh.split('~');
@@ -320,24 +335,24 @@
     });
 
     if (!isNaN(ware)) {
-      summenEl.appendChild(summenZeile('Zwischensumme', euro(ware)));
+      summenEl.appendChild(summenZeile(T('Zwischensumme', 'Subtotal'), euro(ware)));
 
       if (liefer === 'abholung') {
-        summenEl.appendChild(summenZeile('Versand', 'entfällt (Abholung)'));
+        summenEl.appendChild(summenZeile(T('Versand', 'Shipping'), T('entfällt (Abholung)', 'none (pick-up)')));
       } else if (liefer === 'digital') {
-        summenEl.appendChild(summenZeile('Versand', 'entfällt (Download)'));
+        summenEl.appendChild(summenZeile(T('Versand', 'Shipping'), T('entfällt (Download)', 'none (download)')));
       } else if (!isNaN(versand)) {
-        summenEl.appendChild(summenZeile('Versand', versand === 0 ? 'kostenlos' : euro(versand)));
+        summenEl.appendChild(summenZeile(T('Versand', 'Shipping'), versand === 0 ? T('kostenlos', 'free') : euro(versand)));
       }
 
       var gesamt = ware + (isNaN(versand) ? 0 : versand);
-      summenEl.appendChild(summenZeile('Gesamt', euro(gesamt), true));
+      summenEl.appendChild(summenZeile(T('Gesamt', 'Total'), euro(gesamt), true));
     }
     block.hidden = false;
   } else if (viele > 0) {
     /* Die Liste war zu lang für die Adresszeile — dann nur die Anzahl. */
-    document.getElementById('danke-uebersicht-titel').textContent = 'Deine Auswahl';
-    listeEl.appendChild(zeile(viele + ' Positionen', 'Details in der E-Mail'));
+    setzeText('danke-uebersicht-titel', T('Deine Auswahl', 'Your selection'));
+    listeEl.appendChild(zeile(viele + T(' Positionen', ' items'), T('Details in der E-Mail', 'Details in the e-mail')));
     block.hidden = false;
   }
 
@@ -346,49 +361,50 @@
   var schritte = document.getElementById('danke-schritte');
 
   if (istBestellung) {
-    schritte.appendChild(schritt('Bestätigung im Postfach.',
-      'Du bekommst sofort eine E-Mail mit allem, was du gerade abgeschickt hast.'));
+    schritte.appendChild(schritt(T('Bestätigung im Postfach.', 'Confirmation in your inbox.'),
+      T('Du bekommst sofort eine E-Mail mit allem, was du gerade abgeschickt hast.', 'You will immediately get an e-mail with everything you just sent.')));
 
     if (barzahlung && liefer === 'abholung') {
-      schritte.appendChild(schritt('Ich melde mich.',
-        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und wir machen einen Termin für die Übergabe in Halstenbek aus.'));
-      schritte.appendChild(schritt('Bezahlt wird vor Ort.',
-        'Bar bei der Übergabe. Passend wäre schön, Wechselgeld habe ich aber dabei.'));
+      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
+        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und wir machen einen Termin für die Übergabe in Halstenbek aus.', 'Within 2–3 working days I confirm your order and we arrange a time for the hand-over in Halstenbek.')));
+      schritte.appendChild(schritt(T('Bezahlt wird vor Ort.', 'You pay on the spot.'),
+        T('Bar bei der Übergabe. Passend wäre schön, Wechselgeld habe ich aber dabei.', 'Cash at the hand-over. Exact change is nice, but I will bring change.')));
     } else if (liefer === 'abholung') {
-      schritte.appendChild(schritt('Ich melde mich.',
-        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.'));
-      schritte.appendChild(schritt('Abholung in Halstenbek.',
-        'Sobald die Zahlung da ist, machen wir einen Termin aus.'));
+      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
+        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.', 'Within 2–3 working days I confirm your order and send you the payment details.')));
+      schritte.appendChild(schritt(T('Abholung in Halstenbek.', 'Pick-up in Halstenbek.'),
+        T('Sobald die Zahlung da ist, machen wir einen Termin aus.', 'As soon as the payment has arrived, we arrange a time.')));
     } else if (liefer === 'digital') {
-      schritte.appendChild(schritt('Ich melde mich.',
-        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.'));
-      schritte.appendChild(schritt('Datei per E-Mail.',
-        'Nach dem Zahlungseingang bekommst du das Bild zum Herunterladen.'));
+      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
+        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.', 'Within 2–3 working days I confirm your order and send you the payment details.')));
+      schritte.appendChild(schritt(T('Datei per E-Mail.', 'File by e-mail.'),
+        T('Nach dem Zahlungseingang bekommst du das Bild zum Herunterladen.', 'Once payment is received, you get the image to download.')));
     } else {
-      schritte.appendChild(schritt('Ich melde mich.',
-        'Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten für PayPal oder Überweisung.'));
-      schritte.appendChild(schritt('Verpacken und ab die Post.',
-        'Vorrätige Motive gehen in der Regel innerhalb von 3 Werktagen nach Zahlungseingang von mir aus Halstenbek raus. Wird ein Motiv nachgedruckt, dauert es ein bis zwei Wochen länger — das steht dann in meiner Bestätigung.'));
+      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
+        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten für PayPal oder Überweisung.', 'Within 2–3 working days I confirm your order and send you the payment details for PayPal or bank transfer.')));
+      schritte.appendChild(schritt(T('Verpacken und ab die Post.', 'Packed and posted.'),
+        T('Vorrätige Motive gehen in der Regel innerhalb von 3 Werktagen nach Zahlungseingang von mir aus Halstenbek raus. Wird ein Motiv nachgedruckt, dauert es ein bis zwei Wochen länger — das steht dann in meiner Bestätigung.', 'Motifs in stock usually leave Halstenbek within 3 working days of payment. If a motif is being reprinted, it takes one to two weeks longer — my confirmation will say so.')));
     }
   } else {
-    schritte.appendChild(schritt('Eingang bestätigt.',
-      'Du bekommst sofort eine E-Mail mit deiner Nachricht — damit du weißt, dass alles angekommen ist.'));
-    schritte.appendChild(schritt('Mein Angebot.',
-      'Innerhalb von 2–3 Werktagen melde ich mich mit Preis, Versand- oder Abholoption und Zahlungsweg.'));
-    schritte.appendChild(schritt('Du entscheidest.',
-      'Erst wenn du zusagst, wird daraus eine Bestellung. Vorher ist nichts verbindlich.'));
+    schritte.appendChild(schritt(T('Eingang bestätigt.', 'Receipt confirmed.'),
+      T('Du bekommst sofort eine E-Mail mit deiner Nachricht — damit du weißt, dass alles angekommen ist.', 'You immediately get an e-mail with your message — so you know everything has arrived.')));
+    schritte.appendChild(schritt(T('Mein Angebot.', 'My offer.'),
+      T('Innerhalb von 2–3 Werktagen melde ich mich mit Preis, Versand- oder Abholoption und Zahlungsweg.', 'Within 2–3 working days I get back to you with price, shipping or pick-up option and payment details.')));
+    schritte.appendChild(schritt(T('Du entscheidest.', 'You decide.'),
+      T('Erst wenn du zusagst, wird daraus eine Bestellung. Vorher ist nichts verbindlich.', 'Only when you say yes does it become an order. Until then nothing is binding.')));
   }
 
   /* ---------- Widerruf ---------- */
 
   if (istBestellung) {
-    var w = document.getElementById('danke-widerruf');
-    w.textContent = liefer === 'digital'
-      ? 'Bei digitalen Dateien erlischt das Widerrufsrecht, sobald ich mit deiner ausdrücklichen Zustimmung mit der Bereitstellung beginne. Diese Zustimmung hole ich vorher per E-Mail bei dir ein — vorher passiert nichts. '
-      : 'Für Postkarten, Poster und Lesezeichen hast du 14 Tage Widerrufsrecht ab Erhalt der Ware. Eine kurze E-Mail genügt, ein Grund ist nicht nötig. ';
+    var w = setzeText('danke-widerruf', liefer === 'digital'
+      ? T('Bei digitalen Dateien erlischt das Widerrufsrecht, sobald ich mit deiner ausdrücklichen Zustimmung mit der Bereitstellung beginne. Diese Zustimmung hole ich vorher per E-Mail bei dir ein — vorher passiert nichts. ',
+          'For digital files, the right of withdrawal expires as soon as I begin providing them with your express consent. I will ask for this consent by e-mail beforehand — nothing happens before that. ')
+      : T('Für Postkarten, Poster und Lesezeichen hast du 14 Tage Widerrufsrecht ab Erhalt der Ware. Eine kurze E-Mail genügt, ein Grund ist nicht nötig. ',
+          'For postcards, posters and bookmarks you have a 14-day right of withdrawal from receipt of the goods. A short e-mail is enough; no reason is needed. '));
     var a = document.createElement('a');
     a.href = 'agb.html';
-    a.textContent = 'Die vollständige Widerrufsbelehrung steht in den AGB.';
+    a.textContent = T('Die vollständige Widerrufsbelehrung steht in den AGB.', 'The full cancellation policy is in the terms (German).');
     w.appendChild(a);
   }
 })();
