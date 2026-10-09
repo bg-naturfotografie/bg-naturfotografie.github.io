@@ -5,17 +5,15 @@
 # bg-naturfotografie.de/admin/ zeigt und in welche Dateien unter
 # daten/ sie speichern. Normalerweise musst du hier nichts ändern.
 #
-# EINZIGE STELLE ZUM ANPASSEN: base_url unter "backend" (siehe
-# ANLEITUNG-ADMIN.md, Schritt 2 — Anmeldung mit GitHub-Konto).
+# base_url unter "backend" = Adresse des Anmelde-Dienstes bei Cloudflare.
 # ============================================================
 backend:
   name: github
   repo: bg-naturfotografie/bg-naturfotografie.github.io
   branch: main
-  # Anmeldung mit GitHub-Konto: Adresse deines Anmelde-Dienstes eintragen
-  # (ANLEITUNG-ADMIN.md, Schritt 2). Bis dahin klappt die Anmeldung mit
-  # einem Zugangsschlüssel („Mit Token anmelden“).
-  # base_url: https://sveltia-cms-auth.DEIN-NAME.workers.dev
+  # Anmelde-Dienst bei Cloudflare (Knopf „Sign In with GitHub“),
+  # siehe ANLEITUNG-ADMIN.md, Abschnitt 1b und werkzeuge/cloudflare-anmeldedienst.js
+  base_url: https://sveltia-cms-auth.benedict-gertz.workers.dev
   auth_scope: public_repo
   commit_messages:
     create: 'Admin: {{collection}} „{{slug}}“ angelegt'
