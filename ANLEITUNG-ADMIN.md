@@ -50,20 +50,20 @@ GitHub erlaubt die Anmeldung nicht direkt von einer reinen Webseite aus.
 Dazwischen braucht es einen winzigen Vermittler (den „Anmelde-Dienst“),
 der kostenlos bei Cloudflare läuft. Einmalig ca. 15 Minuten:
 
-**Teil A — Anmelde-Dienst bei Cloudflare anlegen**
+**Teil A — Anmelde-Dienst bei Cloudflare anlegen (ohne GitHub-Verbindung)**
 
-1. Auf **dash.cloudflare.com** ein kostenloses Konto anlegen
-   (E-Mail bestätigen).
-2. Die Seite **github.com/sveltia/sveltia-cms-auth** öffnen und im
-   Text auf den Knopf **„Deploy to Cloudflare“** klicken.
-3. Auf der Seite „Set up your application“: bei **Git account** auf
-   **New GitHub connection** klicken und Zugriff erlauben (dein
-   persönliches Konto reicht), Haken bei **Create private Git repository**
-   setzen, **Project name** `sveltia-cms-auth` lassen, **Build command**
-   und **Deploy command** leer lassen → **Deploy**.
-4. Am Ende zeigt Cloudflare eine Adresse wie
-   `https://sveltia-cms-auth.DEIN-NAME.workers.dev`. **Diese Adresse
-   notieren.**
+Der Anmelde-Dienst liegt fertig im Repo: `werkzeuge/cloudflare-anmeldedienst.js`.
+Gegenüber dem Original lässt er **nur dein GitHub-Konto** herein.
+
+1. Auf **dash.cloudflare.com** ein kostenloses Konto anlegen.
+2. **Workers & Pages** → **Create** → **Start with Hello World!**
+   (bzw. „Create Worker“). Name: `sveltia-cms-auth` → **Deploy**.
+   *Nicht* „Import a repository“ wählen — das würde versuchen, deine ganze
+   Webseite samt Fotos hochzuladen (Fehler „Asset too large“).
+3. Danach **Edit code**: den ganzen Beispielcode löschen, den Inhalt von
+   `werkzeuge/cloudflare-anmeldedienst.js` hineinkopieren → **Deploy**.
+4. Oben steht die Adresse, z. B.
+   `https://sveltia-cms-auth.DEIN-NAME.workers.dev`. **Notieren.**
 
 **Teil B — GitHub den Anmelde-Dienst bekannt machen**
 
@@ -81,13 +81,15 @@ der kostenlos bei Cloudflare läuft. Einmalig ca. 15 Minuten:
    **Generate a new client secret** klicken und das **Secret** kopieren
    (wird nur einmal angezeigt).
 
-**Teil C — die beiden Werte bei Cloudflare eintragen**
+**Teil C — Einstellungen bei Cloudflare eintragen**
 
 8. Bei Cloudflare: **Workers & Pages** → `sveltia-cms-auth` →
    **Settings** → **Variables and Secrets** → **Add**:
    - `GITHUB_CLIENT_ID` = die Client ID (Typ: Text)
    - `GITHUB_CLIENT_SECRET` = das Secret (Typ: **Secret**)
    - `ALLOWED_DOMAINS` = `bg-naturfotografie.de` (Typ: Text)
+   - `ALLOWED_USERS` = **dein GitHub-Benutzername** (Typ: Text) — steht auf
+     GitHub, wenn du oben rechts auf dein Profilbild klickst.
    → **Deploy** / speichern.
 
 **Teil D — Adresse in den Admin-Bereich eintragen**
@@ -102,7 +104,11 @@ der kostenlos bei Cloudflare läuft. Einmalig ca. 15 Minuten:
 
 ### Wer kann sich anmelden? Nur du.
 
-- Sehen kann den Anmelde-Knopf jeder, der die Adresse kennt. Entscheidend
+- **Der Anmelde-Dienst lässt nur die Konten aus `ALLOWED_USERS` herein.**
+  Meldet sich jemand anderes bei GitHub an, wird er abgewiesen („Dieses
+  GitHub-Konto ist für den Admin-Bereich nicht freigeschaltet“) und sein
+  gerade ausgestellter Zugang sofort ungültig gemacht.
+- Zusätzlich: Sehen kann den Anmelde-Knopf jeder, der die Adresse kennt. Entscheidend
   ist aber, was danach passiert: Der Admin-Bereich speichert jede Änderung
   **mit deinem GitHub-Konto direkt ins Repo**. GitHub lässt das nur zu,
   wenn das Konto **Schreibrecht** auf `bg-naturfotografie.github.io` hat.

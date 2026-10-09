@@ -16,6 +16,7 @@ backend:
   # (ANLEITUNG-ADMIN.md, Schritt 2). Bis dahin klappt die Anmeldung mit
   # einem Zugangsschlüssel („Mit Token anmelden“).
   # base_url: https://sveltia-cms-auth.DEIN-NAME.workers.dev
+  auth_scope: public_repo
   commit_messages:
     create: 'Admin: {{collection}} „{{slug}}“ angelegt'
     update: 'Admin: {{collection}} „{{slug}}“ geändert'
