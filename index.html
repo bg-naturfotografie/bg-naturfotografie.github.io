@@ -9,7 +9,7 @@
      Der Titel steht im Google-Treffer und im Browser-Tab,
      die description darunter als grauer Fließtext.
      ============================================================ -->
-<title>Naturfotografie aus Halstenbek — BG Naturfotografie</title>
+<title data-en="Nature photography from Halstenbek — BG Naturfotografie">Naturfotografie aus Halstenbek — BG Naturfotografie</title>
 <meta name="description" content="Heimische Vögel, Eichhörnchen und stille Landschaften aus Schleswig-Holstein und Hamburg — fotografiert ohne Anfüttern. Postkarten, Poster &amp; Lesezeichen direkt beim Fotografen.">
 <link rel="canonical" href="https://bg-naturfotografie.de/">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -49,6 +49,10 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+
+<!-- Sprache (Deutsch/Englisch) — muss vor allem anderen feststehen,
+     deshalb ohne defer. Siehe sprache.js. -->
+<script src="sprache.js"></script>
 
 <!-- Das erste Bühnenbild vorladen: es ist das Erste, was jemand
      sieht, und soll nicht erst nach dem Text erscheinen. -->
@@ -133,24 +137,24 @@
 
 <!-- Sprunglink: erste Station für Tastatur- und Screenreader-Nutzung.
      Unsichtbar, bis er den Fokus bekommt. -->
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
 
 <!-- ============ NAVIGATION ============
      Von sieben auf fünf Punkte gekürzt. "Termine" und "Kontakt"
      stehen weiterhin unten auf dieser Seite und im Fußbereich —
      im Menü haben sie nur Platz weggenommen. -->
-<nav class="nav" aria-label="Hauptmenü">
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="#top"><img src="bilder/logo.png" alt="" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="#galerie">Galerie</a></li>
+      <li><a href="#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -165,7 +169,7 @@
      für sich stehen, Serie und Ort stehen ohnehin in der Galerie
      und in den Geschichten.
 
-     WELCHE BILDER HIER LAUFEN, STEHT IN startseite-bilder.js.
+     WELCHE BILDER HIER LAUFEN, STEHT IN daten/startseite.json.
      Dort trägst du die Motiv-IDs ein und kannst pro Bild auch den
      Bildausschnitt festlegen.
 
@@ -175,8 +179,11 @@
 <header class="buehne" id="top">
   <div class="wrap buehne-inner">
    <div class="buehne-text">
-    <span class="eyebrow">Naturfotografie · Halstenbek · Schleswig-Holstein</span>
-    <h1>Wildes Leben<br><em>vor der Haustür.</em></h1>
+    <!-- Texte mit data-txt="…" kommen aus daten/texte.json und
+         sind im Admin-Bereich unter "Seitentexte" bearbeitbar. Der
+         Text hier im HTML ist nur der Notfall-Stand. -->
+    <span class="eyebrow" data-txt="startseite.eyebrow">Naturfotografie · Halstenbek · Schleswig-Holstein</span>
+    <h1><span data-txt="startseite.titel1">Wildes Leben</span><br><em data-txt="startseite.titel2">vor der Haustür.</em></h1>
 
     <!-- PERSÖNLICHER GRUSS
          Direkt unter der Überschrift: Wer die Seite öffnet, sieht
@@ -187,13 +194,17 @@
          daneben, ein Screenreader müsste ihn sonst doppelt vorlesen. -->
     <a class="buehne-gruss" href="#ueber-mich">
       <img src="bilder/profile.jpg" alt="" class="buehne-gruss-bild" width="52" height="52">
-      <span>Hallo, ich bin <b>Bene</b>. Ich fotografiere Vögel und die heimische Natur rund um Halstenbek und im Hamburger Westen.</span>
+      <span data-txt="startseite.gruss">Hallo, ich bin <b>Bene</b>. Ich fotografiere Vögel und die heimische Natur rund um Halstenbek und im Hamburger Westen.</span>
     </a>
 
     <div class="buehne-aktionen">
-      <a class="btn btn-fill" href="#galerie">Galerie ansehen</a>
-      <a class="btn btn-outline" href="produkte-bestellen.html">Postkarten &amp; Poster</a>
+      <a class="btn btn-fill" href="#galerie" data-en="View gallery">Galerie ansehen</a>
+      <a class="btn btn-outline" href="produkte-bestellen.html" data-en="Postcards &amp; posters">Postkarten &amp; Poster</a>
     </div>
+
+    <!-- NÄCHSTER TERMIN — füllt das Skript unten aus daten/termine.json.
+         Ohne kommenden Termin bleibt der Hinweis unsichtbar (hidden). -->
+    <a class="buehne-termin" id="buehne-termin" href="#termine" hidden></a>
    </div>
 
    <!-- ============================================================
@@ -209,7 +220,7 @@
         eine Kachel auf einmal. Ohne JavaScript bleibt das hier
         eingetragene Startbild in Kachel 1 stehen.
 
-        Welche Motive laufen, steht in startseite-bilder.js.
+        Welche Motive laufen, steht in daten/startseite.json.
         ============================================================ -->
    <div class="buehne-collage" id="buehne-collage">
      <div class="buehne-kachel">
@@ -236,10 +247,16 @@
 <section id="galerie">
   <div class="wrap">
     <div class="rubrik">
-      <h2 class="rubrik-label">Galerie</h2>
-      <a class="rubrik-link" href="karte.html">Alle Aufnahmeorte auf der Karte →</a>
+      <h2 class="rubrik-label" data-en="Gallery">Galerie</h2>
+      <a class="rubrik-link" href="karte.html" data-en="All locations on the map →">Alle Aufnahmeorte auf der Karte →</a>
     </div>
 
+    <!-- Die Serien-Blöcke baut das Skript unten aus daten/motive.json:
+         Reihenfolge, Name, Kurzbeschreibung und die drei Bilder je
+         Serie stellst du im Admin-Bereich unter "Serien" ein.
+         Was hier im HTML steht, ist nur der Notfall-Stand, falls die
+         Daten nicht laden. -->
+    <div id="galerie-bloecke">
     <div class="cat-nav">
       <a href="#teichleben">→ Teichleben</a>
       <a href="#gartenleben">→ Gartenleben</a>
@@ -289,20 +306,6 @@
       </div>
     </div>
 
-    <!-- ---- Kategorie: Pflanzenwelt (noch stillgelegt) ---- -->
-    <!--<div class="cat-block" id="pflanzenwelt">
-      <h3>Pflanzenwelt</h3>
-      <p class="cat-desc">Blüten, Blätter und Bäume. Die farbenfrohe Natur um uns herum.</p>
-      <div class="grid">
-       <div class="card hero"><img src="bilder/pflanzenwelt-01.jpg" alt=""><span class="tag"><b>Eichhörnchen</b> · planend</span></div>
-       <div class="card side"><img src="bilder/pflanzenwelt-02.jpg" alt=""><span class="tag"><b>Buntspecht</b> · aus Baumhöhle</span></div>
-       <div class="card side"><img src="bilder/pflanzenwelt-03.jpg" alt=""><span class="tag"><b>Eichhörnchen</b> · in sich ruhend</span></div>
-      </div>
-      <div class="cat-more">
-        <a class="btn btn-outline" href="galerie-pflanzenwelt.html">Mehr entdecken</a>
-      </div>
-    </div>-->
-
     <!-- ---- Kategorie: Reduktion ---- -->
     <div class="cat-block" id="reduktion">
       <h3>Reduktion — Natur neu betrachtet</h3>
@@ -316,6 +319,7 @@
         <a class="btn btn-outline" href="galerie-reduktion.html">Mehr entdecken</a>
       </div>
     </div>
+    </div><!-- /#galerie-bloecke -->
 
   </div>
 </section>
@@ -331,26 +335,27 @@
 <section id="erhaeltlich-als" style="background:var(--bg-panel);">
   <div class="wrap">
     <div class="rubrik">
-      <h2 class="rubrik-label">Mitnehmen</h2>
-      <a class="rubrik-link" href="produkte-bestellen.html">Alle Motive im Shop →</a>
+      <h2 class="rubrik-label" data-en="Take one home">Mitnehmen</h2>
+      <a class="rubrik-link" href="produkte-bestellen.html" data-en="All motifs in the shop →">Alle Motive im Shop →</a>
     </div>
 
     <div class="mitnehmen-grid">
       <a class="mn-karte" href="produkte-bestellen.html#motive">
-        <div class="mn-bild"><img loading="lazy" src="bilder/postkarten.jpg" alt="Postkarten mit Naturmotiven"></div>
+        <div class="mn-bild"><img loading="lazy" src="bilder/postkarten.jpg" alt="Postkarten mit Naturmotiven" data-en-alt="Postcards with nature motifs"></div>
         <div class="mn-body">
           <span class="mn-format">10 × 15 cm</span>
-          <h3 class="mn-name">Postkarte</h3>
-          <span class="mn-preis">2,00 €<small>3 für 5 € · 5 für 7,50 € · mit Lesezeichen mischbar</small></span>
+          <h3 class="mn-name" data-en="Postcard">Postkarte</h3>
+          <!-- Preise kommen aus daten/shop.json (Skript unten) -->
+          <span class="mn-preis" data-preis="postkarte">2,00 €<small>3 für 5 € · 5 für 7,50 € · mit Lesezeichen mischbar</small></span>
         </div>
       </a>
 
       <a class="mn-karte" href="produkte-bestellen.html#motive">
-        <div class="mn-bild"><img loading="lazy" src="bilder/prints.jpg" alt="Gerahmter A4-Druck einer Naturaufnahme"></div>
+        <div class="mn-bild"><img loading="lazy" src="bilder/prints.jpg" alt="Gerahmter A4-Druck einer Naturaufnahme" data-en-alt="Framed A4 print of a nature photograph"></div>
         <div class="mn-body">
           <span class="mn-format">A4</span>
           <h3 class="mn-name">Poster</h3>
-          <span class="mn-preis">9,00 €<small>ab 2 Stück je 7,50 €</small></span>
+          <span class="mn-preis" data-preis="poster">9,00 €<small>ab 2 Stück je 7,50 €</small></span>
         </div>
       </a>
 
@@ -364,19 +369,19 @@
            Kommen später Sticker dazu, einfach eine vierte Kachel
            nach demselben Muster mit href="...#sticker" ergänzen. -->
       <a class="mn-karte" href="produkte-bestellen.html#lesezeichen">
-        <div class="mn-bild"><img loading="lazy" src="bilder/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/sticker.jpg';" alt="Lesezeichen mit Naturmotiven"></div>
+        <div class="mn-bild"><img loading="lazy" src="bilder/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/sticker.jpg';" alt="Lesezeichen mit Naturmotiven" data-en-alt="Bookmarks with nature motifs"></div>
         <div class="mn-body">
           <span class="mn-format">5 × 18 cm</span>
-          <h3 class="mn-name">Lesezeichen</h3>
-          <span class="mn-preis">2,00 €<small>3 für 5 € · 5 für 7,50 € · mit Postkarten mischbar</small></span>
+          <h3 class="mn-name" data-en="Bookmark">Lesezeichen</h3>
+          <span class="mn-preis" data-preis="lesezeichen">2,00 €<small>3 für 5 € · 5 für 7,50 € · mit Postkarten mischbar</small></span>
         </div>
       </a>
     </div>
 
-    <!-- Wer druckt was — offen, nicht eingeklappt. Namen bei einem
-         Druckereiwechsel hier UND in produkte-daten.js (DRUCKPARTNER)
-         ändern. -->
-    <p style="margin:1.4rem 0 0; font-size:.86rem; color:var(--text-muted); max-width:70ch;">
+    <!-- Wer druckt was — die Namen kommen aus daten/shop.json
+         (Admin-Bereich → Shop → Druckpartner). Der Text hier ist
+         der Notfall-Stand. -->
+    <p id="druck-zeile" style="margin:1.4rem 0 0; font-size:.86rem; color:var(--text-muted); max-width:70ch;">
       Gedruckt wird in Auflage bei <b style="color:var(--text-light); font-weight:500;">WIRmachenDRUCK</b> (Postkarten),
       <b style="color:var(--text-light); font-weight:500;">Saal Digital</b> (A4-Poster) und
       <b style="color:var(--text-light); font-weight:500;">Peterprint</b> (Lesezeichen) — verpackt und verschickt von mir aus Halstenbek.
@@ -384,23 +389,23 @@
     </p>
 
     <p style="margin:1.8rem 0 0;">
-      <a class="btn btn-fill" href="produkte-bestellen.html">Motiv aussuchen</a>
+      <a class="btn btn-fill" href="produkte-bestellen.html" data-en="Choose a motif">Motiv aussuchen</a>
     </p>
 
     <!-- Alles, was nur Information ist, liegt eingeklappt: -->
     <div class="info-folds">
       <details class="info-fold">
-        <summary>Ein Motiv auf Tasse, Beutel oder Untersetzer?</summary>
+        <summary data-en="A motif on a mug, tote bag or coaster?">Ein Motiv auf Tasse, Beutel oder Untersetzer?</summary>
         <div class="fold-body">
-          <p>Frag gerne einfach an. Fast alles, was kein Kleidungsstück ist, lässt sich umsetzen. Kleidung funktioniert nur nach vorheriger Absprache: Größen und Passform führen ansonsten zu so vielen Rücksendungen, dass ich das als Ein-Mann-Betrieb nicht stemmen kann.</p>
-          <p><a href="produkte-bestellen.html#merch">Wunsch ins Anfrageformular schreiben →</a></p>
+          <p data-en="Just ask. Almost anything that isn&#39;t clothing can be done. Clothing only works by prior arrangement: sizes and fit otherwise lead to so many returns that I can&#39;t handle it as a one-man business.">Frag gerne einfach an. Fast alles, was kein Kleidungsstück ist, lässt sich umsetzen. Kleidung funktioniert nur nach vorheriger Absprache: Größen und Passform führen ansonsten zu so vielen Rücksendungen, dass ich das als Ein-Mann-Betrieb nicht stemmen kann.</p>
+          <p><a href="produkte-bestellen.html#merch" data-en="Write your wish into the request form →">Wunsch ins Anfrageformular schreiben →</a></p>
         </div>
       </details>
 
       <details class="info-fold">
-        <summary>Auch erhältlich bei Displate, Spreadshirt &amp; Artheroes</summary>
+        <summary data-en="Also available at Displate, Spreadshirt &amp; Artheroes">Auch erhältlich bei Displate, Spreadshirt &amp; Artheroes</summary>
         <div class="fold-body">
-          <p>Ausgewählte Motive gibt es dort u.a. als Metallposter oder auf Leinwand. Aud Spreadshirt sind Illustrationen statt Fotografien zu finden.</p>
+          <p data-en="Selected motifs are available there as metal posters or on canvas, among other things. On Spreadshirt you will find illustrations rather than photographs.">Ausgewählte Motive gibt es dort u.a. als Metallposter oder auf Leinwand. Auf Spreadshirt sind Illustrationen statt Fotografien zu finden.</p>
           <p>
             <a href="https://displate.com/artist/skarvaan" target="_blank" rel="noopener">Displate</a> ·
             <a href="https://www.spreadshirt.de/shop/user/skarvaan+naturdesign/" target="_blank" rel="noopener">Spreadshirt</a> ·
@@ -424,10 +429,10 @@
   <div class="wrap">
     <div class="band">
       <div class="band-text">
-        <h2>Zu jedem Motiv gehört ein Moment.</h2>
-        <p>Wie die Aufnahme entstanden ist, was für ein Tier da sitzt und wo genau; All das steht in den Geschichten. Hier gelangst du zu einer Übersichtsseite. Der QR-Code auf jedem Lesezeichen führt direkt zur individuellen Geschichte.</p>
+        <h2 data-txt="startseite.bandTitel">Zu jedem Motiv gehört ein Moment.</h2>
+        <p data-txt="startseite.bandText">Wie die Aufnahme entstanden ist, was für ein Tier da sitzt und wo genau — all das steht in den Geschichten. Hier gelangst du zur Übersicht. Der QR-Code auf jedem Lesezeichen führt direkt zur passenden Geschichte.</p>
       </div>
-      <a class="btn btn-outline" href="geschichten.html">Geschichten lesen</a>
+      <a class="btn btn-outline" href="geschichten.html" data-en="Read the stories">Geschichten lesen</a>
     </div>
   </div>
 </section>
@@ -439,7 +444,7 @@
 <section id="ueber-mich">
   <div class="wrap">
     <div class="rubrik">
-      <p class="rubrik-label">Über mich</p>
+      <p class="rubrik-label" data-en="About me">Über mich</p>
       <a class="rubrik-link" href="https://www.instagram.com/bg.naturfotografie/" target="_blank" rel="noopener">Instagram →</a>
     </div>
 
@@ -447,30 +452,30 @@
       <img loading="lazy" src="bilder/profile.jpg" alt="Benedict Gertz" class="ueber-portrait">
 
       <div class="ueber-text">
-        <h2>Die Natur im Jetzt und Hier.</h2>
-        <p class="gross">Ich fotografiere die Tiere unserer Heimat ruhig und ehrlich. Für die besonderen Momente braucht es keine weite Reise — ein paar Schritte vor die Haustür reichen.</p>
+        <h2 data-txt="startseite.ueberTitel">Die Natur im Jetzt und Hier.</h2>
+        <p class="gross" data-txt="startseite.ueberLead">Ich fotografiere die Tiere unserer Heimat ruhig und ehrlich. Für die besonderen Momente braucht es keine weite Reise — ein paar Schritte vor die Haustür reichen.</p>
         <!-- Früher stand hier ein Steckbrief ("Benedict Gertz, Halstenbek.").
              In ganzen Sätzen und in Ich-Form wirkt es wie ein Gespräch. -->
-        <p>Ich bin Benedict Gertz, meistens einfach Bene, und wohne in Halstenbek. Beim NABU vor Ort bin ich ehrenamtlicher Beisitzer und stets an der Natur vor Ort interessiert. Neben der Liebe zu natürlichen Fotoaufnahmen, entstehen aus einzelnen Aufnahmen kreativere Umsetzungen, adnen ich mich versuche. Diese sind in der Serie <a href="galerie-reduktion.html">Reduktion</a> zu finden.</p>
+        <p data-txt="startseite.ueberText">Ich bin Benedict Gertz, meistens einfach Bene, und wohne in Halstenbek. Beim NABU vor Ort bin ich ehrenamtlicher Beisitzer und stets an der Natur vor Ort interessiert. Neben der Liebe zu natürlichen Fotoaufnahmen entstehen aus einzelnen Aufnahmen auch kreativere Umsetzungen, an denen ich mich versuche. Diese sind in der Serie <a href="galerie-reduktion.html">Reduktion</a> zu finden.</p>
 
         <div class="info-folds">
           <details class="info-fold">
-            <summary>Wie ich fotografiere</summary>
+            <summary data-en="How I photograph">Wie ich fotografiere</summary>
             <div class="fold-body">
-              <p>Ich halte den Abstand, der nötig ist, um die Tiere nicht zu stressen. <b>Ich platziere kein Futter und locke keine Tiere an.</b> Die Bilder entstehen spontan im Moment, ohne etwas zu erzwingen — deshalb dauert manches Motiv auch mal ein paar Monate.</p>
-              <p class="fold-note">Auf der <a href="karte.html">Karte</a> sind empfindliche Orte bewusst nur als weicher Fleck eingezeichnet, nicht metergenau.</p>
+              <p data-txt="startseite.wieIchFotografiere">Ich halte den Abstand, der nötig ist, um die Tiere nicht zu stressen. <b>Ich platziere kein Futter und locke keine Tiere an.</b> Die Bilder entstehen spontan im Moment, ohne etwas zu erzwingen — deshalb dauert manches Motiv auch mal ein paar Monate.</p>
+              <p class="fold-note" data-txt="startseite.karteHinweis">Auf der <a href="karte.html" data-en="Map">Karte</a> sind empfindliche Orte bewusst nur als weicher Fleck eingezeichnet, nicht metergenau.</p>
             </div>
           </details>
 
           <details class="info-fold">
-            <summary>Schwerpunkte &amp; Orte</summary>
+            <summary data-en="Focus &amp; places">Schwerpunkte &amp; Orte</summary>
             <div class="fold-body">
-              <p>Ich fotografiere Vögel und die heimische Natur, vor allem im Kreis Pinneberg und im Hamburger Westen.</p>
+              <p data-txt="startseite.schwerpunkte">Ich fotografiere Vögel und die heimische Natur, vor allem im Kreis Pinneberg und im Hamburger Westen.</p>
               <div class="tags">
                 <span class="tag">Halstenbek</span>
                 <span class="tag">Schenefeld</span>
                 <span class="tag">Klövensteen</span>
-                <span class="tag">Hamburger Westen</span>
+                <span class="tag" data-en="Hamburg West">Hamburger Westen</span>
                 <span class="tag">Schleswig-Holstein</span>
               </div>
             </div>
@@ -498,17 +503,21 @@
          in styles.css). Das schließende </div> steht unten direkt
          vor dem </div> des .wrap. -->
     <div class="termine-mitte">
-    <span class="status-badge"><span class="dot"></span>Nächster Termin</span>
-    <h2 class="termine-titel">Komm am Stand vorbei.</h2>
+    <span class="status-badge"><span class="dot"></span><span id="termine-badge" data-en="Next date">Nächster Termin</span></span>
+    <h2 class="termine-titel" data-txt="startseite.termineTitel">Komm am Stand vorbei.</h2>
 
-    <ul class="termin-liste">
+    <!-- Die Liste füllt das Skript unten aus daten/termine.json
+         (Admin-Bereich → Termine). Vergangene Termine verschwinden
+         automatisch — du musst nichts mehr löschen. Der Eintrag hier
+         ist nur der Notfall-Stand. -->
+    <ul class="termin-liste" id="termin-liste">
       <li>
         <span class="termin-datum">So · 11.10.2026 10:00 bis 17:00 Uhr</span>
         <span class="termin-ort"><b>Heeder Herbstmarkt</b><br><span>Schultwiete 2 (Dorfgemeinschaftshaus), 25355 Heede, Kreis Pinneberg</span></span>
       </li>
     </ul>
 
-    <p class="termin-note">Weitere Märkte für den Advent sind angefragt. Sobald etwas fest ist, steht es hier zuerst.</p>
+    <p class="termin-note" id="termin-hinweis">Weitere Märkte für den Advent sind angefragt. Sobald etwas fest ist, steht es hier zuerst.</p>
     </div><!-- /.termine-mitte -->
 
   </div>
@@ -521,14 +530,14 @@
 <section id="kontakt">
   <div class="wrap">
     <div class="rubrik">
-      <p class="rubrik-label">Kontakt</p>
-      <a class="rubrik-link" href="produkte-bestellen.html#kontakt-anfrage">Du willst etwas bestellen? Nutze das Formular im Shop →</a>
+      <p class="rubrik-label" data-en="Contact">Kontakt</p>
+      <a class="rubrik-link" href="produkte-bestellen.html#kontakt-anfrage" data-en="Want to order something? Use the form in the shop →">Du willst etwas bestellen? Nutze das Formular im Shop →</a>
     </div>
 
     <div class="contact-grid">
       <div>
-        <h2 style="font-size:clamp(1.5rem,2.8vw,2rem);">Schreib mir.</h2>
-        <p style="color:var(--text-muted); max-width:38ch;">Hast du eine Frage zu einem Foto, ein Motivwunsch oder ein weiteres Anliegen? Diese Nachricht landet direkt bei mir. Ich antworte meist innerhalb von 2–3 Tagen.</p>
+        <h2 style="font-size:clamp(1.5rem,2.8vw,2rem);" data-txt="startseite.kontaktTitel">Schreib mir.</h2>
+        <p style="color:var(--text-muted); max-width:38ch;" data-txt="startseite.kontaktText">Hast du eine Frage zu einem Foto, ein Motivwunsch oder ein weiteres Anliegen? Diese Nachricht landet direkt bei mir. Ich antworte meist innerhalb von 2–3 Tagen.</p>
         <div class="socials">
           <a href="https://www.instagram.com/bg.naturfotografie/" target="_blank" rel="noopener">Instagram</a>
         </div>
@@ -537,24 +546,26 @@
       <div>
         <form action="https://formspree.io/f/mzdldepl" method="POST">
           <input type="hidden" name="_subject" value="[Kontakt] Neue Nachricht — BG Naturfotografie">
+          <!-- Damit du siehst, in welcher Sprache du antworten solltest -->
+          <input type="hidden" name="Sprache" value="Deutsch" data-en-value="English">
           <div>
-            <label for="name">Name <span aria-hidden="true">*</span></label>
+            <label for="name"><span data-en="Name">Name</span> <span aria-hidden="true">*</span></label>
             <input type="text" id="name" name="name" required>
           </div>
           <div>
-            <label for="email">E-Mail <span aria-hidden="true">*</span></label>
-            <input type="email" id="email" name="email" required pattern="[^\s@]+@[^\s@]+\.[^\s@]+" title="Bitte eine gültige E-Mail-Adresse eingeben (z. B. name@beispiel.de)">
+            <label for="email"><span data-en="Email">E-Mail</span> <span aria-hidden="true">*</span></label>
+            <input type="email" id="email" name="email" required pattern="[^\s@]+@[^\s@]+\.[^\s@]+" title="Bitte eine gültige E-Mail-Adresse eingeben (z. B. name@beispiel.de)" data-en-title="Please enter a valid email address (e.g. name@example.com)">
           </div>
           <div>
-            <label for="nachricht">Nachricht <span aria-hidden="true">*</span></label>
+            <label for="nachricht"><span data-en="Message">Nachricht</span> <span aria-hidden="true">*</span></label>
             <textarea id="nachricht" name="nachricht" required></textarea>
           </div>
           <div style="display:flex; align-items:flex-start; gap:.6rem; margin:.4rem 0 0;">
             <input type="checkbox" id="kontakt-datenschutz" name="Datenschutz" value="gelesen und akzeptiert" required style="width:auto; margin-top:.25rem; flex-shrink:0;">
-            <label for="kontakt-datenschutz" style="font-size:.84rem; color:var(--text-muted); line-height:1.5;">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Nachricht gespeichert werden. <span aria-hidden="true">*</span></label>
+            <label for="kontakt-datenschutz" style="font-size:.84rem; color:var(--text-muted); line-height:1.5;"><span data-en="I have read the &lt;a href=&quot;datenschutz.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;privacy policy&lt;/a&gt; and agree that my details will be stored to process my message.">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerkl&auml;rung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung meiner Nachricht gespeichert werden.</span> <span aria-hidden="true">*</span></label>
           </div>
-          <button class="btn btn-fill" type="submit" style="border:none; cursor:pointer;">Nachricht senden</button>
-          <span class="response-note"><span class="dot2"></span><span aria-hidden="true">*</span> Pflichtangaben</span>
+          <button class="btn btn-fill" type="submit" style="border:none; cursor:pointer;" data-en="Send message">Nachricht senden</button>
+          <span class="response-note"><span class="dot2"></span><span aria-hidden="true">*</span> <span data-en="Required">Pflichtangaben</span></span>
         </form>
       </div>
     </div>
@@ -564,28 +575,32 @@
 <footer>
   <div class="wrap">
     <span>© 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html">Geschichten</a> &middot; <a href="karte.html">Karte</a> &middot; <a href="#termine">Termine</a> &middot; <a href="#kontakt">Kontakt</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="karte.html" data-en="Map">Karte</a> &middot; <a href="#termine" data-en="Dates">Termine</a> &middot; <a href="#kontakt" data-en="Contact">Kontakt</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
-<!-- galerie-daten.js liefert alle Motive,
-     startseite-bilder.js bestimmt, welche davon oben durchlaufen -->
-<script src="galerie-daten.js" defer></script>
-<script src="startseite-bilder.js" defer></script>
+<!-- daten.js lädt die Inhalte aus daten/*.json:
+     motive (Fotos + Serien), startseite (Bühnenbilder),
+     termine (Märkte) und shop (Preise, Druckpartner). -->
+<script src="daten.js" data-brauche="motive startseite termine shop" defer></script>
 <script>
 /* ============================================================
    STARTSEITE — BÜHNENBILDER OBEN
    ============================================================
-   Welche Motive oben durchlaufen, steht in startseite-bilder.js.
+   Welche Motive oben durchlaufen, steht in daten/startseite.json.
    Serie, Aufnahmeort und der Link zur Geschichte kommen aus
-   galerie-daten.js.
+   daten/motive.json.
 
    Läuft das Skript nicht (JavaScript aus, Datei fehlt), bleibt
    einfach das im HTML stehende Bild sichtbar — die Seite ist
    dann schlichter, aber vollständig benutzbar.
    ============================================================ */
-document.addEventListener('DOMContentLoaded', function () {
+/* BG.bereit wartet, bis die Seite UND die Daten da sind (daten.js) */
+BG.bereit(function () {
   if (typeof GALERIE_BILDER === 'undefined') return;
+
+  /* Die übrigen Startseiten-Bereiche (Galerie, Preise, Termine)
+     stehen weiter unten in eigenen BG.bereit-Blöcken. */
 
   /* ---- kleine Helfer ---- */
 
@@ -602,7 +617,7 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ============================================================
      BÜHNE
      ============================================================
-     Welche Motive hier laufen, steht in startseite-bilder.js.
+     Welche Motive hier laufen, steht in daten/startseite.json.
      Dort trägst du Motiv-IDs ein und kannst pro Bild auch den
      Bildausschnitt festlegen ("ausschnitt").
 
@@ -623,11 +638,11 @@ document.addEventListener('DOMContentLoaded', function () {
       var motiv = GALERIE_BILDER.filter(function (b) { return b.id === eintrag.id; })[0];
       if (!motiv) {
         // Tippfehler in der ID sollen nicht stillschweigend verschwinden
-        console.warn('startseite-bilder.js: Motiv "' + eintrag.id + '" steht nicht in galerie-daten.js');
+        console.warn('daten/startseite.json: Motiv "' + eintrag.id + '" steht nicht in daten/motive.json');
         return;
       }
       // Kopie anlegen, damit der Bildausschnitt nur hier gilt und
-      // galerie-daten.js unberührt bleibt
+      // daten/motive.json unberührt bleibt
       auswahl.push({
         id: motiv.id, bild: motiv.bild, alt: motiv.alt,
         beschriftung: motiv.beschriftung, kategorie: motiv.kategorie,
@@ -762,6 +777,151 @@ document.addEventListener('DOMContentLoaded', function () {
     wartend.style.objectPosition = motiv.ausschnitt || 'center';
     wartend.src = motiv.bild;
   }, WECHSEL_MS);
+});
+
+
+/* ============================================================
+   GALERIE-BLÖCKE AUS daten/motive.json
+   ============================================================
+   Pro Serie ein Block: links das hohe Bild, rechts zwei
+   Querformate — genau das bisherige Layout. Welche drei Motive
+   das sind, steht im Admin-Bereich unter "Serien" →
+   "Bilder auf der Startseite" (erstes = großes Bild links).
+   Die Sprungmarken (#teichleben, #gartenleben …) bleiben gleich,
+   damit alte Links und QR-Codes weiter funktionieren. */
+BG.bereit(function () {
+  var ziel = document.getElementById('galerie-bloecke');
+  if (!ziel || typeof SERIEN === 'undefined' || !SERIEN.length) return;
+  var esc = BG.escapeHtml;
+
+  function motivMitId(id) {
+    return GALERIE_BILDER.filter(function (b) { return b.id === id; })[0];
+  }
+
+  // Kurze Sprungleiste oben
+  var html = '<div class="cat-nav">' + SERIEN.map(function (s) {
+    return '<a href="#' + esc(s.id.toLowerCase()) + '">→ ' + esc(s.name) + '</a>';
+  }).join('') + '</div>';
+
+  SERIEN.forEach(function (s) {
+    // Die gewählten Motive; fehlt eine Auswahl, die ersten drei der Serie
+    var bilder = (s.startseite || []).map(motivMitId).filter(Boolean);
+    if (bilder.length < 3) {
+      GALERIE_BILDER.forEach(function (b) {
+        if (bilder.length < 3 && b.kategorie === s.id && bilder.indexOf(b) === -1) bilder.push(b);
+      });
+    }
+    if (!bilder.length) return; // leere Serie gar nicht zeigen
+
+    html += '<div class="cat-block" id="' + esc(s.id.toLowerCase()) + '">' +
+      '<h3>' + esc(s.titelStartseite) + '</h3>' +
+      (s.kurz ? '<p class="cat-desc">' + esc(s.kurz) + '</p>' : '') +
+      '<div class="grid">' +
+      bilder.slice(0, 3).map(function (b, i) {
+        return '<div class="card ' + (i === 0 ? 'hero' : 'side') + '">' +
+          '<img' + (i === 0 ? '' : ' loading="lazy"') + ' src="' + esc(b.bild) + '" alt="' + esc(b.alt) + '">' +
+          '<span class="tag">' + b.beschriftung + '</span></div>';
+      }).join('') +
+      '</div>' +
+      (s.seite ? '<div class="cat-more"><a class="btn btn-outline" href="' + esc(s.seite) + '">' +
+        BG.t('Mehr entdecken', 'Discover more') + '</a></div>' : '') +
+      '</div>';
+  });
+  ziel.innerHTML = html;
+
+  /* Kam jemand mit einer Sprungmarke (#waldleben) an, stand der
+     Block beim Laden noch nicht da — jetzt nachträglich hinspringen. */
+  if (location.hash && ziel.querySelector(location.hash.replace(/[^#\w-]/g, ''))) {
+    document.querySelector(location.hash.replace(/[^#\w-]/g, '')).scrollIntoView();
+  }
+});
+
+/* ============================================================
+   PREISE AN DEN MITNEHMEN-KACHELN + DRUCKPARTNER
+   ============================================================
+   Kommen aus daten/shop.json. Änderst du im Admin-Bereich einen
+   Preis, stimmt er hier automatisch mit dem Shop überein. */
+BG.bereit(function () {
+  if (typeof STAFFEL === 'undefined') return;
+  var esc = BG.escapeHtml;
+
+  document.querySelectorAll('[data-preis]').forEach(function (el) {
+    var typ = el.getAttribute('data-preis');
+    var stufen = STAFFEL[typ] || [];
+    if (!stufen.length) return;
+    // Erste Stufe = Einzelpreis, die übrigen als "3 für 5 €"
+    var pakete = stufen.slice(1).map(function (st) {
+      return st.abMenge + BG.t(' für ', ' for ') + BG.euro(st.fuer, true);
+    });
+    var gruppe = (STAFFEL_GRUPPEN.karten || []);
+    if (gruppe.indexOf(typ) !== -1 && gruppe.length > 1) {
+      pakete.push(typ === 'postkarte'
+        ? BG.t('mit Lesezeichen mischbar', 'mix with bookmarks')
+        : BG.t('mit Postkarten mischbar', 'mix with postcards'));
+    }
+    el.innerHTML = BG.euro(stufen[0].fuer) + (pakete.length ? '<small>' + esc(pakete.join(' · ')) + '</small>' : '');
+  });
+
+  var zeile = document.getElementById('druck-zeile');
+  if (zeile && typeof DRUCKPARTNER !== 'undefined') {
+    var b = function (name) { return '<b style="color:var(--text-light); font-weight:500;">' + esc(name || '') + '</b>'; };
+    zeile.innerHTML = BG.t(
+      'Gedruckt wird in Auflage bei ' + b(DRUCKPARTNER.postkarte) + ' (Postkarten), ' + b(DRUCKPARTNER.poster) +
+        ' (' + esc(POSTER_FORMAT) + '-Poster) und ' + b(DRUCKPARTNER.lesezeichen) + ' (Lesezeichen) — verpackt und verschickt von mir aus Halstenbek.' +
+        (SAAL_SHOP_URL ? ' Größer als ' + esc(POSTER_FORMAT) + ', auf Acryl-Glas oder Alu-Dibond? <a href="produkte-bestellen.html#grossformate">Über meinen Saal-Digital-Shop →</a>' : ''),
+      'Printed in runs by ' + b(DRUCKPARTNER.postkarte) + ' (postcards), ' + b(DRUCKPARTNER.poster) +
+        ' (' + esc(POSTER_FORMAT) + ' posters) and ' + b(DRUCKPARTNER.lesezeichen) + ' (bookmarks) — packed and shipped by me from Halstenbek.' +
+        (SAAL_SHOP_URL ? ' Larger than ' + esc(POSTER_FORMAT) + ', on acrylic glass or aluminium? <a href="produkte-bestellen.html#grossformate">Via my Saal Digital shop →</a>' : '')
+    );
+  }
+});
+
+/* ============================================================
+   TERMINE (Liste unten + Hinweis oben in der Bühne)
+   ============================================================
+   Aus daten/termine.json. Vergangene Termine sortiert daten.js
+   schon aus, hier wird nur noch angezeigt. */
+BG.bereit(function () {
+  if (typeof TERMINE === 'undefined') return;
+  var esc = BG.escapeHtml;
+  var liste = document.getElementById('termin-liste');
+  var hinweis = document.getElementById('termin-hinweis');
+  var badge = document.getElementById('termine-badge');
+  var termine = TERMINE.liste;
+
+  if (liste) {
+    if (!termine.length) {
+      liste.innerHTML = '';
+      if (badge) badge.textContent = BG.t('Termine', 'Dates');
+    } else {
+      if (badge && termine.length > 1) badge.textContent = BG.t('Nächste Termine', 'Next dates');
+      liste.innerHTML = termine.map(function (t) {
+        var titel = t.link
+          ? '<a href="' + esc(t.link) + '" target="_blank" rel="noopener"><b>' + esc(t.titel) + '</b></a>'
+          : '<b>' + esc(t.titel) + '</b>';
+        return '<li>' +
+          '<span class="termin-datum">' + esc(BG.terminZeit(t)) + '</span>' +
+          '<span class="termin-ort">' + titel +
+            (t.adresse ? '<br><span>' + esc(t.adresse) + '</span>' : '') +
+            (t.hinweis ? '<br><span>' + BG.md(t.hinweis) + '</span>' : '') +
+          '</span></li>';
+      }).join('');
+    }
+  }
+  if (hinweis) {
+    var text = termine.length ? TERMINE.hinweis : (TERMINE.keinTermin || TERMINE.hinweis);
+    hinweis.innerHTML = BG.md(text || '');
+    hinweis.hidden = !text;
+  }
+
+  // Kleiner Hinweis oben: nur der allernächste Termin
+  var oben = document.getElementById('buehne-termin');
+  if (oben && termine.length) {
+    var t = termine[0];
+    oben.innerHTML = '<span class="dot" aria-hidden="true"></span><span>' +
+      BG.t('Nächster Stand: ', 'Next market: ') + '<b>' + esc(BG.datumText(t.datum)) + '</b> · ' + esc(t.titel) + '</span>';
+    oben.hidden = false;
+  }
 });
 </script>
 </body>

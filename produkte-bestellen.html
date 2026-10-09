@@ -9,7 +9,7 @@
      Der Titel steht im Google-Treffer und im Browser-Tab,
      die description darunter als grauer Fließtext.
      ============================================================ -->
-<title>Postkarten, Poster &amp; Lesezeichen — Shop | BG Naturfotografie</title>
+<title data-en="Postcards, posters &amp; bookmarks — Shop | BG Naturfotografie">Postkarten, Poster &amp; Lesezeichen — Shop | BG Naturfotografie</title>
 <meta name="description" content="Postkarten (10 × 15 cm), A4-Poster, Lesezeichen und Downloads mit heimischen Vögeln aus Norddeutschland. Mengenpreise, Versand aus Halstenbek — direkt beim Fotografen.">
 <link rel="canonical" href="https://bg-naturfotografie.de/produkte-bestellen.html">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -50,6 +50,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <style>
   .shop-hero{ padding:8.5rem 0 0; }
   .shop-hero h1{ font-size:clamp(2.2rem,5.2vw,3.6rem); max-width:16ch; margin-bottom:1rem; }
@@ -693,67 +695,66 @@
 
 <!-- Sprunglink: erste Station für Tastatur- und Screenreader-Nutzung.
      Unsichtbar, bis er den Fokus bekommt. -->
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
-<nav class="nav" aria-label="Hauptmenü">
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html" class="ist-hier">Shop</a></li>
-      <li><a href="geschichten.html">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
 
 <a href="#kontakt-anfrage" class="auswahl-badge" id="auswahl-badge">
-  <span id="auswahl-badge-text">0 ausgewählt</span> · Zur Anfrage ↓
+  <span id="auswahl-badge-text">0 ausgewählt</span> · <span data-en="To your request ↓">Zur Anfrage ↓</span>
 </a>
 
 <section class="shop-hero" id="inhalt" tabindex="-1">
   <div class="wrap">
-    <span class="eyebrow">Auf Anfrage · Versand aus Halstenbek</span>
-    <h1>Motiv aussuchen, <em>Produkt anfragen.</em></h1>
-    <p class="lead">Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.</p>
+    <span class="eyebrow" data-txt="shop.eyebrow">Auf Anfrage · Versand aus Halstenbek</span>
+    <h1><span data-txt="shop.titel1">Motiv aussuchen,</span> <em data-txt="shop.titel2">Produkt anfragen.</em></h1>
+    <p class="lead" data-txt="shop.intro">Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.</p>
 
     <!-- Die ersten vier Links springen nicht nur zum Shop, sie stellen
          auch gleich die passende Produktart im Filter ein (data-produkt).
          Ohne JavaScript bleibt es ein normaler Sprung zu #motive. -->
-    <nav class="shop-tabs" aria-label="Produktkategorien">
-      <a href="#motive" data-produkt="postkarte">Postkarten</a>
+    <nav class="shop-tabs" aria-label="Produktkategorien" data-en-aria-label="Product categories">
+      <a href="#motive" data-produkt="postkarte" data-en="Postcards">Postkarten</a>
       <a href="#motive" data-produkt="poster">Poster A4</a>
-      <a href="#motive" data-produkt="lesezeichen">Lesezeichen</a>
+      <a href="#motive" data-produkt="lesezeichen" data-en="Bookmarks">Lesezeichen</a>
       <a href="#motive" data-produkt="download">Downloads</a>
-      <a href="#grossformate">Größer als A4</a>
+      <a href="#grossformate" data-en="Larger than A4">Größer als A4</a>
       <!-- Startet unsichtbar (hidden). Das Script schaltet den Link
-           erst frei, wenn in produkte-daten.js mindestens ein
+           erst frei, wenn in daten/shop.json mindestens ein
            Sticker steht — so gibt es keinen Link ins Leere. -->
       <a href="#sticker" id="tab-sticker" hidden>Sticker</a>
-      <a href="#merch">Tassen &amp; Co.</a>
+      <a href="#merch" data-en="Mugs &amp; co.">Tassen &amp; Co.</a>
     </nav>
 
     <!-- ============================================================
          WER DRUCKT WAS — offen sichtbar, nicht eingeklappt.
-         Die Namen stehen hier als fester Text. Wechselst du eine
-         Druckerei, bitte hier UND in DRUCKPARTNER
-         (produkte-daten.js) ändern.
+         Die Namen (data-druckpartner) setzt das Script aus
+         daten/shop.json ein (Admin-Bereich → Shop → Druckpartner).
          ============================================================ -->
-    <dl class="druck-info" aria-label="Wer druckt was">
-      <div><dt>Postkarten</dt><dd>WIRmachenDRUCK<small>350 g, matt</small></dd></div>
-      <div><dt>Poster A4</dt><dd>Saal Digital<small>Fotoabzug, matt</small></dd></div>
-      <div><dt>Lesezeichen</dt><dd>Peterprint<small>400 g, matt kaschiert</small></dd></div>
-      <div><dt>Verpackung &amp; Versand</dt><dd>ich selbst<small>aus Halstenbek</small></dd></div>
+    <dl class="druck-info" aria-label="Wer druckt was" data-en-aria-label="Who prints what">
+      <div><dt data-en="Postcards">Postkarten</dt><dd><span data-druckpartner="postkarte">WIRmachenDRUCK</span><small data-en="350 g, matt">350 g, matt</small></dd></div>
+      <div><dt>Poster A4</dt><dd><span data-druckpartner="poster">Saal Digital</span><small data-en="photo print, matt">Fotoabzug, matt</small></dd></div>
+      <div><dt data-en="Bookmarks">Lesezeichen</dt><dd><span data-druckpartner="lesezeichen">Peterprint</span><small data-en="400 g, matt laminated">400 g, matt kaschiert</small></dd></div>
+      <div><dt data-en="Packing &amp; shipping">Verpackung &amp; Versand</dt><dd><span data-en="me">ich selbst</span><small data-en="from Halstenbek">aus Halstenbek</small></dd></div>
     </dl>
 
     <div class="info-folds">
       <details class="info-fold">
-        <summary>So läuft eine Bestellung ab</summary>
+        <summary data-en="How ordering works">So läuft eine Bestellung ab</summary>
         <div class="fold-body">
-          <ol class="fold-steps">
+          <ol class="fold-steps" data-en="<li><b>Choose product and motif.</b> Pick postcard, poster (A4), bookmark or download on the left, then the motif — you can set the quantity freely.</li><li><b>Add to basket.</b> Everything ends up in your selection in the form below.</li><li><b>Ask or order.</b> Send a non-binding request — or place a binding order straight away, with shipping or pick-up in Halstenbek.</li><li><b>I get back to you.</b> Quote or order confirmation with payment details by e-mail, usually within 2–3 days. I ship everything myself from Halstenbek.</li>">
             <li><b>Produkt und Motiv wählen.</b> Links Postkarte, Poster (A4), Lesezeichen oder Download aussuchen, dann das Motiv — die Menge stellst du frei ein.</li>
             <li><b>In den Warenkorb.</b> Alles landet in deiner Auswahl unten im Formular.</li>
             <li><b>Anfragen oder bestellen.</b> Unverbindlich anfragen — oder direkt verbindlich bestellen, mit Versand oder Abholung in Halstenbek.</li>
@@ -763,13 +764,13 @@
       </details>
 
       <details class="info-fold">
-        <summary>Preise, Staffelrabatt &amp; Versand</summary>
+        <summary data-en="Prices, quantity discount &amp; shipping">Preise, Staffelrabatt &amp; Versand</summary>
         <div class="fold-body">
-          <p>Bei Postkarten, Lesezeichen und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 5 €“. Poster zählen für sich.</p>
-          <!-- Diese Zeilen sind fester Text. Ändert sich STAFFEL in
-               produkte-daten.js, hier von Hand mitziehen (der Warenkorb
-               selbst rechnet automatisch mit den neuen Werten). -->
-          <div class="staffel-cols">
+          <p id="staffel-erklaerung" data-en="For postcards, bookmarks and posters: the more you take, the cheaper each piece. Quantities count across &lt;b&gt;all motifs together&lt;/b&gt;. &lt;b&gt;Postcards and bookmarks can be mixed freely&lt;/b&gt;. Posters count separately.">Bei Postkarten, Lesezeichen und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 5 €“. Poster zählen für sich.</p>
+          <!-- Die Staffel-Tabelle baut das Script aus daten/shop.json
+               (Admin-Bereich → Shop → Staffelpreise). Was hier steht,
+               ist nur der Notfall-Stand. -->
+          <div class="staffel-cols" id="staffel-cols">
             <div>
               <span class="staffel-titel">Postkarten</span>
               <ul>
@@ -785,9 +786,6 @@
                 <li><b>ab 2 Stück</b> · je 7,50 €</li>
               </ul>
             </div>
-            <!-- Lesezeichen: gleiche Staffel wie Postkarten
-                 (STAFFEL.lesezeichen in produkte-daten.js), gilt jetzt
-                 auch online — nicht mehr nur am Marktstand. -->
             <div>
               <span class="staffel-titel">Lesezeichen</span>
               <ul>
@@ -797,17 +795,17 @@
               </ul>
             </div>
           </div>
-          <p class="fold-note">Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden, ab 30 € Warenwert versandkostenfrei). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.</p>
+          <p class="fold-note" id="preis-fussnote">Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden, ab 30 € Warenwert versandkostenfrei). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.</p>
         </div>
       </details>
 
       <details class="info-fold">
-        <summary>Herstellung, Rückgabe &amp; Widerruf</summary>
+        <summary data-en="Production, returns &amp; cancellation">Herstellung, Rückgabe &amp; Widerruf</summary>
         <div class="fold-body">
-          <p>Alles wird vorab in Auflage gedruckt: Postkarten bei WIRmachenDRUCK, A4-Poster als Fotoabzug bei Saal Digital, Lesezeichen bei Peterprint. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.</p>
-          <p>Größere Formate und andere Materialien bestellst du direkt in meinem <a href="#grossformate">Saal-Digital-Shop</a>. Dort ist Saal Digital dein Vertragspartner, druckt und liefert direkt an dich.</p>
-          <p>Weil es sich um vorgefertigte Standardware handelt, gilt für Postkarten, Poster und Lesezeichen das gesetzliche <b>Widerrufsrecht von 14 Tagen</b> — auch dann, wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen wie Merch auf Wunsch.</p>
-          <p class="fold-note">Alle Details in den <a href="agb.html">AGB &amp; der Widerrufsbelehrung</a>.</p>
+          <p id="herstellung-text" data-en="Everything is printed in advance in runs: postcards by WIRmachenDRUCK, A4 posters as photo prints by Saal Digital, bookmarks by Peterprint. I pack and ship everything myself from Halstenbek — the printers never see your data.">Alles wird vorab in Auflage gedruckt: Postkarten bei WIRmachenDRUCK, A4-Poster als Fotoabzug bei Saal Digital, Lesezeichen bei Peterprint. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.</p>
+          <p data-en="Larger formats and other materials are ordered directly in my &lt;a href=&quot;#grossformate&quot;&gt;Saal Digital shop&lt;/a&gt;. There, Saal Digital is your contractual partner and prints and delivers directly to you.">Größere Formate und andere Materialien bestellst du direkt in meinem <a href="#grossformate">Saal-Digital-Shop</a>. Dort ist Saal Digital dein Vertragspartner, druckt und liefert direkt an dich.</p>
+          <p data-en="Since these are ready-made standard goods, the statutory &lt;b&gt;14-day right of withdrawal&lt;/b&gt; applies to postcards, posters and bookmarks — even if a motif is currently sold out and being reprinted. It is excluded only for genuine custom-made items such as merchandise made to order.">Weil es sich um vorgefertigte Standardware handelt, gilt für Postkarten, Poster und Lesezeichen das gesetzliche <b>Widerrufsrecht von 14 Tagen</b> — auch dann, wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen wie Merch auf Wunsch.</p>
+          <p class="fold-note" data-en="All details in the &lt;a href=&quot;agb.html&quot;&gt;terms &amp;amp; cancellation policy&lt;/a&gt; (German).">Alle Details in den <a href="agb.html">AGB &amp; der Widerrufsbelehrung</a>.</p>
         </div>
       </details>
     </div>
@@ -818,7 +816,7 @@
      EIN Bereich für alle Produktarten. Links die Seitenleiste
      (Produkt + Serie + „nur Vorrätiges“), rechts das Motivraster.
      Was angezeigt wird, entscheidet allein der Filter — die Karten
-     baut renderShop() weiter unten aus galerie-daten.js.
+     baut renderShop() weiter unten aus daten/motive.json.
 
      Warum so und nicht mehrere Blöcke untereinander: Vorher standen
      Postkarten, Poster und Downloads als drei Knöpfe auf JEDER
@@ -828,31 +826,31 @@
      ============================================================ -->
 <section class="cat-block-shop" id="motive">
   <div class="wrap">
-    <h2>Motive</h2>
-    <p class="cat-sub">Alle Motive stammen von mir. Erst das Produkt wählen, dann das Motiv — jedes Motiv gibt es in mehreren Ausführungen.</p>
+    <h2 data-en="Motifs">Motive</h2>
+    <p class="cat-sub" data-en="All motifs are my own. Choose the product first, then the motif — every motif comes in several versions.">Alle Motive stammen von mir. Erst das Produkt wählen, dann das Motiv — jedes Motiv gibt es in mehreren Ausführungen.</p>
 
     <div class="shop-layout">
       <!-- ---- Seitenleiste: Filter ---- -->
-      <aside class="shop-filter" aria-label="Motive filtern">
+      <aside class="shop-filter" aria-label="Motive filtern" data-en-aria-label="Filter motifs">
         <div class="filter-gruppe">
-          <span class="filter-titel" id="filter-titel-produkt">Produkt</span>
+          <span class="filter-titel" id="filter-titel-produkt" data-en="Product">Produkt</span>
           <!-- Knöpfe kommen aus PRODUKTARTEN (Script unten) -->
           <div class="filter-liste" id="filter-produkt" role="group" aria-labelledby="filter-titel-produkt"></div>
         </div>
 
         <div class="filter-gruppe">
-          <span class="filter-titel" id="filter-titel-serie">Serie</span>
+          <span class="filter-titel" id="filter-titel-serie" data-en="Series">Serie</span>
           <div class="filter-liste" id="filter-serie" role="group" aria-labelledby="filter-titel-serie"></div>
         </div>
 
         <div class="filter-gruppe" id="filter-lager-gruppe">
           <label class="filter-check">
             <input type="checkbox" id="filter-vorraetig">
-            <span>Nur was auf Lager liegt</span>
+            <span data-en="Only what&#39;s in stock">Nur was auf Lager liegt</span>
           </label>
         </div>
 
-        <p class="filter-legende">
+        <p class="filter-legende" data-en="&lt;span class=&quot;star-dot&quot;&gt;★&lt;/span&gt; means: in stock at my place and ships right away.&lt;br&gt;Everything else is reprinted and takes one to two weeks longer.">
           <span class="star-dot">★</span> heißt: liegt bei mir zu Hause und geht sofort raus.<br>
           Alles andere wird nachgedruckt und dauert ein bis zwei Wochen länger.
         </p>
@@ -868,7 +866,7 @@
         <div id="shop-band"></div>
         <div class="pick-grid" id="shop-grid"></div>
         <div class="shop-mehr" id="shop-mehr"></div>
-        <p class="section-idea-note">Motiv fehlt oder du hättest es gern anders? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
+        <p class="section-idea-note" data-en="Motif missing or want it differently? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt; — I&#39;ll see what I can do.">Motiv fehlt oder du hättest es gern anders? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
       </div>
     </div>
   </div>
@@ -877,21 +875,21 @@
 <!-- ============ GRÖSSER ALS A4 — Verweis auf den Saal-Digital-Shop ============
      Kein eigenes Sortiment hier: Bestellung, Bezahlung, Druck und
      Versand laufen komplett bei Saal Digital. Der Link kommt aus
-     SAAL_SHOP_URL (produkte-daten.js) und wird unten per Script in
+     SAAL_SHOP_URL (daten/shop.json) und wird unten per Script in
      #saal-aktion eingesetzt. Ist er leer, steht dort stattdessen
      ein Hinweis aufs Anfrageformular.
      ============================================================ -->
 <section class="cat-block-shop" id="grossformate" style="padding:3rem 0 1rem;">
   <div class="wrap">
-    <h2>Größer als A4</h2>
-    <p class="cat-sub">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
+    <h2 data-en="Larger than A4">Größer als A4</h2>
+    <p class="cat-sub" data-en="For your wall: my motifs in A3, A2 and larger, on photo paper, fine art paper, canvas, aluminium or behind acrylic glass — printed in the Saal Digital photo lab.">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
     <div id="saal-aktion"></div>
     <div class="info-folds">
       <details class="info-fold">
-        <summary>Wie läuft das ab — und warum nicht hier?</summary>
+        <summary data-en="How does it work — and why not here?">Wie läuft das ab — und warum nicht hier?</summary>
         <div class="fold-body">
-          <p>Große Formate lagere ich nicht auf Vorrat, jedes Bild wird einzeln für dich gefertigt. Das kann Saal Digital schneller und sicherer verpacken als ich — deshalb bestellst du dort direkt: Format und Material aussuchen, bezahlen, Saal Digital druckt und schickt das Bild zu dir nach Hause.</p>
-          <p><b>Vertragspartner für diese Bestellungen ist die Saal Digital Fotoservice GmbH</b>, es gelten deren AGB, Widerrufsbelehrung und Datenschutzerklärung. Bei Fragen zum Motiv bin ich trotzdem gern für dich da.</p>
+          <p data-en="I don&#39;t keep large formats in stock — each picture is made individually for you. Saal Digital can pack them faster and more safely than I can, so you order there directly: choose format and material, pay, and Saal Digital prints and ships the picture to your home.">Große Formate lagere ich nicht auf Vorrat, jedes Bild wird einzeln für dich gefertigt. Das kann Saal Digital schneller und sicherer verpacken als ich — deshalb bestellst du dort direkt: Format und Material aussuchen, bezahlen, Saal Digital druckt und schickt das Bild zu dir nach Hause.</p>
+          <p data-en="&lt;b&gt;Your contractual partner for these orders is Saal Digital Fotoservice GmbH&lt;/b&gt;; their terms, cancellation policy and privacy policy apply. I&#39;m still happy to help with questions about the motif."><b>Vertragspartner für diese Bestellungen ist die Saal Digital Fotoservice GmbH</b>, es gelten deren AGB, Widerrufsbelehrung und Datenschutzerklärung. Bei Fragen zum Motiv bin ich trotzdem gern für dich da.</p>
         </div>
       </details>
     </div>
@@ -900,32 +898,32 @@
 
 <!-- ============ STICKER ============
      Startet mit hidden (unsichtbar). renderStickerGrid() weiter
-     unten nimmt das hidden weg, sobald in produkte-daten.js
+     unten nimmt das hidden weg, sobald in daten/shop.json
      mindestens ein Sticker eingetragen ist.
      ============================================================ -->
 <section class="cat-block-shop" id="sticker" style="padding:4rem 0;" hidden>
   <div class="wrap">
     <h2>Sticker</h2>
-    <p class="cat-sub">Handgeplottet, zugeschnitten und verpackt bei mir zu Hause.</p>
-    <span class="origin-badge"><span class="origin-dot selbst"></span> Selbst gefertigt &amp; versendet</span>
+    <p class="cat-sub" data-en="Plotted, cut and packed by hand at my home.">Handgeplottet, zugeschnitten und verpackt bei mir zu Hause.</p>
+    <span class="origin-badge"><span class="origin-dot selbst"></span> <span data-en="Made &amp; shipped by me">Selbst gefertigt &amp; versendet</span></span>
     <div class="pick-grid" id="sticker-grid"></div>
-    <p class="section-idea-note">Wunschmotiv als Sticker? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
+    <p class="section-idea-note" data-en="Want a motif as a sticker? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt;.">Wunschmotiv als Sticker? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
   </div>
 </section>
 
 <!-- ============ TASSEN & CO. — nur noch Hinweis, kein Sortiment ============ -->
 <section class="cat-block-shop" id="merch" style="padding:4rem 0;">
   <div class="wrap">
-    <h2>Tassen &amp; Co.</h2>
-    <p class="cat-sub">Kein festes Sortiment — aber auf Wunsch geht fast alles, was kein Kleidungsstück ist: Tasse, Cap, Beutel, Untersetzer.</p>
+    <h2 data-en="Mugs &amp; co.">Tassen &amp; Co.</h2>
+    <p class="cat-sub" data-en="No fixed range — but on request almost anything that isn&#39;t clothing is possible: mug, cap, tote bag, coaster.">Kein festes Sortiment — aber auf Wunsch geht fast alles, was kein Kleidungsstück ist: Tasse, Cap, Beutel, Untersetzer.</p>
 
-    <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage">Wunsch ins Anfrageformular schreiben</a></p>
+    <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-en="Write your wish into the request form">Wunsch ins Anfrageformular schreiben</a></p>
 
     <div class="info-folds">
       <details class="info-fold">
-        <summary>Warum keine Kleidung?</summary>
+        <summary data-en="Why no clothing?">Warum keine Kleidung?</summary>
         <div class="fold-body">
-          <p>Größen, Schnitte und Passform führen zu so vielen Rücksendungen, dass ich das als Ein-Mann-Betrieb nicht sinnvoll stemmen kann. Alles andere hole ich dir gern als Angebot mit Preis und Lieferzeit ein.</p>
+          <p data-en="Sizes, cuts and fit lead to so many returns that I can&#39;t reasonably handle it as a one-man business. For everything else I&#39;m happy to get you a quote with price and delivery time.">Größen, Schnitte und Passform führen zu so vielen Rücksendungen, dass ich das als Ein-Mann-Betrieb nicht sinnvoll stemmen kann. Alles andere hole ich dir gern als Angebot mit Preis und Lieferzeit ein.</p>
         </div>
       </details>
     </div>
@@ -939,13 +937,13 @@
     <!-- novalidate: die Prüfung macht das Script unten, damit die
          Fehlermeldungen in jedem Browser gleich und auf Deutsch sind. -->
     <form action="https://formspree.io/f/xvzejbje" method="POST" id="anfrage-form" novalidate>
-      <h2 id="kontakt-anfrage">Deine Bestellung</h2>
+      <h2 id="kontakt-anfrage" data-en="Your order">Deine Bestellung</h2>
       <p class="form-lead" id="form-lead">Bestellwunsch, Marktanfrage, Bildlizenz oder fehlendes Motiv — eine kurze Nachricht genügt. Ich melde mich mit Preis, Versand oder Abholung und Zahlungsweg.</p>
 
       <div class="auswahl-liste-wrap">
-        <h3>Deine Auswahl</h3>
+        <h3 data-en="Your selection">Deine Auswahl</h3>
         <ul class="auswahl-liste" id="auswahl-liste"></ul>
-        <p class="auswahl-leer" id="auswahl-leer">Noch nichts ausgewählt — klick bei den Produkten oben auf „+ In den Warenkorb“, oder schreib direkt unten dein Anliegen.</p>
+        <p class="auswahl-leer" id="auswahl-leer" data-en="Nothing selected yet — click “+ Add to basket” on the products above, or write your request directly below.">Noch nichts ausgewählt — klick bei den Produkten oben auf „+ In den Warenkorb“, oder schreib direkt unten dein Anliegen.</p>
         <div class="auswahl-summe" id="auswahl-summe"></div>
       </div>
       <input type="hidden" name="Ausgewählte Produkte" id="auswahl-hidden-field" value="">
@@ -961,17 +959,17 @@
                            und die AGB-/Widerrufs-Bestätigung.
            ============================================================ -->
       <div class="wahl-block" id="bestellart-block" style="display:none;">
-        <span class="wahl-titel">Wie möchtest du weitermachen?</span>
+        <span class="wahl-titel" data-en="How would you like to continue?">Wie möchtest du weitermachen?</span>
         <div class="wahl-optionen">
           <label class="wahl-opt">
             <input type="radio" name="Bestellart" value="Unverbindliche Anfrage" data-art="anfrage" checked>
-            <span class="opt-name">Unverbindlich anfragen</span>
-            <span class="opt-sub">Ich melde mich mit Proforma-Rechnung und allen Details. Noch nichts verbindlich.</span>
+            <span class="opt-name" data-en="Non-binding request">Unverbindlich anfragen</span>
+            <span class="opt-sub" data-en="I&#39;ll get back to you with a pro-forma invoice and all the details. Nothing binding yet.">Ich melde mich mit Proforma-Rechnung und allen Details. Noch nichts verbindlich.</span>
           </label>
           <label class="wahl-opt">
             <input type="radio" name="Bestellart" value="Verbindliche Bestellung" data-art="verbindlich">
-            <span class="opt-name">Verbindlich bestellen</span>
-            <span class="opt-sub">Direkt bestellen — du bekommst sofort eine Eingangsbestätigung, die Auftragsbestätigung mit Zahlungsweg folgt per Mail.</span>
+            <span class="opt-name" data-en="Binding order">Verbindlich bestellen</span>
+            <span class="opt-sub" data-en="Order directly — you get an immediate confirmation of receipt; the order confirmation with payment details follows by e-mail.">Direkt bestellen — du bekommst sofort eine Eingangsbestätigung, die Auftragsbestätigung mit Zahlungsweg folgt per Mail.</span>
           </label>
         </div>
       </div>
@@ -982,17 +980,17 @@
            Block automatisch ausgeblendet.
            ============================================================ -->
       <div class="wahl-block" id="lieferart-block" style="display:none;">
-        <span class="wahl-titel">Versand oder Abholung?</span>
+        <span class="wahl-titel" data-en="Shipping or pick-up?">Versand oder Abholung?</span>
         <div class="wahl-optionen">
           <label class="wahl-opt">
             <input type="radio" name="Lieferart" value="Versand" data-liefer="versand" checked>
-            <span class="opt-name">Versand</span>
-            <span class="opt-sub" id="versand-opt-sub">Verpackt und verschickt aus Halstenbek.</span>
+            <span class="opt-name" data-en="Shipping">Versand</span>
+            <span class="opt-sub" id="versand-opt-sub" data-en="Packed and shipped from Halstenbek.">Verpackt und verschickt aus Halstenbek.</span>
           </label>
           <label class="wahl-opt">
             <input type="radio" name="Lieferart" value="Abholung in Halstenbek" data-liefer="abholung">
-            <span class="opt-name">Abholung in Halstenbek</span>
-            <span class="opt-sub">Kein Versand — Termin machen wir per Mail aus.</span>
+            <span class="opt-name" data-en="Pick-up in Halstenbek">Abholung in Halstenbek</span>
+            <span class="opt-sub" data-en="No shipping — we&#39;ll arrange a time by e-mail.">Kein Versand — Termin machen wir per Mail aus.</span>
           </label>
         </div>
       </div>
@@ -1004,46 +1002,46 @@
            schaltet das Script unten um.
            ============================================================ -->
       <div class="wahl-block" data-wenn="verbindlich" id="zahlweg-block">
-        <span class="wahl-titel">Zahlungsweg</span>
+        <span class="wahl-titel" data-en="Payment method">Zahlungsweg</span>
         <div class="wahl-optionen">
           <label class="wahl-opt">
             <input type="radio" name="Zahlweg" value="PayPal oder Überweisung (vorab)" data-zahl="vorab" checked>
-            <span class="opt-name">PayPal / Überweisung</span>
-            <span class="opt-sub">Du bekommst die Zahlungsdaten per Mail. Versand nach Zahlungseingang.</span>
+            <span class="opt-name" data-en="PayPal / bank transfer">PayPal / Überweisung</span>
+            <span class="opt-sub" data-en="You&#39;ll receive the payment details by e-mail. Shipping after payment is received.">Du bekommst die Zahlungsdaten per Mail. Versand nach Zahlungseingang.</span>
           </label>
           <label class="wahl-opt" id="zahlweg-bar">
             <input type="radio" name="Zahlweg" value="Barzahlung bei Abholung" data-zahl="bar">
-            <span class="opt-name">Barzahlung bei Abholung</span>
-            <span class="opt-sub">Passend wäre schön — Wechselgeld habe ich aber dabei.</span>
+            <span class="opt-name" data-en="Cash on pick-up">Barzahlung bei Abholung</span>
+            <span class="opt-sub" data-en="Exact change is nice — but I&#39;ll bring change anyway.">Passend wäre schön — Wechselgeld habe ich aber dabei.</span>
           </label>
         </div>
       </div>
 
       <div class="chips" id="anliegen-chips">
-        <button type="button" class="chip" data-text="Bestellanfrage" data-key="bestellung">Bestellanfrage</button>
-        <button type="button" class="chip" data-text="Marktanfrage" data-key="markt">Marktanfrage</button>
-        <button type="button" class="chip" data-text="Bildlizenz" data-key="lizenz">Bildlizenz</button>
-        <button type="button" class="chip" data-text="Motivwunsch" data-key="motivwunsch">Motivwunsch</button>
-        <button type="button" class="chip" data-text="Sonstiges" data-key="sonstiges">Sonstiges</button>
+        <button type="button" class="chip" data-text="Bestellanfrage" data-key="bestellung" data-en="Order request">Bestellanfrage</button>
+        <button type="button" class="chip" data-text="Marktanfrage" data-key="markt" data-en="Market enquiry">Marktanfrage</button>
+        <button type="button" class="chip" data-text="Bildlizenz" data-key="lizenz" data-en="Image licence">Bildlizenz</button>
+        <button type="button" class="chip" data-text="Motivwunsch" data-key="motivwunsch" data-en="Motif wish">Motivwunsch</button>
+        <button type="button" class="chip" data-text="Sonstiges" data-key="sonstiges" data-en="Other">Sonstiges</button>
       </div>
 
       <input type="hidden" name="_subject" id="anfrage-subject" value="[Shop-Anfrage] Sonstiges — BG Naturfotografie">
 
-      <p class="form-pflichthinweis"><abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben</p>
+      <p class="form-pflichthinweis"><abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr> <span data-en="Required fields">Pflichtangaben</span></p>
 
       <div data-feld>
-        <label for="af-name">Name <abbr class="pflicht" title="Pflichtangabe">*</abbr></label>
+        <label for="af-name"><span data-en="Name">Name</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
         <input type="text" id="af-name" name="Name" required aria-required="true" autocomplete="name">
         <p class="feld-fehler" id="af-name-fehler"></p>
       </div>
       <div data-feld>
-        <label for="af-email">E-Mail <abbr class="pflicht" title="Pflichtangabe">*</abbr></label>
+        <label for="af-email"><span data-en="Email">E-Mail</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
         <input type="email" id="af-email" name="E-Mail" required aria-required="true" autocomplete="email" inputmode="email">
         <p class="feld-fehler" id="af-email-fehler"></p>
       </div>
       <div data-feld>
-        <label for="af-nachricht">Nachricht <abbr class="pflicht" title="Pflichtangabe">*</abbr></label>
-        <textarea id="af-nachricht" name="Nachricht" required aria-required="true" placeholder="z. B. Datum &amp; Ort des Markts, gewünschte Bildlizenz-Nutzung oder das Motiv, das dir fehlt ..."></textarea>
+        <label for="af-nachricht"><span data-en="Message">Nachricht</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
+        <textarea id="af-nachricht" name="Nachricht" required aria-required="true" placeholder="z. B. Datum &amp; Ort des Markts, gewünschte Bildlizenz-Nutzung oder das Motiv, das dir fehlt ..." data-en-placeholder="e.g. date &amp; place of the market, intended image licence use, or the motif you&#39;re missing ..."></textarea>
         <p class="feld-fehler" id="af-nachricht-fehler"></p>
       </div>
 
@@ -1061,28 +1059,28 @@
            Block komplett — dann braucht ihn niemand.
            ============================================================ -->
       <details class="adress-fold" id="adress-fold">
-        <summary id="adress-summary">Lieferadresse schon mitgeben <span class="optional-tag">optional</span></summary>
+        <summary id="adress-summary"><span id="adress-summary-text" data-en="Add delivery address now">Lieferadresse schon mitgeben</span> <span class="optional-tag">optional</span></summary>
         <div class="fold-body">
-          <p class="adress-note" id="adress-note">Freiwillig — hilft mir nur dabei, dir direkt den richtigen Versandpreis zu nennen, statt noch einmal nachzufragen. Ohne Adresse geht die Anfrage genauso raus.</p>
+          <p class="adress-note" id="adress-note" data-en="Optional — it only helps me quote the right shipping price straight away instead of asking again. Your request goes out just the same without an address.">Freiwillig — hilft mir nur dabei, dir direkt den richtigen Versandpreis zu nennen, statt noch einmal nachzufragen. Ohne Adresse geht die Anfrage genauso raus.</p>
           <div data-feld>
-            <label for="af-strasse">Straße &amp; Hausnummer <abbr class="pflicht" title="Pflichtangabe" data-pflicht-stern hidden>*</abbr></label>
+            <label for="af-strasse"><span data-en="Street &amp; number">Straße &amp; Hausnummer</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required" data-pflicht-stern hidden>*</abbr></label>
             <input type="text" id="af-strasse" name="Straße und Hausnummer" autocomplete="street-address">
             <p class="feld-fehler" id="af-strasse-fehler"></p>
           </div>
           <div class="adress-zeile">
             <div data-feld>
-              <label for="af-plz">PLZ <abbr class="pflicht" title="Pflichtangabe" data-pflicht-stern hidden>*</abbr></label>
+              <label for="af-plz"><span data-en="Postcode">PLZ</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required" data-pflicht-stern hidden>*</abbr></label>
               <input type="text" id="af-plz" name="PLZ" autocomplete="postal-code" inputmode="numeric">
               <p class="feld-fehler" id="af-plz-fehler"></p>
             </div>
             <div data-feld>
-              <label for="af-ort">Ort <abbr class="pflicht" title="Pflichtangabe" data-pflicht-stern hidden>*</abbr></label>
+              <label for="af-ort"><span data-en="Town">Ort</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required" data-pflicht-stern hidden>*</abbr></label>
               <input type="text" id="af-ort" name="Ort" autocomplete="address-level2">
               <p class="feld-fehler" id="af-ort-fehler"></p>
             </div>
           </div>
           <div data-feld>
-            <label for="af-land">Land <abbr class="pflicht" title="Pflichtangabe" data-pflicht-stern hidden>*</abbr></label>
+            <label for="af-land"><span data-en="Country">Land</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required" data-pflicht-stern hidden>*</abbr></label>
             <input type="text" id="af-land" name="Land" value="Deutschland" autocomplete="country-name">
             <p class="feld-fehler" id="af-land-fehler"></p>
           </div>
@@ -1094,7 +1092,7 @@
            automatisch, es muss nichts weiter angepasst werden. -->
       <div class="feld-check" data-feld>
         <input type="checkbox" id="af-datenschutz" name="Datenschutz" value="gelesen und akzeptiert" required aria-required="true">
-        <label for="af-datenschutz">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung dieser Anfrage gespeichert werden. <abbr class="pflicht" title="Pflichtangabe">*</abbr></label>
+        <label for="af-datenschutz"><span data-en="I have read the &lt;a href=&quot;datenschutz.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;privacy policy&lt;/a&gt; and agree that my details will be stored to process this request.">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung dieser Anfrage gespeichert werden.</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
       </div>
       <p class="feld-fehler" id="af-datenschutz-fehler"></p>
 
@@ -1105,7 +1103,7 @@
       <div data-wenn="verbindlich" id="agb-check-block">
         <div class="feld-check" data-feld>
           <input type="checkbox" id="af-agb" name="AGB und Widerruf" value="gelesen und akzeptiert">
-          <label for="af-agb">Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB und die Widerrufsbelehrung</a> gelesen und akzeptiere sie. <abbr class="pflicht" title="Pflichtangabe">*</abbr></label>
+          <label for="af-agb"><span data-en="I have read and accept the &lt;a href=&quot;agb.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;terms and cancellation policy&lt;/a&gt;.">Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB und die Widerrufsbelehrung</a> gelesen und akzeptiere sie.</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
         </div>
         <p class="feld-fehler" id="af-agb-fehler"></p>
       </div>
@@ -1119,13 +1117,15 @@
            "Zahlungspflichtig bestellen". Bitte nicht in etwas
            Nettes wie "Los geht's" umbenennen. -->
       <button class="btn btn-fill" type="submit" id="af-submit" style="border:none; cursor:pointer; margin-top:1rem;">Anfrage senden</button>
-      <p class="after-submit-note" id="af-submit-note">Antwort meist innerhalb von 2–3 Tagen · <abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben</p>
+      <p class="after-submit-note" id="af-submit-note"><span data-en="Reply usually within 2–3 days">Antwort meist innerhalb von 2–3 Tagen</span> · <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr> <span data-en="Required fields">Pflichtangaben</span></p>
 
       <!-- Formspree schickt dem Kunden nur dann eine Bestätigungsmail,
            wenn ein Feld namens "email" (klein geschrieben) mitkommt.
            Das Sichtbare heißt "E-Mail" (schöner in deiner Mail), also
            spiegelt das Script den Wert hierher. -->
       <input type="hidden" name="email" id="af-email-spiegel" value="">
+      <!-- Damit du siehst, in welcher Sprache du antworten solltest -->
+      <input type="hidden" name="Sprache" value="Deutsch" data-en-value="English">
 
       <!-- Ziel nach dem Absenden. ACHTUNG: Formspree wertet dieses
            Feld auf dem kostenlosen Tarif NICHT aus — dort landet man
@@ -1142,7 +1142,7 @@
 </section>
 
 <div class="lightbox" id="gp-lightbox">
-  <button class="lightbox-close" aria-label="Schließen" onclick="closeGpLightbox()">&times;</button>
+  <button class="lightbox-close" aria-label="Schließen" data-en-aria-label="Close" onclick="closeGpLightbox()">&times;</button>
   <figure>
     <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
     <figcaption></figcaption>
@@ -1152,13 +1152,16 @@
 <footer>
   <div class="wrap">
     <span>© 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
-<script src="galerie-daten.js"></script>
-<script src="produkte-daten.js"></script>
+<!-- daten.js lädt Motive und Shop-Einstellungen aus daten/*.json.
+     Das ganze Shop-Skript darunter läuft erst, wenn die Daten da
+     sind (BG.bereit). -->
+<script src="daten.js" data-brauche="motive shop" defer></script>
 <script>
+BG.bereit(function () {
   /* ---------- Hilfsfunktionen ---------- */
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (c) {
@@ -1166,7 +1169,7 @@
     });
   }
   function stripHtml(str) { return String(str || '').replace(/<[^>]*>/g, '').trim(); }
-  function euro(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
+  function euro(n) { return BG.euro(n); }   // Deutsch "2,00 €" / Englisch "€2.00" (daten.js)
 
   /* ============================================================
      AUSWAHL / WARENKORB
@@ -1178,7 +1181,7 @@
      'sticker' hat einen festen Einzelpreis pro Eintrag.)
 
      Der Staffelpreis richtet sich nach der GESAMTMENGE je Typ
-     über alle Motive hinweg (siehe STAFFEL in produkte-daten.js) —
+     über alle Motive hinweg (siehe STAFFEL in daten/shop.json) —
      wer 2 Entchen- und 1 Reiher-Postkarte nimmt, hat 3 Karten und
      zahlt damit den 3er-Paketpreis (3 für 5 €) auf alle drei.
      ============================================================ */
@@ -1201,7 +1204,7 @@
   /* ============================================================
      PREISBERECHNUNG (Paketpreis-Staffel)
      ============================================================
-     STAFFEL in produkte-daten.js speichert pro Stufe einen
+     STAFFEL in daten/shop.json speichert pro Stufe einen
      PAKETPREIS: { abMenge: 3, fuer: 5.00 } = "3 für 5,00 €".
      Der Stückpreis einer Stufe ist fuer / abMenge und darf ein
      krummer Bruch sein (5 / 3 = 1,666…). Damit daraus keine
@@ -1222,9 +1225,9 @@
      ============================================================ */
 
   /* ---------- Mischbare Staffel-Gruppen ----------
-     STAFFEL_GRUPPEN (produkte-daten.js) legt fest, welche Typen
+     STAFFEL_GRUPPEN (daten/shop.json) legt fest, welche Typen
      gemeinsam zählen — aktuell Postkarten + Lesezeichen.
-     Fehlt die Konstante (ältere produkte-daten.js), zählt jeder
+     Fehlt die Konstante (ältere daten/shop.json), zählt jeder
      Typ einfach für sich; der Shop bricht also nicht. */
 
   /* Alle Typen, die mit "typ" zusammen zählen (inkl. typ selbst).
@@ -1289,8 +1292,8 @@
      glatt -> "je 1,50 €" · krumm -> "3 für 5,00 €" */
   function stufeKurz(stufe) {
     return stufeGlatt(stufe)
-      ? 'je ' + euro(stufe.fuer / stufe.abMenge)
-      : stufe.abMenge + ' für ' + euro(stufe.fuer);
+      ? BG.t('je ' + euro(stufe.fuer / stufe.abMenge), euro(stufe.fuer / stufe.abMenge) + ' each')
+      : stufe.abMenge + BG.t(' für ', ' for ') + euro(stufe.fuer);
   }
 
   /* Summe eines ganzen Typs in Euro.
@@ -1447,7 +1450,7 @@
   function renderKaufSlot(key) {
     var drin = !!findePosition(key);
     return '<button type="button" class="btn-hinzufuegen' + (drin ? ' ist-drin' : '') + '" data-key="' + escapeHtml(key) + '">' +
-      (drin ? 'Im Warenkorb – entfernen' : '+ In den Warenkorb') + '</button>';
+      (drin ? BG.t('Im Warenkorb – entfernen', 'In basket – remove') : BG.t('+ In den Warenkorb', '+ Add to basket')) + '</button>';
   }
 
   /* ---------- Auswahl-Liste im Anfrageformular ---------- */
@@ -1478,12 +1481,12 @@
         '<span class="pos-text">' + escapeHtml(pos.motiv) + ' <span class="pos-typ">' + escapeHtml(pos.bezeichnung) + '</span></span>' +
         '<span class="pos-rechts">' +
           '<span class="stepper" data-key="' + escapeHtml(pos.key) + '">' +
-            '<button type="button" data-schritt="-1" aria-label="Weniger">−</button>' +
-            '<input type="number" value="' + pos.menge + '" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
-            '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
+            '<button type="button" data-schritt="-1" aria-label="' + BG.t('Weniger', 'Fewer') + '">−</button>' +
+            '<input type="number" value="' + pos.menge + '" min="1" max="' + MAX_MENGE + '" aria-label="' + BG.t('Menge', 'Quantity') + '">' +
+            '<button type="button" data-schritt="1" aria-label="' + BG.t('Mehr', 'More') + '">+</button>' +
           '</span>' +
           '<span class="pos-preis">' + euro(betrag) + '</span>' +
-          '<button type="button" class="pos-weg" data-key="' + escapeHtml(pos.key) + '" aria-label="Entfernen">&times;</button>' +
+          '<button type="button" class="pos-weg" data-key="' + escapeHtml(pos.key) + '" aria-label="' + BG.t('Entfernen', 'Remove') + '">&times;</button>' +
         '</span>' +
         '</li>';
     }).join('');
@@ -1493,7 +1496,7 @@
     var gesamt = 0;
     /* Anzeigenamen der Typen — auch für gemischte Gruppenzeilen. */
     var NAME = {
-      postkarte: 'Postkarten', poster: 'Poster A4', lesezeichen: 'Lesezeichen',
+      postkarte: BG.t('Postkarten', 'Postcards'), poster: 'Poster ' + POSTER_FORMAT, lesezeichen: BG.t('Lesezeichen', 'Bookmarks'),
       download: 'Downloads', sticker: 'Sticker'
     };
     ['postkarte', 'poster', 'lesezeichen', 'download', 'sticker'].forEach(function (typ) {
@@ -1514,7 +1517,7 @@
       if (typ === 'sticker') {
         label = menge + ' × ' + name;
       } else if (typ === 'download') {
-        label = menge + ' × ' + name + ' · je ' + euro(PREISE.download);
+        label = menge + ' × ' + name + ' · ' + BG.t('je ' + euro(PREISE.download), euro(PREISE.download) + ' each');
       } else {
         /* Staffel-Typen: bei glattem Stückpreis "je 1,50 €", bei
            krummem der Paketpreis "3 für 5,00 €" — "je 1,67 €"
@@ -1529,9 +1532,9 @@
     /* Wortformen für den "Noch X mehr"-Hinweis: [Einzahl, Mehrzahl].
        Poster und Lesezeichen sind in beiden Formen gleich. */
     var WORT = {
-      postkarte:   ['Postkarte', 'Postkarten'],
-      poster:      ['Poster', 'Poster'],
-      lesezeichen: ['Lesezeichen', 'Lesezeichen']
+      postkarte:   [BG.t('Postkarte', 'postcard'), BG.t('Postkarten', 'postcards')],
+      poster:      [BG.t('Poster', 'poster'), BG.t('Poster', 'posters')],
+      lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')]
     };
     ['postkarte', 'poster', 'lesezeichen'].forEach(function (typ) {
       /* Pro Gruppe nur EIN Hinweis (vom ersten Typ der Gruppe). */
@@ -1542,13 +1545,14 @@
       if (!naechste) { return; }
       var form = naechste.fehlt === 1 ? 0 : 1;
       /* Gemischte Gruppe: "Noch 1 Postkarte oder Lesezeichen mehr …" */
-      var was = gruppeVon(typ).map(function (t) { return WORT[t][form]; }).join(' oder ');
+      var was = gruppeVon(typ).map(function (t) { return WORT[t][form]; }).join(BG.t(' oder ', ' or '));
       /* Glatte Stufe: "… und du zahlst je 1,50 €."
          Krumme Stufe: "… und es gilt 3 für 5,00 €." */
       var vorteil = stufeGlatt(naechste.stufe)
-        ? 'du zahlst ' + stufeKurz(naechste.stufe)
-        : 'es gilt ' + stufeKurz(naechste.stufe);
-      hinweise += '<p class="naechste-stufe">↑ Noch ' + naechste.fehlt + ' ' + was + ' mehr und ' + vorteil + '.</p>';
+        ? BG.t('du zahlst ', 'you pay ') + stufeKurz(naechste.stufe)
+        : BG.t('es gilt ', 'you get ') + stufeKurz(naechste.stufe);
+      hinweise += '<p class="naechste-stufe">' + BG.t('↑ Noch ' + naechste.fehlt + ' ' + was + ' mehr und ' + vorteil + '.',
+        '↑ ' + naechste.fehlt + ' more ' + was + ' and ' + vorteil + '.') + '</p>';
     });
 
     /* ---- Versandzeile ----
@@ -1561,36 +1565,36 @@
     var versandHinweis = '';
 
     if (zustand.lieferart === 'abholung') {
-      versandZeile = '<span class="summe-zeile versand-frei"><span>Abholung in Halstenbek</span><span>0,00 €</span></span>';
+      versandZeile = '<span class="summe-zeile versand-frei"><span>' + BG.t('Abholung in Halstenbek', 'Pick-up in Halstenbek') + '</span><span>' + euro(0) + '</span></span>';
     } else if (zustand.hatPhysisches) {
       var stufe = versandStufe();
       if (versand === 0) {
-        versandZeile = '<span class="summe-zeile versand-frei"><span>Versand</span><span>geschenkt</span></span>';
-        versandHinweis = '<p class="versand-hinweis">Versandkostenfrei ab ' + euro(VERSAND.kostenlosAb) + ' Warenwert — erreicht.</p>';
+        versandZeile = '<span class="summe-zeile versand-frei"><span>' + BG.t('Versand', 'Shipping') + '</span><span>' + BG.t('geschenkt', 'free') + '</span></span>';
+        versandHinweis = '<p class="versand-hinweis">' + BG.t('Versandkostenfrei ab ' + euro(VERSAND.kostenlosAb) + ' Warenwert — erreicht.', 'Free shipping from ' + euro(VERSAND.kostenlosAb) + ' order value — reached.') + '</p>';
       } else {
-        versandZeile = '<span class="summe-zeile"><span>Versand · ' + escapeHtml(VERSAND.stufen[stufe].label) + '</span><span>' + euro(versand) + '</span></span>';
+        versandZeile = '<span class="summe-zeile"><span>' + BG.t('Versand · ', 'Shipping · ') + escapeHtml(VERSAND.stufen[stufe].label) + '</span><span>' + euro(versand) + '</span></span>';
         var fehlt = VERSAND.kostenlosAb - gesamt;
         if (VERSAND.kostenlosAb !== null && fehlt > 0) {
-          versandHinweis = '<p class="versand-hinweis">Noch <b>' + euro(fehlt) + '</b> bis zum versandkostenfreien Einkauf.</p>';
+          versandHinweis = '<p class="versand-hinweis">' + BG.t('Noch <b>' + euro(fehlt) + '</b> bis zum versandkostenfreien Einkauf.', 'Just <b>' + euro(fehlt) + '</b> more for free shipping.') + '</p>';
         }
       }
     }
 
     var schlussHinweis = (zustand.art === 'verbindlich')
-      ? '<p class="summe-hinweis">Verbindlicher Gesamtpreis. Es kommen keine weiteren Kosten dazu.</p>'
-      : '<p class="summe-hinweis">Richtwert — den genauen Betrag bestätige ich dir in meiner Antwort.</p>';
+      ? '<p class="summe-hinweis">' + BG.t('Verbindlicher Gesamtpreis. Es kommen keine weiteren Kosten dazu.', 'Binding total price. No further costs will be added.') + '</p>'
+      : '<p class="summe-hinweis">' + BG.t('Richtwert — den genauen Betrag bestätige ich dir in meiner Antwort.', 'Guide price — I will confirm the exact amount in my reply.') + '</p>';
 
     summeEl.innerHTML = zeilen +
-      '<span class="summe-zeile"><span>Zwischensumme</span><span>' + euro(gesamt) + '</span></span>' +
+      '<span class="summe-zeile"><span>' + BG.t('Zwischensumme', 'Subtotal') + '</span><span>' + euro(gesamt) + '</span></span>' +
       versandZeile +
-      '<span class="summe-zeile gesamt"><span>Gesamt</span><span>' + euro(gesamtMitVersand) + '</span></span>' +
+      '<span class="summe-zeile gesamt"><span>' + BG.t('Gesamt', 'Total') + '</span><span>' + euro(gesamtMitVersand) + '</span></span>' +
       versandHinweis +
       hinweise +
       schlussHinweis;
 
     var stueckGesamt = auswahl.reduce(function (n, pos) { return n + pos.menge; }, 0);
     badge.classList.add('sichtbar');
-    badgeText.textContent = stueckGesamt + (stueckGesamt === 1 ? ' Stück' : ' Stück') + ' · ' + euro(gesamtMitVersand);
+    badgeText.textContent = stueckGesamt + (stueckGesamt === 1 ? BG.t(' Stück', ' item') : BG.t(' Stück', ' items')) + ' · ' + euro(gesamtMitVersand);
 
     /* ---- Textfassung für die Mail ----
        Bewusst ausführlich: Diese Zeilen sind das, was du später in
@@ -1677,7 +1681,7 @@
   /* ============================================================
      DRUCKEREI & SAAL-DIGITAL-SHOP
      ============================================================
-     Beide Werte kommen aus produkte-daten.js:
+     Beide Werte kommen aus daten/shop.json:
        DRUCKPARTNER  → Name der Druckerei je Produktart
        SAAL_SHOP_URL → Link zu deinem Saal-Digital-Shop ('' = aus)
      ============================================================ */
@@ -1686,8 +1690,8 @@
      Fällt bei fehlendem Eintrag still auf den kurzen Text zurück. */
   function herkunftText(typ) {
     var name = (typeof DRUCKPARTNER !== 'undefined') ? DRUCKPARTNER[typ] : '';
-    return name ? 'Gedruckt bei ' + name + ' · aus Halstenbek versendet'
-                : 'Aus Halstenbek versendet';
+    return name ? BG.t('Gedruckt bei ' + name + ' · aus Halstenbek versendet', 'Printed by ' + name + ' · shipped from Halstenbek')
+                : BG.t('Aus Halstenbek versendet', 'Shipped from Halstenbek');
   }
 
   function saalShopUrl() {
@@ -1701,7 +1705,7 @@
     var url = saalShopUrl();
     if (!url) { return ''; }
     return '<a class="saal-link" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' +
-      'Größer als A4? Zum Saal-Digital-Shop ↗</a>';
+      BG.t('Größer als ' + POSTER_FORMAT + '? Zum Saal-Digital-Shop ↗', 'Larger than ' + POSTER_FORMAT + '? Saal Digital shop ↗') + '</a>';
   }
 
   /* Füllt den Bereich "Größer als A4" — Button zum Shop oder,
@@ -1711,9 +1715,9 @@
     if (!el) { return; }
     var url = saalShopUrl();
     el.innerHTML = url
-      ? '<p style="margin:1.2rem 0 0;"><a class="btn btn-fill" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">Zu meinem Saal-Digital-Shop ↗</a></p>' +
-        '<p class="section-idea-note">Öffnet sich in einem neuen Tab — deine Auswahl hier bleibt erhalten.</p>'
-      : '<p class="section-idea-note">Der Shop-Link folgt in Kürze. Bis dahin schreib mir dein Wunschformat einfach ins <a href="#kontakt-anfrage">Anfrageformular</a>.</p>';
+      ? '<p style="margin:1.2rem 0 0;"><a class="btn btn-fill" href="' + escapeHtml(url) + '" target="_blank" rel="noopener">' + BG.t('Zu meinem Saal-Digital-Shop ↗', 'To my Saal Digital shop ↗') + '</a></p>' +
+        '<p class="section-idea-note">' + BG.t('Öffnet sich in einem neuen Tab — deine Auswahl hier bleibt erhalten.', 'Opens in a new tab — your selection here is kept.') + '</p>'
+      : '<p class="section-idea-note">' + BG.t('Der Shop-Link folgt in Kürze. Bis dahin schreib mir dein Wunschformat einfach ins <a href="#kontakt-anfrage">Anfrageformular</a>.', 'The shop link is coming soon. Until then, just write your preferred format in the <a href="#kontakt-anfrage">request form</a>.') + '</p>';
   }
 
   /* ============================================================
@@ -1731,10 +1735,13 @@
 
   var MOTIVE_PRO_SEITE = 12;   /* 12 geht in 2, 3 und 4 Spalten glatt auf */
 
-  var MOTIV_THEMEN = ['Teichleben', 'Gartenleben', 'Waldleben', 'Reduktion'];
+  /* Serien in der Reihenfolge aus daten/motive.json (Admin → Serien) */
+  var MOTIV_THEMEN = (window.SERIEN || []).map(function (s) { return s.id; });
+  var SERIEN_NAME = {};
+  (window.SERIEN || []).forEach(function (s) { SERIEN_NAME[s.id] = s.name; });
 
   /* Die Produktarten der Seitenleiste.
-       id        — muss zu STAFFEL/PREISE in produkte-daten.js passen
+       id        — muss zu STAFFEL/PREISE in daten/shop.json passen
                    und wird als Warenkorb-Schlüssel benutzt
        label     — Text in der Seitenleiste
        bezeichnung — wie die Position im Warenkorb und in der Mail heißt
@@ -1743,13 +1750,14 @@
        lager     — Lagerzeile, oder null wenn es keine gibt (Download)
        bild      — welches Foto die Karte zeigt
      Eine neue Produktart hinzuzufügen heißt: hier einen Eintrag
-     ergänzen und in produkte-daten.js Preis bzw. Staffel setzen. */
+     ergänzen und in daten/shop.json Preis bzw. Staffel setzen. */
   var PRODUKTARTEN = [
     {
       id: 'postkarte',
-      label: 'Postkarten',
-      bezeichnung: 'Postkarte',
-      info: function () { return '10 × 15 cm, 350 g matt, Artname und Fundort auf der Rückseite. Gedruckt bei ' + (DRUCKPARTNER.postkarte || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.'; },
+      label: BG.t('Postkarten', 'Postcards'),
+      bezeichnung: BG.t('Postkarte', 'Postcard'),
+      info: function () { return BG.t('10 × 15 cm, 350 g matt, Artname und Fundort auf der Rückseite. Gedruckt bei ' + (DRUCKPARTNER.postkarte || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
+        '10 × 15 cm, 350 g matt, species and location on the back. Printed by ' + (DRUCKPARTNER.postkarte || 'my printer') + ', shipped by me from Halstenbek.'); },
       filter: function (b) { return true; },
       lager: function (b) { return stockInfo(b, 'postkarte'); },
       bild: function (b) { return b.bild; }
@@ -1758,28 +1766,30 @@
       id: 'poster',
       label: 'Poster ' + POSTER_FORMAT,
       bezeichnung: 'Poster ' + POSTER_FORMAT,
-      info: function () { return 'Fotoabzug im Format ' + POSTER_FORMAT + ', matt, ohne Rahmen. Gedruckt bei ' + (DRUCKPARTNER.poster || 'meinem Fotolabor') + ', von mir aus Halstenbek verschickt.'; },
+      info: function () { return BG.t('Fotoabzug im Format ' + POSTER_FORMAT + ', matt, ohne Rahmen. Gedruckt bei ' + (DRUCKPARTNER.poster || 'meinem Fotolabor') + ', von mir aus Halstenbek verschickt.',
+        'Photo print in ' + POSTER_FORMAT + ', matt, unframed. Printed by ' + (DRUCKPARTNER.poster || 'my photo lab') + ', shipped by me from Halstenbek.'); },
       filter: function (b) { return true; },
       lager: function (b) { return stockInfo(b, 'poster'); },
       bild: function (b) { return b.bild; }
     },
     {
       id: 'lesezeichen',
-      label: 'Lesezeichen',
-      bezeichnung: 'Lesezeichen',
-      info: function () { return '5 × 18 cm, 400 g matt kaschiert, abgerundete Ecken, mit QR-Code zur Geschichte. Gedruckt bei ' + (DRUCKPARTNER.lesezeichen || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.'; },
+      label: BG.t('Lesezeichen', 'Bookmarks'),
+      bezeichnung: BG.t('Lesezeichen', 'Bookmark'),
+      info: function () { return BG.t('5 × 18 cm, 400 g matt kaschiert, abgerundete Ecken, mit QR-Code zur Geschichte. Gedruckt bei ' + (DRUCKPARTNER.lesezeichen || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
+        '5 × 18 cm, 400 g matt laminated, rounded corners, with a QR code to the story. Printed by ' + (DRUCKPARTNER.lesezeichen || 'my printer') + ', shipped by me from Halstenbek.'); },
       /* Anders als Postkarte und Poster gibt es Lesezeichen nur von
          den Motiven, die du wirklich hast drucken lassen. */
       filter: function (b) { return b.bereitsLesezeichen === true; },
       lager: lesezeichenLager,
       bild: lesezeichenBildPfad,
-      leerText: 'Die Lesezeichen folgen in Kürze.'
+      leerText: BG.t('Die Lesezeichen folgen in Kürze.', 'Bookmarks are coming soon.')
     },
     {
       id: 'download',
       label: 'Downloads',
       bezeichnung: 'Download',
-      info: function () { return 'Die Bilddatei zum Selberdrucken oder als Hintergrundbild — kein Versand, kein Warten.'; },
+      info: function () { return BG.t('Die Bilddatei zum Selberdrucken oder als Hintergrundbild — kein Versand, kein Warten.', 'The image file to print yourself or use as a wallpaper — no shipping, no waiting.'); },
       filter: function (b) { return true; },
       lager: null,
       bild: function (b) { return b.bild; }
@@ -1814,20 +1824,20 @@
 
     if (!vorhanden) {
       return {
-        html: (art === 'poster' ? 'Wird nachgedruckt · ca. 1–2 Wochen' : 'Wird für dich gedruckt · ca. 1–2 Wochen'),
+        html: (art === 'poster' ? BG.t('Wird nachgedruckt · ca. 1–2 Wochen', 'Being reprinted · approx. 1–2 weeks') : BG.t('Wird für dich gedruckt · ca. 1–2 Wochen', 'Printed for you · approx. 1–2 weeks')),
         cls: 'back', vorraetig: false
       };
     }
     if (menge === 0) {
-      return { html: 'Wird nachbestellt · ca. 1–2 Wochen', cls: 'back', vorraetig: false };
+      return { html: BG.t('Wird nachbestellt · ca. 1–2 Wochen', 'Being reordered · approx. 1–2 weeks'), cls: 'back', vorraetig: false };
     }
     if (typeof menge === 'number') {
       return {
-        html: (menge <= 3 ? 'Nur noch ' + menge + ' auf Lager' : 'Noch ' + menge + ' auf Lager'),
+        html: (menge <= 3 ? BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left in stock') : BG.t('Noch ' + menge + ' auf Lager', menge + ' in stock')),
         cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
       };
     }
-    return { html: 'Vorrätig', cls: 'ok', vorraetig: true };
+    return { html: BG.t('Vorrätig', 'In stock'), cls: 'ok', vorraetig: true };
   }
 
   /* Lagerzeile für Lesezeichen. Einen "gibt es noch gar nicht"-Fall
@@ -1836,22 +1846,22 @@
   function lesezeichenLager(b) {
     var menge = b.bestandLesezeichen;
     if (menge === 0) {
-      return { html: 'Gerade vergriffen · wird nachgedruckt', cls: 'back', vorraetig: false };
+      return { html: BG.t('Gerade vergriffen · wird nachgedruckt', 'Currently sold out · being reprinted'), cls: 'back', vorraetig: false };
     }
     if (typeof menge === 'number') {
       return {
-        html: (menge <= 3 ? 'Nur noch ' + menge + ' auf Lager' : 'Noch ' + menge + ' auf Lager'),
+        html: (menge <= 3 ? BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left in stock') : BG.t('Noch ' + menge + ' auf Lager', menge + ' in stock')),
         cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
       };
     }
-    return { html: 'Vorrätig', cls: 'ok', vorraetig: true };   /* null = Zahl unbekannt */
+    return { html: BG.t('Vorrätig', 'In stock'), cls: 'ok', vorraetig: true };   /* null = Zahl unbekannt */
   }
 
   /* Welches Foto zeigt die Lesezeichen-Karte?
      Es gibt zwei sinnvolle Arten, die Dateien zu benennen, und
      beide werden unterstützt — der Reihe nach probiert:
 
-       1. bildLesezeichen aus galerie-daten.js, falls angegeben
+       1. bildLesezeichen aus daten/motive.json, falls angegeben
        2. bilder/lesezeichen/<Dateiname des Galeriefotos>
           also z. B. bilder/teichleben/entchen1.jpg
           →         bilder/lesezeichen/entchen1.jpg
@@ -1937,19 +1947,19 @@
   }
 
   /* Preisspanne als Fließtext, direkt aus STAFFEL erzeugt — so kann
-     die Anzeige nicht mehr von produkte-daten.js abweichen. */
+     die Anzeige nicht mehr von daten/shop.json abweichen. */
   function staffelText(typ) {
-    if (typ === 'download') { return euro(PREISE.download) + ' pro Bild'; }
+    if (typ === 'download') { return euro(PREISE.download) + BG.t(' pro Bild', ' per image'); }
     var stufen = STAFFEL[typ] || [];
     if (!stufen.length) { return ''; }
     /* Erste Stufe = Einzelpreis. Weitere Stufen: glatt als
        "ab 5 je 1,50 €", krumm als Paket "3 für 5,00 €".
        Ergebnis z. B.: "2,00 € pro Stück · 3 für 5,00 € · ab 5 je 1,50 €" */
     return stufen.map(function (st, i) {
-      if (i === 0) { return euro(st.fuer / st.abMenge) + ' pro Stück'; }
+      if (i === 0) { return euro(st.fuer / st.abMenge) + BG.t(' pro Stück', ' each'); }
       return stufeGlatt(st)
-        ? 'ab ' + st.abMenge + ' je ' + euro(st.fuer / st.abMenge)
-        : st.abMenge + ' für ' + euro(st.fuer);
+        ? BG.t('ab ' + st.abMenge + ' je ' + euro(st.fuer / st.abMenge), 'from ' + st.abMenge + ': ' + euro(st.fuer / st.abMenge) + ' each')
+        : st.abMenge + BG.t(' für ', ' for ') + euro(st.fuer);
     }).join(' · ');
   }
 
@@ -1961,7 +1971,7 @@
       return pos.key.indexOf(b.id + '|') === 0 && pos.typ !== typ;
     });
     if (!treffer.length) { return ''; }
-    return treffer.map(function (pos) { return pos.menge + '× als ' + pos.bezeichnung; }).join(', ') + ' im Warenkorb';
+    return treffer.map(function (pos) { return pos.menge + BG.t('× als ', '× as ') + pos.bezeichnung; }).join(', ') + BG.t(' im Warenkorb', ' in basket');
   }
 
   /* ---------- Seitenleiste ---------- */
@@ -1983,10 +1993,10 @@
     }).join('');
 
     /* Serien. Zählung immer bezogen auf die aktuelle Produktart. */
-    var serienHtml = filterKnopf('alle', 'Alle Serien', motiveGefiltert('alle').length,
+    var serienHtml = filterKnopf('alle', BG.t('Alle Serien', 'All series'), motiveGefiltert('alle').length,
       shopZustand.serie === 'alle', 'data-serie');
     MOTIV_THEMEN.forEach(function (serie) {
-      serienHtml += filterKnopf(serie, serie, motiveGefiltert(serie).length,
+      serienHtml += filterKnopf(serie, SERIEN_NAME[serie] || serie, motiveGefiltert(serie).length,
         shopZustand.serie === serie, 'data-serie');
     });
     document.getElementById('filter-serie').innerHTML = serienHtml;
@@ -2008,10 +2018,10 @@
     /* Lupe: Pfad und Titel in data-Attributen statt im onclick —
        robuster bei Anführungszeichen im Motivnamen. */
     var zoom = '<button type="button" class="gp-zoom" data-src="' + escapeHtml(pfad) + '"' +
-      ' data-titel="' + escapeHtml(istLesezeichen ? 'Lesezeichen · ' + motivPlain : motivPlain) + '"' +
-      ' aria-label="Bild in voller Größe ansehen">' +
+      ' data-titel="' + escapeHtml(istLesezeichen ? BG.t('Lesezeichen · ', 'Bookmark · ') + motivPlain : motivPlain) + '"' +
+      ' aria-label="' + BG.t('Bild in voller Größe ansehen', 'View full-size image') + '">' +
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>' +
-      '<span>Klick für volle Größe</span></button>';
+      '<span>' + BG.t('Klick für volle Größe', 'Click for full size') + '</span></button>';
 
     var bildTag;
     if (istLesezeichen) {
@@ -2020,7 +2030,7 @@
       bildTag = '<img src="' + escapeHtml(pfad) + '"' +
         ' data-kandidaten="' + escapeHtml(reserve) + '"' +
         ' data-ersatz="' + escapeHtml(b.bild) + '"' +
-        ' alt="Lesezeichen mit Motiv: ' + escapeHtml(b.alt) + '" loading="lazy"' +
+        ' alt="' + BG.t('Lesezeichen mit Motiv: ', 'Bookmark with motif: ') + escapeHtml(b.alt) + '" loading="lazy"' +
         ' onerror="lesezeichenBildFehlt(this)" onload="kartenFormatPruefen(this)">';
     } else {
       bildTag = '<img src="' + escapeHtml(pfad) + '" alt="' + escapeHtml(b.alt) + '"' +
@@ -2029,22 +2039,22 @@
 
     return '<div class="pick-card' + (istLesezeichen ? ' lz-card' : '') + '" id="motiv-' + escapeHtml(b.id) + '">' +
       '<div class="frame">' +
-        (lager ? '<span class="gp-star" id="' + cid + '-star"' + (lager.vorraetig ? '' : ' style="display:none;"') + '>★ vorrätig</span>' : '') +
-        (istLesezeichen ? '<span class="lz-hinweis" hidden>Beispielansicht</span>' : '') +
+        (lager ? '<span class="gp-star" id="' + cid + '-star"' + (lager.vorraetig ? '' : ' style="display:none;"') + '>★ ' + BG.t('vorrätig', 'in stock') + '</span>' : '') +
+        (istLesezeichen ? '<span class="lz-hinweis" hidden>' + BG.t('Beispielansicht', 'Sample view') + '</span>' : '') +
         zoom + bildTag +
       '</div>' +
       '<div class="body">' +
         '<b>' + titelHtml + '</b>' +
-        '<span class="karte-serie">' + escapeHtml(b.kategorie) + '</span>' +
+        '<span class="karte-serie">' + escapeHtml(b.kategorieName || b.kategorie) + '</span>' +
         '<span class="price-line" id="' + cid + '-price"></span>' +
         (lager ? '<span class="stock-line ' + lager.cls + '" id="' + cid + '-stock">' + lager.html + '</span>' : '') +
         '<span class="karte-anderswo" id="' + cid + '-anderswo"></span>' +
         '<div class="menge-row">' +
-          '<label for="' + cid + '-menge">Menge</label>' +
+          '<label for="' + cid + '-menge">' + BG.t('Menge', 'Quantity') + '</label>' +
           '<span class="stepper" id="' + cid + '-stepper">' +
-            '<button type="button" data-schritt="-1" aria-label="Weniger">−</button>' +
-            '<input type="number" id="' + cid + '-menge" value="1" min="1" max="' + MAX_MENGE + '" aria-label="Menge">' +
-            '<button type="button" data-schritt="1" aria-label="Mehr">+</button>' +
+            '<button type="button" data-schritt="-1" aria-label="' + BG.t('Weniger', 'Fewer') + '">−</button>' +
+            '<input type="number" id="' + cid + '-menge" value="1" min="1" max="' + MAX_MENGE + '" aria-label="' + BG.t('Menge', 'Quantity') + '">' +
+            '<button type="button" data-schritt="1" aria-label="' + BG.t('Mehr', 'More') + '">+</button>' +
           '</span>' +
         '</div>' +
         '<div class="kauf-slot" id="' + cid + '-kauf"></div>' +
@@ -2074,7 +2084,7 @@
       if (typ === 'download') {
         var summeDl = PREISE.download * menge();
         priceEl.innerHTML = euro(summeDl) +
-          (menge() > 1 ? ' <span class="je">(je ' + euro(PREISE.download) + ')</span>' : '');
+          (menge() > 1 ? ' <span class="je">(' + BG.t('je ' + euro(PREISE.download), euro(PREISE.download) + ' each') + ')</span>' : '');
       } else {
         /* Stückpreis hängt an der Gesamtmenge dieser Produktart.
            Ist die Position noch nicht im Korb, wird sie testweise
@@ -2092,12 +2102,12 @@
         var jeText = '';
         if (menge() > 1) {
           jeText = stufeGlatt(stufe)
-            ? ' <span class="je">(je ' + euro(stufe.fuer / stufe.abMenge) + ')</span>'
+            ? ' <span class="je">(' + BG.t('je ' + euro(stufe.fuer / stufe.abMenge), euro(stufe.fuer / stufe.abMenge) + ' each') + ')</span>'
             : ' <span class="je">(' + stufeKurz(stufe) + ')</span>';
         }
         var istRabatt = stufe.fuer / stufe.abMenge < basis.fuer / basis.abMenge;
         priceEl.innerHTML = euro(betrag) + jeText +
-          (istRabatt ? ' <span class="rabatt">Staffelpreis</span>' : '');
+          (istRabatt ? ' <span class="rabatt">' + BG.t('Staffelpreis', 'Quantity price') + '</span>' : '');
       }
 
       anderswoEl.textContent = anderswoImKorb(b, typ);
@@ -2150,7 +2160,7 @@
       /* Hinweis auf die Mischbarkeit, nur wenn der Typ in einer
          Gruppe mit anderen steckt (Postkarten ↔ Lesezeichen). */
       (gruppeVon(art.id).length > 1
-        ? ' <span class="staffel-inline">Postkarten und Lesezeichen frei mischbar.</span>'
+        ? ' <span class="staffel-inline">' + BG.t('Postkarten und Lesezeichen frei mischbar.', 'Postcards and bookmarks can be mixed freely.') + '</span>'
         : '');
     /* (Früher stand hier für Lesezeichen „3 für 5 € nur am
        Marktstand“ — die Staffel gilt jetzt auch online.) */
@@ -2158,18 +2168,18 @@
     /* Hinweisband: bei Postern der Verweis auf große Formate. */
     document.getElementById('shop-band').innerHTML =
       (art.id === 'poster')
-        ? '<div class="shop-band"><span>Du möchtest es größer, auf Leinwand oder Alu-Dibond?</span><a href="#grossformate">Große Formate über Saal Digital →</a></div>'
+        ? '<div class="shop-band"><span>' + BG.t('Du möchtest es größer, auf Leinwand oder Alu-Dibond?', 'Want it bigger, on canvas or aluminium?') + '</span><a href="#grossformate">' + BG.t('Große Formate über Saal Digital →', 'Large formats via Saal Digital →') + '</a></div>'
         : '';
 
     document.getElementById('shop-treffer').textContent =
-      gesamt === 0 ? '' : (zeigen < gesamt ? zeigen + ' von ' + gesamt + ' Motiven' : gesamt + (gesamt === 1 ? ' Motiv' : ' Motive'));
+      gesamt === 0 ? '' : (zeigen < gesamt ? zeigen + BG.t(' von ', ' of ') + gesamt + BG.t(' Motiven', ' motifs') : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs')));
 
     var grid = document.getElementById('shop-grid');
     motivAktualisierer = {};   /* Karten von eben sind gleich weg */
 
     if (!gesamt) {
       grid.innerHTML = '<p class="empty-note">' +
-        escapeHtml(art.leerText || 'Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.') +
+        escapeHtml(art.leerText || BG.t('Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.', 'Nothing for this selection right now — try widening the filter.')) +
         '</p>';
       document.getElementById('shop-mehr').innerHTML = '';
       return;
@@ -2181,7 +2191,7 @@
 
     var rest = gesamt - zeigen;
     document.getElementById('shop-mehr').innerHTML = rest > 0
-      ? '<button type="button" id="shop-mehr-btn">Weitere ' + Math.min(rest, MOTIVE_PRO_SEITE) + ' Motive anzeigen</button>'
+      ? '<button type="button" id="shop-mehr-btn">' + BG.t('Weitere ' + Math.min(rest, MOTIVE_PRO_SEITE) + ' Motive anzeigen', 'Show ' + Math.min(rest, MOTIVE_PRO_SEITE) + ' more motifs') + '</button>'
       : '';
 
     renderFilter();
@@ -2243,7 +2253,7 @@
 
   /* ---------- Sticker ----------
      Bereich und Sprunglink stehen im HTML mit hidden drin. Erst wenn
-     STICKER (produkte-daten.js) mindestens einen Eintrag hat, werden
+     STICKER (daten/shop.json) mindestens einen Eintrag hat, werden
      beide sichtbar geschaltet. Bei leerer Liste passiert gar nichts —
      die Kunden sehen dann schlicht keinen Sticker-Bereich. */
   function hatSticker() {
@@ -2345,15 +2355,15 @@
       adressFold.open = true;
       adressFold.classList.add('ist-pflicht');
       document.getElementById('adress-summary').innerHTML =
-        'Lieferadresse <abbr class="pflicht" title="Pflichtangabe">*</abbr>';
+        BG.t('Lieferadresse', 'Delivery address') + ' <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr>';
       document.getElementById('adress-note').textContent =
-        'Ohne vollständige Adresse kann ich das Paket nicht auf den Weg bringen.';
+        BG.t('Ohne vollständige Adresse kann ich das Paket nicht auf den Weg bringen.', 'Without a complete address I can\'t send the parcel.');
     } else {
       adressFold.classList.remove('ist-pflicht');
       document.getElementById('adress-summary').innerHTML =
-        'Lieferadresse schon mitgeben <span class="optional-tag">optional</span>';
+        BG.t('Lieferadresse schon mitgeben', 'Add delivery address now') + ' <span class="optional-tag">optional</span>';
       document.getElementById('adress-note').textContent =
-        'Freiwillig — hilft mir nur dabei, dir direkt den richtigen Versandpreis zu nennen, statt noch einmal nachzufragen. Ohne Adresse geht die Anfrage genauso raus.';
+        BG.t('Freiwillig — hilft mir nur dabei, dir direkt den richtigen Versandpreis zu nennen, statt noch einmal nachzufragen. Ohne Adresse geht die Anfrage genauso raus.', 'Optional — it only helps me quote the right shipping price straight away instead of asking again. Your request goes out just the same without an address.');
     }
 
     /* required an den Adressfeldern setzen bzw. entfernen */
@@ -2389,22 +2399,22 @@
 
     if (hatAuswahl && z.art === 'verbindlich') {
       /* Pflichttext nach § 312j BGB — bitte so lassen. */
-      submitBtn.textContent = 'Zahlungspflichtig bestellen';
+      submitBtn.textContent = BG.t('Zahlungspflichtig bestellen', 'Order with obligation to pay');
       lead.textContent = (z.lieferart === 'abholung')
         /* Wortwahl passend zu AGB 2.4: Die automatische Mail ist nur
            eine EINGANGSbestätigung, der Vertrag kommt erst mit deiner
            Auftragsbestätigung zustande. Bitte so lassen. */
-        ? 'Du bestellst verbindlich zur Abholung in Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; mit meiner Auftragsbestätigung machen wir den Übergabetermin aus.'
-        : 'Du bestellst verbindlich mit Versand aus Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; meine Auftragsbestätigung mit Zahlungsweg folgt per Mail.';
+        ? BG.t('Du bestellst verbindlich zur Abholung in Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; mit meiner Auftragsbestätigung machen wir den Übergabetermin aus.', 'You are placing a binding order for pick-up in Halstenbek. After sending you get an immediate confirmation of receipt; with my order confirmation we will arrange the hand-over.')
+        : BG.t('Du bestellst verbindlich mit Versand aus Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; meine Auftragsbestätigung mit Zahlungsweg folgt per Mail.', 'You are placing a binding order with shipping from Halstenbek. After sending you get an immediate confirmation of receipt; my order confirmation with payment details follows by e-mail.');
       note.innerHTML = (z.zahlweg === 'bar')
-        ? 'Bezahlt wird bar bei der Übergabe · <abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben'
-        : 'Zahlungsdaten kommen per Mail · <abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben';
+        ? BG.t('Bezahlt wird bar bei der Übergabe', 'Payment in cash at hand-over') + ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields')
+        : BG.t('Zahlungsdaten kommen per Mail', 'Payment details follow by e-mail') + ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields');
     } else {
-      submitBtn.textContent = 'Anfrage senden';
+      submitBtn.textContent = BG.t('Anfrage senden', 'Send request');
       lead.textContent = hatAuswahl
-        ? 'Unverbindlich — ich melde mich mit Proforma-Rechnung, Versand- bzw. Abholoption und Zahlungsweg zurück.'
-        : 'Bestellwunsch, Marktanfrage, Bildlizenz oder fehlendes Motiv — eine kurze Nachricht genügt. Ich melde mich mit Preis, Versand oder Abholung und Zahlungsweg.';
-      note.innerHTML = 'Antwort meist innerhalb von 2–3 Tagen · <abbr class="pflicht" title="Pflichtangabe">*</abbr> Pflichtangaben';
+        ? BG.t('Unverbindlich — ich melde mich mit Proforma-Rechnung, Versand- bzw. Abholoption und Zahlungsweg zurück.', 'Non-binding — I will get back to you with a pro-forma invoice, shipping or pick-up option and payment details.')
+        : BG.t('Bestellwunsch, Marktanfrage, Bildlizenz oder fehlendes Motiv — eine kurze Nachricht genügt. Ich melde mich mit Preis, Versand oder Abholung und Zahlungsweg.', 'Order request, market enquiry, image licence or a missing motif — a short message is enough. I will get back to you with price, shipping or pick-up and payment details.');
+      note.innerHTML = BG.t('Antwort meist innerhalb von 2–3 Tagen', 'Reply usually within 2–3 days') + ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields');
     }
 
     /* Der Versandhinweis in der Lieferart-Kachel zeigt den Preis
@@ -2413,9 +2423,9 @@
     if (versandSub && z.hatPhysisches) {
       var stufe = versandStufe();
       versandSub.textContent = stufe
-        ? 'Verpackt und verschickt aus Halstenbek · ' + euro(VERSAND.stufen[stufe].preis) +
-          (VERSAND.kostenlosAb !== null ? ', ab ' + euro(VERSAND.kostenlosAb) + ' geschenkt' : '')
-        : 'Verpackt und verschickt aus Halstenbek.';
+        ? BG.t('Verpackt und verschickt aus Halstenbek · ', 'Packed and shipped from Halstenbek · ') + euro(VERSAND.stufen[stufe].preis) +
+          (VERSAND.kostenlosAb !== null ? BG.t(', ab ' + euro(VERSAND.kostenlosAb) + ' geschenkt', ', free from ' + euro(VERSAND.kostenlosAb)) : '')
+        : BG.t('Verpackt und verschickt aus Halstenbek.', 'Packed and shipped from Halstenbek.');
     }
   }
 
@@ -2441,8 +2451,10 @@
       chipsWrap.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
       chip.classList.add('active');
       subjectEl.value = '[Shop-Anfrage] ' + chip.dataset.text + ' — BG Naturfotografie';
-      var prefix = 'Anliegen: ' + chip.dataset.text + ' — ';
-      if (!nachrichtEl.value || /^Anliegen: .* — $/.test(nachrichtEl.value)) {
+      // Betreff (für dich) bleibt deutsch, der sichtbare Anfang der
+      // Nachricht folgt der Sprache der Seite
+      var prefix = BG.t('Anliegen: ', 'Topic: ') + chip.textContent.trim() + ' — ';
+      if (!nachrichtEl.value || /^(Anliegen|Topic): .* — $/.test(nachrichtEl.value)) {
         nachrichtEl.value = prefix;
       }
     }
@@ -2477,15 +2489,15 @@
     var sammelEl = document.getElementById('af-fehler-sammel');
 
     var MELDUNGEN = {
-      'af-name': 'Bitte trag deinen Namen ein.',
-      'af-email': 'Bitte trag eine gültige E-Mail-Adresse ein (z. B. name@beispiel.de) — sonst kann ich dir nicht antworten.',
-      'af-nachricht': 'Bitte schreib kurz, worum es geht.',
-      'af-datenschutz': 'Bitte bestätige die Datenschutzerklärung.',
-      'af-agb': 'Bitte bestätige AGB und Widerrufsbelehrung — ohne das kann ich die Bestellung nicht annehmen.',
-      'af-strasse': 'Bitte trag Straße und Hausnummer ein.',
-      'af-plz': 'Bitte trag die Postleitzahl ein.',
-      'af-ort': 'Bitte trag den Ort ein.',
-      'af-land': 'Bitte trag das Land ein.'
+      'af-name': BG.t('Bitte trag deinen Namen ein.', 'Please enter your name.'),
+      'af-email': BG.t('Bitte trag eine gültige E-Mail-Adresse ein (z. B. name@beispiel.de) — sonst kann ich dir nicht antworten.', 'Please enter a valid email address (e.g. name@example.com) — otherwise I can\'t reply.'),
+      'af-nachricht': BG.t('Bitte schreib kurz, worum es geht.', 'Please write briefly what it\'s about.'),
+      'af-datenschutz': BG.t('Bitte bestätige die Datenschutzerklärung.', 'Please confirm the privacy policy.'),
+      'af-agb': BG.t('Bitte bestätige AGB und Widerrufsbelehrung — ohne das kann ich die Bestellung nicht annehmen.', 'Please confirm the terms and cancellation policy — I can\'t accept the order without it.'),
+      'af-strasse': BG.t('Bitte trag Straße und Hausnummer ein.', 'Please enter street and house number.'),
+      'af-plz': BG.t('Bitte trag die Postleitzahl ein.', 'Please enter the postcode.'),
+      'af-ort': BG.t('Bitte trag den Ort ein.', 'Please enter the town.'),
+      'af-land': BG.t('Bitte trag das Land ein.', 'Please enter the country.')
     };
 
     function fehlerZeigen(feld, text) {
@@ -2542,7 +2554,7 @@
         if (feldIstOk(feld)) {
           fehlerLoeschen(feld);
         } else {
-          fehlerZeigen(feld, MELDUNGEN[feld.id] || 'Bitte fülle dieses Feld aus.');
+          fehlerZeigen(feld, MELDUNGEN[feld.id] || BG.t('Bitte fülle dieses Feld aus.', 'Please fill in this field.'));
           offen.push(feld);
         }
       });
@@ -2550,8 +2562,8 @@
       if (offen.length) {
         e.preventDefault();
         sammelEl.textContent = (offen.length === 1)
-          ? 'Eine Pflichtangabe fehlt noch — sie ist unten rot markiert.'
-          : 'Es fehlen noch ' + offen.length + ' Pflichtangaben — sie sind rot markiert.';
+          ? BG.t('Eine Pflichtangabe fehlt noch — sie ist unten rot markiert.', 'One required field is still missing — it is marked in red below.')
+          : BG.t('Es fehlen noch ' + offen.length + ' Pflichtangaben — sie sind rot markiert.', offen.length + ' required fields are still missing — they are marked in red.');
         sammelEl.classList.add('sichtbar');
         offen[0].focus();
         offen[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -2695,7 +2707,7 @@
   function formularAbsenden(form, ziel, sammelEl, submitBtn) {
     var knopfText = submitBtn.textContent;
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Wird gesendet …';
+    submitBtn.textContent = BG.t('Wird gesendet …', 'Sending …');
     sammelEl.classList.remove('sichtbar');
 
     function fehler(text) {
@@ -2720,13 +2732,15 @@
         var grund = (daten && daten.errors && daten.errors.length)
           ? daten.errors.map(function (f) { return f.message; }).join(' ')
           : '';
-        fehler('Das Absenden hat leider nicht geklappt' + (grund ? ' (' + grund + ')' : '') +
-          '. Bitte versuch es gleich noch einmal — oder schreib mir direkt an impressum.skarvaan@web.de.');
+        fehler(BG.t('Das Absenden hat leider nicht geklappt', 'Sorry, sending didn\'t work') + (grund ? ' (' + grund + ')' : '') +
+          BG.t('. Bitte versuch es gleich noch einmal — oder schreib mir direkt an impressum.skarvaan@web.de.', '. Please try again in a moment — or write to me directly at impressum.skarvaan@web.de.'));
       });
     }).catch(function () {
-      fehler('Ich konnte das Formular nicht abschicken — vermutlich ist gerade die Verbindung weg. ' +
+      fehler(BG.t('Ich konnte das Formular nicht abschicken — vermutlich ist gerade die Verbindung weg. ' +
         'Deine Eingaben stehen noch da, probier es in einem Moment noch einmal. ' +
-        'Oder schreib mir direkt an impressum.skarvaan@web.de.');
+        'Oder schreib mir direkt an impressum.skarvaan@web.de.',
+        'I couldn\'t send the form — the connection is probably down. Your entries are still there; try again in a moment. ' +
+        'Or write to me directly at impressum.skarvaan@web.de.'));
     });
   }
 
@@ -2808,6 +2822,53 @@
   badgeBeobachten();
   setupAnfrageForm();
   hervorhebenBeiSprungmarke();
+
+  /* Diese drei Funktionen werden direkt aus dem HTML aufgerufen
+     (onclick/onerror/onload) und müssen deshalb global erreichbar sein. */
+  window.closeGpLightbox = closeGpLightbox;
+  window.lesezeichenBildFehlt = lesezeichenBildFehlt;
+  window.kartenFormatPruefen = kartenFormatPruefen;
+
+  /* Staffel-Tabelle im Aufklapper "Preise, Staffelrabatt & Versand"
+     und Druckpartner-Namen aus daten/shop.json einsetzen */
+  (function preisInfosAusDaten() {
+    var cols = document.getElementById('staffel-cols');
+    if (cols) {
+      cols.innerHTML = ['postkarte', 'poster', 'lesezeichen'].map(function (typ) {
+        var stufen = STAFFEL[typ] || [];
+        if (!stufen.length) return '';
+        var name = { postkarte: BG.t('Postkarten', 'Postcards'), poster: 'Poster ' + POSTER_FORMAT, lesezeichen: BG.t('Lesezeichen', 'Bookmarks') }[typ];
+        return '<div><span class="staffel-titel">' + name + '</span><ul>' +
+          stufen.map(function (st, i) {
+            var letzte = (i === stufen.length - 1);
+            // Letzte Stufe: "ab 5 Stück · je 1,50 €", sonst "3 Stück · 5,00 €"
+            return letzte && i > 0
+              ? '<li><b>' + BG.t('ab ' + st.abMenge + ' Stück', 'from ' + st.abMenge + ' pcs') + '</b> · ' + BG.t('je ', 'each ') + euro(st.fuer / st.abMenge) + '</li>'
+              : '<li><b>' + st.abMenge + BG.t(' Stück', st.abMenge === 1 ? ' pc' : ' pcs') + '</b> · ' + euro(st.fuer) + '</li>';
+          }).join('') + '</ul></div>';
+      }).join('');
+    }
+    var fuss = document.getElementById('preis-fussnote');
+    if (fuss) {
+      var frei = (VERSAND.kostenlosAb !== null);
+      fuss.textContent = BG.t(
+        'Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden' + (frei ? ', ab ' + euro(VERSAND.kostenlosAb) + ' Warenwert versandkostenfrei' : '') + '). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.',
+        'All prices are final prices, plus shipping from Halstenbek (shown in the basket before sending' + (frei ? ', free shipping from ' + euro(VERSAND.kostenlosAb) + ' order value' : '') + '). No shipping for pick-up and downloads. Payment by PayPal or bank transfer — cash too when picking up.');
+      fuss.removeAttribute('data-en');
+    }
+    document.querySelectorAll('[data-druckpartner]').forEach(function (el) {
+      var name = DRUCKPARTNER[el.getAttribute('data-druckpartner')];
+      if (name) el.textContent = name;
+    });
+    var herst = document.getElementById('herstellung-text');
+    if (herst) {
+      herst.textContent = BG.t(
+        'Alles wird vorab in Auflage gedruckt: Postkarten bei ' + DRUCKPARTNER.postkarte + ', ' + POSTER_FORMAT + '-Poster als Fotoabzug bei ' + DRUCKPARTNER.poster + ', Lesezeichen bei ' + DRUCKPARTNER.lesezeichen + '. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.',
+        'Everything is printed in advance in runs: postcards by ' + DRUCKPARTNER.postkarte + ', ' + POSTER_FORMAT + ' posters as photo prints by ' + DRUCKPARTNER.poster + ', bookmarks by ' + DRUCKPARTNER.lesezeichen + '. I pack and ship everything myself from Halstenbek — the printers never see your data.');
+    }
+  })();
+
+}); // Ende BG.bereit
 </script>
 
 </body>

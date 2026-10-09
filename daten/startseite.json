@@ -1,0 +1,20 @@
+{
+  "wechselSekunden": 7,
+  "buehne": [
+    {
+      "id": "waldleben1"
+    },
+    {
+      "id": "teichleben1"
+    },
+    {
+      "id": "gartenleben21"
+    },
+    {
+      "id": "reduktion3"
+    },
+    {
+      "id": "waldleben5"
+    }
+  ]
+}

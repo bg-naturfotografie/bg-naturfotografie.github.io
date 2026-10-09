@@ -1,0 +1,28 @@
+{
+  "termine": [
+    {
+      "datum": "2026-10-11",
+      "bisDatum": "",
+      "von": "10:00",
+      "bis": "17:00",
+      "titel": {
+        "de": "Heeder Herbstmarkt",
+        "en": "Heede Autumn Market"
+      },
+      "adresse": "Schultwiete 2 (Dorfgemeinschaftshaus), 25355 Heede, Kreis Pinneberg",
+      "link": "",
+      "hinweis": {
+        "de": "",
+        "en": ""
+      }
+    }
+  ],
+  "keinTermin": {
+    "de": "Gerade steht kein Markt fest. Sobald es einen neuen Termin gibt, steht er hier zuerst.",
+    "en": "No market is confirmed right now. As soon as there is a new date, you will find it here first."
+  },
+  "hinweis": {
+    "de": "Weitere Märkte für den Advent sind angefragt. Sobald etwas fest ist, steht es hier zuerst.",
+    "en": "More Advent markets are in the works. As soon as something is confirmed, you will find it here first."
+  }
+}

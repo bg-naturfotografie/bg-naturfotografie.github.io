@@ -1,16 +1,18 @@
 /* ============ GESCHICHTEN-ÜBERSICHT AUFBAUEN ============
    Bild, Titel, Kategorie etc. kommen aus GALERIE_BILDER
-   (galerie-daten.js). Die Geschichte-TEXTE kommen aus der Google-
+   (daten/motive.json). Die Geschichte-TEXTE kommen aus der Google-
    Tabelle über das gemeinsame Modul geschichten-tabelle.js — dieselbe
    Tabelle, die auch geschichte.html befüllt. Ein Motiv taucht hier
    auf, sobald es in der Tabelle eine Zeile mit Text hat. Kein
-   Eintrag mehr in galerie-daten.js nötig — einfach in der Tabelle
+   Eintrag mehr in daten/motive.json nötig — einfach in der Tabelle
    schreiben, hier erscheint es automatisch. */
-(function () {
+/* Läuft erst, wenn daten.js alles geladen hat (BG.bereit) */
+BG.bereit(function () {
   var container = document.getElementById('geschichten-liste');
   if (!container || typeof GALERIE_BILDER === 'undefined') return;
 
-  var KATEGORIEN = ['Teichleben', 'Gartenleben', 'Waldleben', 'Reduktion'];
+  // Reihenfolge und Namen der Serien aus daten/motive.json
+  var SERIEN_LISTE = (window.SERIEN || []);
 
   function escapeAttr(str) {
     return String(str).replace(/[&<>"']/g, function (c) {
@@ -33,12 +35,12 @@
   }
 
   function zeigeLeer() {
-    container.innerHTML = '<p class="empty-note">Noch keine Geschichten hinterlegt — schau bald wieder vorbei.</p>';
+    container.innerHTML = '<p class="empty-note">' + BG.t('Noch keine Geschichten hinterlegt — schau bald wieder vorbei.', 'No stories yet — check back soon.') + '</p>';
   }
 
   function render(geschichtenMap) {
     // Fallback: falls für ein Motiv (noch) nichts in der Tabelle steht,
-    // aber galerie-daten.js noch einen alten geschichte-Text hat, wird
+    // aber daten/motive.json noch einen alten geschichte-Text hat, wird
     // der übergangsweise mitgenommen.
     var motive = GALERIE_BILDER
       .map(function (b) {
@@ -52,12 +54,12 @@
 
     var html = '';
 
-    KATEGORIEN.forEach(function (kategorie) {
-      var gruppe = motive.filter(function (e) { return e.motiv.kategorie === kategorie; });
+    SERIEN_LISTE.forEach(function (serie) {
+      var gruppe = motive.filter(function (e) { return e.motiv.kategorie === serie.id; });
       if (!gruppe.length) return;
 
       html += '<div class="geschichten-gruppe">';
-      html += '<h2>' + kategorie + '</h2>';
+      html += '<h2>' + escapeAttr(serie.name) + '</h2>';
       html += '<div class="geschichten-grid">';
 
       gruppe.forEach(function (e) {
@@ -69,7 +71,7 @@
           '<div class="geschichten-card-body">' +
           '<h3>' + b.beschriftung + '</h3>' +
           '<p>' + escapeAttr(text) + '</p>' +
-          '<span class="geschichten-card-link">Geschichte lesen &rarr;</span>' +
+          '<span class="geschichten-card-link">' + BG.t('Geschichte lesen', 'Read the story') + ' &rarr;</span>' +
           '</div></a>';
       });
 
@@ -80,10 +82,10 @@
   }
 
   if (!window.GeschichtenTabelle) {
-    // Modul fehlt (z.B. Script-Tag vergessen) — nur Fallback aus galerie-daten.js nutzen.
+    // Modul fehlt (z.B. Script-Tag vergessen) — nur Fallback aus daten/motive.json nutzen.
     render({});
     return;
   }
 
   window.GeschichtenTabelle.holeAlleGeschichten().then(render);
-})();
+}); // Ende BG.bereit

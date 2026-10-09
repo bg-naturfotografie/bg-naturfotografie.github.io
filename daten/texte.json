@@ -1,0 +1,92 @@
+{
+  "startseite": {
+    "eyebrow": {
+      "de": "Naturfotografie · Halstenbek · Schleswig-Holstein",
+      "en": "Nature photography · Halstenbek · Schleswig-Holstein"
+    },
+    "titel1": {
+      "de": "Wildes Leben",
+      "en": "Wild life"
+    },
+    "titel2": {
+      "de": "vor der Haustür.",
+      "en": "on the doorstep."
+    },
+    "gruss": {
+      "de": "Hallo, ich bin **Bene**. Ich fotografiere Vögel und die heimische Natur rund um Halstenbek und im Hamburger Westen.",
+      "en": "Hi, I'm **Bene**. I photograph birds and local wildlife around Halstenbek and in the west of Hamburg."
+    },
+    "bandTitel": {
+      "de": "Zu jedem Motiv gehört ein Moment.",
+      "en": "Every motif has its moment."
+    },
+    "bandText": {
+      "de": "Wie die Aufnahme entstanden ist, was für ein Tier da sitzt und wo genau — all das steht in den Geschichten. Hier gelangst du zur Übersicht. Der QR-Code auf jedem Lesezeichen führt direkt zur passenden Geschichte.",
+      "en": "How the picture came about, which animal it shows and where exactly — it's all in the stories. This takes you to the overview. The QR code on every bookmark leads straight to its story."
+    },
+    "ueberTitel": {
+      "de": "Die Natur im Jetzt und Hier.",
+      "en": "Nature, here and now."
+    },
+    "ueberLead": {
+      "de": "Ich fotografiere die Tiere unserer Heimat ruhig und ehrlich. Für die besonderen Momente braucht es keine weite Reise — ein paar Schritte vor die Haustür reichen.",
+      "en": "I photograph the animals of my home region calmly and honestly. Special moments don't need a long journey — a few steps out of the front door are enough."
+    },
+    "ueberText": {
+      "de": "Ich bin Benedict Gertz, meistens einfach Bene, und wohne in Halstenbek. Beim NABU vor Ort bin ich ehrenamtlicher Beisitzer und stets an der Natur vor Ort interessiert. Neben der Liebe zu natürlichen Fotoaufnahmen entstehen aus einzelnen Aufnahmen auch kreativere Umsetzungen, an denen ich mich versuche. Diese sind in der Serie [Reduktion](galerie-reduktion.html) zu finden.",
+      "en": "I'm Benedict Gertz, usually just Bene, and I live in Halstenbek, just outside Hamburg. I volunteer on the board of the local NABU (Nature And Biodiversity Conservation Union) group and am always curious about the nature around me. Besides my love for natural photographs, some images turn into more creative interpretations that I like to experiment with. You can find them in the [Reduction](galerie-reduktion.html) series."
+    },
+    "wieIchFotografiere": {
+      "de": "Ich halte den Abstand, der nötig ist, um die Tiere nicht zu stressen. **Ich platziere kein Futter und locke keine Tiere an.** Die Bilder entstehen spontan im Moment, ohne etwas zu erzwingen — deshalb dauert manches Motiv auch mal ein paar Monate.",
+      "en": "I keep the distance needed so as not to stress the animals. **I never put out food or lure animals.** The pictures happen spontaneously, without forcing anything — which is why some motifs take a few months."
+    },
+    "karteHinweis": {
+      "de": "Auf der [Karte](karte.html) sind empfindliche Orte bewusst nur als weicher Fleck eingezeichnet, nicht metergenau.",
+      "en": "On the [map](karte.html), sensitive places are deliberately shown only as a soft patch, not to the metre."
+    },
+    "schwerpunkte": {
+      "de": "Ich fotografiere Vögel und die heimische Natur, vor allem im Kreis Pinneberg und im Hamburger Westen.",
+      "en": "I photograph birds and local wildlife, mainly in the Pinneberg district and the west of Hamburg."
+    },
+    "termineTitel": {
+      "de": "Komm am Stand vorbei.",
+      "en": "Come and visit my stall."
+    },
+    "kontaktTitel": {
+      "de": "Schreib mir.",
+      "en": "Write to me."
+    },
+    "kontaktText": {
+      "de": "Hast du eine Frage zu einem Foto, ein Motivwunsch oder ein weiteres Anliegen? Diese Nachricht landet direkt bei mir. Ich antworte meist innerhalb von 2–3 Tagen.",
+      "en": "Do you have a question about a photo, a motif you'd like to see, or anything else? This message goes straight to me. I usually reply within 2–3 days."
+    }
+  },
+  "shop": {
+    "eyebrow": {
+      "de": "Auf Anfrage · Versand aus Halstenbek",
+      "en": "On request · shipped from Halstenbek"
+    },
+    "titel1": {
+      "de": "Motiv aussuchen,",
+      "en": "Choose a motif,"
+    },
+    "titel2": {
+      "de": "Produkt anfragen.",
+      "en": "request your product."
+    },
+    "intro": {
+      "de": "Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.",
+      "en": "All motifs are my own. Put together what interests you — I will get back to you with price, shipping and payment details."
+    }
+  },
+  "geschichten": {
+    "eyebrow": {
+      "de": "Hinter den Fotos",
+      "en": "Behind the photos"
+    },
+    "intro": {
+      "de": "Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.",
+      "en": "Some photos happen in a lucky moment, others after a bit of patience. Here are the moments behind the motifs."
+    }
+  }
+}

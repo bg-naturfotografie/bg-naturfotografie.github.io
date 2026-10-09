@@ -9,7 +9,7 @@
      Auch auf diese Seite können gedruckte QR-Codes zeigen
      (z. B. auf Lesezeichen). Dateiname bitte so lassen.
      ============================================================ -->
-<title>Geschichten hinter den Fotos | BG Naturfotografie</title>
+<title data-en="Stories behind the photos | BG Naturfotografie">Geschichten hinter den Fotos | BG Naturfotografie</title>
 <meta name="description" content="Wie die Aufnahmen entstanden sind: der Moment hinter dem Motiv, Infos zur Art und der Ort — zu jedem Foto aus meinen Serien.">
 <link rel="canonical" href="https://bg-naturfotografie.de/geschichten.html">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -38,6 +38,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 <script>
   document.addEventListener('contextmenu', function (e) {
@@ -51,21 +53,21 @@
 </head>
 <body>
 
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
 
 <!-- ============ NAVIGATION ============ -->
-<nav class="nav" aria-label="Hauptmenü">
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html" class="ist-hier">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" class="ist-hier" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
@@ -73,9 +75,9 @@
 <!-- ============ KOPF ============ -->
 <header id="inhalt" tabindex="-1" class="seitenkopf">
   <div class="wrap">
-    <span class="eyebrow">Hinter den Fotos</span>
-    <h1>Geschichten</h1>
-    <p class="lead">Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.</p>
+    <span class="eyebrow" data-txt="geschichten.eyebrow">Hinter den Fotos</span>
+    <h1 data-en="Stories">Geschichten</h1>
+    <p class="lead" data-txt="geschichten.intro">Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.</p>
   </div>
 </header>
 
@@ -83,7 +85,7 @@
 <section style="padding-top:2.5rem;">
   <div class="wrap">
     <div id="geschichten-liste">
-      <p class="empty-note">Lädt …</p>
+      <p class="empty-note" data-en="Loading …">Lädt …</p>
     </div>
   </div>
 </section>
@@ -94,12 +96,12 @@
   <div class="wrap">
     <div class="band">
       <div class="band-text">
-        <h2>Ein Motiv gefunden?</h2>
-        <p>Jedes Foto gibt es als Postkarte, A4-Poster oder digitalen Download — und auf der Karte siehst du, wo im Norden es entstanden ist.</p>
+        <h2 data-en="Found a motif?">Ein Motiv gefunden?</h2>
+        <p data-en="Every photo is available as a postcard, A4 poster or digital download — and the map shows where in northern Germany it was taken.">Jedes Foto gibt es als Postkarte, A4-Poster oder digitalen Download — und auf der Karte siehst du, wo im Norden es entstanden ist.</p>
       </div>
       <span style="display:flex; gap:.6rem; flex-wrap:wrap;">
-        <a class="btn btn-fill" href="produkte-bestellen.html">Zum Shop</a>
-        <a class="btn btn-outline" href="karte.html">Zur Karte</a>
+        <a class="btn btn-fill" href="produkte-bestellen.html" data-en="Go to the shop">Zum Shop</a>
+        <a class="btn btn-outline" href="karte.html" data-en="Go to the map">Zur Karte</a>
       </span>
     </div>
   </div>
@@ -108,11 +110,12 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="karte.html">Karte</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="karte.html" data-en="Map">Karte</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
-<script src="galerie-daten.js" defer></script>
+<!-- Fotos und Geschichten kommen aus daten/motive.json und daten/geschichten.json -->
+<script src="daten.js" data-brauche="motive geschichten" defer></script>
 <script src="geschichten-tabelle.js" defer></script>
 <script src="geschichten.js" defer></script>
 </body>

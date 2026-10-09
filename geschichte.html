@@ -13,7 +13,7 @@
      bleiben. Die gedruckten Karten und Lesezeichen lassen sich
      nicht nachträglich korrigieren.
      ============================================================ -->
-<title>Die Geschichte hinter dem Foto | BG Naturfotografie</title>
+<title data-en="The story behind the photo | BG Naturfotografie">Die Geschichte hinter dem Foto | BG Naturfotografie</title>
 <meta name="description" content="Der Moment hinter dem Motiv: wie diese Aufnahme entstanden ist, plus Artinfos zum fotografierten Tier.">
 <link rel="canonical" href="https://bg-naturfotografie.de/geschichte.html">
 <meta name="robots" content="noindex, follow">
@@ -43,6 +43,8 @@
 <link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
 <script>
   /* Rechtsklick auf Bilder unterbinden (kein echter Kopierschutz,
@@ -54,32 +56,32 @@
 </head>
 <body>
 
-<a class="sprunglink" href="#inhalt">Direkt zum Inhalt</a>
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
 
 <!-- ============ NAVIGATION ============ -->
-<nav class="nav" aria-label="Hauptmenü">
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
   <div class="wrap">
     <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="" class="brand-logo">
       <b>BG</b> Naturfotografie</a>
-    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
     <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="index.html#galerie">Galerie</a></li>
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
       <li><a href="produkte-bestellen.html">Shop</a></li>
-      <li><a href="geschichten.html" class="ist-hier">Geschichten</a></li>
-      <li><a href="karte.html">Karte</a></li>
-      <li><a href="index.html#ueber-mich">Über mich</a></li>
+      <li><a href="geschichten.html" class="ist-hier" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
     </ul>
   </div>
 </nav>
 
 <!-- ============ GESCHICHTE (wird von geschichte.js aus
-     galerie-daten.js + Google-Tabelle befüllt) ============ -->
+     daten/motive.json + daten/geschichten.json befüllt) ============ -->
 <div id="inhalt" tabindex="-1"></div>
 
 <header id="geschichte-lade-hinweis" style="padding-top:9rem; padding-bottom:2rem;">
   <div class="wrap">
-    <p style="color:var(--text-muted);">Lädt …</p>
+    <p style="color:var(--text-muted);" data-en="Loading …">Lädt …</p>
   </div>
 </header>
 
@@ -87,7 +89,7 @@
 
   <header class="seitenkopf" style="padding-bottom:.5rem;">
     <div class="wrap">
-      <a id="zurueck-link" class="zurueck-link" href="index.html#galerie">&larr; Zur&uuml;ck zur Galerie</a>
+      <a id="zurueck-link" class="zurueck-link" href="index.html#galerie" data-en="&larr; Back to the gallery">&larr; Zur&uuml;ck zur Galerie</a>
       <span class="eyebrow" id="geschichte-kategorie" style="margin-top:1.6rem;"></span>
       <h1 id="geschichte-titel"></h1>
     </div>
@@ -101,17 +103,17 @@
       </figure>
 
       <div class="geschichte-text">
-        <h2>Die Geschichte dahinter</h2>
+        <h2 data-en="The story behind it">Die Geschichte dahinter</h2>
         <p id="geschichte-text-inhalt" style="color:var(--text-light); font-size:1.05rem; line-height:1.75; white-space:pre-line;"></p>
 
         <!-- Datenblock: Datum, Ort, Art, Gefährdung -->
         <div id="geschichte-fussblock" style="display:none;"></div>
 
-        <!-- Aufnahmeort, nur wenn in galerie-daten.js hinterlegt -->
+        <!-- Aufnahmeort, nur wenn in daten/motive.json hinterlegt -->
         <div id="geschichte-ort-box" class="geschichte-ort" style="display:none;">
-          <span class="eyebrow" style="margin-bottom:.3em;">Aufnahmeort</span>
+          <span class="eyebrow" style="margin-bottom:.3em;" data-en="Location">Aufnahmeort</span>
           <p id="geschichte-ort-text" style="color:var(--text-muted); margin:0 0 .9em;"></p>
-          <a id="geschichte-karte-link" href="karte.html" class="btn btn-outline" style="font-size:.85rem; padding:.6em 1.2em;">Auf der Karte ansehen &rarr;</a>
+          <a id="geschichte-karte-link" href="karte.html" class="btn btn-outline" style="font-size:.85rem; padding:.6em 1.2em;" data-en="View on the map &rarr;">Auf der Karte ansehen &rarr;</a>
         </div>
 
         <!-- ============================================================
@@ -124,15 +126,15 @@
              Motiv im Shop (produkte-bestellen.html#motiv-<id>).
              ============================================================ -->
         <div class="geschichte-kaufbox">
-          <p><b>Dieses Motiv gibt es zum Mitnehmen.</b> Als Postkarte (10 × 15 cm), als A4-Poster oder als digitalen Download.</p>
-          <a id="geschichte-shop-link" class="btn btn-fill" href="produkte-bestellen.html#motive" style="font-size:.88rem; padding:.65em 1.3em;">Motiv im Shop ansehen &rarr;</a>
+          <p data-en="&lt;b&gt;You can take this motif home.&lt;/b&gt; As a postcard (10 × 15 cm), an A4 poster or a digital download."><b>Dieses Motiv gibt es zum Mitnehmen.</b> Als Postkarte (10 × 15 cm), als A4-Poster oder als digitalen Download.</p>
+          <a id="geschichte-shop-link" class="btn btn-fill" href="produkte-bestellen.html#motive" style="font-size:.88rem; padding:.65em 1.3em;" data-en="View motif in the shop &rarr;">Motiv im Shop ansehen &rarr;</a>
         </div>
 
         <div class="geschichte-teilen-box">
           <button id="teilen-btn" class="btn btn-outline" style="font-size:.85rem; padding:.6em 1.2em; cursor:pointer;">
-            <span id="teilen-btn-text">Diese Geschichte teilen</span>
+            <span id="teilen-btn-text" data-en="Share this story">Diese Geschichte teilen</span>
           </button>
-          <a class="btn btn-outline" href="geschichten.html" style="font-size:.85rem; padding:.6em 1.2em;">Alle Geschichten</a>
+          <a class="btn btn-outline" href="geschichten.html" style="font-size:.85rem; padding:.6em 1.2em;" data-en="All stories">Alle Geschichten</a>
         </div>
       </div>
 
@@ -147,7 +149,7 @@
        der Google-Tabelle (Spalten "zusatzbilder" / "zusatzbildtexte"),
        befüllt von geschichte.js.
 
-       Diese Bilder sind bewusst NICHT Teil von galerie-daten.js und
+       Diese Bilder sind bewusst NICHT Teil von daten/motive.json und
        erscheinen daher in keiner Galerie und nicht im Shop.
 
        Der Abschnitt liegt absichtlich UNTER dem zweispaltigen Layout
@@ -156,7 +158,7 @@
        ============================================================ -->
   <section id="geschichte-zusatzbilder" style="display:none; padding-top:0; padding-bottom:4rem;">
     <div class="wrap">
-      <span class="eyebrow">Mehr zu dieser Aufnahme</span>
+      <span class="eyebrow" data-en="More about this picture">Mehr zu dieser Aufnahme</span>
       <div id="zusatzbilder-galerie" class="zusatzbilder-galerie"></div>
     </div>
   </section>
@@ -166,11 +168,12 @@
 <footer>
   <div class="wrap">
     <span>&copy; 2026 BG Naturfotografie</span>
-    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html">Geschichten</a> &middot; <a href="karte.html">Karte</a> &middot; <a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a> &middot; <a href="agb.html">AGB &amp; Widerruf</a></span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="karte.html" data-en="Map">Karte</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
   </div>
 </footer>
 
-<script src="galerie-daten.js" defer></script>
+<!-- Fotos und Geschichten kommen aus daten/motive.json und daten/geschichten.json -->
+<script src="daten.js" data-brauche="motive geschichten" defer></script>
 <script src="geschichten-tabelle.js" defer></script>
 <script src="geschichte.js" defer></script>
 </body>

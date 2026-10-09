@@ -10,7 +10,7 @@
    - "Kreis zeichnen": erster Klick setzt die Mitte, zweiter Klick
      legt den Radius fest — Code entsteht sofort.
 
-   Der erzeugte Code lässt sich 1:1 in galerie-daten.js beim Feld
+   Der erzeugte Code lässt sich 1:1 in daten/motive.json beim Feld
    "ort:" der passenden Bildzeile einsetzen. NICHT für Besucher. */
 (function () {
   if (typeof L === 'undefined') return;
@@ -133,8 +133,8 @@
     if (label) markierung.bindTooltip(label, { direction: 'top' });
     fertigeFormen.push(markierung);
 
-    var code = "ort: { lat: " + rundeAuf5(latlng.lat) + ", lng: " + rundeAuf5(latlng.lng) +
-      ", label: '" + label.replace(/'/g, "\\'") + "' }";
+    // Admin-Bereich: Motiv → Aufnahmeort → Art "Punkt" → Feld "Koordinaten"
+    var code = rundeAuf5(latlng.lat) + ', ' + rundeAuf5(latlng.lng);
     baueEintrag(code, 'Punkt · ' + (label || 'ohne Namen'));
 
     setzeStatus('Punkt gesetzt. Klick weiter für den nächsten Ort.');
@@ -155,7 +155,8 @@
       return '[' + rundeAuf5(p.lat) + ', ' + rundeAuf5(p.lng) + ']';
     });
 
-    var code = "ort: { label: '" + label.replace(/'/g, "\\'") + "', bereich: true, polygon: [" + punkteText.join(', ') + "] }";
+    // Admin-Bereich: Motiv → Aufnahmeort → Art "Fläche" → Feld "Fläche (Code)"
+    var code = '[' + punkteText.join(', ') + ']';
     baueEintrag(code, 'Fläche · ' + (label || 'ohne Namen') + ' · ' + punkteText.length + ' Punkte');
 
     raeumeVorschauAuf();
@@ -173,8 +174,8 @@
     }).addTo(karte);
     fertigeFormen.push(kreis);
 
-    var code = "ort: { lat: " + rundeAuf5(kreisMitte.lat) + ", lng: " + rundeAuf5(kreisMitte.lng) +
-      ", label: '" + label.replace(/'/g, "\\'") + "', bereich: true, radius: " + radius + " }";
+    // Admin-Bereich: Motiv → Aufnahmeort → Art "Kreis" → Felder "Koordinaten" und "Radius"
+    var code = 'Koordinaten: ' + rundeAuf5(kreisMitte.lat) + ', ' + rundeAuf5(kreisMitte.lng) + '\nRadius: ' + radius;
     baueEintrag(code, 'Kreis · ' + (label || 'ohne Namen') + ' · Radius ' + radius + ' m');
 
     raeumeVorschauAuf();

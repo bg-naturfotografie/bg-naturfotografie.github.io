@@ -9,7 +9,8 @@
      also ein sauberer Einfarbdruck ohne Passerprobleme.
    - 600 px Kantenlaenge = ca. 760 dpi bei 20 mm Druckgroesse.
      Die Anzeige im Browser bleibt klein, der Download ist gross. */
-(function () {
+/* Läuft erst, wenn daten.js die Motive geladen hat */
+BG.bereit(function () {
   var raster = document.getElementById('qr-raster');
   if (!raster || typeof GALERIE_BILDER === 'undefined') return;
 
@@ -73,4 +74,4 @@
   document.getElementById('filter-postkarte').addEventListener('click', function () {
     baueKarten(GALERIE_BILDER.filter(function (b) { return b.bereitsPostkarte === true; }));
   });
-})();
+});

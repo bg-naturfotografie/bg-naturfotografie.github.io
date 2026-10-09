@@ -1,0 +1,1210 @@
+# ============================================================
+# ADMIN-BEREICH (Sveltia CMS) — Einstellungen
+# ============================================================
+# Diese Datei beschreibt, welche Formulare der Admin-Bereich unter
+# bg-naturfotografie.de/admin/ zeigt und in welche Dateien unter
+# daten/ sie speichern. Normalerweise musst du hier nichts ändern.
+#
+# base_url unter "backend" = Adresse des Anmelde-Dienstes bei Cloudflare.
+# ============================================================
+backend:
+  name: github
+  repo: bg-naturfotografie/bg-naturfotografie.github.io
+  branch: main
+  # Anmelde-Dienst bei Cloudflare (Knopf „Sign In with GitHub“),
+  # siehe ANLEITUNG-ADMIN.md, Abschnitt 1b und werkzeuge/cloudflare-anmeldedienst.js
+  base_url: https://sveltia-cms-auth.benedict-gertz.workers.dev
+  auth_scope: public_repo
+  commit_messages:
+    create: 'Admin: {{collection}} „{{slug}}“ angelegt'
+    update: 'Admin: {{collection}} „{{slug}}“ geändert'
+    delete: 'Admin: {{collection}} „{{slug}}“ gelöscht'
+    uploadMedia: 'Admin: Bild „{{path}}“ hochgeladen'
+    deleteMedia: 'Admin: Bild „{{path}}“ gelöscht'
+app_title: BG Naturfotografie · Admin
+site_url: https://bg-naturfotografie.de
+logo_url: https://bg-naturfotografie.de/bilder/logo.png
+media_folder: bilder/uploads
+public_folder: /bilder/uploads
+media_libraries:
+  default:
+    config:
+      max_file_size: 40000000
+      slugify_filename: true
+      transformations:
+        raster_image:
+          format: webp
+          quality: 82
+          width: 1600
+          height: 1600
+output:
+  json:
+    indent_style: space
+    indent_size: 2
+singletons:
+- name: termine
+  label: Termine
+  icon: event
+  file: daten/termine.json
+  fields:
+  - name: termine
+    label: Märkte & Termine
+    label_singular: Termin
+    widget: list
+    summary: '{{fields.datum}} · {{fields.titel.de}}'
+    collapsed: true
+    required: false
+    hint: Vergangene Termine verschwinden automatisch von der Seite — du musst sie nicht löschen. Reihenfolge egal,
+      die Seite sortiert nach Datum.
+    fields:
+    - name: datum
+      label: Datum
+      widget: datetime
+      type: date
+      format: YYYY-MM-DD
+    - name: bisDatum
+      label: Bis (nur bei mehrtägigen Märkten)
+      widget: datetime
+      type: date
+      format: YYYY-MM-DD
+      required: false
+    - name: von
+      label: Uhrzeit von
+      widget: datetime
+      type: time
+      format: HH:mm
+      required: false
+    - name: bis
+      label: Uhrzeit bis
+      widget: datetime
+      type: time
+      format: HH:mm
+      required: false
+    - name: titel
+      label: Name des Markts
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: adresse
+      label: Adresse
+      widget: string
+      required: false
+      hint: z. B. Schultwiete 2 (Dorfgemeinschaftshaus), 25355 Heede
+    - name: link
+      label: Link zum Markt (optional)
+      widget: string
+      type: url
+      required: false
+    - name: hinweis
+      label: Zusatzinfo (optional)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: false
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'z. B. „Stand Nr. 12, neben dem Café“. Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+      required: false
+  - name: hinweis
+    label: Satz unter der Liste
+    widget: object
+    fields:
+    - name: de
+      label: Deutsch
+      widget: text
+      required: false
+    - name: en
+      label: English
+      widget: text
+      required: false
+      hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+        „⚠ Übersetzung fehlt“.
+    hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    required: false
+  - name: keinTermin
+    label: Text, wenn kein Termin ansteht
+    widget: object
+    fields:
+    - name: de
+      label: Deutsch
+      widget: text
+      required: false
+    - name: en
+      label: English
+      widget: text
+      required: false
+      hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+        „⚠ Übersetzung fehlt“.
+    required: false
+- name: motive
+  label: Motive & Serien
+  icon: photo_library
+  file: daten/motive.json
+  fields:
+  - name: motive
+    label: Motive
+    label_singular: Motiv
+    widget: list
+    summary: '{{fields.id}} · {{fields.art.de}} · {{fields.zusatz.de}}'
+    thumbnail: bild
+    collapsed: true
+    add_to_top: true
+    hint: Jedes Foto erscheint automatisch in seiner Serie, im Shop, auf der Karte und im QR-Werkzeug.
+    fields:
+    - name: id
+      label: ID (fest!)
+      widget: string
+      pattern:
+      - ^[a-z0-9-]+$
+      - Nur Kleinbuchstaben, Zahlen und Bindestrich
+      hint: Steht in den gedruckten QR-Codes (geschichte.html?id=…). NIE ändern, sobald etwas gedruckt ist. Neues
+        Motiv z. B. gartenleben26.
+    - name: kategorie
+      label: Serie
+      widget: relation
+      collection: _singletons
+      file: motive
+      value_field: serien.*.id
+      display_fields:
+      - '{{serien.*.name.de}}'
+      search_fields:
+      - serien.*.name.de
+    - name: bild
+      label: Foto
+      widget: image
+      media_folder: /bilder/fotos
+      public_folder: /bilder/fotos
+      hint: Wird beim Hochladen automatisch verkleinert (WebP, max. 1600 px).
+    - name: art
+      label: Tierart / Titel (fett)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: z. B. Rotkehlchen
+    - name: zusatz
+      label: Zusatz hinter dem Punkt
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: false
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: z. B. „im Schnee“ → „Rotkehlchen · im Schnee“
+      required: false
+    - name: alt
+      label: Bildbeschreibung (Alt-Text)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: Ein sachlicher Satz für Screenreader und Google, z. B. „Rotkehlchen sitzt auf einem verschneiten Ast“.
+    - name: imShop
+      label: Im Shop anbieten
+      widget: boolean
+      default: true
+      required: false
+    - name: versteckt
+      label: Vorübergehend ausblenden
+      widget: boolean
+      default: false
+      required: false
+      hint: Motiv verschwindet überall von der Seite, bleibt aber hier gespeichert.
+    - name: postkarte
+      label: Postkarte
+      widget: object
+      collapsed: false
+      fields:
+      - name: vorraetig
+        label: Liegt gedruckt bei mir (★ im Shop)
+        widget: boolean
+        default: false
+        required: false
+      - name: bestand
+        label: Stückzahl
+        widget: number
+        value_type: int
+        min: 0
+        required: false
+        hint: Leer = Zahl unbekannt (Shop zeigt „Vorrätig“). 0 = gerade vergriffen.
+    - name: poster
+      label: Poster A4
+      widget: object
+      collapsed: false
+      fields:
+      - name: vorraetig
+        label: Liegt gedruckt bei mir (★ im Shop)
+        widget: boolean
+        default: false
+        required: false
+      - name: bestand
+        label: Stückzahl
+        widget: number
+        value_type: int
+        min: 0
+        required: false
+        hint: Leer = Zahl unbekannt (Shop zeigt „Vorrätig“). 0 = gerade vergriffen.
+    - name: lesezeichen
+      label: Lesezeichen (erscheint im Shop nur, wenn „liegt gedruckt bei mir“ an ist)
+      widget: object
+      collapsed: false
+      fields:
+      - name: vorraetig
+        label: Liegt gedruckt bei mir (★ im Shop)
+        widget: boolean
+        default: false
+        required: false
+      - name: bestand
+        label: Stückzahl
+        widget: number
+        value_type: int
+        min: 0
+        required: false
+        hint: Leer = Zahl unbekannt (Shop zeigt „Vorrätig“). 0 = gerade vergriffen.
+    - name: bildLesezeichen
+      label: Eigenes Lesezeichen-Foto (optional)
+      widget: image
+      required: false
+      media_folder: /bilder/lesezeichen
+      public_folder: /bilder/lesezeichen
+      hint: Ohne eigenes Foto sucht der Shop bilder/lesezeichen/<Dateiname des Fotos> bzw. bilder/lesezeichen/<id>.jpg
+        und zeigt sonst einen Ausschnitt des Fotos.
+    - name: ort
+      label: Aufnahmeort (Karte)
+      widget: object
+      required: false
+      collapsed: true
+      summary: '{{fields.label.de}}'
+      fields:
+      - name: art
+        label: Art
+        widget: select
+        default: punkt
+        options:
+        - label: Kein Ort / nicht auf der Karte
+          value: keiner
+        - label: Punkt (genauer Ort, nur wenn unbedenklich)
+          value: punkt
+        - label: Kreis (ungefähre Gegend)
+          value: kreis
+        - label: Fläche (frei gezeichnet)
+          value: flaeche
+        hint: Brut- und Ruheplätze bitte nur als Kreis oder Fläche.
+      - name: label
+        label: Ortsname
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+        hint: Motive mit GLEICHEM deutschen Ortsnamen werden auf der Karte zu einer Markierung zusammengefasst.
+        required: false
+      - name: koordinaten
+        label: Koordinaten (bei Punkt und Kreis)
+        widget: string
+        required: false
+        pattern:
+        - ^\s*-?\d+(\.\d+)?\s*,\s*-?\d+(\.\d+)?\s*$
+        - 'Format: 53.61357, 9.84857'
+        hint: In Google Maps Rechtsklick auf die Stelle → die erste Zeile (z. B. 53.61357, 9.84857) anklicken =
+          kopiert. Hier einfügen.
+      - name: radius
+        label: Radius in Metern (nur bei Kreis)
+        widget: number
+        value_type: int
+        min: 100
+        required: false
+        default: 2000
+      - name: polygon
+        label: Fläche (Code, nur bei Fläche)
+        widget: text
+        required: false
+        hint: Auf bg-naturfotografie.de/gebiet-zeichnen.html zeichnen, „Code kopieren“, hier einfügen.
+  - name: serien
+    label: Serien (Galerien)
+    label_singular: Serie
+    widget: list
+    summary: '{{fields.name.de}}'
+    collapsed: true
+    hint: Die Reihenfolge hier = Reihenfolge auf der Startseite, im Shop-Filter und bei „Weiter zu …“. Per Ziehen
+      umsortieren.
+    fields:
+    - name: id
+      label: Interner Name (fest!)
+      widget: string
+      hint: 'Bei bestehenden Serien NICHT ändern — daran hängen die Motive und die Sprungmarken (#teichleben). Neue
+        Serie: ein Wort ohne Leerzeichen, z. B. Pflanzenwelt.'
+    - name: name
+      label: Anzeigename
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: titelStartseite
+      label: Überschrift auf der Startseite (optional)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: false
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: Leer = Anzeigename
+      required: false
+    - name: kurz
+      label: Kurzbeschreibung
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: seite
+      label: Eigene Seite (nur bei den vier alten Serien)
+      widget: string
+      required: false
+      hint: Bei neuen Serien leer lassen — dann gibt es automatisch die Seite galerie.html?serie=<Interner Name>.
+    - name: startseite
+      label: Drei Bilder auf der Startseite
+      widget: relation
+      collection: _singletons
+      file: motive
+      value_field: motive.*.id
+      display_fields:
+      - '{{motive.*.art.de}} · {{motive.*.zusatz.de}} ({{motive.*.id}})'
+      search_fields:
+      - motive.*.id
+      - motive.*.art.de
+      - motive.*.zusatz.de
+      required: false
+      multiple: true
+      hint: Das erste ist das große Hochformat links, die beiden anderen die Querformate rechts. Leer = die ersten
+        drei Motive der Serie.
+      max: 3
+- name: geschichten
+  label: Geschichten
+  icon: auto_stories
+  file: daten/geschichten.json
+  fields:
+  - name: geschichten
+    label: Geschichten
+    label_singular: Geschichte
+    widget: list
+    summary: '{{fields.id}} · {{fields.tier.de}}'
+    collapsed: true
+    add_to_top: true
+    required: false
+    hint: Eine Geschichte gehört immer zu einem Motiv. Sie erscheint auf geschichte.html?id=… (dort landen die QR-Codes)
+      und in der Übersicht.
+    fields:
+    - name: id
+      label: Motiv
+      widget: relation
+      collection: _singletons
+      file: motive
+      value_field: motive.*.id
+      display_fields:
+      - '{{motive.*.art.de}} · {{motive.*.zusatz.de}} ({{motive.*.id}})'
+      search_fields:
+      - motive.*.id
+      - motive.*.art.de
+      - motive.*.zusatz.de
+      required: true
+    - name: geschichte
+      label: Die Geschichte
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: Zeilenumbrüche bleiben erhalten.
+    - name: datum
+      label: Aufnahmedatum (Text)
+      widget: string
+      required: false
+      hint: z. B. 14.05.2025 oder „Frühjahr 2025“
+    - name: ort
+      label: Ort (Text im Infokasten)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: false
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      required: false
+    - name: tier
+      label: Artname
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: false
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: z. B. Stockente / Mallard
+      required: false
+    - name: tier_lat
+      label: Wissenschaftlicher Name
+      widget: string
+      required: false
+      hint: z. B. Anas platyrhynchos
+    - name: gefaehrdung
+      label: Gefährdung
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: false
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: z. B. „Die Stockente ist nicht gefährdet.“
+      required: false
+    - name: zusatzbilder
+      label: Zusatzbilder unten auf der Seite
+      label_singular: Zusatzbild
+      widget: list
+      required: false
+      collapsed: true
+      summary: '{{fields.text.de}}'
+      thumbnail: bild
+      hint: Z. B. Originalaufnahme vor der Bearbeitung. Diese Bilder erscheinen NUR hier, nicht in Galerie oder
+        Shop.
+      fields:
+      - name: bild
+        label: Bild
+        widget: image
+        media_folder: /bilder/geschichten
+        public_folder: /bilder/geschichten
+      - name: text
+        label: Bildunterschrift
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: false
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+        required: false
+- name: startseite
+  label: 'Startseite: Bilder oben'
+  icon: home
+  file: daten/startseite.json
+  fields:
+  - name: buehne
+    label: Motive in der Collage oben
+    label_singular: Motiv
+    widget: list
+    summary: '{{fields.id}}'
+    required: false
+    hint: Drei bis sechs Motive sind ideal. Leer = automatisch Motive, die als Postkarte vorrätig sind.
+    fields:
+    - name: id
+      label: Motiv
+      widget: relation
+      collection: _singletons
+      file: motive
+      value_field: motive.*.id
+      display_fields:
+      - '{{motive.*.art.de}} · {{motive.*.zusatz.de}} ({{motive.*.id}})'
+      search_fields:
+      - motive.*.id
+      - motive.*.art.de
+      - motive.*.zusatz.de
+      required: true
+    - name: ausschnitt
+      label: Bildausschnitt (optional)
+      widget: select
+      required: false
+      options:
+      - label: Mitte (Standard)
+        value: center
+      - label: ganz oben
+        value: center top
+      - label: etwas unter der Oberkante
+        value: center 30%
+      - label: eher unten
+        value: center 70%
+      - label: ganz unten
+        value: center bottom
+      - label: linke Bildhälfte
+        value: left center
+      - label: rechte Bildhälfte
+        value: right center
+      hint: Nur nötig, wenn das Tier angeschnitten wird.
+  - name: wechselSekunden
+    label: Sekunden bis zum nächsten Bildwechsel
+    widget: number
+    value_type: int
+    min: 3
+    max: 20
+    default: 7
+- name: shop
+  label: 'Shop: Preise & Versand'
+  icon: storefront
+  file: daten/shop.json
+  fields:
+  - name: staffel
+    label: Staffelpreise (Paketpreise)
+    widget: object
+    hint: 'Eine Stufe „3 Stück für 5,00“ heißt: ab 3 Stück kostet jedes Stück 5,00 ÷ 3. Die erste Stufe muss 1 Stück
+      sein (Einzelpreis). Gezählt wird über alle Motive zusammen.'
+    fields:
+    - name: postkarte
+      label: Postkarten
+      widget: list
+      label_singular: Stufe
+      summary: '{{fields.abMenge}} Stück für {{fields.fuer}} €'
+      fields:
+      - name: abMenge
+        label: Stück
+        widget: number
+        value_type: int
+        min: 1
+      - name: fuer
+        label: zusammen für (€)
+        widget: number
+        value_type: float
+        min: 0
+        step: 0.01
+    - name: poster
+      label: Poster
+      widget: list
+      label_singular: Stufe
+      summary: '{{fields.abMenge}} Stück für {{fields.fuer}} €'
+      fields:
+      - name: abMenge
+        label: Stück
+        widget: number
+        value_type: int
+        min: 1
+      - name: fuer
+        label: zusammen für (€)
+        widget: number
+        value_type: float
+        min: 0
+        step: 0.01
+    - name: lesezeichen
+      label: Lesezeichen
+      widget: list
+      label_singular: Stufe
+      summary: '{{fields.abMenge}} Stück für {{fields.fuer}} €'
+      fields:
+      - name: abMenge
+        label: Stück
+        widget: number
+        value_type: int
+        min: 1
+      - name: fuer
+        label: zusammen für (€)
+        widget: number
+        value_type: float
+        min: 0
+        step: 0.01
+  - name: kartenMischbar
+    label: Postkarten und Lesezeichen zählen für die Staffel zusammen
+    widget: boolean
+    default: true
+    required: false
+  - name: preisDownload
+    label: Preis Download (€ pro Bild)
+    widget: number
+    value_type: float
+    min: 0
+    step: 0.01
+  - name: versand
+    label: Versandkosten
+    widget: object
+    fields:
+    - name: kostenlosAb
+      label: Versandkostenfrei ab Warenwert (€)
+      widget: number
+      value_type: float
+      min: 0
+      required: false
+      hint: Leer = nie versandkostenfrei.
+    - name: kleinMaxStueck
+      label: Bis zu so vielen Teilen gilt die kleine Stufe
+      widget: number
+      value_type: int
+      min: 1
+    - name: klein
+      label: Kleine Stufe (nur Kleinteile)
+      widget: object
+      fields:
+      - name: preis
+        label: Preis (€)
+        widget: number
+        value_type: float
+        min: 0
+        step: 0.01
+      - name: label
+        label: Bezeichnung
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: true
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+    - name: mittel
+      label: Mittlere Stufe (mehr Teile)
+      widget: object
+      fields:
+      - name: preis
+        label: Preis (€)
+        widget: number
+        value_type: float
+        min: 0
+        step: 0.01
+      - name: label
+        label: Bezeichnung
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: true
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+    - name: gross
+      label: Große Stufe (sobald ein Poster dabei ist)
+      widget: object
+      fields:
+      - name: preis
+        label: Preis (€)
+        widget: number
+        value_type: float
+        min: 0
+        step: 0.01
+      - name: label
+        label: Bezeichnung
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: true
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+  - name: abholungHinweis
+    label: Hinweis bei „Abholung in Halstenbek“
+    widget: object
+    fields:
+    - name: de
+      label: Deutsch
+      widget: text
+      required: true
+    - name: en
+      label: English
+      widget: text
+      required: false
+      hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+        „⚠ Übersetzung fehlt“.
+  - name: druckpartner
+    label: Druckpartner
+    widget: object
+    hint: 'Steht im Shop, auf der Startseite und an jeder Produktkarte. ACHTUNG: In agb.html und datenschutz.html
+      stehen die Namen zusätzlich als fester Rechtstext — bei einem Wechsel Bescheid geben.'
+    fields:
+    - name: postkarte
+      label: Postkarten
+      widget: string
+    - name: poster
+      label: Poster
+      widget: string
+    - name: lesezeichen
+      label: Lesezeichen
+      widget: string
+  - name: posterFormat
+    label: Posterformat
+    widget: string
+    default: A4
+  - name: saalShopUrl
+    label: Link zum Saal-Digital-Shop
+    widget: string
+    type: url
+    required: false
+    hint: Leer = der Bereich „Größer als A4“ verweist aufs Anfrageformular.
+  - name: maxMenge
+    label: Höchstmenge pro Position
+    widget: number
+    value_type: int
+    min: 1
+    default: 50
+  - name: sticker
+    label: Sticker
+    label_singular: Sticker
+    widget: list
+    required: false
+    summary: '{{fields.motiv.de}} · {{fields.preis}} €'
+    hint: Solange die Liste leer ist, ist der Sticker-Bereich im Shop unsichtbar.
+    fields:
+    - name: id
+      label: ID
+      widget: string
+      pattern:
+      - ^[a-z0-9-]+$
+      - Nur Kleinbuchstaben, Zahlen und Bindestrich
+    - name: motiv
+      label: Name
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: kategorie
+      label: Serie (optional)
+      widget: relation
+      collection: _singletons
+      file: motive
+      value_field: serien.*.id
+      display_fields:
+      - '{{serien.*.name.de}}'
+      required: false
+    - name: preis
+      label: Preis (€)
+      widget: number
+      value_type: float
+      min: 0
+      step: 0.01
+    - name: mockups
+      label: Fotos
+      widget: image
+      multiple: true
+      media_folder: /bilder/mockups
+      public_folder: /bilder/mockups
+- name: texte
+  label: Seitentexte
+  icon: edit_note
+  file: daten/texte.json
+  fields:
+  - name: startseite
+    label: Startseite
+    widget: object
+    collapsed: false
+    fields:
+    - name: eyebrow
+      label: Kleine Zeile über der Überschrift
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: titel1
+      label: Überschrift, Zeile 1
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: titel2
+      label: Überschrift, Zeile 2 (kursiv, orange)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: gruss
+      label: Begrüßung neben dem Porträt
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: bandTitel
+      label: 'Geschichten-Band: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: bandText
+      label: 'Geschichten-Band: Text'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: ueberTitel
+      label: 'Über mich: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: ueberLead
+      label: 'Über mich: großer erster Satz'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: ueberText
+      label: 'Über mich: Text'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: wieIchFotografiere
+      label: Aufklapper „Wie ich fotografiere“
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: karteHinweis
+      label: 'Aufklapper „Wie ich fotografiere“: kleiner Hinweis'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: schwerpunkte
+      label: Aufklapper „Schwerpunkte & Orte“
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: termineTitel
+      label: 'Termine: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: kontaktTitel
+      label: 'Kontakt: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: kontaktText
+      label: 'Kontakt: Text'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+  - name: shop
+    label: Shop
+    widget: object
+    collapsed: true
+    fields:
+    - name: eyebrow
+      label: Kleine Zeile über der Überschrift
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: titel1
+      label: Überschrift, Teil 1
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: titel2
+      label: Überschrift, Teil 2 (kursiv, orange)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: intro
+      label: Einleitung
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+  - name: geschichten
+    label: Geschichten-Übersicht
+    widget: object
+    collapsed: true
+    fields:
+    - name: eyebrow
+      label: Kleine Zeile über der Überschrift
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: intro
+      label: Einleitung
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'

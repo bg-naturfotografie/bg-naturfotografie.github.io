@@ -1,11 +1,11 @@
 /* ============ GESCHICHTE-SEITE BEFÜLLEN ============
-   Bild, Titel, Ort etc. kommen weiter aus galerie-daten.js (?id=...).
+   Bild, Titel, Ort etc. kommen weiter aus daten/motive.json (?id=...).
    Der Geschichte-TEXT kommt aus der Google-Tabelle (Spalten: id,
    geschichte) über das gemeinsame Modul geschichten-tabelle.js —
    damit du Texte bequem in einer Tabelle schreibst statt in einer
    einzigen HTML/JS-Zeile auf GitHub. Falls die Tabelle mal nicht
    erreichbar ist oder für ein Motiv noch keine Zeile hat, greift
-   ersatzweise motiv.geschichte aus galerie-daten.js (falls dort noch
+   ersatzweise motiv.geschichte aus daten/motive.json (falls dort noch
    etwas steht), sonst der Platzhaltertext.
 
    Ganz unten kann jede Geschichte zusätzliche Bilder haben (Spalten
@@ -13,14 +13,12 @@
    gehören absichtlich NICHT zur Galerie — sie existieren nur auf
    dieser Seite. Siehe zeigeZusatzbilder() weiter unten. */
 
-(function () {
-  // ---- Zuordnung Kategorie -> Galerie-Unterseite (für den "Zurück"-Link) ----
-  var KATEGORIE_ZU_SEITE = {
-    'Teichleben': 'galerie-teichleben.html',
-    'Gartenleben': 'galerie-gartenleben.html',
-    'Waldleben': 'galerie-waldleben.html',
-    'Reduktion': 'galerie-reduktion.html'
-  };
+/* Läuft erst, wenn daten.js alles geladen hat (BG.bereit) */
+BG.bereit(function () {
+  // ---- Zuordnung Serie -> Galerie-Unterseite (für den "Zurück"-Link) ----
+  // kommt aus daten/motive.json (Serien)
+  var KATEGORIE_ZU_SEITE = {};
+  (window.SERIEN || []).forEach(function (s) { KATEGORIE_ZU_SEITE[s.id] = s.seite; });
 
   function stripHtml(str) {
     var div = document.createElement('div');
@@ -32,7 +30,7 @@
     var hinweis = document.getElementById('geschichte-lade-hinweis');
     hinweis.innerHTML = '<div class="wrap">' +
       '<p style="color:var(--text-muted);">' + text + '</p>' +
-      '<a href="index.html#galerie" class="btn btn-outline" style="margin-top:1rem; display:inline-block;">&larr; Zur Galerie</a>' +
+      '<a href="index.html#galerie" class="btn btn-outline" style="margin-top:1rem; display:inline-block;">' + BG.t('&larr; Zur Galerie', '&larr; To the gallery') + '</a>' +
       '</div>';
   }
 
@@ -42,7 +40,7 @@
   }
 
   if (typeof GALERIE_BILDER === 'undefined') {
-    zeigeFehler('Die Bilddaten konnten nicht geladen werden.');
+    zeigeFehler(BG.t('Die Bilddaten konnten nicht geladen werden.', 'The image data could not be loaded.'));
     return;
   }
 
@@ -50,14 +48,14 @@
   var id = params.get('id');
 
   if (!id) {
-    zeigeFehler('Zu diesem Aufruf fehlt die Motiv-Angabe (?id=...).');
+    zeigeFehler(BG.t('Zu diesem Aufruf fehlt die Motiv-Angabe (?id=...).', 'This link is missing the motif (?id=...).'));
     return;
   }
 
   var motiv = GALERIE_BILDER.filter(function (b) { return b.id === id; })[0];
 
   if (!motiv) {
-    zeigeFehler('Zu diesem Motiv wurde leider keine Geschichte gefunden.');
+    zeigeFehler(BG.t('Zu diesem Motiv wurde leider keine Geschichte gefunden.', 'Sorry, no story was found for this motif.'));
     return;
   }
 
@@ -67,9 +65,9 @@
 
   // ---- Titel & Seitentitel ----
   var titelText = stripHtml(motiv.beschriftung) || motiv.id;
-  document.title = titelText + ' — Die Geschichte — BG Naturfotografie';
+  document.title = titelText + BG.t(' — Die Geschichte — BG Naturfotografie', ' — The story — BG Naturfotografie');
   document.getElementById('geschichte-titel').innerHTML = motiv.beschriftung || titelText;
-  document.getElementById('geschichte-kategorie').textContent = motiv.kategorie;
+  document.getElementById('geschichte-kategorie').textContent = motiv.kategorieName || motiv.kategorie;
 
   // ---- Bild ----
   var img = document.getElementById('geschichte-img');
@@ -97,15 +95,15 @@
     }
   }
 
-  // ---- Geschichte-Text + Fußblock: erst Tabelle versuchen, sonst galerie-daten.js, sonst Platzhalter ----
+  // ---- Geschichte-Text + Fußblock: erst Tabelle versuchen, sonst daten/motive.json, sonst Platzhalter ----
   var textEl = document.getElementById('geschichte-text-inhalt');
-  textEl.innerHTML = '<em>Lädt …</em>';
+  textEl.innerHTML = '<em>' + BG.t('Lädt …', 'Loading …') + '</em>';
 
   function zeigeGeschichte(text) {
     if (text) {
       textEl.textContent = text; // textContent erhält Zeilenumbrüche via CSS white-space
     } else {
-      textEl.innerHTML = '<em>Zu diesem Foto schreibe ich die Geschichte noch auf — schau bald wieder vorbei.</em>';
+      textEl.innerHTML = '<em>' + BG.t('Zu diesem Foto schreibe ich die Geschichte noch auf — schau bald wieder vorbei.', 'I haven\u2019t written the story for this photo yet — check back soon.') + '</em>';
     }
   }
 
@@ -114,14 +112,14 @@
     if (!eintrag) { box.style.display = 'none'; return; }
 
     var zeilen = [];
-    if (eintrag.datum) zeilen.push(['Datum', eintrag.datum]);
-    if (eintrag.ort) zeilen.push(['Ort', eintrag.ort]);
+    if (eintrag.datum) zeilen.push([BG.t('Datum', 'Date'), eintrag.datum]);
+    if (eintrag.ort) zeilen.push([BG.t('Ort', 'Place'), eintrag.ort]);
     if (eintrag.tier_de || eintrag.tier_lat) {
       var tier = [eintrag.tier_de, eintrag.tier_lat ? '(' + eintrag.tier_lat + ')' : '']
         .filter(Boolean).join(' ');
-      zeilen.push(['Tier', tier]);
+      zeilen.push([BG.t('Tier', 'Species'), tier]);
     }
-    if (eintrag.gefaehrdung) zeilen.push(['Gefährdung', eintrag.gefaehrdung]);
+    if (eintrag.gefaehrdung) zeilen.push([BG.t('Gefährdung', 'Conservation status'), eintrag.gefaehrdung]);
 
     if (!zeilen.length) { box.style.display = 'none'; return; }
 
@@ -135,7 +133,7 @@
      Das sind bewusst EXTRA-Aufnahmen, die es sonst nirgends gibt:
      Originalaufnahmen vor der Bearbeitung, Bildvarianten, Situations-
      fotos. Sie stehen NUR in der Google-Tabelle (Spalten "zusatzbilder"
-     und "zusatzbildtexte") und NICHT in galerie-daten.js — tauchen
+     und "zusatzbildtexte") und NICHT in daten/motive.json — tauchen
      also in keiner Galerie, keiner Lightbox und nicht im Shop auf.
 
      Ist die Spalte leer, bleibt der ganze Abschnitt unsichtbar. Für
@@ -161,7 +159,7 @@
       img.src = bild.quelle;
       // Alt-Text: die Bildunterschrift, falls vorhanden — sonst ein
       // sinnvoller Ersatz, damit Screenreader nicht ins Leere laufen.
-      img.alt = bild.text || ('Weitere Aufnahme zum Motiv ' + titelText);
+      img.alt = bild.text || (BG.t('Weitere Aufnahme zum Motiv ', 'Another picture of the motif ') + titelText);
       img.loading = 'lazy';      // lädt erst, wenn man hinunterscrollt
       img.decoding = 'async';
 
@@ -198,9 +196,9 @@
   });
 
   // ---- Ort (nur anzeigen, wenn hinterlegt) ----
-  if (motiv.ort && motiv.ort.lat && motiv.ort.lng) {
+  if (motiv.ort && (motiv.ort.polygon || (motiv.ort.lat && motiv.ort.lng))) {
     document.getElementById('geschichte-ort-box').style.display = '';
-    document.getElementById('geschichte-ort-text').textContent = motiv.ort.label || 'Ort hinterlegt';
+    document.getElementById('geschichte-ort-text').textContent = motiv.ort.label || BG.t('Ort hinterlegt', 'Location on file');
     document.getElementById('geschichte-karte-link').href = 'karte.html?motiv=' + encodeURIComponent(motiv.id);
   }
 
@@ -213,15 +211,15 @@
     if (navigator.share) {
       navigator.share({
         title: titelText + ' — BG Naturfotografie',
-        text: 'Die Geschichte hinter diesem Foto:',
+        text: BG.t('Die Geschichte hinter diesem Foto:', 'The story behind this photo:'),
         url: seitenUrl
       }).catch(function () { /* Abbruch durch Nutzer:in — kein Fehler */ });
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(seitenUrl).then(function () {
         var original = teilenBtnText.textContent;
-        teilenBtnText.textContent = 'Link kopiert!';
+        teilenBtnText.textContent = BG.t('Link kopiert!', 'Link copied!');
         setTimeout(function () { teilenBtnText.textContent = original; }, 2000);
       });
     }
   });
-})();
+}); // Ende BG.bereit

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title data-en="Series | BG Naturfotografie">Serie | BG Naturfotografie</title>
+<meta name="description" content="Eine Fotoserie von BG Naturfotografie — Naturfotografie aus Halstenbek.">
+
+<meta name="robots" content="noindex, follow">
+<meta name="author" content="Benedict Gertz">
+<meta name="geo.region" content="DE-SH">
+<meta name="geo.placename" content="Halstenbek">
+<meta name="theme-color" content="#0E110C">
+<link rel="icon" href="bilder/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="bilder/logo.png">
+
+<link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
+<script>
+  /* Rechtsklick auf Bilder unterbinden (kein echter Kopierschutz,
+     aber eine kleine Hürde). */
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.tagName === 'IMG') { e.preventDefault(); }
+  });
+</script>
+
+</head>
+<body>
+
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
+  <div class="wrap">
+    <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="" class="brand-logo">
+      <b>BG</b> Naturfotografie</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html#galerie" class="ist-hier" data-en="Gallery">Galerie</a></li>
+      <li><a href="produkte-bestellen.html">Shop</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ SERIEN-KOPF ============ -->
+<header id="inhalt" tabindex="-1" class="seitenkopf">
+  <div class="wrap">
+    <a href="index.html#galerie" class="zurueck-link" data-en="&larr; All series">&larr; Alle Serien</a>
+    <!-- Name und Beschreibung der Serie kommen aus daten/motive.json (Admin → Serien) -->
+    <h1 id="serie-name"></h1>
+    <p class="lead" id="serie-kurz"></p>
+  </div>
+</header>
+
+<!-- ============ VOLLSTÄNDIGE SERIE ============
+     Wird automatisch aus daten/motive.json befüllt (gallery.js).
+     Neue Fotos also nur dort eintragen — hier ist nichts zu tun.
+     Die beiden Symbole an jedem Bild: links Geschichte, rechts
+     Shop. ============ -->
+<section style="padding-top:2rem;">
+  <div class="wrap">
+    <!-- Welche Serie gezeigt wird, steht in der Adresse: galerie.html?serie=Name
+         Diese Seite ist für Serien gedacht, die du neu im Admin-Bereich
+         anlegst — die vier alten Serien haben weiter ihre eigenen Seiten. -->
+    <div class="masonry" data-galerie-kategorie=""></div>
+    <script>
+      document.querySelector('.masonry').setAttribute('data-galerie-kategorie',
+        new URLSearchParams(location.search).get('serie') || '');
+    </script>
+
+    <div class="info-folds">
+      <details class="info-fold">
+        <summary data-en="About image quality and the icons on the photos">Zur Bildqualität und zu den Symbolen an den Fotos</summary>
+        <div class="fold-body">
+          <p data-en="These are web-optimised previews — for fast loading and to protect the work. Prints are of course made from the original files.">Hier laufen weboptimierte Vorschaubilder — für flüssiges Laden und zum Schutz der Werke. Drucke entstehen selbstverständlich aus den Originaldateien.</p>
+          <p data-en="The two icons on each picture: &lt;b&gt;top left&lt;/b&gt; takes you to the story behind the shot, &lt;b&gt;top right&lt;/b&gt; straight to this motif in the shop.">Die beiden Symbole an jedem Bild: <b>links oben</b> geht es zur Geschichte hinter der Aufnahme, <b>rechts oben</b> direkt zu diesem Motiv im Shop.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WEITER ZUR NÄCHSTEN SERIE ============ -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="band">
+      <div class="band-text">
+        <h2 id="naechste-titel">Weiter zu Gartenleben</h2>
+        <p id="naechste-kurz">Rotkehlchen, Meisen, Gimpel &amp; Co. im Wechsel der Jahreszeiten.</p>
+      </div>
+      <span style="display:flex; gap:.6rem; flex-wrap:wrap;">
+        <a class="btn btn-outline" id="naechste-link" href="galerie-gartenleben.html">Gartenleben ansehen</a>
+        <a class="btn btn-fill" href="produkte-bestellen.html#motive" data-en="Go to the shop">Zum Shop</a>
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIGHTBOX (gleiches Markup auf jeder Serien-Seite) ============ -->
+<div class="lightbox">
+  <button class="lightbox-close" aria-label="Schließen" data-en-aria-label="Close">&times;</button>
+  <figure>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
+    <figcaption></figcaption>
+  </figure>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 BG Naturfotografie</span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="karte.html" data-en="Map">Karte</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a></span>
+  </div>
+</footer>
+
+<script src="daten.js" data-brauche="motive" defer></script>
+<script src="gallery.js" defer></script>
+<script>
+  BG.bereit(function () {
+    var id = new URLSearchParams(location.search).get('serie');
+    var serie = (window.SERIEN || []).filter(function (s) { return s.id === id; })[0];
+    if (serie) document.title = serie.name + ' | BG Naturfotografie';
+  });
+</script>
+</body>
+</html>

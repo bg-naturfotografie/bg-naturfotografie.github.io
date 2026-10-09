@@ -8,6 +8,9 @@ Allow: /
 Disallow: /qr-werkzeug.html
 Disallow: /gebiet-zeichnen.html
 Disallow: /persona-startseiten-vorschau.html
+Disallow: /galerie.html
+# Admin-Bereich (zusätzlich per noindex gesperrt)
+Disallow: /admin/
 # Bestätigungsseite nach dem Absenden — kein Suchergebnis
 Disallow: /danke.html
 
