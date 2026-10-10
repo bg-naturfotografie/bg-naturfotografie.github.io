@@ -118,7 +118,7 @@ BG.bereit(function () {
   function tooltipHtml(gruppe) {
     if (gruppe.motive.length === 1) {
       var m = gruppe.motive[0];
-      return '<img class="karte-marker-thumb" src="' + escapeAttr(m.bild) + '" alt="' + escapeAttr(m.alt || titelVon(m)) + '">' +
+      return '<img class="karte-marker-thumb" src="' + escapeAttr(BG.klein(m.bild)) + '"' + BG.bildFallback(m.bild) + ' alt="' + escapeAttr(m.alt || titelVon(m)) + '">' +
         '<div class="karte-marker-label">' + escapeAttr(titelVon(m)) + '</div>';
     }
     return '<div class="karte-marker-label karte-marker-sammel">' +
@@ -137,7 +137,7 @@ BG.bereit(function () {
 
     var eintraege = gruppe.motive.map(function (m) {
       return '<a class="karte-popup-eintrag" href="geschichte.html?id=' + escapeAttr(m.id) + '">' +
-        '<img src="' + escapeAttr(m.bild) + '" alt="' + escapeAttr(m.alt || titelVon(m)) + '">' +
+        '<img src="' + escapeAttr(BG.klein(m.bild)) + '"' + BG.bildFallback(m.bild) + ' alt="' + escapeAttr(m.alt || titelVon(m)) + '">' +
         '<span>' + escapeAttr(titelVon(m)) + '</span>' +
         '</a>';
     }).join('');
