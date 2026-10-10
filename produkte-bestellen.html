@@ -53,290 +53,573 @@
 <!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
 <script src="sprache.js"></script>
 <style>
-  .shop-hero{ padding:8.5rem 0 0; }
-  .shop-hero h1{ font-size:clamp(2.2rem,5.2vw,3.6rem); max-width:16ch; margin-bottom:1rem; }
-  .shop-hero h1 em{ color:var(--accent-soft); font-style:italic; font-weight:400; }
-  .shop-hero p.lead{ color:var(--text-muted); max-width:56ch; font-size:1.02rem; }
-
-  /* Legende: keine Box mehr, nur eine ruhige Zeile über dem Raster */
-  .origin-legend{
-    display:flex; flex-wrap:wrap; gap:.5rem 1.6rem;
-    margin:0 0 1.6rem; padding:.9rem 0;
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-    font-size:.82rem; max-width:78ch;
-  }
-  .origin-legend .item{ display:flex; align-items:center; gap:.5rem; color:var(--text-muted); }
-  .origin-dot{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
-  .origin-dot.selbst{ background:#7fae86; }
-
-  /* Aufklapper (.info-fold) und Staffel-Spalten stehen jetzt
-     zentral in styles.css — sie werden auch auf der Startseite
-     und den Serien-Seiten benutzt. Hier stand vorher eine
-     zweite, fast identische Kopie. */
-
-
-  /* ---- Haupt-Tabs (Postkarten & Poster / Sticker / Merch) ---- */
-  /* Sprungmarken innerhalb des Shops — als schlichte Zeile,
-     nicht als Pillen-Leiste. */
-  .shop-tabs{
-    display:flex; gap:1.6rem; margin:2rem 0 0; flex-wrap:wrap;
-    padding-bottom:.9rem; border-bottom:1px solid var(--line);
-  }
-  .shop-tabs a{
-    font-family:'JetBrains Mono', monospace; font-size:.76rem;
-    letter-spacing:.06em; color:var(--text-muted);
-    text-decoration:none; transition:color .2s;
-  }
-  .shop-tabs a:hover{ color:var(--accent-soft); }
-
-  .cat-block-shop{ margin:3.2rem 0; scroll-margin-top:90px; }
-  .cat-block-shop h2{ font-size:1.7rem; margin-bottom:.3rem; }
-  .cat-block-shop .cat-sub{ color:var(--text-muted); font-size:.92rem; max-width:60ch; margin-bottom:.6rem; }
-  .origin-badge{
-    display:inline-flex; align-items:center; gap:.4rem;
-    font-family:'JetBrains Mono', monospace; font-size:.7rem; letter-spacing:.04em;
-    color:var(--text-light); background:var(--bg-panel); border:1px solid var(--line);
-    padding:.35rem .75rem; border-radius:20px; margin-bottom:1.6rem;
-  }
-  .widerruf-note{ font-size:.82rem; color:var(--text-muted); margin:0 0 1.8rem; max-width:60ch; }
-  .empty-note{ font-size:.85rem; color:var(--text-muted); font-style:italic; padding:1rem 0; }
-  .section-idea-note{ font-size:.82rem; color:var(--text-muted); margin:1.4rem 0 0; }
-  .section-idea-note a{ color:var(--accent-soft); }
-
   /* ============================================================
-     SHOP-LAYOUT: Seitenleiste + Motivraster
+     SHOP — GESTALTUNG
      ============================================================
-     Ab 900px zweispaltig: links die Filter (klebt beim Scrollen
-     mit), rechts die Motive. Darunter einspaltig — dann werden aus
-     den Filterlisten waagerechte Reihen, durch die man wischen
-     kann. Bewusst KEINE ausklappbare Schublade: die kostet auf dem
-     Handy einen zusätzlichen Klick und versteckt genau das, was
-     die Auswahl erklärt.
+     Leitidee: Die Fotos sind die Ware. Alles andere tritt zurück.
+       • Oben eine kurze Begrüßung mit den drei Schritten.
+       • Darunter eine Werkzeugleiste, die beim Scrollen oben
+         mitklebt: Format (mit Preis) und Serien.
+       • Ein ruhiges Raster: am Handy 2 Motive nebeneinander, am PC
+         bis zu 4. Jedes Foto hat einen runden „+“-Knopf.
+       • Unten erscheint eine Leiste mit einem kleinen Stapel der
+         gewählten Postkarten — wie auf dem Markttisch.
+     Farben, Schriften und die fast eckigen Kanten kommen aus
+     styles.css (:root), damit der Shop zum Rest der Seite passt.
      ============================================================ */
-  .shop-layout{ display:grid; grid-template-columns:230px 1fr; gap:2.4rem; align-items:start; }
-  /* Ohne min-width:0 dürfen sich Rasterspalten nicht kleiner machen
-     als ihr breitester Inhalt. Auf dem Handy hätte die waagerechte
-     Filterreihe die ganze Spalte auseinandergezogen und das
-     Motivraster wäre seitlich aus dem Bild gelaufen. */
-  .shop-layout > *{ min-width:0; }
 
-  .shop-filter{
-    position:sticky; top:90px;              /* unter der festen Kopfzeile */
-    display:flex; flex-direction:column; gap:1.6rem;
-    padding-right:.4rem;
-  }
-  .filter-gruppe{ display:flex; flex-direction:column; gap:.5rem; }
-  /* display:flex sticht [hidden] aus — deshalb hier ausdrücklich
-     ausblenden. Betrifft "Nur was auf Lager liegt", das bei
-     Downloads keinen Sinn ergibt. */
-  .filter-gruppe[hidden]{ display:none; }
-  .filter-titel{
-    font-family:'JetBrains Mono', monospace; font-size:.68rem; letter-spacing:.1em;
-    text-transform:uppercase; color:var(--text-muted);
-    padding-bottom:.5rem; border-bottom:1px solid var(--line);
-  }
-  .filter-liste{ display:flex; flex-direction:column; gap:.15rem; }
+  /* ---------- Kopf ---------- */
+  .shop-hero{ padding:7.2rem 0 1.6rem; }
+  .shop-hero h1{ font-size:clamp(2rem,4.6vw,3.2rem); max-width:18ch; margin-bottom:.7rem; }
+  .shop-hero h1 em{ color:var(--accent-soft); font-style:italic; font-weight:400; }
+  .shop-hero p.lead{ color:var(--text-muted); max-width:58ch; font-size:1rem; margin:0; }
 
-  /* Eine Filterzeile. Links der Name, rechts die Anzahl. Der
-     aktive Eintrag bekommt einen Balken am linken Rand statt einer
-     vollflächigen Färbung — ruhiger und passt zum Rest der Seite. */
-  .filter-opt{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    width:100%; text-align:left; cursor:pointer;
-    background:transparent; border:0; border-left:2px solid transparent;
-    padding:.42rem .6rem; border-radius:0 6px 6px 0;
-    font-family:'Work Sans', sans-serif; font-size:.88rem; color:var(--text-muted);
-    transition:color .18s, background .18s, border-color .18s;
+  /* Die drei Schritte: eine Zeile, durch feine Linien verbunden —
+     liest sich wie ein Weg, nicht wie eine Aufzählung. */
+  .sk-schritte{
+    list-style:none; margin:1.6rem 0 0; padding:0;
+    display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1rem;
+    max-width:62rem;
   }
-  .filter-opt:hover{ color:var(--text-light); background:rgba(255,255,255,0.03); }
-  .filter-opt .zahl{
-    font-family:'JetBrains Mono', monospace; font-size:.7rem; color:var(--text-muted); opacity:.7;
+  .sk-schritte li{
+    display:flex; align-items:flex-start; gap:.6rem;
+    font-size:.86rem; line-height:1.4; color:var(--text-muted);
+    position:relative;
   }
-  .filter-opt[aria-pressed="true"]{
-    color:var(--accent-soft); border-left-color:var(--accent);
-    background:rgba(201,124,61,0.10);
-  }
-  .filter-opt[aria-pressed="true"] .zahl{ color:var(--accent-soft); opacity:1; }
-  .filter-opt:disabled{ opacity:.4; cursor:default; }
-  .filter-opt:disabled:hover{ background:transparent; color:var(--text-muted); }
-
-  .filter-check{
-    display:flex; align-items:center; gap:.55rem; cursor:pointer;
-    font-size:.85rem; color:var(--text-muted); padding:.2rem .6rem;
-  }
-  .filter-check input{ width:auto; margin:0; flex-shrink:0; accent-color:var(--accent); }
-  .filter-legende{
-    font-size:.72rem; line-height:1.6; color:var(--text-muted);
-    margin:0; padding:.2rem .6rem 0; border-top:1px solid var(--line); padding-top:1rem;
+  .sk-nr{
+    flex:0 0 auto; width:1.6rem; height:1.6rem; border-radius:50%;
+    display:grid; place-items:center;
+    border:1px solid var(--accent); color:var(--accent-soft);
+    font-family:'Fraunces', serif; font-size:.85rem; line-height:1;
+    margin-top:-.1rem;
   }
 
-  /* ---- rechte Spalte ---- */
-  .shop-kopfzeile{
+  /* section{padding:5rem 0} aus styles.css hier zurücknehmen —
+     sonst stünde die Werkzeugleiste mitten im Leerraum. */
+  .sk-shop{ padding:0 0 4rem; }
+
+  /* ---------- Werkzeugleiste (klebt oben) ----------
+     top:64px = Höhe der festen Kopfzeile. Klebt nur, solange man
+     im Motiv-Bereich ist; danach scrollt sie normal weg. */
+  .sk-leiste{
+    position:sticky; top:64px; z-index:30;
+    background:rgba(14,17,12,0.9);
+    -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    transition:box-shadow .25s;
+  }
+  .sk-leiste.klebt{ box-shadow:0 10px 24px -14px rgba(0,0,0,.8); }
+  .sk-leiste-marke{ height:1px; }
+  .sk-leiste .wrap{ padding-top:.7rem; padding-bottom:.65rem; display:flex; flex-direction:column; gap:.6rem; }
+
+  /* Format: vier gleich breite Felder. Das gewählte bekommt eine
+     Linie in Markenfarbe unten — wie ein Reiter im Karteikasten. */
+  .sk-formate{
+    display:grid; grid-template-columns:repeat(4, minmax(0, 1fr));
+    border:1px solid var(--line); border-radius:var(--radius);
+    background:var(--bg-panel);
+  }
+  .sk-format{
+    position:relative; cursor:pointer;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.05rem;
+    min-height:44px; padding:.45rem .3rem;
+    background:transparent; border:0; border-left:1px solid var(--line);
+    color:var(--text-muted); font:inherit; text-align:center;
+    transition:color .18s, background .18s;
+  }
+  .sk-format:first-child{ border-left:0; }
+  .sk-format::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:2px;
+    background:var(--accent); transform:scaleX(0); transition:transform .22s ease;
+  }
+  .sk-format-name{ font-size:.9rem; font-weight:500; line-height:1.2; color:inherit; white-space:nowrap; }
+  .sk-format-preis{ white-space:nowrap; }
+  .sk-format-preis{ font-family:'JetBrains Mono', monospace; font-size:.68rem; color:var(--text-muted); line-height:1.3; }
+  .sk-format:hover:not(:disabled){ color:var(--text-light); background:rgba(237,231,214,0.03); }
+  .sk-format[aria-pressed="true"]{ color:var(--text-light); background:rgba(201,124,61,0.10); }
+  .sk-format[aria-pressed="true"]::after{ transform:scaleX(1); }
+  .sk-format[aria-pressed="true"] .sk-format-preis{ color:var(--accent-soft); }
+  .sk-format:disabled{ opacity:.4; cursor:default; }
+
+  /* Serien + "Nur vorrätige" in einer Reihe. Die Serien lassen sich
+     am Handy seitlich wischen; der Lager-Schalter bleibt rechts
+     stehen, damit er nie aus dem Bild rutscht. */
+  .sk-reihe{ display:flex; align-items:center; gap:.6rem; min-width:0; }
+  .sk-serien{
+    flex:1 1 auto; min-width:0;
+    display:flex; gap:.4rem; overflow-x:auto; overscroll-behavior-x:contain;
+    scroll-snap-type:x proximity; scrollbar-width:none;
+    /* weicher Rand rechts: zeigt, dass es weitergeht */
+    -webkit-mask-image:linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+            mask-image:linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+    padding-right:28px;
+  }
+  .sk-serien::-webkit-scrollbar{ display:none; }
+  .sk-chip{
+    flex:0 0 auto; scroll-snap-align:start; cursor:pointer;
+    display:inline-flex; align-items:center; gap:.4rem;
+    min-height:36px; padding:.35rem .85rem;
+    background:transparent; color:var(--text-muted);
+    border:1px solid var(--line); border-radius:99px;
+    font:inherit; font-size:.84rem; white-space:nowrap;
+    transition:color .18s, border-color .18s, background .18s;
+  }
+  .sk-chip:hover:not(:disabled){ color:var(--text-light); border-color:var(--line-strong); }
+  .sk-chip[aria-pressed="true"]{ color:var(--bg-deep); background:var(--text-light); border-color:var(--text-light); }
+  .sk-chip:disabled{ opacity:.35; cursor:default; }
+  .sk-zahl{ font-family:'JetBrains Mono', monospace; font-size:.68rem; opacity:.7; }
+  .sk-chip[aria-pressed="true"] .sk-zahl{ opacity:.65; }
+
+  .sk-chip-lager{ flex:0 0 auto; gap:.45rem; }
+  .sk-chip-lager[hidden]{ display:none; }
+  .sk-punkt{
+    width:9px; height:9px; border-radius:50%;
+    border:1.5px solid #7fae86; background:transparent; transition:background .18s;
+  }
+  .sk-chip-lager[aria-pressed="true"]{ background:rgba(127,174,134,0.16); border-color:#7fae86; color:var(--text-light); }
+  .sk-chip-lager[aria-pressed="true"] .sk-punkt{ background:#7fae86; }
+
+  /* ---------- Zeile über dem Raster: Preise + Anzahl ---------- */
+  .sk-kopf{
     display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between;
-    gap:.6rem 1.2rem; margin:0 0 1.2rem; padding-bottom:.9rem;
-    border-bottom:1px solid var(--line);
+    gap:.3rem 1.2rem; margin:1.3rem 0 1.1rem;
   }
-  .shop-kopfzeile h3{ font-size:1.3rem; margin:0; }
-  .shop-treffer{
-    font-family:'JetBrains Mono', monospace; font-size:.74rem;
-    color:var(--text-muted); letter-spacing:.03em; margin:0;
-  }
-  .shop-produktinfo{ font-size:.88rem; color:var(--text-muted); margin:0 0 1.4rem; max-width:62ch; }
-  .shop-produktinfo .staffel-inline{ color:var(--accent-soft); }
+  .sk-preise{ margin:0; font-size:.88rem; color:var(--text-muted); max-width:70ch; line-height:1.5; }
+  .sk-preise b{ color:var(--text-light); font-weight:500; margin-right:.3rem; }
+  .sk-staffel{ display:block; color:var(--accent-soft); font-size:.84rem; }
+  .shop-treffer{ font-family:'JetBrains Mono', monospace; font-size:.72rem; color:var(--text-muted); margin:0; }
 
-  /* Hinweisband über dem Raster (z. B. Verweis auf große Formate) */
+  /* Hinweisband über dem Raster (bei Postern: "größer?") */
   .shop-band{
-    display:flex; flex-wrap:wrap; align-items:center; gap:.4rem .8rem;
-    margin:0 0 1.4rem; padding:.7rem 1rem;
-    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:var(--radius);
+    display:flex; flex-wrap:wrap; align-items:center; gap:.3rem .8rem;
+    margin:0 0 1.2rem; padding:.65rem .9rem;
+    background:var(--bg-panel); border-left:2px solid var(--accent);
     font-size:.84rem; color:var(--text-muted);
   }
-  .shop-band a{ color:var(--accent-soft); }
+  .shop-band a{ color:var(--accent-soft); text-decoration:underline; text-underline-offset:3px; }
+
+  /* ---------- Raster ----------
+     Handy: 2 Spalten (mehr Überblick, weniger Scrollen).
+     Tablet: 3, PC: 4. 24 Motive pro Seite gehen in allen glatt auf. */
+  .sk-raster{
+    display:grid; grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:1.4rem .75rem;
+  }
+  @media (min-width:640px){ .sk-raster{ grid-template-columns:repeat(3, minmax(0, 1fr)); gap:2rem 1.1rem; } }
+  @media (min-width:1000px){ .sk-raster{ grid-template-columns:repeat(4, minmax(0, 1fr)); gap:2.4rem 1.4rem; } }
+  /* Lesezeichen sind schmal — davon passen mehr nebeneinander */
+  @media (min-width:640px){ .sk-raster.sk-raster-lz{ grid-template-columns:repeat(4, minmax(0, 1fr)); } }
+  @media (min-width:1000px){ .sk-raster.sk-raster-lz{ grid-template-columns:repeat(6, minmax(0, 1fr)); } }
+
+  /* ---------- Karte ----------
+     Kein Kasten drumherum: Foto, darunter der Text — wie ein
+     Abzug auf dem Tisch. Alle Fotos im selben Format (4:5), damit
+     die Reihen sauber auf einer Linie liegen. Das ganze Bild sieht
+     man in der großen Ansicht. */
+  .sk-karte{ position:relative; min-width:0; scroll-margin-top:190px; }
+  .sk-foto{
+    position:relative; aspect-ratio:4/5; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .sk-foto img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease, opacity .3s; }
+  .sk-foto-knopf{
+    display:block; width:100%; height:100%; padding:0; margin:0;
+    background:none; border:0; cursor:zoom-in;
+  }
+  @media (hover:hover){ .sk-karte:hover .sk-foto img{ transform:scale(1.035); } }
+  /* Tastatur-Fokus nach innen legen — außen würde er vom Bildrand abgeschnitten */
+  .sk-foto-knopf:focus-visible{ outline:3px solid var(--fokus); outline-offset:-3px; }
+
+  /* Gewählt: feiner Rahmen in Markenfarbe ums Foto */
+  .sk-foto::after{
+    content:''; position:absolute; inset:0; pointer-events:none;
+    box-shadow:inset 0 0 0 0 var(--accent); transition:box-shadow .2s;
+  }
+  .sk-karte.ist-gewaehlt .sk-foto::after{ box-shadow:inset 0 0 0 3px var(--accent); }
+  /* Kurz aufleuchten, wenn man über einen QR-Code/Link herkommt */
+  .sk-karte.hervorgehoben .sk-foto::after{ box-shadow:inset 0 0 0 3px var(--accent-soft); animation:sk-leuchten 1.2s ease 2; }
+  @keyframes sk-leuchten{ 50%{ box-shadow:inset 0 0 0 6px var(--accent-soft); } }
+
+  .sk-text{ padding:.6rem .1rem 0; }
+  .sk-name{
+    font-size:1.02rem; line-height:1.25; margin:0;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .sk-zusatz{
+    margin:.1rem 0 0; font-size:.8rem; color:var(--text-muted); line-height:1.35;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .sk-meta{ display:flex; flex-wrap:wrap; align-items:center; gap:.15rem .7rem; margin:.35rem 0 0; }
+  .sk-preis{ font-family:'JetBrains Mono', monospace; font-size:.84rem; color:var(--accent-soft); }
+  /* Staffelpreis: alter Preis leise durchgestrichen, neuer in Grün */
+  .sk-preis s, .sk-fl-preis s{ color:var(--text-muted); opacity:.75; text-decoration-thickness:1px; }
+  .sk-preis-staffel{ color:#7fae86; }
+
+  /* Lagerstand als Punkt + kurzes Wort. Grün = da, Rost = knapp,
+     hohl = wird gedruckt. Farbe allein reicht nicht (Farbsehschwäche),
+     deshalb steht immer das Wort daneben. */
+  .sk-lager{ display:inline-flex; align-items:center; gap:.35rem; font-size:.74rem; color:var(--text-muted); line-height:1.3; }
+  .sk-lager::before{ content:''; width:7px; height:7px; border-radius:50%; flex:0 0 auto; background:#7fae86; }
+  .sk-lager.low{ color:var(--accent-soft); }
+  .sk-lager.low::before{ background:var(--accent); }
+  .sk-lager.back::before{ background:transparent; border:1.5px solid var(--text-muted); width:6px; height:6px; }
+  .sk-anderswo{ margin:.25rem 0 0; font-size:.72rem; color:#7fae86; line-height:1.35; }
+  .sk-anderswo:empty{ display:none; }
+
+  /* ---------- Mengenknopf ----------
+     Rund und 44 px groß (Daumenmaß). Sitzt unten rechts auf dem Foto.
+     Nach dem ersten Tipp wird daraus eine Pille "− 1 +". */
+  .sk-knopf{ position:absolute; right:.5rem; bottom:.5rem; z-index:2; }
+  .sk-plus{
+    width:44px; height:44px; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center; padding:0;
+    background:rgba(14,17,12,0.72); color:var(--text-light);
+    border:1px solid rgba(237,231,214,0.35);
+    -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px);
+    transition:background .18s, color .18s, border-color .18s, transform .18s;
+  }
+  .sk-plus svg{ width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; }
+  .sk-plus:hover{ background:var(--accent); border-color:var(--accent); color:var(--bg-deep); }
+  .sk-plus:active{ transform:scale(.92); }
+
+  .sk-menge{
+    display:inline-flex; align-items:center; height:44px; border-radius:22px;
+    background:var(--accent); color:var(--bg-deep);
+    box-shadow:0 6px 18px -6px rgba(0,0,0,.7);
+    animation:sk-auf .22s ease;
+  }
+  .sk-menge button{
+    width:40px; height:44px; padding:0; border:0; background:transparent; cursor:pointer;
+    color:inherit; font-size:1.25rem; line-height:1; display:grid; place-items:center;
+    border-radius:22px;
+  }
+  .sk-menge button:hover{ background:rgba(14,17,12,0.12); }
+  .sk-menge svg{ width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .sk-menge output{
+    min-width:1.4rem; text-align:center;
+    font-family:'JetBrains Mono', monospace; font-weight:600; font-size:.95rem;
+  }
+  @keyframes sk-auf{ from{ transform:scale(.6); opacity:0; } }
+
+  /* ---------- Lesezeichen-Karten ----------
+     Schmales Hochformat. Das Foto liegt mit Abstand auf einer
+     dunklen Fläche, damit das ganze Lesezeichen sichtbar bleibt. */
+  .sk-lz .sk-foto{ aspect-ratio:5/9; }
+  .sk-lz .sk-foto-knopf{ display:flex; align-items:center; justify-content:center; padding:.8rem; }
+  .sk-lz .sk-foto img{ object-fit:contain; }
+  /* Ersatzansicht (noch kein echtes Lesezeichen-Foto): Galeriefoto
+     auf 5 × 18 cm zugeschnitten, als Beispiel gekennzeichnet. */
+  .sk-lz .frame.lz-ersatz img{
+    width:auto; height:100%; aspect-ratio:5/18; object-fit:cover;
+    box-shadow:0 4px 18px rgba(0,0,0,.45);
+  }
+  .lz-hinweis{
+    position:absolute; top:.5rem; left:.5rem; z-index:2;
+    background:rgba(14,17,12,0.82); color:var(--text-muted);
+    font-size:.68rem; padding:.15rem .5rem; border-radius:99px; pointer-events:none;
+  }
 
   /* "Weitere anzeigen" */
-  .shop-mehr{ display:flex; justify-content:center; margin:2rem 0 0; }
+  .shop-mehr{ display:flex; justify-content:center; margin:2.4rem 0 0; }
+  .shop-mehr:empty{ display:none; }
   .shop-mehr button{
-    padding:.7rem 1.6rem; background:transparent; color:var(--text-light);
-    border:1px solid var(--line); border-radius:var(--radius);
-    font-family:'JetBrains Mono', monospace; font-size:.78rem; cursor:pointer;
+    min-height:44px; padding:.7rem 1.6rem; cursor:pointer;
+    background:transparent; color:var(--text-light);
+    border:1px solid var(--line-strong); border-radius:var(--radius);
+    font:inherit; font-size:.92rem;
     transition:border-color .18s, color .18s;
   }
   .shop-mehr button:hover{ border-color:var(--accent); color:var(--accent-soft); }
 
-  /* Serien-Hinweis auf der Karte — klein, damit das Foto wirkt */
-  .karte-serie{
-    font-family:'JetBrains Mono', monospace; font-size:.64rem; letter-spacing:.09em;
-    text-transform:uppercase; color:var(--text-muted); margin-top:-.25rem;
-  }
-  /* Hinweis, dass dasselbe Motiv schon in einer anderen Ausführung
-     im Warenkorb liegt — sonst wundert man sich beim Tabwechsel. */
-  .karte-anderswo{ font-size:.72rem; color:#7fae86; }
-  /* Leer = gar nicht da, sonst entsteht durch den Zeilenabstand
-     der Karte eine Lücke, die nach einem Fehler aussieht. */
-  .karte-anderswo:empty{ display:none; }
-
-  /* Der Knopf klebt unten, damit die Karten trotz unterschiedlich
-     langer Motivnamen unten auf einer Linie abschließen. */
-  .kauf-slot{ margin-top:auto; padding-top:.2rem; }
-
-
-
-  .star-dot{ color:#f2c14e; font-size:.9rem; line-height:1; }
-  /* ---- Overlays auf dem Bild ----
-     Wichtig: Stern (oben links) und Zoom-Button (unten rechts)
-     liegen bewusst auf gegenüberliegenden Ecken. Vorher standen
-     beide oben nebeneinander und haben sich auf schmalen Karten
-     überlappt — die Karten sind nur ~230px breit, allein die
-     beiden Beschriftungen brauchten aber schon mehr Platz. */
-  .frame{ position:relative; }
-
-  .gp-star{
-    position:absolute; top:8px; left:8px; z-index:3;
-    background:rgba(17,20,15,0.82); color:#f2c14e;
-    font-size:.7rem; letter-spacing:.03em; font-family:'JetBrains Mono', monospace;
-    padding:.22rem .55rem; border-radius:20px;
-    display:inline-flex; align-items:center; gap:.25rem;
-    max-width:calc(100% - 16px); white-space:nowrap;
-    backdrop-filter:blur(4px); pointer-events:none;
-  }
-
-  /* Zoom: standardmäßig nur die Lupe, Text fährt bei Hover/Fokus
-     aus. Auf Touch-Geräten bleibt es beim reinen Icon — dort gibt
-     es kein Hover, und die Lupe ist selbsterklärend genug. */
-  .gp-zoom{
-    position:absolute; bottom:8px; right:8px; z-index:3;
-    display:inline-flex; align-items:center; gap:0;
-    height:30px; width:30px; padding:0; border-radius:20px;
-    background:rgba(17,20,15,0.82); border:1px solid rgba(237,231,214,0.25);
-    color:var(--text-light); cursor:pointer; overflow:hidden;
-    backdrop-filter:blur(4px);
-    transition:width .22s ease, gap .22s ease, padding .22s ease,
-               background .2s, border-color .2s, color .2s;
-  }
-  .gp-zoom svg{ width:15px; height:15px; flex-shrink:0; margin:0 7px; }
-  .gp-zoom span{
-    font-family:'JetBrains Mono', monospace; font-size:.68rem;
-    white-space:nowrap; opacity:0; transition:opacity .18s ease .04s;
-  }
-  .pick-card:hover .gp-zoom,
-  .gp-zoom:focus-visible{
-    width:auto; padding-right:.75rem;
-    background:var(--accent); border-color:var(--accent); color:var(--bg-deep);
-  }
-  .pick-card:hover .gp-zoom span,
-  .gp-zoom:focus-visible span{ opacity:1; }
-
-  @media (hover:none){
-    .gp-zoom{ width:30px; }
-    .gp-zoom span{ display:none; }
-  }
-
-  /* align-items:start ist wichtig, seit Hoch- und Querformate
-     gemischt vorkommen: Ohne das würden alle Karten einer Zeile
-     auf die Höhe der höchsten gedehnt, und unter den flachen
-     Querformat-Karten klaffte eine leere Fläche. */
-  .pick-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:var(--gap); align-items:start; }
-
-
-  /* ---- "Wer druckt was?" ----
-     Bewusst NICHT in einem Aufklapper, sondern offen sichtbar im
-     Shop-Kopf: Transparenz über die Druckereien ist ein
-     Verkaufsargument, kein Kleingedrucktes. Als schlichte
-     Definitionsliste (dl) — Screenreader lesen das sauber als
-     "Postkarten: WIRmachenDRUCK" usw. vor. */
-  .druck-info{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
-    gap:.9rem 1.6rem; margin:1.8rem 0 0; padding:1rem 1.2rem;
-    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
-    max-width:76ch;   /* gleiche Breite wie die Aufklapper darunter (.info-folds) */
-  }
-  .druck-info dt{
-    font-family:'JetBrains Mono', monospace; font-size:.68rem; letter-spacing:.08em;
-    text-transform:uppercase; color:var(--text-muted); margin:0 0 .15rem;
-  }
-  .druck-info dd{ margin:0; font-size:.9rem; color:var(--text-light); }
-  .druck-info dd small{ display:block; font-size:.74rem; color:var(--text-muted); }
-
-  /* Kleiner Hinweis auf der Motivkarte, nur wenn "Poster A4"
-     gewählt ist: "Größer als A4? → Saal-Digital-Shop" */
+  .empty-note{ grid-column:1 / -1; font-size:.9rem; color:var(--text-muted); padding:2rem 0; margin:0; }
+  .section-idea-note{ font-size:.84rem; color:var(--text-muted); margin:2rem 0 0; }
+  .section-idea-note a{ color:var(--accent-soft); text-decoration:underline; text-underline-offset:3px; }
+  .cat-sub{ color:var(--text-muted); font-size:.92rem; max-width:60ch; margin:0 0 .6rem; }
   .saal-link{ font-size:.74rem; color:var(--accent-soft); text-decoration:underline; text-underline-offset:2px; }
-  .saal-link:hover{ color:var(--text-light); }
 
-  /* ---- Lesezeichen-Karten ----
-     Das Lesezeichen-Foto kann jedes Format haben (Lesezeichen
-     freigestellt, auf dem Tisch liegend, im Buch, ...). Deshalb:
-       contain → das ganze Bild ist sichtbar, nichts wird beschnitten
-       Innenabstand + dunklere Fläche → das Lesezeichen "liegt" auf
-       einem ruhigen Untergrund, statt am Rand zu kleben.
-     Die Karte behält das 4/5-Format der Motivkarten, damit das
-     Raster im Shop einheitlich wirkt.
-     Hinweis: bewusst ".pick-card.lz-card" (zwei Klassen) — sonst
-     gewinnen die allgemeinen .pick-card-Regeln weiter unten in
-     dieser Datei, weil sie später stehen. */
-  .pick-card.lz-card .frame{
-    display:flex; align-items:center; justify-content:center;
-    padding:.9rem; background:var(--bg-deep);
+  /* ---------- Weitere Möglichkeiten (Größer als A4, Tassen & Co.) ---------- */
+  .sk-extras{ padding:0 0 4rem; }
+  .sk-extras-raster{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+  .sk-extra{
+    padding:1.6rem 1.6rem 1rem; background:var(--bg-panel);
+    border:1px solid var(--line); border-radius:var(--radius);
+    scroll-margin-top:90px;
   }
-  .pick-card.lz-card .frame img{ object-fit:contain; }
+  .sk-extra h3{ font-size:1.35rem; margin:0 0 .4rem; }
+  .sk-extra .info-folds{ margin-top:1.2rem; }
+  @media (max-width:760px){ .sk-extras-raster{ grid-template-columns:1fr; } .sk-extra{ padding:1.3rem 1.1rem .6rem; } }
 
-  /* ERSATZANSICHT: Solange unter bilder/lesezeichen/ noch kein
-     eigenes Bild liegt, wird das Galeriefoto genommen und auf das
-     Lesezeichen-Format 5 × 18 cm zugeschnitten (object-fit:cover in
-     einem schmalen Hochformat). So sieht die Karte nicht kaputt aus,
-     ist aber als Beispielansicht gekennzeichnet — damit niemand
-     denkt, das sei schon das echte Produktfoto. */
-  .pick-card.lz-card .frame.lz-ersatz img{
-    width:auto; height:100%; aspect-ratio:5/18;
-    object-fit:cover; border-radius:6px;
-    box-shadow:0 4px 18px rgba(0,0,0,.45);
+  /* Sticker-Bereich (erscheint erst, wenn es Sticker gibt) */
+  .cat-block-shop{ scroll-margin-top:90px; }
+  .cat-block-shop h2{ font-size:1.7rem; margin-bottom:.3rem; }
+  .origin-badge{
+    display:inline-flex; align-items:center; gap:.45rem; margin:0 0 1.6rem;
+    font-size:.78rem; color:var(--text-muted);
   }
-  .lz-hinweis{
-    position:absolute; top:8px; right:8px; z-index:3;
-    background:rgba(17,20,15,0.82); color:var(--text-muted);
-    font-family:'JetBrains Mono', monospace; font-size:.62rem; letter-spacing:.03em;
-    padding:.2rem .5rem; border-radius:20px; pointer-events:none;
+  .origin-dot{ width:8px; height:8px; border-radius:50%; background:#7fae86; }
+
+  /* ---------- Gut zu wissen ---------- */
+  .sk-wissen{ padding:3.5rem 0 4rem; border-top:1px solid var(--line); }
+  .sk-wissen h2{ font-size:1.6rem; margin-bottom:0; }
+  .druck-info{
+    display:grid; grid-template-columns:repeat(4, minmax(0, 1fr));
+    gap:.9rem 1.6rem; margin:1.4rem 0 0; padding:1rem 1.2rem;
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
+    max-width:76ch;
+  }
+  .druck-info dt{ font-size:.76rem; color:var(--text-muted); margin:0 0 .1rem; }
+  .druck-info dd{ margin:0; font-size:.92rem; color:var(--text-light); }
+  .druck-info dd small{ display:block; font-size:.74rem; color:var(--text-muted); }
+  @media (max-width:640px){ .druck-info{ grid-template-columns:1fr 1fr; } }
+
+  /* ============================================================
+     AUSWAHL-LEISTE UNTEN
+     ============================================================
+     Das Erkennungszeichen des Shops: links ein kleiner, gefächerter
+     Stapel der gewählten Motive mit weißem Rand — wie Postkarten
+     auf dem Markttisch. Darüber ein dünner Balken, der sich bis zur
+     nächsten Preisstufe füllt. */
+  .sk-tray{
+    position:fixed; z-index:45;
+    left:50%; bottom:max(.75rem, env(safe-area-inset-bottom));
+    width:min(640px, calc(100% - 1.5rem));
+    transform:translateX(-50%);
+    background:rgba(30,36,24,0.94);
+    -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+    border:1px solid var(--line-strong); border-radius:10px;
+    box-shadow:0 18px 40px -12px rgba(0,0,0,.85);
+    overflow:hidden;
+    transition:transform .3s ease, opacity .3s ease;
+    animation:sk-tray-rein .35s ease;
+  }
+  .sk-tray[hidden]{ display:none; }
+  .sk-tray.versteckt{ transform:translate(-50%, 140%); opacity:0; pointer-events:none; }
+  @keyframes sk-tray-rein{ from{ transform:translate(-50%, 140%); } }
+  .sk-tray-fortschritt{ height:3px; background:rgba(237,231,214,0.08); }
+  .sk-tray-fortschritt span{ display:block; height:100%; width:0; background:var(--accent); transition:width .45s ease; }
+  .sk-tray-innen{ display:flex; align-items:center; gap:.6rem; padding:.55rem .55rem .55rem .7rem; }
+  .sk-tray-auswahl{
+    flex:1 1 auto; min-width:0; cursor:pointer;
+    display:flex; align-items:center; gap:.85rem;
+    background:none; border:0; padding:.15rem; color:var(--text-light); font:inherit; text-align:left;
+    border-radius:6px;
+  }
+  .sk-tray-auswahl:hover .sk-tray-zahl b{ text-decoration:underline; text-underline-offset:3px; }
+  /* Kleiner Pfeil nach oben: "hier tippen öffnet die Auswahl" */
+  .sk-tray-text::after{
+    content:''; position:absolute; right:-1.1rem; top:.45rem;
+    width:7px; height:7px; border-left:1.5px solid var(--text-muted); border-top:1.5px solid var(--text-muted);
+    transform:rotate(45deg);
+  }
+  .sk-tray-text{ position:relative; margin-right:1.2rem; }
+
+  /* Der Stapel: bis zu drei Mini-Abzüge, leicht verdreht */
+  .sk-stapel{ position:relative; width:52px; height:46px; flex:0 0 auto; }
+  .sk-stapel img{
+    position:absolute; left:50%; top:50%; width:32px; height:40px; object-fit:cover;
+    border:2px solid var(--text-light); background:var(--text-light);
+    box-shadow:0 2px 6px rgba(0,0,0,.55);
+    transform:translate(-50%, -50%) translateX(calc(var(--i) * -7px)) rotate(calc(var(--i) * -9deg + 4deg));
+    transition:transform .3s ease;
+  }
+  .sk-tray.hupf .sk-stapel img:last-child{ animation:sk-hupf .45s ease; }
+  @keyframes sk-hupf{
+    0%{ transform:translate(-50%, -140%) rotate(-14deg) scale(1.15); opacity:.2; }
+    100%{ transform:translate(-50%, -50%) rotate(4deg); opacity:1; }
+  }
+  .sk-tray-text{ display:flex; flex-direction:column; min-width:0; line-height:1.3; }
+  .sk-tray-zahl{ font-size:.92rem; white-space:nowrap; }
+  .sk-tray-zahl b{ font-weight:600; }
+  /* Hinweis darf zweizeilig werden — abgeschnitten („bis versand…“)
+     wäre er gerade am Handy nutzlos. */
+  .sk-tray-hinweis{
+    font-size:.76rem; color:var(--accent-soft); line-height:1.3;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .sk-tray-hinweis:empty{ display:none; }
+  .sk-tray-weiter{ flex:0 0 auto; padding:.7em 1.3em; min-height:44px; display:inline-flex; align-items:center; }
+
+  /* Platz unten frei halten, damit die Leiste nichts verdeckt */
+  body.hat-tray{ padding-bottom:5.5rem; }
+
+  /* ============================================================
+     DIALOGE: Schublade (Auswahl) und große Ansicht
+     ============================================================
+     Echte <dialog>-Elemente. Am Handy fahren beide von unten herein
+     (gut mit dem Daumen erreichbar), am PC kommt die Schublade von
+     rechts und die große Ansicht in der Mitte. Die Einblend-
+     Bewegung nutzt @starting-style — ältere Browser zeigen den
+     Dialog einfach ohne Bewegung. */
+  .sk-schublade, .sk-ansicht{
+    padding:0; border:1px solid var(--line-strong); color:var(--text-light);
+    background:var(--bg-panel);
+    max-height:100dvh; overflow:auto; overscroll-behavior:contain;
+    transition:transform .3s ease, opacity .3s ease, overlay .3s allow-discrete, display .3s allow-discrete;
+  }
+  .sk-schublade::backdrop, .sk-ansicht::backdrop{
+    background:rgba(6,8,5,0.66);
+    -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px);
+  }
+  .sk-zu{
+    width:44px; height:44px; border-radius:50%; cursor:pointer; flex:0 0 auto;
+    display:grid; place-items:center; padding:0;
+    background:rgba(14,17,12,0.6); color:var(--text-light);
+    border:1px solid var(--line); font-size:1.5rem; line-height:1;
+  }
+  .sk-zu:hover{ border-color:var(--accent); color:var(--accent-soft); }
+
+  /* Schublade */
+  .sk-schublade{
+    margin:0 0 0 auto; height:100dvh; width:min(440px, 100%);
+    display:none; flex-direction:column;
+    border-width:0 0 0 1px;
+  }
+  .sk-schublade[open]{ display:flex; }
+  .sk-schublade-kopf{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1rem 1rem .6rem 1.3rem; position:sticky; top:0; background:var(--bg-panel); z-index:1;
+  }
+  .sk-schublade-kopf h2{ font-size:1.35rem; margin:0; }
+  .sk-schublade .auswahl-liste{ padding:.4rem 1.3rem 0; flex:0 0 auto; }
+  .sk-schublade .auswahl-summe{ margin:1rem 1.3rem 0; }
+  .sk-schublade-fuss{
+    margin-top:auto; position:sticky; bottom:0;
+    display:flex; gap:.6rem; padding:1rem 1.3rem max(1rem, env(safe-area-inset-bottom));
+    background:var(--bg-panel); border-top:1px solid var(--line);
+  }
+  .sk-schublade-fuss .btn{ flex:1 1 0; text-align:center; cursor:pointer; padding-left:.8em; padding-right:.8em; }
+  .sk-schublade-fuss button.btn{ background:transparent; font:inherit; font-weight:500; font-size:.95rem; }
+  .sk-schublade{ transform:translateX(0); }
+  @starting-style{ .sk-schublade[open]{ transform:translateX(100%); } }
+
+  /* Große Ansicht */
+  .sk-ansicht{
+    width:min(1000px, calc(100% - 3rem)); max-height:calc(100dvh - 3rem);
+    margin:auto; border-radius:4px; position:fixed;
+  }
+  .sk-ansicht > .sk-zu{ position:absolute; top:.7rem; right:.7rem; z-index:2; }
+  .sk-ansicht-raster{ display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); }
+  .sk-ansicht-bild{
+    margin:0; background:var(--bg-deep);
+    display:grid; place-items:center; min-height:320px; max-height:calc(100dvh - 3rem);
+  }
+  .sk-ansicht-bild img{ max-width:100%; max-height:calc(100dvh - 3rem); object-fit:contain; }
+  .sk-ansicht-text{ padding:1.8rem 1.6rem 1.6rem; display:flex; flex-direction:column; }
+  .sk-ansicht-serie{ margin:0 0 .3rem; font-size:.82rem; color:var(--text-muted); padding-right:3rem; }
+  .sk-ansicht h2{ font-size:1.6rem; margin:0 0 1.2rem; padding-right:3rem; }
+  .sk-ansicht h2 em, .sk-ansicht h2 i{ color:var(--text-muted); font-size:.75em; display:block; margin-top:.2rem; }
+  .sk-ansicht-links{ margin:auto 0 0; padding-top:1.2rem; font-size:.88rem; }
+  .sk-ansicht-links a{ text-decoration:underline; text-underline-offset:3px; }
+  .sk-ansicht{ opacity:1; transform:none; }
+  @starting-style{ .sk-ansicht[open]{ opacity:0; transform:translateY(16px) scale(.98); } }
+
+  /* Formatliste in der großen Ansicht */
+  .sk-formatliste{ list-style:none; margin:0; padding:0; border-top:1px solid var(--line); }
+  .sk-formatliste li{
+    display:grid; grid-template-columns:minmax(0, 1fr) auto auto; align-items:center; gap:.4rem .9rem;
+    padding:.75rem 0; border-bottom:1px solid var(--line);
+  }
+  .sk-fl-name{ display:flex; flex-direction:column; font-size:.95rem; line-height:1.3; }
+  .sk-fl-name small{ font-size:.76rem; color:var(--text-muted); }
+  .sk-fl-preis{ display:flex; flex-direction:column; align-items:flex-end; font-family:'JetBrains Mono', monospace; font-size:.86rem; color:var(--accent-soft); line-height:1.35; }
+  /* Lagertext rechtsbündig; der Punkt läuft als Teil der Zeile mit,
+     statt bei zweizeiligem Text einsam links daneben zu stehen. */
+  .sk-fl-preis .sk-lager{ display:block; font-family:'Work Sans', sans-serif; font-size:.7rem; max-width:11rem; text-align:right; }
+  .sk-fl-preis .sk-lager::before{ display:inline-block; margin-right:.35rem; vertical-align:.05em; }
+  .sk-formatliste .sk-plus{ background:transparent; }
+  .sk-formatliste .sk-plus:hover{ background:var(--accent); }
+  .sk-formatliste .sk-menge{ box-shadow:none; }
+
+  /* Am Handy: beide Dialoge als Blatt von unten */
+  @media (max-width:700px){
+    .sk-schublade{
+      margin:auto 0 0; width:100%; max-width:100%; height:auto; max-height:88dvh;
+      border-width:1px 0 0; border-radius:14px 14px 0 0;
+    }
+    @starting-style{ .sk-schublade[open]{ transform:translateY(100%); } }
+    .sk-ansicht{
+      width:100%; max-width:100%; max-height:94dvh; margin:auto 0 0;
+      border-width:1px 0 0; border-radius:14px 14px 0 0;
+    }
+    @starting-style{ .sk-ansicht[open]{ opacity:1; transform:translateY(100%); } }
+    .sk-ansicht-raster{ grid-template-columns:1fr; }
+    .sk-ansicht-bild{ min-height:0; max-height:52dvh; }
+    .sk-ansicht-bild img{ max-height:52dvh; }
+    .sk-ansicht-text{ padding:1.1rem 1.1rem max(1.2rem, env(safe-area-inset-bottom)); }
+    .sk-ansicht h2{ font-size:1.35rem; margin-bottom:.8rem; padding-right:0; }
+    .sk-ansicht-serie{ padding-right:0; }
   }
 
+  /* ---------- Auswahl-Liste (Schublade und Formular) ---------- */
+  .auswahl-liste-wrap{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:1rem 1.2rem; margin-bottom:1.6rem;
+  }
+  .auswahl-liste-wrap h3{ font-size:.95rem; margin:0 0 .6rem; color:var(--text-light); }
+  .auswahl-liste{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
+  .auswahl-liste li{
+    display:grid; grid-template-columns:auto minmax(0, 1fr); align-items:center; gap:.3rem .8rem;
+    padding:.6rem 0; border-bottom:1px solid var(--line);
+    font-size:.88rem; color:var(--text-muted);
+  }
+  .auswahl-liste li:last-child{ border-bottom:0; }
+  .auswahl-liste .pos-bild{ grid-row:span 2; width:42px; height:52px; object-fit:cover; border:2px solid var(--text-light); }
+  .auswahl-liste li:not(:has(.pos-bild)){ grid-template-columns:minmax(0, 1fr); }
+  .auswahl-liste .pos-text{ color:var(--text-light); line-height:1.35; }
+  .auswahl-liste .pos-typ{ display:block; color:var(--text-muted); font-size:.78rem; }
+  .auswahl-liste .pos-rechts{ display:flex; align-items:center; gap:.7rem; }
+  .auswahl-liste .pos-preis{
+    font-family:'JetBrains Mono', monospace; font-size:.84rem;
+    color:var(--accent-soft); margin-left:auto; text-align:right;
+  }
+  .auswahl-liste .pos-weg{
+    width:36px; height:36px; display:grid; place-items:center;
+    background:none; border:0; color:var(--text-muted); cursor:pointer;
+    font-size:1.2rem; line-height:1; padding:0;
+  }
+  .auswahl-liste .pos-weg:hover{ color:var(--accent-soft); }
+  .auswahl-leer{ font-size:.86rem; color:var(--text-muted); margin:0; }
+
+  /* Mengen-Pille in der Liste */
+  .stepper{
+    display:inline-flex; align-items:center;
+    border:1px solid var(--line-strong); border-radius:20px; overflow:hidden;
+  }
+  .stepper button{
+    width:34px; height:34px; border:0; background:transparent; cursor:pointer;
+    color:var(--accent-soft); font-size:1.05rem; line-height:1; padding:0;
+  }
+  .stepper button:hover{ background:var(--accent); color:var(--bg-deep); }
+  .stepper input{
+    width:30px; text-align:center; border:0; background:transparent; padding:0;
+    color:var(--text-light); font-family:'JetBrains Mono', monospace; font-size:.84rem;
+    -moz-appearance:textfield; appearance:textfield;
+  }
+  .stepper input::-webkit-outer-spin-button,
+  .stepper input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
+  .stepper input:focus{ outline:none; }
+
+  /* Summenblock */
+  .auswahl-summe{
+    margin-top:.9rem; padding-top:.9rem; border-top:1px solid var(--line);
+    display:flex; flex-direction:column; gap:.35rem;
+  }
+  .auswahl-summe:empty{ display:none; }
+  .summe-zeile{
+    display:flex; justify-content:space-between; gap:1rem;
+    font-size:.84rem; color:var(--text-muted);
+  }
+  .summe-zeile span:last-child{ font-family:'JetBrains Mono', monospace; white-space:nowrap; }
+  .summe-zeile.gesamt{ color:var(--text-light); font-size:.98rem; font-weight:500; padding-top:.35rem; }
+  .summe-zeile.versand-frei span:last-child{ color:#7fae86; }
+  .summe-hinweis{ font-size:.78rem; color:var(--text-muted); margin:.6rem 0 0; }
+  .naechste-stufe{ font-size:.82rem; color:#7fae86; margin:.4rem 0 0; }
+  .versand-hinweis{ font-size:.8rem; color:var(--text-muted); margin:.4rem 0 0; }
+  .versand-hinweis b{ color:var(--accent-soft); font-weight:500; }
+
+  /* ============================================================
+     ANFRAGEFORMULAR (unverändert übernommen)
+     ============================================================ */
   /* ---- Formular: Pflichtangaben & Fehlermeldungen ---- */
   .pflicht{ color:var(--accent-soft); text-decoration:none; border:0; font-weight:600; }
   .optional-tag{
@@ -382,135 +665,10 @@
     background:rgba(226,137,111,0.08); color:#e2896f; font-size:.86rem;
   }
   .form-fehler-sammel.sichtbar{ display:block; }
-  .pick-card.hervorgehoben{ border-color:var(--accent); box-shadow:0 0 0 2px var(--accent); }
-  .pick-card{
-    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:var(--radius);
-    overflow:hidden; display:flex; flex-direction:column; position:relative;
-    scroll-margin-top:90px;
-  }
-  /* Bildfeld der Produktkarte. A6 hochkant als Standard; liegt ein
-     Querformat vor, setzt das Skript beim Laden die Klasse
-     "ist-quer" auf die Karte und das Feld dreht sich mit. So wird
-     nie beschnitten, obwohl alle Karten dasselbe Raster teilen. */
-  .pick-card .frame{ position:relative; aspect-ratio:105/148; overflow:hidden; background:var(--bg-panel); }
-  .pick-card.ist-quer .frame{ aspect-ratio:148/105; }
-  .pick-card .frame img{ width:100%; height:100%; object-fit:cover; }
-  .pick-card .body{ padding:.9rem 1rem 1.1rem; display:flex; flex-direction:column; gap:.5rem; flex-grow:1; }
-  .pick-card .body b{ font-family:'Fraunces', serif; font-weight:500; font-size:1rem; }
-
-  .pick-card select{
-    width:100%; background:var(--bg-panel); border:1px solid var(--line);
-    border-radius:var(--radius); color:var(--text-light);
-    padding:.55em .7em; font-family:'Work Sans', sans-serif; font-size:.85rem;
-  }
-  .price-line{ font-family:'JetBrains Mono', monospace; font-size:.85rem; color:var(--accent-soft); }
-  .stock-line{ font-size:.76rem; }
-  .stock-line.ok{ color:#7fae86; }
-  .stock-line.low{ color:var(--accent-soft); }
-  .stock-line.back{ color:var(--text-muted); }
-  .herkunft-line{ font-size:.7rem; color:var(--text-muted); }
-
-  .btn-hinzufuegen{
-    margin-top:.2rem; width:100%; padding:.6rem .8rem; border:1px solid var(--accent); border-radius:var(--radius);
-    font-family:'JetBrains Mono', monospace; font-size:.72rem; letter-spacing:.02em; text-align:center;
-    background:transparent; color:var(--accent-soft); cursor:pointer; transition:background .2s, color .2s;
-  }
-  .btn-hinzufuegen:hover{ background:var(--accent); color:var(--bg-deep); }
-  .btn-hinzufuegen.ist-drin{ background:var(--accent); color:var(--bg-deep); border-color:var(--accent); }
-  .btn-hinzufuegen.ist-drin::before{ content:"✓ "; }
-
-  /* ---- Schwebende Auswahl-Anzeige ---- */
-  .auswahl-badge{
-    position:fixed; right:1.2rem; bottom:1.2rem; z-index:45;
-    display:none; align-items:center; gap:.5rem;
-    background:var(--accent); color:var(--bg-deep); border:none;
-    font-family:'JetBrains Mono', monospace; font-size:.8rem; font-weight:500;
-    padding:.75rem 1.2rem; border-radius:30px; cursor:pointer;
-    box-shadow:0 4px 18px rgba(0,0,0,0.35); text-decoration:none;
-    opacity:0; transform:translateY(8px);
-    transition:opacity .25s ease, transform .25s ease, background .2s;
-  }
-  .auswahl-badge.sichtbar{ display:inline-flex; opacity:1; transform:none; }
-  /* Sobald das Anfrageformular im Bild ist, blendet sich der
-     schwebende Button aus — sonst liegt er über der Auswahl-Liste. */
-  .auswahl-badge.versteckt{ opacity:0; transform:translateY(8px); pointer-events:none; }
-  .auswahl-badge:hover{ background:var(--accent-soft); }
-
-  /* ---- "Deine Auswahl"-Liste im Anfrageformular ---- */
-  .auswahl-liste-wrap{
-    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
-    padding:1rem 1.2rem; margin-bottom:1.6rem;
-  }
-  .auswahl-liste-wrap h3{ font-size:.85rem; margin:0 0 .6rem; color:var(--text-light); }
-  .auswahl-liste{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.4rem; }
-  .auswahl-liste li{
-    display:flex; align-items:center; justify-content:space-between; gap:.6rem;
-    font-size:.85rem; color:var(--text-muted);
-  }
-  .auswahl-liste li{ flex-wrap:wrap; }
-  .auswahl-liste .pos-text{ flex:1; min-width:9rem; color:var(--text-light); }
-  .auswahl-liste .pos-typ{ color:var(--text-muted); font-size:.8rem; }
-  .auswahl-liste .pos-rechts{ display:flex; align-items:center; gap:.7rem; }
-  .auswahl-liste .pos-preis{
-    font-family:'JetBrains Mono', monospace; font-size:.82rem;
-    color:var(--accent-soft); min-width:4.5rem; text-align:right;
-  }
-  .auswahl-liste .pos-weg{
-    background:none; border:none; color:var(--text-muted); cursor:pointer;
-    font-size:1.1rem; line-height:1; padding:0 .2rem;
-  }
-  .auswahl-liste .pos-weg:hover{ color:var(--accent-soft); }
-  .auswahl-leer{ font-size:.84rem; color:var(--text-muted); font-style:italic; margin:0; }
-
   .idea-note{
     margin:1.4rem 0 0; padding:1rem 1.2rem;
     background:rgba(159,184,201,0.09); border-left:3px solid var(--accent-soft);
     border-radius:var(--radius); font-size:.86rem; color:var(--text-light); max-width:70ch;
-  }
-
-  /* ---- Mengen-Stepper in der Produktkarte ---- */
-  .menge-row{ display:flex; align-items:center; gap:.5rem; }
-  .menge-row > label{
-    font-family:'JetBrains Mono', monospace; font-size:.68rem;
-    letter-spacing:.04em; color:var(--text-muted); flex-shrink:0;
-  }
-  .stepper{
-    display:inline-flex; align-items:center; margin-left:auto;
-    border:1px solid var(--line); border-radius:20px; background:var(--bg-panel);
-    overflow:hidden;
-  }
-  .stepper button{
-    width:30px; height:30px; border:none; background:transparent; cursor:pointer;
-    color:var(--accent-soft); font-size:1rem; line-height:1; padding:0;
-    transition:background .2s, color .2s;
-  }
-  .stepper button:hover:not(:disabled){ background:var(--accent); color:var(--bg-deep); }
-  .stepper button:disabled{ color:var(--text-muted); opacity:.4; cursor:default; }
-  .stepper input{
-    width:34px; text-align:center; border:none; background:transparent;
-    color:var(--text-light); font-family:'JetBrains Mono', monospace; font-size:.82rem;
-    padding:0; -moz-appearance:textfield;
-  }
-  .stepper input::-webkit-outer-spin-button,
-  .stepper input::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0; }
-  .stepper input:focus{ outline:none; }
-  .price-line .je{ color:var(--text-muted); font-size:.78rem; }
-  .price-line .rabatt{ color:#7fae86; font-size:.72rem; font-family:'JetBrains Mono', monospace; }
-
-  /* ---- Auswahl-Zusammenfassung im Formular ---- */
-  .auswahl-summe{
-    margin-top:.9rem; padding-top:.9rem; border-top:1px solid var(--line);
-    display:flex; flex-direction:column; gap:.35rem;
-  }
-  .summe-zeile{
-    display:flex; justify-content:space-between; gap:1rem;
-    font-family:'JetBrains Mono', monospace; font-size:.8rem; color:var(--text-muted);
-  }
-  .summe-zeile.gesamt{ color:var(--text-light); font-size:.9rem; padding-top:.35rem; }
-  .summe-hinweis{ font-size:.78rem; color:var(--text-muted); margin:.6rem 0 0; font-style:italic; }
-  .naechste-stufe{
-    font-size:.8rem; color:#7fae86; margin:.5rem 0 0;
-    display:flex; align-items:center; gap:.4rem;
   }
 
   #kontakt-anfrage-section{ background:var(--bg-panel); }
@@ -576,60 +734,49 @@
     color:var(--text-muted); margin:0 0 .3rem;
   }
 
-  /* Kostenzeile "Versand" in der Summenübersicht */
-  .summe-zeile.versand-frei span:last-child{ color:#7fae86; }
-  .versand-hinweis{
-    font-size:.78rem; color:var(--text-muted); margin:.5rem 0 0;
-  }
-  .versand-hinweis b{ color:var(--accent-soft); font-weight:400; }
 
-  /* ============================================================
-     KLEINE BILDSCHIRME
-     Bewusst ganz am Ende der Datei: CSS-Regeln gleicher
-     Stärke gewinnen nach Reihenfolge. Stünden diese Blöcke
-     weiter oben, würden die normalen Karten-Regeln darunter
-     sie wieder überschreiben.
-     ============================================================ */
-  @media (max-width:900px){
-    .shop-layout{ grid-template-columns:1fr; gap:1.6rem; }
-    .shop-filter{
-      position:static; gap:1rem;
-      padding:0 0 1.2rem; border-bottom:1px solid var(--line);
-    }
-    /* Waagerecht, aber mit UMBRUCH statt Schiebebalken: Alle
-       Möglichkeiten sind auf einen Blick da, man muss nichts zur
-       Seite wischen und nichts übersehen. */
-    .filter-liste{
-      flex-direction:row; flex-wrap:wrap; gap:.45rem;
-      overflow:visible; padding-bottom:0;
-    }
-    /* width:auto ist wichtig: die Grundregel setzt width:100%, sonst
-       füllt der erste Knopf die ganze Reihe und der Rest liegt
-       unsichtbar rechts daneben. */
-    .filter-opt{
-      flex:0 0 auto; width:auto; justify-content:flex-start; gap:.45rem;
-      border-left:0; border:1px solid var(--line);
-      border-radius:20px; padding:.42rem .9rem;
-      font-family:'JetBrains Mono', monospace; font-size:.76rem;
-    }
-    .filter-opt[aria-pressed="true"]{ border-color:var(--accent); }
-    .filter-titel{ border-bottom:0; padding-bottom:0; }
-  }
-
-  /* Auf dem Handy bewusst ZWEI Karten nebeneinander statt einer.
-     Eine Karte pro Zeile sieht zwar edel aus, macht aus 12 Motiven
-     aber 12 Bildschirme Scrollen — man verliert jeden Überblick.
-     Dafür wird die Karte innen etwas kompakter. */
+  /* ---------- Kleine Bildschirme ---------- */
   @media (max-width:640px){
-    .pick-grid{ grid-template-columns:repeat(2, 1fr); gap:.7rem; }
-    .pick-card .body{ padding:.7rem .75rem .85rem; gap:.4rem; }
-    .pick-card .body b{ font-size:.9rem; line-height:1.3; }
-    .price-line{ font-size:.8rem; }
-    .stock-line, .karte-anderswo{ font-size:.68rem; }
-    .menge-row{ justify-content:space-between; gap:.3rem; }
-    .menge-row > label{ font-size:.66rem; }
-    .btn-hinzufuegen{ padding:.55rem .3rem; font-size:.66rem; }
-    .gp-zoom span{ display:none; }   /* nur noch die Lupe, der Text passt nicht */
+    .shop-hero{ padding:5.6rem 0 1.2rem; }
+    .shop-hero p.lead{ font-size:.92rem; }
+    .sk-schritte{ gap:.6rem; margin-top:1.1rem; }
+    .sk-schritte li{ flex-direction:column; gap:.35rem; font-size:.74rem; }
+    /* Am Handy überall im Shop 1rem Seitenrand statt 1.6rem — das
+       gibt den zwei Fotospalten spürbar mehr Fläche. */
+    .shop-hero .wrap, .sk-shop .wrap, .sk-extras .wrap, .sk-wissen .wrap,
+    #kontakt-anfrage-section .wrap, .cat-block-shop .wrap{ padding-left:1rem; padding-right:1rem; }
+    .sk-leiste .wrap{ gap:.5rem; }
+    .sk-format-name{ font-size:.78rem; }
+    .sk-format-preis{ font-size:.62rem; }
+    /* Klebt die Leiste, werden die Preise im Format ausgeblendet —
+       spart am Handy eine Zeile Höhe, Preise stehen auf jeder Karte. */
+    .sk-leiste.klebt .sk-format-preis{ display:none; }
+    .sk-leiste.klebt .sk-format{ min-height:38px; }
+    .sk-chip{ font-size:.8rem; padding:.3rem .7rem; min-height:34px; }
+    .sk-name{ font-size:.92rem; }
+    .sk-zusatz{ font-size:.74rem; }
+    .sk-preis{ font-size:.78rem; }
+    .sk-lager{ font-size:.68rem; }
+    .sk-knopf{ right:.35rem; bottom:.35rem; }
+    .sk-menge button{ width:36px; }
+    .sk-tray-weiter{ padding:.6em 1em; }
+    .shop-form-wrap form{ padding:1.4rem 1.1rem; }
+    .auswahl-liste-wrap{ padding:.9rem 1rem; }
+  }
+  /* Sehr schmale Handys (z. B. iPhone SE, 320–400 px): Die vier
+     Format-Felder werden knapp. Schrift etwas kleiner, Innenabstand
+     enger, und „Lesezeichen“ darf an der Trennstelle umbrechen
+     („Lese-/zeichen“) statt aus dem Feld zu laufen. */
+  @media (max-width:420px){
+    .sk-format{ padding:.4rem .15rem; }
+    .sk-format-name{ font-size:.72rem; white-space:normal; hyphens:manual; line-height:1.15; }
+    .sk-format-preis{ font-size:.58rem; }
+    .sk-leiste .wrap{ padding-left:.75rem; padding-right:.75rem; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .sk-foto img, .sk-format::after, .sk-tray, .sk-tray-fortschritt span,
+    .sk-schublade, .sk-ansicht, .sk-stapel img{ transition:none; animation:none; }
+    .sk-menge, .sk-karte.hervorgehoben .sk-foto::after{ animation:none; }
   }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
@@ -712,37 +859,124 @@
   </div>
 </nav>
 
-<a href="#kontakt-anfrage" class="auswahl-badge" id="auswahl-badge">
-  <span id="auswahl-badge-text">0 ausgewählt</span> · <span data-en="To your request ↓">Zur Anfrage ↓</span>
-</a>
-
 <section class="shop-hero" id="inhalt" tabindex="-1">
   <div class="wrap">
-    <span class="eyebrow" data-txt="shop.eyebrow">Auf Anfrage · Versand aus Halstenbek</span>
+    <!-- Überschrift und Einleitung kommen aus daten/texte.json
+         (Admin-Bereich → Seitentexte → Shop). -->
     <h1><span data-txt="shop.titel1">Motiv aussuchen,</span> <em data-txt="shop.titel2">Produkt anfragen.</em></h1>
     <p class="lead" data-txt="shop.intro">Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.</p>
 
-    <!-- Die ersten vier Links springen nicht nur zum Shop, sie stellen
-         auch gleich die passende Produktart im Filter ein (data-produkt).
-         Ohne JavaScript bleibt es ein normaler Sprung zu #motive. -->
-    <nav class="shop-tabs" aria-label="Produktkategorien" data-en-aria-label="Product categories">
-      <a href="#motive" data-produkt="postkarte" data-en="Postcards">Postkarten</a>
-      <a href="#motive" data-produkt="poster">Poster A4</a>
-      <a href="#motive" data-produkt="lesezeichen" data-en="Bookmarks">Lesezeichen</a>
-      <a href="#motive" data-produkt="download">Downloads</a>
-      <a href="#grossformate" data-en="Larger than A4">Größer als A4</a>
-      <!-- Startet unsichtbar (hidden). Das Script schaltet den Link
-           erst frei, wenn in daten/shop.json mindestens ein
-           Sticker steht — so gibt es keinen Link ins Leere. -->
-      <a href="#sticker" id="tab-sticker" hidden>Sticker</a>
-      <a href="#merch" data-en="Mugs &amp; co.">Tassen &amp; Co.</a>
-    </nav>
+    <!-- So läuft es ab: drei echte Schritte nacheinander, deshalb nummeriert -->
+    <ol class="sk-schritte">
+      <li><span class="sk-nr" aria-hidden="true">1</span><span data-en="Choose format and motifs">Format und Motive wählen</span></li>
+      <li><span class="sk-nr" aria-hidden="true">2</span><span data-en="Send a request or order">Anfrage oder Bestellung abschicken</span></li>
+      <li><span class="sk-nr" aria-hidden="true">3</span><span data-en="I reply within 2–3 days with payment details">Ich melde mich in 2–3 Tagen mit dem Zahlungsweg</span></li>
+    </ol>
+  </div>
+</section>
 
-    <!-- ============================================================
-         WER DRUCKT WAS — offen sichtbar, nicht eingeklappt.
-         Die Namen (data-druckpartner) setzt das Script aus
-         daten/shop.json ein (Admin-Bereich → Shop → Druckpartner).
-         ============================================================ -->
+<!-- ============================================================
+     SHOP: MOTIVE
+     ============================================================
+     Oben die Werkzeugleiste, die beim Scrollen mitklebt:
+       1. Format (Postkarte, Poster, Lesezeichen, Download) mit Preis
+       2. Serien zum Durchwischen + „Nur vorrätige“
+     Darunter das Raster: am Handy zwei Motive nebeneinander, am PC
+     bis zu vier. Jedes Motiv hat einen runden „+“-Knopf direkt auf
+     dem Foto — ein Tipp, und es liegt in der Auswahl. Ein Tipp aufs
+     Foto öffnet die große Ansicht mit allen Formaten.
+     Gebaut wird alles im Skript unten (renderShop, baueKarte).
+     Die Sprungmarken #motive, #motiv-<id> und #lz-<id> bleiben
+     unverändert — darauf zeigen gedruckte QR-Codes.
+     ============================================================ -->
+<section class="sk-shop" id="motive">
+  <div class="sk-leiste" id="sk-leiste">
+    <div class="wrap">
+      <div class="sk-formate" id="filter-produkt" role="group" aria-label="Format"></div>
+      <div class="sk-reihe">
+        <div class="sk-serien" id="filter-serie" role="group" aria-label="Serie" data-en-aria-label="Series"></div>
+        <button type="button" class="sk-chip sk-chip-lager" id="filter-vorraetig" aria-pressed="false">
+          <span class="sk-punkt" aria-hidden="true"></span><span data-en="In stock only">Nur vorrätige</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="sk-kopf">
+      <p class="sk-preise" id="shop-produkt-info"></p>
+      <p class="shop-treffer" id="shop-treffer" role="status" aria-live="polite"></p>
+    </div>
+    <div id="shop-band"></div>
+    <div class="sk-raster" id="shop-grid"></div>
+    <div class="shop-mehr" id="shop-mehr"></div>
+    <p class="section-idea-note" data-en="Motif missing or want it differently? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt; — I&#39;ll see what I can do.">Motiv fehlt oder du hättest es gern anders? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     WEITERE MÖGLICHKEITEN: Größer als A4 + Tassen & Co.
+     ============================================================
+     Zwei ruhige Kacheln nebeneinander statt zwei langer Abschnitte.
+     Die Sprungmarken #grossformate und #merch bleiben erhalten.
+     ============================================================ -->
+<section class="sk-extras">
+  <div class="wrap sk-extras-raster">
+    <div class="sk-extra" id="grossformate">
+    <h3 data-en="Larger than A4">Größer als A4</h3>
+    <p class="cat-sub" data-en="For your wall: my motifs in A3, A2 and larger, on photo paper, fine art paper, canvas, aluminium or behind acrylic glass — printed in the Saal Digital photo lab.">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
+    <div id="saal-aktion"></div>
+    <div class="info-folds">
+      <details class="info-fold">
+        <summary data-en="How does it work — and why not here?">Wie läuft das ab — und warum nicht hier?</summary>
+        <div class="fold-body">
+          <p data-en="I don&#39;t keep large formats in stock — each picture is made individually for you. Saal Digital can pack them faster and more safely than I can, so you order there directly: choose format and material, pay, and Saal Digital prints and ships the picture to your home.">Große Formate lagere ich nicht auf Vorrat, jedes Bild wird einzeln für dich gefertigt. Das kann Saal Digital schneller und sicherer verpacken als ich — deshalb bestellst du dort direkt: Format und Material aussuchen, bezahlen, Saal Digital druckt und schickt das Bild zu dir nach Hause.</p>
+          <p data-en="&lt;b&gt;Your contractual partner for these orders is Saal Digital Fotoservice GmbH&lt;/b&gt;; their terms, cancellation policy and privacy policy apply. I&#39;m still happy to help with questions about the motif."><b>Vertragspartner für diese Bestellungen ist die Saal Digital Fotoservice GmbH</b>, es gelten deren AGB, Widerrufsbelehrung und Datenschutzerklärung. Bei Fragen zum Motiv bin ich trotzdem gern für dich da.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+    <div class="sk-extra" id="merch">
+    <h3 data-en="Mugs &amp; co.">Tassen &amp; Co.</h3>
+    <p class="cat-sub" data-en="No fixed range — but on request almost anything that isn&#39;t clothing is possible: mug, cap, tote bag, coaster.">Kein festes Sortiment — aber auf Wunsch geht fast alles, was kein Kleidungsstück ist: Tasse, Cap, Beutel, Untersetzer.</p>
+
+    <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-en="Write your wish into the request form">Wunsch ins Anfrageformular schreiben</a></p>
+
+    <div class="info-folds">
+      <details class="info-fold">
+        <summary data-en="Why no clothing?">Warum keine Kleidung?</summary>
+        <div class="fold-body">
+          <p data-en="Sizes, cuts and fit lead to so many returns that I can&#39;t reasonably handle it as a one-man business. For everything else I&#39;m happy to get you a quote with price and delivery time.">Größen, Schnitte und Passform führen zu so vielen Rücksendungen, dass ich das als Ein-Mann-Betrieb nicht sinnvoll stemmen kann. Alles andere hole ich dir gern als Angebot mit Preis und Lieferzeit ein.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="cat-block-shop" id="sticker" style="padding:4rem 0;" hidden>
+  <div class="wrap">
+    <h2>Sticker</h2>
+    <p class="cat-sub" data-en="Plotted, cut and packed by hand at my home.">Handgeplottet, zugeschnitten und verpackt bei mir zu Hause.</p>
+    <span class="origin-badge"><span class="origin-dot selbst"></span> <span data-en="Made &amp; shipped by me">Selbst gefertigt &amp; versendet</span></span>
+    <div class="sk-raster" id="sticker-grid"></div>
+    <p class="section-idea-note" data-en="Want a motif as a sticker? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt;.">Wunschmotiv als Sticker? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     GUT ZU WISSEN — Druckereien, Ablauf, Preise, Widerruf
+     ============================================================
+     Stand vorher alles oben im Kopf und hat die Motive um fast zwei
+     Bildschirmhöhen nach unten geschoben. Jetzt hier, direkt vor dem
+     Formular: wer es wissen will, findet es; wer bestellen will,
+     sieht zuerst die Fotos.
+     ============================================================ -->
+<section class="sk-wissen" id="gut-zu-wissen">
+  <div class="wrap">
+    <h2 data-en="Good to know">Gut zu wissen</h2>
+    <!-- Wer druckt was: Namen kommen aus daten/shop.json (data-druckpartner) -->
     <dl class="druck-info" aria-label="Wer druckt was" data-en-aria-label="Who prints what">
       <div><dt data-en="Postcards">Postkarten</dt><dd><span data-druckpartner="postkarte">WIRmachenDRUCK</span><small data-en="350 g, matt">350 g, matt</small></dd></div>
       <div><dt>Poster A4</dt><dd><span data-druckpartner="poster">Saal Digital</span><small data-en="photo print, matt">Fotoabzug, matt</small></dd></div>
@@ -754,9 +988,9 @@
       <details class="info-fold">
         <summary data-en="How ordering works">So läuft eine Bestellung ab</summary>
         <div class="fold-body">
-          <ol class="fold-steps" data-en="<li><b>Choose product and motif.</b> Pick postcard, poster (A4), bookmark or download on the left, then the motif — you can set the quantity freely.</li><li><b>Add to basket.</b> Everything ends up in your selection in the form below.</li><li><b>Ask or order.</b> Send a non-binding request — or place a binding order straight away, with shipping or pick-up in Halstenbek.</li><li><b>I get back to you.</b> Quote or order confirmation with payment details by e-mail, usually within 2–3 days. I ship everything myself from Halstenbek.</li>">
-            <li><b>Produkt und Motiv wählen.</b> Links Postkarte, Poster (A4), Lesezeichen oder Download aussuchen, dann das Motiv — die Menge stellst du frei ein.</li>
-            <li><b>In den Warenkorb.</b> Alles landet in deiner Auswahl unten im Formular.</li>
+          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Your selection.</b> The bar at the bottom shows everything you have picked; it also ends up in the form below.</li><li><b>Ask or order.</b> Send a non-binding request — or place a binding order straight away, with shipping or pick-up in Halstenbek.</li><li><b>I get back to you.</b> Quote or order confirmation with payment details by e-mail, usually within 2–3 days. I ship everything myself from Halstenbek.</li>">
+            <li><b>Format und Motiv wählen.</b> Oben Postkarte, Poster (A4), Lesezeichen oder Download wählen, dann beim Motiv auf das + tippen — die Menge kannst du jederzeit ändern.</li>
+            <li><b>Deine Auswahl.</b> Die Leiste unten am Bildschirm zeigt alles, was du ausgesucht hast — und es landet automatisch im Formular.</li>
             <li><b>Anfragen oder bestellen.</b> Unverbindlich anfragen — oder direkt verbindlich bestellen, mit Versand oder Abholung in Halstenbek.</li>
             <li><b>Ich melde mich.</b> Angebot bzw. Auftragsbestätigung mit Zahlungsweg per Mail, meist innerhalb von 2–3 Tagen. Verschickt wird von mir aus Halstenbek.</li>
           </ol>
@@ -812,124 +1046,6 @@
   </div>
 </section>
 
-<!-- ============ SHOP: MOTIVE ============
-     EIN Bereich für alle Produktarten. Links die Seitenleiste
-     (Produkt + Serie + „nur Vorrätiges“), rechts das Motivraster.
-     Was angezeigt wird, entscheidet allein der Filter — die Karten
-     baut renderShop() weiter unten aus daten/motive.json.
-
-     Warum so und nicht mehrere Blöcke untereinander: Vorher standen
-     Postkarten, Poster und Downloads als drei Knöpfe auf JEDER
-     Karte und alle vier Serien untereinander auf einer Seite. Das
-     waren über 40 Karten am Stück. Jetzt wählt man oben einmal die
-     Produktart, sieht 12 Motive und lädt bei Bedarf nach.
-     ============================================================ -->
-<section class="cat-block-shop" id="motive">
-  <div class="wrap">
-    <h2 data-en="Motifs">Motive</h2>
-    <p class="cat-sub" data-en="All motifs are my own. Choose the product first, then the motif — every motif comes in several versions.">Alle Motive stammen von mir. Erst das Produkt wählen, dann das Motiv — jedes Motiv gibt es in mehreren Ausführungen.</p>
-
-    <div class="shop-layout">
-      <!-- ---- Seitenleiste: Filter ---- -->
-      <aside class="shop-filter" aria-label="Motive filtern" data-en-aria-label="Filter motifs">
-        <div class="filter-gruppe">
-          <span class="filter-titel" id="filter-titel-produkt" data-en="Product">Produkt</span>
-          <!-- Knöpfe kommen aus PRODUKTARTEN (Script unten) -->
-          <div class="filter-liste" id="filter-produkt" role="group" aria-labelledby="filter-titel-produkt"></div>
-        </div>
-
-        <div class="filter-gruppe">
-          <span class="filter-titel" id="filter-titel-serie" data-en="Series">Serie</span>
-          <div class="filter-liste" id="filter-serie" role="group" aria-labelledby="filter-titel-serie"></div>
-        </div>
-
-        <div class="filter-gruppe" id="filter-lager-gruppe">
-          <label class="filter-check">
-            <input type="checkbox" id="filter-vorraetig">
-            <span data-en="Only what&#39;s in stock">Nur was auf Lager liegt</span>
-          </label>
-        </div>
-
-        <p class="filter-legende" data-en="&lt;span class=&quot;star-dot&quot;&gt;★&lt;/span&gt; means: in stock at my place and ships right away.&lt;br&gt;Everything else is reprinted and takes one to two weeks longer.">
-          <span class="star-dot">★</span> heißt: liegt bei mir zu Hause und geht sofort raus.<br>
-          Alles andere wird nachgedruckt und dauert ein bis zwei Wochen länger.
-        </p>
-      </aside>
-
-      <!-- ---- Motivraster ---- -->
-      <div class="shop-inhalt">
-        <div class="shop-kopfzeile">
-          <h3 id="shop-produkt-titel">Postkarten</h3>
-          <p class="shop-treffer" id="shop-treffer" role="status" aria-live="polite"></p>
-        </div>
-        <p class="shop-produktinfo" id="shop-produkt-info"></p>
-        <div id="shop-band"></div>
-        <div class="pick-grid" id="shop-grid"></div>
-        <div class="shop-mehr" id="shop-mehr"></div>
-        <p class="section-idea-note" data-en="Motif missing or want it differently? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt; — I&#39;ll see what I can do.">Motiv fehlt oder du hättest es gern anders? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ GRÖSSER ALS A4 — Verweis auf den Saal-Digital-Shop ============
-     Kein eigenes Sortiment hier: Bestellung, Bezahlung, Druck und
-     Versand laufen komplett bei Saal Digital. Der Link kommt aus
-     SAAL_SHOP_URL (daten/shop.json) und wird unten per Script in
-     #saal-aktion eingesetzt. Ist er leer, steht dort stattdessen
-     ein Hinweis aufs Anfrageformular.
-     ============================================================ -->
-<section class="cat-block-shop" id="grossformate" style="padding:3rem 0 1rem;">
-  <div class="wrap">
-    <h2 data-en="Larger than A4">Größer als A4</h2>
-    <p class="cat-sub" data-en="For your wall: my motifs in A3, A2 and larger, on photo paper, fine art paper, canvas, aluminium or behind acrylic glass — printed in the Saal Digital photo lab.">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
-    <div id="saal-aktion"></div>
-    <div class="info-folds">
-      <details class="info-fold">
-        <summary data-en="How does it work — and why not here?">Wie läuft das ab — und warum nicht hier?</summary>
-        <div class="fold-body">
-          <p data-en="I don&#39;t keep large formats in stock — each picture is made individually for you. Saal Digital can pack them faster and more safely than I can, so you order there directly: choose format and material, pay, and Saal Digital prints and ships the picture to your home.">Große Formate lagere ich nicht auf Vorrat, jedes Bild wird einzeln für dich gefertigt. Das kann Saal Digital schneller und sicherer verpacken als ich — deshalb bestellst du dort direkt: Format und Material aussuchen, bezahlen, Saal Digital druckt und schickt das Bild zu dir nach Hause.</p>
-          <p data-en="&lt;b&gt;Your contractual partner for these orders is Saal Digital Fotoservice GmbH&lt;/b&gt;; their terms, cancellation policy and privacy policy apply. I&#39;m still happy to help with questions about the motif."><b>Vertragspartner für diese Bestellungen ist die Saal Digital Fotoservice GmbH</b>, es gelten deren AGB, Widerrufsbelehrung und Datenschutzerklärung. Bei Fragen zum Motiv bin ich trotzdem gern für dich da.</p>
-        </div>
-      </details>
-    </div>
-  </div>
-</section>
-
-<!-- ============ STICKER ============
-     Startet mit hidden (unsichtbar). renderStickerGrid() weiter
-     unten nimmt das hidden weg, sobald in daten/shop.json
-     mindestens ein Sticker eingetragen ist.
-     ============================================================ -->
-<section class="cat-block-shop" id="sticker" style="padding:4rem 0;" hidden>
-  <div class="wrap">
-    <h2>Sticker</h2>
-    <p class="cat-sub" data-en="Plotted, cut and packed by hand at my home.">Handgeplottet, zugeschnitten und verpackt bei mir zu Hause.</p>
-    <span class="origin-badge"><span class="origin-dot selbst"></span> <span data-en="Made &amp; shipped by me">Selbst gefertigt &amp; versendet</span></span>
-    <div class="pick-grid" id="sticker-grid"></div>
-    <p class="section-idea-note" data-en="Want a motif as a sticker? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt;.">Wunschmotiv als Sticker? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
-  </div>
-</section>
-
-<!-- ============ TASSEN & CO. — nur noch Hinweis, kein Sortiment ============ -->
-<section class="cat-block-shop" id="merch" style="padding:4rem 0;">
-  <div class="wrap">
-    <h2 data-en="Mugs &amp; co.">Tassen &amp; Co.</h2>
-    <p class="cat-sub" data-en="No fixed range — but on request almost anything that isn&#39;t clothing is possible: mug, cap, tote bag, coaster.">Kein festes Sortiment — aber auf Wunsch geht fast alles, was kein Kleidungsstück ist: Tasse, Cap, Beutel, Untersetzer.</p>
-
-    <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-en="Write your wish into the request form">Wunsch ins Anfrageformular schreiben</a></p>
-
-    <div class="info-folds">
-      <details class="info-fold">
-        <summary data-en="Why no clothing?">Warum keine Kleidung?</summary>
-        <div class="fold-body">
-          <p data-en="Sizes, cuts and fit lead to so many returns that I can&#39;t reasonably handle it as a one-man business. For everything else I&#39;m happy to get you a quote with price and delivery time.">Größen, Schnitte und Passform führen zu so vielen Rücksendungen, dass ich das als Ein-Mann-Betrieb nicht sinnvoll stemmen kann. Alles andere hole ich dir gern als Angebot mit Preis und Lieferzeit ein.</p>
-        </div>
-      </details>
-    </div>
-  </div>
-</section>
-
 <!-- ============ ANFRAGEFORMULAR (Markt / Lizenz / Motivwunsch / Sonstiges) ============ -->
 <section id="kontakt-anfrage-section">
   <div class="wrap shop-form-wrap">
@@ -943,7 +1059,7 @@
       <div class="auswahl-liste-wrap">
         <h3 data-en="Your selection">Deine Auswahl</h3>
         <ul class="auswahl-liste" id="auswahl-liste"></ul>
-        <p class="auswahl-leer" id="auswahl-leer" data-en="Nothing selected yet — click “+ Add to basket” on the products above, or write your request directly below.">Noch nichts ausgewählt — klick bei den Produkten oben auf „+ In den Warenkorb“, oder schreib direkt unten dein Anliegen.</p>
+        <p class="auswahl-leer" id="auswahl-leer" data-en="Nothing selected yet — tap the round + on a motif above, or simply write your request below.">Noch nichts ausgewählt — tippe oben bei einem Motiv auf das runde +, oder schreib unten einfach dein Anliegen.</p>
         <div class="auswahl-summe" id="auswahl-summe"></div>
       </div>
       <input type="hidden" name="Ausgewählte Produkte" id="auswahl-hidden-field" value="">
@@ -1141,13 +1257,72 @@
   </div>
 </section>
 
-<div class="lightbox" id="gp-lightbox">
-  <button class="lightbox-close" aria-label="Schließen" data-en-aria-label="Close" onclick="closeGpLightbox()">&times;</button>
-  <figure>
-    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="">
-    <figcaption></figcaption>
-  </figure>
+<!-- ============================================================
+     AUSWAHL-LEISTE (unten am Bildschirm)
+     ============================================================
+     Erscheint, sobald etwas ausgewählt ist. Links ein kleiner Stapel
+     der gewählten Motive — wie Postkarten auf dem Markttisch —,
+     daneben Anzahl, Summe und wie viel bis zur nächsten Preisstufe
+     fehlt. „Ansehen“ öffnet die Auswahl zum Ändern, „Weiter“ springt
+     zum Formular. Am Formular selbst blendet sie sich aus.
+     ============================================================ -->
+<div class="sk-tray" id="sk-tray" hidden>
+  <div class="sk-tray-fortschritt" id="sk-tray-fortschritt" aria-hidden="true"><span></span></div>
+  <div class="sk-tray-innen">
+    <button type="button" class="sk-tray-auswahl" id="sk-tray-oeffnen" aria-haspopup="dialog">
+      <span class="sk-stapel" id="sk-stapel" aria-hidden="true"></span>
+      <span class="sk-tray-text">
+        <span class="sk-tray-zahl" id="sk-tray-zahl"></span>
+        <span class="sk-tray-hinweis" id="sk-tray-hinweis"></span>
+      </span>
+    </button>
+    <a class="btn btn-fill sk-tray-weiter" href="#kontakt-anfrage" id="sk-tray-weiter" data-en="Continue">Weiter</a>
+  </div>
 </div>
+
+<!-- ============================================================
+     AUSWAHL ZUM ÄNDERN (Schublade)
+     ============================================================
+     Echtes <dialog>: Tastatur, Escape und Screenreader funktionieren
+     von selbst. Am Handy kommt sie von unten, am PC von rechts. Die
+     Liste darin ist dieselbe wie im Formular (gleiche Knöpfe, gleiche
+     Preise) — sie wird vom selben Skript gezeichnet.
+     ============================================================ -->
+<dialog class="sk-schublade" id="sk-schublade" aria-labelledby="sk-schublade-titel">
+  <div class="sk-schublade-kopf">
+    <h2 id="sk-schublade-titel" data-en="Your selection">Deine Auswahl</h2>
+    <button type="button" class="sk-zu" data-schliessen aria-label="Schließen" data-en-aria-label="Close">&times;</button>
+  </div>
+  <ul class="auswahl-liste" id="sk-korb-liste"></ul>
+  <div class="auswahl-summe" id="sk-korb-summe"></div>
+  <div class="sk-schublade-fuss">
+    <button type="button" class="btn btn-outline" data-schliessen data-en="Keep browsing">Weiter stöbern</button>
+    <a class="btn btn-fill" href="#kontakt-anfrage" id="sk-schublade-weiter" data-en="Continue to request">Weiter zur Anfrage</a>
+  </div>
+</dialog>
+
+<!-- ============================================================
+     GROSSE ANSICHT EINES MOTIVS
+     ============================================================
+     Öffnet sich beim Tipp aufs Foto: das ganze Bild (unbeschnitten)
+     und darunter alle Formate dieses Motivs mit Preis, Lagerstand
+     und eigenem „+“. So lässt sich dasselbe Motiv z. B. als Postkarte
+     UND als Poster wählen, ohne oben das Format umzuschalten.
+     ============================================================ -->
+<dialog class="sk-ansicht" id="sk-ansicht" aria-labelledby="sk-ansicht-titel">
+  <button type="button" class="sk-zu" data-schliessen aria-label="Schließen" data-en-aria-label="Close">&times;</button>
+  <div class="sk-ansicht-raster">
+    <figure class="sk-ansicht-bild"><img id="sk-ansicht-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""></figure>
+    <div class="sk-ansicht-text">
+      <p class="sk-ansicht-serie" id="sk-ansicht-serie"></p>
+      <h2 id="sk-ansicht-titel"></h2>
+      <ul class="sk-formatliste" id="sk-formatliste"></ul>
+      <p class="sk-ansicht-links">
+        <a id="sk-ansicht-geschichte" href="geschichte.html" data-en="The story behind the photo">Die Geschichte zum Foto</a>
+      </p>
+    </div>
+  </div>
+</dialog>
 
 <footer>
   <div class="wrap">
@@ -1445,29 +1620,31 @@ BG.bereit(function () {
   function alleKartenAktualisieren() {
     kartenAktualisierer.forEach(function (fn) { fn(); });
     Object.keys(motivAktualisierer).forEach(function (id) { motivAktualisierer[id](); });
-  }
-
-  function renderKaufSlot(key) {
-    var drin = !!findePosition(key);
-    return '<button type="button" class="btn-hinzufuegen' + (drin ? ' ist-drin' : '') + '" data-key="' + escapeHtml(key) + '">' +
-      (drin ? BG.t('Im Warenkorb – entfernen', 'In basket – remove') : BG.t('+ In den Warenkorb', '+ Add to basket')) + '</button>';
+    /* Ist gerade die große Ansicht offen, zeigt sie die neuen Mengen */
+    if (document.getElementById('sk-ansicht').open) { ansichtFormateZeichnen(); }
   }
 
   /* ---------- Auswahl-Liste im Anfrageformular ---------- */
   function renderAuswahlListe() {
     var liste = document.getElementById('auswahl-liste');
     var leer = document.getElementById('auswahl-leer');
-    var badge = document.getElementById('auswahl-badge');
-    var badgeText = document.getElementById('auswahl-badge-text');
     var summeEl = document.getElementById('auswahl-summe');
     var hiddenField = document.getElementById('auswahl-hidden-field');
+    /* Dieselbe Liste und Summe stehen zusätzlich in der Schublade
+       (Auswahl-Leiste unten → „Ansehen“). */
+    var korbListe = document.getElementById('sk-korb-liste');
+    var korbSumme = document.getElementById('sk-korb-summe');
 
     if (!auswahl.length) {
       liste.innerHTML = '';
       leer.style.display = '';
       summeEl.innerHTML = '';
-      badge.classList.remove('sichtbar');
       hiddenField.value = '';
+      korbListe.innerHTML = '';
+      korbSumme.innerHTML = '';
+      trayAktualisieren(0, 0);
+      var schublade = document.getElementById('sk-schublade');
+      if (schublade.open) { schublade.close(); }
       return;
     }
 
@@ -1478,6 +1655,7 @@ BG.bereit(function () {
          exakt die Typsumme ergeben (siehe PREISBERECHNUNG). */
       var betrag = zeilenSumme(pos);
       return '<li>' +
+        (pos.bild ? '<img class="pos-bild" src="' + escapeHtml(BG.klein(pos.bild)) + '"' + BG.bildFallback(pos.bild) + ' alt="" loading="lazy">' : '') +
         '<span class="pos-text">' + escapeHtml(pos.motiv) + ' <span class="pos-typ">' + escapeHtml(pos.bezeichnung) + '</span></span>' +
         '<span class="pos-rechts">' +
           '<span class="stepper" data-key="' + escapeHtml(pos.key) + '">' +
@@ -1490,6 +1668,7 @@ BG.bereit(function () {
         '</span>' +
         '</li>';
     }).join('');
+    korbListe.innerHTML = liste.innerHTML;
 
     /* ---- Zusammenfassung mit Staffelpreisen ---- */
     var zeilen = '';
@@ -1591,10 +1770,10 @@ BG.bereit(function () {
       versandHinweis +
       hinweise +
       schlussHinweis;
+    korbSumme.innerHTML = summeEl.innerHTML;
 
     var stueckGesamt = auswahl.reduce(function (n, pos) { return n + pos.menge; }, 0);
-    badge.classList.add('sichtbar');
-    badgeText.textContent = stueckGesamt + (stueckGesamt === 1 ? BG.t(' Stück', ' item') : BG.t(' Stück', ' items')) + ' · ' + euro(gesamtMitVersand);
+    trayAktualisieren(stueckGesamt, gesamt);
 
     /* ---- Textfassung für die Mail ----
        Bewusst ausführlich: Diese Zeilen sind das, was du später in
@@ -1648,35 +1827,133 @@ BG.bereit(function () {
     positionMenge(key, parseInt(feld.value, 10) || 1);
   });
 
-  /* Schwebenden Auswahl-Button ausblenden, sobald das
-     Anfrageformular sichtbar ist — dort steht die Auswahl ohnehin
-     komplett, der Button würde sie nur überdecken. */
-  function badgeBeobachten() {
-    var badge = document.getElementById('auswahl-badge');
-    var ziel = document.getElementById('kontakt-anfrage-section');
-    if (!badge || !ziel || !('IntersectionObserver' in window)) { return; }
-    new IntersectionObserver(function (eintraege) {
-      badge.classList.toggle('versteckt', eintraege[0].isIntersecting);
-    }, { threshold: 0.12 }).observe(ziel);
+  /* ============================================================
+     AUSWAHL-LEISTE UNTEN (Tray)
+     ============================================================
+     Zeigt Anzahl, Warenwert, einen kleinen Stapel der gewählten
+     Motive und — das Wichtigste — wie weit es bis zur nächsten
+     Preisstufe ist ("Noch 1 Karte, dann 5 für 7,50 €"). Ist keine
+     Staffel mehr zu holen, zeigt sie den Weg zum kostenlosen Versand.
+     Der dünne Balken am oberen Rand füllt sich entsprechend. */
+  function trayAktualisieren(stueck, warenwert) {
+    var tray = document.getElementById('sk-tray');
+    if (!stueck) {
+      tray.hidden = true;
+      document.body.classList.remove('hat-tray');
+      return;
+    }
+    tray.hidden = false;
+    document.body.classList.add('hat-tray');
+
+    document.getElementById('sk-tray-zahl').innerHTML =
+      '<b>' + stueck + (stueck === 1 ? BG.t(' Teil', ' item') : BG.t(' Teile', ' items')) + '</b> · ' + euro(warenwert);
+
+    /* Nächste Staffelstufe der größten Gruppe suchen */
+    var hinweis = '', anteil = 1;
+    var WORT = {
+      postkarte: [BG.t('Karte', 'card'), BG.t('Karten', 'cards')],
+      poster: [BG.t('Poster', 'poster'), BG.t('Poster', 'posters')],
+      lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')]
+    };
+    ['postkarte', 'poster', 'lesezeichen'].some(function (typ) {
+      if (staffelTyp(typ) !== typ) { return false; }
+      var menge = staffelMenge(typ);
+      if (!menge) { return false; }
+      var n = naechsteStufe(typ, menge);
+      if (!n) { return false; }
+      var wort = WORT[typ][n.fehlt === 1 ? 0 : 1];
+      hinweis = BG.t('Noch ' + n.fehlt + ' ' + wort + ', dann ' + stufeKurz(n.stufe),
+                     n.fehlt + ' more ' + wort + ' for ' + stufeKurz(n.stufe));
+      anteil = menge / n.stufe.abMenge;
+      return true;
+    });
+    /* Keine Staffel mehr offen → Fortschritt zum kostenlosen Versand */
+    if (!hinweis && VERSAND.kostenlosAb !== null && bestellZustand().hatPhysisches) {
+      var fehlt = VERSAND.kostenlosAb - warenwert;
+      if (fehlt > 0) {
+        hinweis = BG.t('Noch ' + euro(fehlt) + ' bis versandkostenfrei', euro(fehlt) + ' more for free shipping');
+        anteil = warenwert / VERSAND.kostenlosAb;
+      } else {
+        hinweis = BG.t('Versandkostenfrei', 'Free shipping');
+        anteil = 1;
+      }
+    }
+    document.getElementById('sk-tray-hinweis').textContent = hinweis;
+    document.querySelector('#sk-tray-fortschritt span').style.width = Math.round(Math.min(1, anteil) * 100) + '%';
+
+    /* Stapel: die letzten drei gewählten Motive, leicht gefächert */
+    var bilder = auswahl.filter(function (p) { return p.bild; }).slice(-3);
+    document.getElementById('sk-stapel').innerHTML = bilder.map(function (p, i) {
+      return '<img src="' + escapeHtml(BG.klein(p.bild)) + '"' + BG.bildFallback(p.bild) + ' alt="" style="--i:' + (i - (bilder.length - 1)) + '">';
+    }).join('');
   }
 
-  /* ---------- Lightbox ---------- */
-  function openGpLightbox(src, caption) {
-    var lb = document.getElementById('gp-lightbox');
-    var img = lb.querySelector('img');
-    var cap = lb.querySelector('figcaption');
-    img.src = src; img.alt = caption; cap.textContent = caption;
-    lb.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+  /* Leiste ausblenden, sobald das Formular im Bild ist — dort steht
+     die Auswahl ohnehin vollständig. */
+  function badgeBeobachten() {
+    var tray = document.getElementById('sk-tray');
+    var ziel = document.getElementById('kontakt-anfrage-section');
+    if (!ziel || !('IntersectionObserver' in window)) { return; }
+    new IntersectionObserver(function (eintraege) {
+      tray.classList.toggle('versteckt', eintraege[0].isIntersecting);
+    }, { threshold: 0.05 }).observe(ziel);
   }
-  function closeGpLightbox() {
-    var lb = document.getElementById('gp-lightbox');
-    lb.classList.remove('is-open');
-    document.body.style.overflow = '';
-    lb.querySelector('img').src = '';
+
+  /* ---------- Dialoge (Schublade + große Ansicht) ----------
+     Klick auf den abgedunkelten Rand oder ein [data-schliessen]
+     schließt; Escape erledigt <dialog> von selbst. */
+  ['sk-schublade', 'sk-ansicht'].forEach(function (id) {
+    var dlg = document.getElementById(id);
+    dlg.addEventListener('click', function (e) {
+      if (e.target === dlg || e.target.closest('[data-schliessen]')) { dlg.close(); }
+    });
+  });
+  document.getElementById('sk-tray-oeffnen').addEventListener('click', function () {
+    document.getElementById('sk-schublade').showModal();
+  });
+  /* "Weiter zur Anfrage" in der Schublade: erst schließen, dann springen */
+  document.getElementById('sk-schublade-weiter').addEventListener('click', function () {
+    document.getElementById('sk-schublade').close();
+  });
+
+  /* Große Ansicht eines Motivs: Foto + alle Formate mit eigenem "+" */
+  var ansichtMotiv = null;
+  function ansichtOeffnen(b) {
+    ansichtMotiv = b;
+    var dlg = document.getElementById('sk-ansicht');
+    var img = document.getElementById('sk-ansicht-img');
+    img.src = b.bild;
+    img.alt = b.alt || '';
+    document.getElementById('sk-ansicht-titel').innerHTML = b.beschriftung;
+    document.getElementById('sk-ansicht-serie').textContent = b.kategorieName || b.kategorie;
+    document.getElementById('sk-ansicht-geschichte').href = 'geschichte.html?id=' + encodeURIComponent(b.id) + (BG.sprache === 'en' ? '&lang=en' : '');
+    ansichtFormateZeichnen();
+    if (!dlg.open) { dlg.showModal(); }
   }
-  document.getElementById('gp-lightbox').addEventListener('click', function (e) { if (e.target === this) { closeGpLightbox(); } });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeGpLightbox(); } });
+  function ansichtFormateZeichnen() {
+    var b = ansichtMotiv;
+    if (!b) { return; }
+    document.getElementById('sk-formatliste').innerHTML = PRODUKTARTEN.filter(function (art) {
+      return art.filter(b);
+    }).map(function (art) {
+      var key = b.id + '|' + art.id;
+      var lager = art.lager ? art.lager(b) : null;
+      return '<li data-key="' + escapeHtml(key) + '" data-typ="' + art.id + '">' +
+        '<span class="sk-fl-name">' + escapeHtml(art.bezeichnung) +
+          '<small>' + escapeHtml(art.kurz()) + '</small></span>' +
+        '<span class="sk-fl-preis"><span>' + aktuellerPreisHtml(art.id) + '</span>' +
+          (lager ? '<small class="sk-lager ' + lager.cls + '">' + escapeHtml(lagerKurz(lager)) + '</small>' : '') + '</span>' +
+        mengenKnopf(key) +
+        '</li>';
+    }).join('');
+  }
+  document.getElementById('sk-formatliste').addEventListener('click', function (e) {
+    var li = e.target.closest('li[data-key]');
+    var knopf = e.target.closest('button');
+    if (!li || !knopf) { return; }
+    var art = produktArt(li.getAttribute('data-typ'));
+    mengenKnopfKlick(knopf, li.getAttribute('data-key'), ansichtMotiv, art);
+  });
 
   /* ============================================================
      DRUCKEREI & SAAL-DIGITAL-SHOP
@@ -1733,7 +2010,7 @@ BG.bereit(function () {
        PRODUKTARTEN      → Reihenfolge, Namen und Infotexte
      ============================================================ */
 
-  var MOTIVE_PRO_SEITE = 12;   /* 12 geht in 2, 3 und 4 Spalten glatt auf */
+  var MOTIVE_PRO_SEITE = 24;   /* 24 geht in 2, 3 und 4 Spalten glatt auf; die Karten sind kompakt */
 
   /* Serien in der Reihenfolge aus daten/motive.json (Admin → Serien) */
   var MOTIV_THEMEN = (window.SERIEN || []).map(function (s) { return s.id; });
@@ -1756,6 +2033,7 @@ BG.bereit(function () {
       id: 'postkarte',
       label: BG.t('Postkarten', 'Postcards'),
       bezeichnung: BG.t('Postkarte', 'Postcard'),
+      kurz: function () { return BG.t('10 × 15 cm, matt', '10 × 15 cm, matt'); },
       info: function () { return BG.t('10 × 15 cm, 350 g matt, Artname und Fundort auf der Rückseite. Gedruckt bei ' + (DRUCKPARTNER.postkarte || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
         '10 × 15 cm, 350 g matt, species and location on the back. Printed by ' + (DRUCKPARTNER.postkarte || 'my printer') + ', shipped by me from Halstenbek.'); },
       filter: function (b) { return true; },
@@ -1766,6 +2044,7 @@ BG.bereit(function () {
       id: 'poster',
       label: 'Poster ' + POSTER_FORMAT,
       bezeichnung: 'Poster ' + POSTER_FORMAT,
+      kurz: function () { return BG.t('Fotoabzug, matt', 'Photo print, matt'); },
       info: function () { return BG.t('Fotoabzug im Format ' + POSTER_FORMAT + ', matt, ohne Rahmen. Gedruckt bei ' + (DRUCKPARTNER.poster || 'meinem Fotolabor') + ', von mir aus Halstenbek verschickt.',
         'Photo print in ' + POSTER_FORMAT + ', matt, unframed. Printed by ' + (DRUCKPARTNER.poster || 'my photo lab') + ', shipped by me from Halstenbek.'); },
       filter: function (b) { return true; },
@@ -1774,8 +2053,9 @@ BG.bereit(function () {
     },
     {
       id: 'lesezeichen',
-      label: BG.t('Lesezeichen', 'Bookmarks'),
+      label: BG.t('Lese\u00ADzeichen', 'Bookmarks'),   /* \u00AD = Trennstelle, nur bei Platzmangel */
       bezeichnung: BG.t('Lesezeichen', 'Bookmark'),
+      kurz: function () { return BG.t('5 × 18 cm, mit QR-Code', '5 × 18 cm, with QR code'); },
       info: function () { return BG.t('5 × 18 cm, 400 g matt kaschiert, abgerundete Ecken, mit QR-Code zur Geschichte. Gedruckt bei ' + (DRUCKPARTNER.lesezeichen || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
         '5 × 18 cm, 400 g matt laminated, rounded corners, with a QR code to the story. Printed by ' + (DRUCKPARTNER.lesezeichen || 'my printer') + ', shipped by me from Halstenbek.'); },
       /* Anders als Postkarte und Poster gibt es Lesezeichen nur von
@@ -1789,6 +2069,7 @@ BG.bereit(function () {
       id: 'download',
       label: 'Downloads',
       bezeichnung: 'Download',
+      kurz: function () { return BG.t('Bilddatei per E-Mail', 'Image file by e-mail'); },
       info: function () { return BG.t('Die Bilddatei zum Selberdrucken oder als Hintergrundbild — kein Versand, kein Warten.', 'The image file to print yourself or use as a wallpaper — no shipping, no waiting.'); },
       filter: function (b) { return true; },
       lager: null,
@@ -1818,43 +2099,69 @@ BG.bereit(function () {
   /* Lagerstatus für Postkarte und Poster.
      Beides ist Auflagenware: liegt es da → Lagerbestand,
      liegt es nicht da → wird in der nächsten Auflage mitgedruckt. */
-  function stockInfo(b, art) {
-    var vorhanden = (art === 'poster') ? b.bereitsPoster : b.bereitsPostkarte;
-    var menge = (art === 'poster') ? b.bestandPoster : b.bestand;
+  /* Kurzfassung des Lagerstands für Karte und große Ansicht —
+     auf einer schmalen Handykarte ist kein Platz für ganze Sätze. */
+  function lagerKurz(lager) {
+    return lager ? lager.html : '';
+  }
 
-    if (!vorhanden) {
+  /* ============================================================
+     PREIS AUF KARTE UND GROSSER ANSICHT
+     ============================================================
+     Zeigt, was ein Stück GERADE kostet — passend zum Warenkorb.
+     Liegen z. B. schon 2 Poster drin, gilt die 2er-Stufe: dann steht
+     dort „9,00 €“ durchgestrichen und daneben „je 7,50 €“. Krumme
+     Stufen (3 für 5 €) werden als Paket gezeigt, nie als „1,67 €“.
+     Wird nach jeder Änderung am Warenkorb neu gezeichnet. */
+  function aktuellerPreisHtml(typ) {
+    if (typ === 'download') { return euro(PREISE.download); }
+    var stufen = STAFFEL[staffelTyp(typ)] || [];
+    if (!stufen.length) { return ''; }
+    var erste = stufen[0];
+    var stufe = aktiveStufe(typ, Math.max(staffelMenge(typ), 1));
+    var normal = euro(erste.fuer / erste.abMenge);
+    if (stufe === erste) { return normal; }
+    var jetzt = stufeGlatt(stufe)
+      ? BG.t('je ', '') + euro(stufe.fuer / stufe.abMenge) + BG.t('', ' each')
+      : stufeKurz(stufe);
+    return '<s>' + normal + '</s> <span class="sk-preis-staffel">' + jetzt + '</span>';
+  }
+
+  /* ============================================================
+     LAGERSTAND — eine Regel für Postkarte, Poster und Lesezeichen
+     ============================================================
+     Gepflegt wird er im Admin-Bereich (Motive → Postkarte / Poster /
+     Lesezeichen → „vorrätig“ und „Bestand“).
+       Zahl 4 oder mehr    → „49 auf Lager“          (grüner Punkt)
+       Zahl 1 bis 3        → „Nur noch 2 auf Lager“  (Rost-Punkt)
+       0, leer oder nicht vorrätig
+                           → „Druck in 1–2 Wochen nach Bestellung“
+                             (hohler Punkt, zählt nicht als vorrätig)
+     ============================================================ */
+  function lagerText(vorhanden, menge) {
+    if (!vorhanden || typeof menge !== 'number' || menge <= 0) {
       return {
-        html: (art === 'poster' ? BG.t('Wird nachgedruckt · ca. 1–2 Wochen', 'Being reprinted · approx. 1–2 weeks') : BG.t('Wird für dich gedruckt · ca. 1–2 Wochen', 'Printed for you · approx. 1–2 weeks')),
+        html: BG.t('Druck in 1–2 Wochen nach Bestellung', 'Printed within 1–2 weeks of ordering'),
         cls: 'back', vorraetig: false
       };
     }
-    if (menge === 0) {
-      return { html: BG.t('Wird nachbestellt · ca. 1–2 Wochen', 'Being reordered · approx. 1–2 weeks'), cls: 'back', vorraetig: false };
+    if (menge <= 3) {
+      return { html: BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left'), cls: 'low', vorraetig: true };
     }
-    if (typeof menge === 'number') {
-      return {
-        html: (menge <= 3 ? BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left in stock') : BG.t('Noch ' + menge + ' auf Lager', menge + ' in stock')),
-        cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
-      };
-    }
-    return { html: BG.t('Vorrätig', 'In stock'), cls: 'ok', vorraetig: true };
+    return { html: BG.t(menge + ' auf Lager', menge + ' in stock'), cls: 'ok', vorraetig: true };
   }
 
-  /* Lagerzeile für Lesezeichen. Einen "gibt es noch gar nicht"-Fall
-     braucht es hier nicht: ohne bereitsLesezeichen erscheint das
-     Motiv in dieser Ansicht erst gar nicht. */
+  function stockInfo(b, art) {
+    return (art === 'poster')
+      ? lagerText(b.bereitsPoster, b.bestandPoster)
+      : lagerText(b.bereitsPostkarte, b.bestand);
+  }
+
+  /* Lesezeichen: erscheinen nur, wenn im Admin „vorrätig“ angehakt
+     ist (sonst gibt es das Motiv als Lesezeichen noch gar nicht).
+     Die Zahl entscheidet dann wie oben. */
   function lesezeichenLager(b) {
-    var menge = b.bestandLesezeichen;
-    if (menge === 0) {
-      return { html: BG.t('Gerade vergriffen · wird nachgedruckt', 'Currently sold out · being reprinted'), cls: 'back', vorraetig: false };
-    }
-    if (typeof menge === 'number') {
-      return {
-        html: (menge <= 3 ? BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left in stock') : BG.t('Noch ' + menge + ' auf Lager', menge + ' in stock')),
-        cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
-      };
-    }
-    return { html: BG.t('Vorrätig', 'In stock'), cls: 'ok', vorraetig: true };   /* null = Zahl unbekannt */
+    return lagerText(true, b.bestandLesezeichen);
   }
 
   /* Welches Foto zeigt die Lesezeichen-Karte?
@@ -1896,8 +2203,6 @@ BG.bereit(function () {
       /* Nächsten Dateinamen versuchen */
       img.setAttribute('data-kandidaten', rest.slice(1).join('|'));
       img.src = rest[0];
-      var lupe = img.closest('.frame').querySelector('.gp-zoom');
-      if (lupe) { lupe.setAttribute('data-src', rest[0]); }
       return;
     }
 
@@ -1909,20 +2214,6 @@ BG.bereit(function () {
     frame.classList.add('lz-ersatz');                    /* schmaler Hochformat-Zuschnitt, siehe CSS */
     var hinweis = frame.querySelector('.lz-hinweis');
     if (hinweis) { hinweis.hidden = false; }             /* "Beispielansicht" einblenden */
-    var zoom = frame.querySelector('.gp-zoom');
-    if (zoom) { zoom.setAttribute('data-src', ersatz); } /* Lupe soll nicht ins Leere zeigen */
-  }
-
-  /* Hoch- oder Querformat? Wird beim Laden jedes Bildes aufgerufen
-     und setzt bei Querformat die Klasse "ist-quer" auf die Karte —
-     dann dreht sich das Bildfeld mit (siehe CSS oben) und es wird
-     nichts beschnitten. Muss global sein, weil es im onload-Attribut
-     der Bilder steht. */
-  function kartenFormatPruefen(img) {
-    if (!img.naturalWidth || !img.naturalHeight) { return; }
-    var karte = img.closest('.pick-card');
-    if (!karte) { return; }
-    karte.classList.toggle('ist-quer', img.naturalWidth > img.naturalHeight);
   }
 
   /* Alle Motive, die für die aktuelle Produktart in Frage kommen —
@@ -1964,181 +2255,165 @@ BG.bereit(function () {
   }
 
   /* Liegt dasselbe Motiv schon in einer ANDEREN Ausführung im
-     Warenkorb? Ohne diesen Hinweis wundert man sich beim Wechsel
-     der Produktart, warum der Knopf wieder "hinzufügen" sagt. */
+     Warenkorb? Kleiner Hinweis auf der Karte, sonst wundert man sich
+     beim Formatwechsel, warum das "+" wieder leer ist. */
   function anderswoImKorb(b, typ) {
     var treffer = auswahl.filter(function (pos) {
       return pos.key.indexOf(b.id + '|') === 0 && pos.typ !== typ;
     });
     if (!treffer.length) { return ''; }
-    return treffer.map(function (pos) { return pos.menge + BG.t('× als ', '× as ') + pos.bezeichnung; }).join(', ') + BG.t(' im Warenkorb', ' in basket');
+    return BG.t('Im Korb: ', 'In basket: ') + treffer.map(function (pos) { return pos.menge + '× ' + pos.bezeichnung; }).join(', ');
   }
 
-  /* ---------- Seitenleiste ---------- */
-
-  function filterKnopf(wert, label, anzahl, aktiv, attr) {
-    return '<button type="button" class="filter-opt" ' + attr + '="' + escapeHtml(wert) + '"' +
-      ' aria-pressed="' + (aktiv ? 'true' : 'false') + '"' +
-      (anzahl === 0 ? ' disabled' : '') + '>' +
-      '<span>' + escapeHtml(label) + '</span>' +
-      '<span class="zahl">' + anzahl + '</span></button>';
+  /* ---------- Mengenknopf (Karte und große Ansicht) ----------
+     Noch nicht gewählt: ein runder "+"-Knopf.
+     Gewählt: eine Pille "− 2 +". Ein Tipp auf "−" bei 1 nimmt das
+     Motiv wieder heraus. Groß genug für Daumen (44 px). */
+  function mengenKnopf(key) {
+    var pos = findePosition(key);
+    if (!pos) {
+      return '<button type="button" class="sk-plus" data-aktion="dazu" aria-label="' +
+        BG.t('Zur Auswahl hinzufügen', 'Add to selection') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>';
+    }
+    return '<span class="sk-menge">' +
+      '<button type="button" data-aktion="weniger" aria-label="' + BG.t('Eins weniger', 'One fewer') + '">' +
+        (pos.menge === 1 ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12h10l1-12M9 7V4h6v3"/></svg>' : '−') + '</button>' +
+      '<output aria-live="polite">' + pos.menge + '</output>' +
+      '<button type="button" data-aktion="mehr" aria-label="' + BG.t('Eins mehr', 'One more') + '">+</button>' +
+      '</span>';
   }
+
+  function mengenKnopfKlick(knopf, key, b, art) {
+    var aktion = knopf.getAttribute('data-aktion');
+    var pos = findePosition(key);
+    if (aktion === 'dazu') {
+      positionHinzufuegen({
+        key: key, typ: art.id, motiv: stripHtml(b.beschriftung || b.alt),
+        bezeichnung: art.bezeichnung, menge: 1,
+        bild: art.id === 'lesezeichen' ? b.bild : art.bild(b)
+      });
+      kurzeRueckmeldung(knopf);
+    } else if (aktion === 'mehr' && pos) {
+      positionMenge(key, pos.menge + 1);
+    } else if (aktion === 'weniger' && pos) {
+      positionMenge(key, pos.menge - 1);
+    }
+  }
+
+  /* Kleine Bestätigung: Die Leiste unten "hüpft" einmal kurz, damit
+     man sieht, wo das Motiv gelandet ist. Nur als Antwort auf den
+     eigenen Tipp, und nicht bei "Bewegung reduzieren". */
+  function kurzeRueckmeldung() {
+    var tray = document.getElementById('sk-tray');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+    tray.classList.remove('hupf');
+    void tray.offsetWidth;   /* Animation neu starten */
+    tray.classList.add('hupf');
+  }
+
+  /* ---------- Werkzeugleiste: Format + Serien ---------- */
 
   function renderFilter() {
-    /* Produktarten. Die Zahl zeigt, wie viele Motive es dort gibt —
-       Lesezeichen stehen so auch bei 0 sichtbar, aber ausgegraut. */
+    /* Formate als Segment-Leiste: Name und Einzelpreis. Lesezeichen
+       ohne Motive bleiben sichtbar, aber ausgegraut. */
     document.getElementById('filter-produkt').innerHTML = PRODUKTARTEN.map(function (art) {
-      return filterKnopf(art.id, art.label, motiveFuer(art.id).length,
-        art.id === shopZustand.produkt, 'data-produkt');
+      var anzahl = motiveFuer(art.id).length;
+      var aktiv = art.id === shopZustand.produkt;
+      return '<button type="button" class="sk-format" data-produkt="' + art.id + '"' +
+        ' aria-pressed="' + aktiv + '"' + (anzahl === 0 ? ' disabled' : '') + '>' +
+        '<span class="sk-format-name">' + escapeHtml(art.label) + '</span>' +
+        '<span class="sk-format-preis">' + (art.id === 'download' ? '' : BG.t('ab ', 'from ')) + euro(art.id === 'download' ? PREISE.download : niedrigsterPreis(art.id)) + '</span>' +
+        '</button>';
     }).join('');
 
-    /* Serien. Zählung immer bezogen auf die aktuelle Produktart. */
-    var serienHtml = filterKnopf('alle', BG.t('Alle Serien', 'All series'), motiveGefiltert('alle').length,
-      shopZustand.serie === 'alle', 'data-serie');
+    /* Serien als Chips zum Durchwischen, mit Anzahl */
+    function chip(wert, label, anzahl) {
+      var aktiv = shopZustand.serie === wert;
+      return '<button type="button" class="sk-chip" data-serie="' + escapeHtml(wert) + '" aria-pressed="' + aktiv + '"' +
+        (anzahl === 0 ? ' disabled' : '') + '>' + escapeHtml(label) + '<span class="sk-zahl">' + anzahl + '</span></button>';
+    }
+    var html = chip('alle', BG.t('Alle', 'All'), motiveGefiltert('alle').length);
     MOTIV_THEMEN.forEach(function (serie) {
-      serienHtml += filterKnopf(serie, SERIEN_NAME[serie] || serie, motiveGefiltert(serie).length,
-        shopZustand.serie === serie, 'data-serie');
+      html += chip(serie, SERIEN_NAME[serie] || serie, motiveGefiltert(serie).length);
     });
-    document.getElementById('filter-serie').innerHTML = serienHtml;
+    document.getElementById('filter-serie').innerHTML = html;
 
-    /* Bei Downloads gibt es keinen Lagerbestand — Häkchen ausblenden. */
-    document.getElementById('filter-lager-gruppe').hidden = !produktArt(shopZustand.produkt).lager;
+    /* "Nur vorrätige" gibt es bei Downloads nicht */
+    var lagerKnopf = document.getElementById('filter-vorraetig');
+    lagerKnopf.hidden = !produktArt(shopZustand.produkt).lager;
+    lagerKnopf.setAttribute('aria-pressed', shopZustand.nurVorraetig ? 'true' : 'false');
   }
 
-  /* ---------- Karte ---------- */
+  /* Günstigster Stückpreis einer Staffel (für "ab 1,50 €") */
+  function niedrigsterPreis(typ) {
+    var stufen = STAFFEL[typ] || [];
+    return stufen.reduce(function (min, st) { return Math.min(min, st.fuer / st.abMenge); }, Infinity);
+  }
 
+  /* ---------- Karte ----------
+     Bewusst schlank: Foto (einheitliches Format, damit das Raster
+     ruhig wirkt), darauf der Mengenknopf; darunter Name, Zusatz,
+     Preis und Lagerpunkt. Alles Weitere steht in der großen Ansicht. */
   function baueKarte(b, art) {
     var cid = 'mot-' + b.id;
-    var motivPlain = stripHtml(b.beschriftung || b.alt);
-    var titelHtml = b.beschriftung ? b.beschriftung : escapeHtml(motivPlain);
-    var pfad = art.bild(b);
-    var lager = art.lager ? art.lager(b) : null;
     var istLesezeichen = (art.id === 'lesezeichen');
-
-    /* Lupe: Pfad und Titel in data-Attributen statt im onclick —
-       robuster bei Anführungszeichen im Motivnamen. */
-    var zoom = '<button type="button" class="gp-zoom" data-src="' + escapeHtml(pfad) + '"' +
-      ' data-titel="' + escapeHtml(istLesezeichen ? BG.t('Lesezeichen · ', 'Bookmark · ') + motivPlain : motivPlain) + '"' +
-      ' aria-label="' + BG.t('Bild in voller Größe ansehen', 'View full-size image') + '">' +
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>' +
-      '<span>' + BG.t('Klick für volle Größe', 'Click for full size') + '</span></button>';
+    var lager = art.lager ? art.lager(b) : null;
+    var pfad = art.bild(b);
 
     var bildTag;
     if (istLesezeichen) {
-      /* Alle Kandidaten außer dem ersten kommen als Reserve mit. */
+      /* Lesezeichen-Foto: mehrere mögliche Dateinamen, der erste
+         vorhandene gewinnt (siehe lesezeichenKandidaten). */
       var reserve = lesezeichenKandidaten(b).slice(1).join('|');
       bildTag = '<img src="' + escapeHtml(pfad) + '"' +
         ' data-kandidaten="' + escapeHtml(reserve) + '"' +
-        ' data-ersatz="' + escapeHtml(b.bild) + '"' +
+        ' data-ersatz="' + escapeHtml(BG.klein(b.bild)) + '"' +
         ' alt="' + BG.t('Lesezeichen mit Motiv: ', 'Bookmark with motif: ') + escapeHtml(b.alt) + '" loading="lazy"' +
-        ' onerror="lesezeichenBildFehlt(this)" onload="kartenFormatPruefen(this)">';
+        ' onerror="lesezeichenBildFehlt(this)">';
     } else {
-      bildTag = '<img src="' + escapeHtml(pfad) + '" alt="' + escapeHtml(b.alt) + '"' +
-        ' loading="lazy" onload="kartenFormatPruefen(this)">';
+      bildTag = '<img src="' + escapeHtml(BG.klein(pfad)) + '"' + BG.bildFallback(pfad) +
+        ' alt="' + escapeHtml(b.alt) + '" loading="lazy">';
     }
 
-    return '<div class="pick-card' + (istLesezeichen ? ' lz-card' : '') + '" id="motiv-' + escapeHtml(b.id) + '">' +
-      '<div class="frame">' +
-        (lager ? '<span class="gp-star" id="' + cid + '-star"' + (lager.vorraetig ? '' : ' style="display:none;"') + '>★ ' + BG.t('vorrätig', 'in stock') + '</span>' : '') +
+    return '<article class="sk-karte' + (istLesezeichen ? ' sk-lz' : '') + '" id="motiv-' + escapeHtml(b.id) + '" data-id="' + escapeHtml(b.id) + '">' +
+      '<div class="sk-foto frame">' +
+        '<button type="button" class="sk-foto-knopf" data-aktion="ansicht" aria-label="' +
+          escapeHtml(BG.t('Groß ansehen: ', 'View large: ') + stripHtml(b.beschriftung)) + '">' + bildTag + '</button>' +
         (istLesezeichen ? '<span class="lz-hinweis" hidden>' + BG.t('Beispielansicht', 'Sample view') + '</span>' : '') +
-        zoom + bildTag +
+        '<div class="sk-knopf" id="' + cid + '-kauf"></div>' +
       '</div>' +
-      '<div class="body">' +
-        '<b>' + titelHtml + '</b>' +
-        '<span class="karte-serie">' + escapeHtml(b.kategorieName || b.kategorie) + '</span>' +
-        '<span class="price-line" id="' + cid + '-price"></span>' +
-        (lager ? '<span class="stock-line ' + lager.cls + '" id="' + cid + '-stock">' + lager.html + '</span>' : '') +
-        '<span class="karte-anderswo" id="' + cid + '-anderswo"></span>' +
-        '<div class="menge-row">' +
-          '<label for="' + cid + '-menge">' + BG.t('Menge', 'Quantity') + '</label>' +
-          '<span class="stepper" id="' + cid + '-stepper">' +
-            '<button type="button" data-schritt="-1" aria-label="' + BG.t('Weniger', 'Fewer') + '">−</button>' +
-            '<input type="number" id="' + cid + '-menge" value="1" min="1" max="' + MAX_MENGE + '" aria-label="' + BG.t('Menge', 'Quantity') + '">' +
-            '<button type="button" data-schritt="1" aria-label="' + BG.t('Mehr', 'More') + '">+</button>' +
-          '</span>' +
-        '</div>' +
-        '<div class="kauf-slot" id="' + cid + '-kauf"></div>' +
-      '</div></div>';
+      '<div class="sk-text">' +
+        '<h3 class="sk-name">' + escapeHtml(b.art || stripHtml(b.beschriftung)) + '</h3>' +
+        (b.zusatz ? '<p class="sk-zusatz">' + escapeHtml(b.zusatz) + '</p>' : '') +
+        '<p class="sk-meta"><span class="sk-preis" id="' + cid + '-preis">' + aktuellerPreisHtml(art.id) + '</span>' +
+          (lager ? '<span class="sk-lager ' + lager.cls + '" id="' + cid + '-stock">' + escapeHtml(lagerKurz(lager)) + '</span>' : '') +
+        '</p>' +
+        '<p class="sk-anderswo" id="' + cid + '-anderswo"></p>' +
+      '</div>' +
+    '</article>';
   }
 
-  /* Verhalten einer Karte: Menge, Preis, Warenkorb.
-     Die Produktart steht fest — sie kommt vom Filter, nicht mehr
-     von Knöpfen auf der Karte. */
   function verdrahteKarte(b, art) {
     var cid = 'mot-' + b.id;
-    var typ = art.id;
-    var key = b.id + '|' + typ;
-    var motivPlain = stripHtml(b.beschriftung || b.alt);
-    var stepperEl = document.getElementById(cid + '-stepper');
-    var mengeInput = stepperEl.querySelector('input');
-    var priceEl = document.getElementById(cid + '-price');
-    var anderswoEl = document.getElementById(cid + '-anderswo');
+    var key = b.id + '|' + art.id;
+    var karte = document.getElementById('motiv-' + b.id);
     var kaufEl = document.getElementById(cid + '-kauf');
-
-    function menge() { return Math.max(1, Math.min(parseInt(mengeInput.value, 10) || 1, MAX_MENGE)); }
+    var anderswoEl = document.getElementById(cid + '-anderswo');
+    var preisEl = document.getElementById(cid + '-preis');
 
     function aktualisieren() {
-      var pos = findePosition(key);
-      if (pos) { mengeInput.value = pos.menge; }
-
-      if (typ === 'download') {
-        var summeDl = PREISE.download * menge();
-        priceEl.innerHTML = euro(summeDl) +
-          (menge() > 1 ? ' <span class="je">(' + BG.t('je ' + euro(PREISE.download), euro(PREISE.download) + ' each') + ')</span>' : '');
-      } else {
-        /* Stückpreis hängt an der Gesamtmenge dieser Produktart.
-           Ist die Position noch nicht im Korb, wird sie testweise
-           dazugerechnet — so sieht man den Staffelpreis vorher. */
-        /* Zählmenge inkl. gemischter Gruppe: eine Postkarte
-           profitiert auch von Lesezeichen im Korb und umgekehrt. */
-        var hypothetisch = Math.max(staffelMenge(typ) + (pos ? 0 : menge()), menge());
-        var stufe = aktiveStufe(typ, hypothetisch);
-        var basis = STAFFEL[typ][0];
-        /* Betrag für die Menge auf DIESER Karte zum gültigen Satz,
-           Cent-genau gerundet (3 Karten -> 5,00 €, nicht 5,01 €). */
-        var betrag = betragCent(stufe, menge()) / 100;
-        /* "(je …)" nur bei glattem Stückpreis; bei 3 für 5 € wäre
-           "je 1,67 €" irreführend, dort steht der Paketpreis. */
-        var jeText = '';
-        if (menge() > 1) {
-          jeText = stufeGlatt(stufe)
-            ? ' <span class="je">(' + BG.t('je ' + euro(stufe.fuer / stufe.abMenge), euro(stufe.fuer / stufe.abMenge) + ' each') + ')</span>'
-            : ' <span class="je">(' + stufeKurz(stufe) + ')</span>';
-        }
-        var istRabatt = stufe.fuer / stufe.abMenge < basis.fuer / basis.abMenge;
-        priceEl.innerHTML = euro(betrag) + jeText +
-          (istRabatt ? ' <span class="rabatt">' + BG.t('Staffelpreis', 'Quantity price') + '</span>' : '');
-      }
-
-      anderswoEl.textContent = anderswoImKorb(b, typ);
-      kaufEl.innerHTML = renderKaufSlot(key);
+      kaufEl.innerHTML = mengenKnopf(key);
+      karte.classList.toggle('ist-gewaehlt', !!findePosition(key));
+      anderswoEl.textContent = anderswoImKorb(b, art.id);
+      preisEl.innerHTML = aktuellerPreisHtml(art.id);   /* Staffelpreis mitziehen */
     }
-
     motivAktualisierer[b.id] = aktualisieren;
 
-    stepperEl.querySelectorAll('button').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        mengeInput.value = Math.max(1, Math.min(menge() + parseInt(btn.getAttribute('data-schritt'), 10), MAX_MENGE));
-        if (findePosition(key)) { positionMenge(key, parseInt(mengeInput.value, 10)); } else { aktualisieren(); }
-      });
-    });
-
-    mengeInput.addEventListener('change', function () {
-      mengeInput.value = menge();
-      if (findePosition(key)) { positionMenge(key, menge()); } else { aktualisieren(); }
-    });
-
     kaufEl.addEventListener('click', function (e) {
-      if (!e.target.closest('.btn-hinzufuegen')) { return; }
-      if (findePosition(key)) {
-        positionEntfernen(key);
-      } else {
-        positionHinzufuegen({
-          key: key, typ: typ, motiv: motivPlain,
-          bezeichnung: art.bezeichnung, menge: menge()
-        });
-      }
+      var knopf = e.target.closest('button');
+      if (knopf) { mengenKnopfKlick(knopf, key, b, art); }
     });
+    karte.querySelector('.sk-foto-knopf').addEventListener('click', function () { ansichtOeffnen(b); });
 
     aktualisieren();
   }
@@ -2151,30 +2426,29 @@ BG.bereit(function () {
     var gesamt = liste.length;
     var zeigen = Math.min(shopZustand.sichtbar, gesamt);
 
-    document.getElementById('shop-produkt-titel').textContent = art.label;
-
-    var infoEl = document.getElementById('shop-produkt-info');
+    /* Preiszeile über dem Raster: Staffel + Mischbarkeit, kurz */
     var staffel = staffelText(art.id);
-    infoEl.innerHTML = escapeHtml(art.info()) +
-      (staffel ? ' <span class="staffel-inline">' + escapeHtml(staffel) + '</span>' : '') +
-      /* Hinweis auf die Mischbarkeit, nur wenn der Typ in einer
-         Gruppe mit anderen steckt (Postkarten ↔ Lesezeichen). */
-      (gruppeVon(art.id).length > 1
-        ? ' <span class="staffel-inline">' + BG.t('Postkarten und Lesezeichen frei mischbar.', 'Postcards and bookmarks can be mixed freely.') + '</span>'
-        : '');
-    /* (Früher stand hier für Lesezeichen „3 für 5 € nur am
-       Marktstand“ — die Staffel gilt jetzt auch online.) */
+    var teile = [staffel];
+    if (gruppeVon(art.id).length > 1) {
+      teile.push(art.id === 'postkarte'
+        ? BG.t('mit Lesezeichen mischbar', 'mix with bookmarks')
+        : BG.t('mit Postkarten mischbar', 'mix with postcards'));
+    }
+    document.getElementById('shop-produkt-info').innerHTML =
+      '<b>' + escapeHtml(art.label) + '</b> <span>' + escapeHtml(art.kurz()) + '</span> ' +
+      '<span class="sk-staffel">' + escapeHtml(teile.filter(Boolean).join(' · ')) + '</span>';
 
     /* Hinweisband: bei Postern der Verweis auf große Formate. */
     document.getElementById('shop-band').innerHTML =
       (art.id === 'poster')
-        ? '<div class="shop-band"><span>' + BG.t('Du möchtest es größer, auf Leinwand oder Alu-Dibond?', 'Want it bigger, on canvas or aluminium?') + '</span><a href="#grossformate">' + BG.t('Große Formate über Saal Digital →', 'Large formats via Saal Digital →') + '</a></div>'
+        ? '<div class="shop-band"><span>' + BG.t('Du möchtest es größer, auf Leinwand oder Alu-Dibond?', 'Want it bigger, on canvas or aluminium?') + '</span><a href="#grossformate">' + BG.t('Große Formate über Saal Digital', 'Large formats via Saal Digital') + '</a></div>'
         : '';
 
     document.getElementById('shop-treffer').textContent =
-      gesamt === 0 ? '' : (zeigen < gesamt ? zeigen + BG.t(' von ', ' of ') + gesamt + BG.t(' Motiven', ' motifs') : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs')));
+      gesamt === 0 ? '' : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs'));
 
     var grid = document.getElementById('shop-grid');
+    grid.classList.toggle('sk-raster-lz', art.id === 'lesezeichen');
     motivAktualisierer = {};   /* Karten von eben sind gleich weg */
 
     if (!gesamt) {
@@ -2182,6 +2456,7 @@ BG.bereit(function () {
         escapeHtml(art.leerText || BG.t('Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.', 'Nothing for this selection right now — try widening the filter.')) +
         '</p>';
       document.getElementById('shop-mehr').innerHTML = '';
+      renderFilter();
       return;
     }
 
@@ -2191,10 +2466,26 @@ BG.bereit(function () {
 
     var rest = gesamt - zeigen;
     document.getElementById('shop-mehr').innerHTML = rest > 0
-      ? '<button type="button" id="shop-mehr-btn">' + BG.t('Weitere ' + Math.min(rest, MOTIVE_PRO_SEITE) + ' Motive anzeigen', 'Show ' + Math.min(rest, MOTIVE_PRO_SEITE) + ' more motifs') + '</button>'
+      ? '<button type="button" id="shop-mehr-btn">' + BG.t('Weitere ' + rest + ' Motive zeigen', 'Show ' + rest + ' more motifs') + '</button>'
       : '';
 
     renderFilter();
+  }
+
+  /* Filterwechsel mit sanftem Überblenden (View Transitions), wo der
+     Browser das kann — sonst einfach sofort. */
+  function mitUebergang(fn) {
+    var ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (document.startViewTransition && !ruhig) { document.startViewTransition(fn); } else { fn(); }
+  }
+
+  /* Nach einem Filterwechsel zurück an den Anfang des Rasters, falls
+     man schon weit unten war — sonst sieht man das Ergebnis nicht. */
+  function zumRasterAnfang() {
+    var leiste = document.getElementById('sk-leiste');
+    var raster = document.getElementById('shop-grid');
+    var oben = raster.getBoundingClientRect().top - leiste.offsetHeight - 80;
+    if (oben < 0) { window.scrollBy({ top: oben, behavior: 'smooth' }); }
   }
 
   /* Produktart wechseln — auch von außen aufgerufen (Sprunglinks,
@@ -2208,45 +2499,47 @@ BG.bereit(function () {
   }
 
   function setupShop() {
-    /* Ein Klick-Zuhörer für die ganze Seitenleiste statt einem pro
-       Knopf — die Knöpfe werden ja bei jedem Zeichnen neu gebaut. */
-    document.querySelector('.shop-filter').addEventListener('click', function (e) {
-      var btn = e.target.closest('.filter-opt');
-      if (!btn) { return; }
-      if (btn.hasAttribute('data-produkt')) {
-        shopProduktSetzen(btn.getAttribute('data-produkt'));
-      } else if (btn.hasAttribute('data-serie')) {
-        shopZustand.serie = btn.getAttribute('data-serie');
+    /* Ein Klick-Zuhörer für die ganze Werkzeugleiste — die Knöpfe
+       werden bei jedem Zeichnen neu gebaut. */
+    document.getElementById('sk-leiste').addEventListener('click', function (e) {
+      var format = e.target.closest('[data-produkt]');
+      var serie = e.target.closest('[data-serie]');
+      var lager = e.target.closest('#filter-vorraetig');
+      if (format) {
+        mitUebergang(function () { shopProduktSetzen(format.getAttribute('data-produkt'), true); });
+      } else if (serie) {
+        shopZustand.serie = serie.getAttribute('data-serie');
         shopZustand.sichtbar = MOTIVE_PRO_SEITE;
-        renderShop();
+        mitUebergang(renderShop);
+        /* gewählten Chip ins Bild schieben (am Handy wischt man) */
+        var neu = document.querySelector('#filter-serie [aria-pressed="true"]');
+        if (neu) { neu.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); }
+      } else if (lager) {
+        shopZustand.nurVorraetig = !shopZustand.nurVorraetig;
+        shopZustand.sichtbar = MOTIVE_PRO_SEITE;
+        mitUebergang(renderShop);
+      } else {
+        return;
       }
-    });
-
-    document.getElementById('filter-vorraetig').addEventListener('change', function (e) {
-      shopZustand.nurVorraetig = e.target.checked;
-      shopZustand.sichtbar = MOTIVE_PRO_SEITE;
-      renderShop();
+      zumRasterAnfang();
     });
 
     document.getElementById('shop-mehr').addEventListener('click', function (e) {
       if (!e.target.closest('#shop-mehr-btn')) { return; }
-      shopZustand.sichtbar += MOTIVE_PRO_SEITE;
+      shopZustand.sichtbar += MOTIVE_PRO_SEITE * 10;   /* alle restlichen */
       renderShop();
     });
 
-    /* Lupe — ein Zuhörer für das ganze Raster */
-    document.getElementById('shop-grid').addEventListener('click', function (e) {
-      var zoom = e.target.closest('.gp-zoom');
-      if (!zoom) { return; }
-      openGpLightbox(zoom.getAttribute('data-src'), zoom.getAttribute('data-titel'));
-    });
-
-    /* Die Links im Kopf stellen die Produktart gleich mit ein. */
-    document.querySelectorAll('.shop-tabs a[data-produkt]').forEach(function (a) {
-      a.addEventListener('click', function () {
-        shopProduktSetzen(a.getAttribute('data-produkt'));
-      });
-    });
+    /* Klebt die Leiste gerade oben? Dann bekommt sie einen Schatten. */
+    var leiste = document.getElementById('sk-leiste');
+    if ('IntersectionObserver' in window) {
+      var marke = document.createElement('div');
+      marke.className = 'sk-leiste-marke';
+      leiste.parentNode.insertBefore(marke, leiste);
+      new IntersectionObserver(function (e) {
+        leiste.classList.toggle('klebt', !e[0].isIntersecting);
+      }, { rootMargin: '-65px 0px 0px 0px' }).observe(marke);
+    }
 
     renderShop();
   }
@@ -2260,31 +2553,45 @@ BG.bereit(function () {
     return typeof STICKER !== 'undefined' && STICKER.length > 0;
   }
 
+  /* Sticker-Karten sehen aus wie die Motivkarten und haben denselben
+     runden "+"-Knopf. Unterschied: fester Einzelpreis (festpreis)
+     statt Staffel, und es gibt keine große Ansicht. */
   function renderStickerGrid() {
     var grid = document.getElementById('sticker-grid');
     if (!hatSticker()) { return; }   /* bleibt versteckt */
     document.getElementById('sticker').hidden = false;
-    document.getElementById('tab-sticker').hidden = false;
     grid.innerHTML = STICKER.map(function (st, i) {
-      var img = (st.mockups && st.mockups[0]) ? '<img src="' + escapeHtml(st.mockups[0]) + '" alt="' + escapeHtml(st.motiv) + '" loading="lazy">' : '';
-      return '<div class="pick-card" id="sti-' + i + '"><div class="frame">' + img + '</div>' +
-        '<div class="body"><b>' + escapeHtml(st.motiv) + '</b>' +
-        '<span class="price-line">' + euro(st.preis) + '</span>' +
-        '<div id="sti-' + i + '-kauf"></div>' +
-        '</div></div>';
+      var bild = (st.mockups && st.mockups[0]) || '';
+      return '<article class="sk-karte" id="sti-' + i + '">' +
+        '<div class="sk-foto frame">' +
+          (bild ? '<img src="' + escapeHtml(BG.klein(bild)) + '"' + BG.bildFallback(bild) + ' alt="' + escapeHtml(st.motiv) + '" loading="lazy">' : '') +
+          '<div class="sk-knopf" id="sti-' + i + '-kauf"></div>' +
+        '</div>' +
+        '<div class="sk-text"><h3 class="sk-name">' + escapeHtml(st.motiv) + '</h3>' +
+          '<p class="sk-meta"><span class="sk-preis">' + euro(st.preis) + '</span></p></div>' +
+      '</article>';
     }).join('');
 
     STICKER.forEach(function (st, i) {
       var kaufEl = document.getElementById('sti-' + i + '-kauf');
+      var karte = document.getElementById('sti-' + i);
       var key = 'sticker-' + (st.id || i);
-      function zeichnen() { kaufEl.innerHTML = renderKaufSlot(key); }
+      function zeichnen() {
+        kaufEl.innerHTML = mengenKnopf(key);
+        karte.classList.toggle('ist-gewaehlt', !!findePosition(key));
+      }
       kartenAktualisierer.push(zeichnen);
       kaufEl.addEventListener('click', function (e) {
-        if (!e.target.closest('.btn-hinzufuegen')) { return; }
-        if (findePosition(key)) {
-          positionEntfernen(key);
-        } else {
-          positionHinzufuegen({ key: key, typ: 'sticker', motiv: st.motiv, bezeichnung: 'Sticker', menge: 1, festpreis: st.preis });
+        var knopf = e.target.closest('button');
+        if (!knopf) { return; }
+        var aktion = knopf.getAttribute('data-aktion');
+        var pos = findePosition(key);
+        if (aktion === 'dazu') {
+          positionHinzufuegen({ key: key, typ: 'sticker', motiv: st.motiv, bezeichnung: 'Sticker', menge: 1,
+            festpreis: st.preis, bild: (st.mockups && st.mockups[0]) || '' });
+          kurzeRueckmeldung();
+        } else if (pos) {
+          positionMenge(key, pos.menge + (aktion === 'mehr' ? 1 : -1));
         }
       });
       zeichnen();
@@ -2777,7 +3084,15 @@ BG.bereit(function () {
     /* Einzelnes Motiv. "lz-" zeigt es als Lesezeichen, "motiv-" in
        der gerade eingestellten Produktart (beim Laden: Postkarte). */
     var istLesezeichen = (hash.indexOf('lz-') === 0);
-    if (!istLesezeichen && hash.indexOf('motiv-') !== 0) { return; }
+    if (!istLesezeichen && hash.indexOf('motiv-') !== 0) {
+      /* Andere Sprungmarken (#grossformate, #merch, #gut-zu-wissen …):
+         Der Browser springt schon beim Laden dorthin — da ist das
+         Raster aber noch leer und schiebt den Bereich danach nach
+         unten. Deshalb hier noch einmal nachrücken. */
+      var bereich = document.getElementById(hash);
+      if (bereich) { bereich.scrollIntoView(); }
+      return;
+    }
 
     var bildId = istLesezeichen ? hash.slice('lz-'.length) : hash.slice('motiv-'.length);
     if (istLesezeichen) { shopProduktSetzen('lesezeichen'); }
@@ -2791,7 +3106,7 @@ BG.bereit(function () {
     }
     if (index === -1 && shopZustand.nurVorraetig) {
       shopZustand.nurVorraetig = false;
-      document.getElementById('filter-vorraetig').checked = false;
+      document.getElementById('filter-vorraetig').setAttribute('aria-pressed', 'false');
       index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
     }
     if (index === -1) { return; }   /* Motiv gibt es in dieser Ausführung nicht */
@@ -2823,11 +3138,9 @@ BG.bereit(function () {
   setupAnfrageForm();
   hervorhebenBeiSprungmarke();
 
-  /* Diese drei Funktionen werden direkt aus dem HTML aufgerufen
-     (onclick/onerror/onload) und müssen deshalb global erreichbar sein. */
-  window.closeGpLightbox = closeGpLightbox;
+  /* Wird direkt aus dem HTML aufgerufen (onerror am Lesezeichen-
+     Foto) und muss deshalb global erreichbar sein. */
   window.lesezeichenBildFehlt = lesezeichenBildFehlt;
-  window.kartenFormatPruefen = kartenFormatPruefen;
 
   /* Staffel-Tabelle im Aufklapper "Preise, Staffelrabatt & Versand"
      und Druckpartner-Namen aus daten/shop.json einsetzen */

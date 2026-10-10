@@ -164,6 +164,15 @@ Im Feld „Foto“ einfach ein Bild hineinziehen. Es wird beim Hochladen
 `bilder/fotos/`. Für Drucke nimmst du weiter deine Originaldateien —
 die gehören nicht auf die Webseite.
 
+Danach legt GitHub **von selbst** eine kleine Fassung jedes Fotos in
+`bilder/klein/` an (Roboter-Eintrag „Vorschaubilder aktualisiert“ in
+der Commit-Liste, dauert ca. 1–2 Minuten). Die kleinen Fassungen
+werden im Shop, in den Galerien, bei den Geschichten und auf der Karte
+gezeigt — die Seite lädt dadurch am Handy viel schneller. Du musst
+dafür nichts tun. Bis die kleine Fassung da ist, zeigt die Seite
+einfach das große Foto. Den Ordner `bilder/klein/` bitte nicht von
+Hand bearbeiten.
+
 ### Wann ist eine Änderung live?
 
 Nach dem Speichern baut GitHub die Seite neu — meist **1–2 Minuten**.

@@ -704,7 +704,7 @@ BG.bereit(function () {
     ['a', 'b'].forEach(function (rolle) {
       var img = document.createElement('img');
       if (rolle === 'a') {
-        img.src = motiv.bild;
+        BG.kleinLaden(img, motiv.bild);   /* Kacheln sind klein → Vorschaubild */
         /* Nur die erste Kachel wird vorgelesen — die übrigen sind
            Dekoration und würden die Vorlesereihenfolge zumüllen. */
         img.alt = (i === 0) ? (motiv.alt || '') : '';
@@ -775,7 +775,7 @@ BG.bereit(function () {
       }
     };
     wartend.style.objectPosition = motiv.ausschnitt || 'center';
-    wartend.src = motiv.bild;
+    BG.kleinLaden(wartend, motiv.bild);
   }, WECHSEL_MS);
 });
 

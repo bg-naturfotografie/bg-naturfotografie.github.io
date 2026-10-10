@@ -67,7 +67,7 @@ BG.bereit(function () {
         var titel = stripHtml(b.beschriftung) || b.id;
         var text = teaser(e.text, 130);
         html += '<a class="geschichten-card" href="geschichte.html?id=' + escapeAttr(b.id) + '">' +
-          '<img src="' + escapeAttr(b.bild) + '" alt="' + escapeAttr(b.alt) + '" loading="lazy">' +
+          '<img src="' + escapeAttr(BG.klein(b.bild)) + '"' + BG.bildFallback(b.bild) + ' alt="' + escapeAttr(b.alt) + '" loading="lazy">' +
           '<div class="geschichten-card-body">' +
           '<h3>' + b.beschriftung + '</h3>' +
           '<p>' + escapeAttr(text) + '</p>' +

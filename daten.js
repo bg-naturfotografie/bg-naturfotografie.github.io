@@ -75,6 +75,33 @@
     return LANG === 'en' ? '€' + text : text.replace('.', ',') + ' €';
   };
 
+  /* Kleine Fassung eines Fotos (Vorschaubild, max. 800 px).
+       bilder/teichleben/entchen1.jpg → bilder/klein/teichleben/entchen1.jpg
+     Die kleinen Fassungen erzeugt GitHub automatisch
+     (werkzeuge/vorschaubilder.py). Für Rasteransichten nehmen, in
+     denen viele Fotos klein nebeneinanderstehen — immer zusammen mit
+     BG.bildFallback (unten), damit beim Fehlen das große Foto kommt. */
+  BG.klein = function (pfad) {
+    if (!pfad) return pfad;
+    var p = String(pfad).replace(/^\//, '');
+    if (p.indexOf('bilder/') !== 0 || p.indexOf('bilder/klein/') === 0) return pfad;
+    return 'bilder/klein/' + p.slice('bilder/'.length);
+  };
+
+  /* Fertiges onerror-Attribut: fehlt die kleine Fassung (z. B. kurz
+     nach einem Upload), springt das Bild einmalig aufs große Foto. */
+  BG.bildFallback = function (grossesBild) {
+    return ' data-full="' + escapeHtml(grossesBild) + '" onerror="this.onerror=null;this.src=this.dataset.full;"';
+  };
+
+  /* Dasselbe für Bilder, die per Skript erzeugt werden (z. B. die
+     wechselnden Kacheln oben auf der Startseite): kleines Bild laden,
+     bei Fehler auf das große ausweichen. */
+  BG.kleinLaden = function (img, grossesBild) {
+    img.onerror = function () { img.onerror = null; img.src = grossesBild; };
+    img.src = BG.klein(grossesBild);
+  };
+
   function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (c) {
       return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
