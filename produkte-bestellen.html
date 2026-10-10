@@ -133,6 +133,7 @@
     background:var(--accent); transform:scaleX(0); transition:transform .22s ease;
   }
   .sk-format-name{ font-size:.9rem; font-weight:500; line-height:1.2; color:inherit; white-space:nowrap; }
+  .sk-format-preis{ white-space:nowrap; }
   .sk-format-preis{ font-family:'JetBrains Mono', monospace; font-size:.68rem; color:var(--text-muted); line-height:1.3; }
   .sk-format:hover:not(:disabled){ color:var(--text-light); background:rgba(237,231,214,0.03); }
   .sk-format[aria-pressed="true"]{ color:var(--text-light); background:rgba(201,124,61,0.10); }
@@ -250,6 +251,9 @@
   }
   .sk-meta{ display:flex; flex-wrap:wrap; align-items:center; gap:.15rem .7rem; margin:.35rem 0 0; }
   .sk-preis{ font-family:'JetBrains Mono', monospace; font-size:.84rem; color:var(--accent-soft); }
+  /* Staffelpreis: alter Preis leise durchgestrichen, neuer in Grün */
+  .sk-preis s, .sk-fl-preis s{ color:var(--text-muted); opacity:.75; text-decoration-thickness:1px; }
+  .sk-preis-staffel{ color:#7fae86; }
 
   /* Lagerstand als Punkt + kurzes Wort. Grün = da, Rost = knapp,
      hohl = wird gedruckt. Farbe allein reicht nicht (Farbsehschwäche),
@@ -426,7 +430,12 @@
   .sk-tray-text{ display:flex; flex-direction:column; min-width:0; line-height:1.3; }
   .sk-tray-zahl{ font-size:.92rem; white-space:nowrap; }
   .sk-tray-zahl b{ font-weight:600; }
-  .sk-tray-hinweis{ font-size:.76rem; color:var(--accent-soft); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  /* Hinweis darf zweizeilig werden — abgeschnitten („bis versand…“)
+     wäre er gerade am Handy nutzlos. */
+  .sk-tray-hinweis{
+    font-size:.76rem; color:var(--accent-soft); line-height:1.3;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
   .sk-tray-hinweis:empty{ display:none; }
   .sk-tray-weiter{ flex:0 0 auto; padding:.7em 1.3em; min-height:44px; display:inline-flex; align-items:center; }
 
@@ -513,7 +522,10 @@
   .sk-fl-name{ display:flex; flex-direction:column; font-size:.95rem; line-height:1.3; }
   .sk-fl-name small{ font-size:.76rem; color:var(--text-muted); }
   .sk-fl-preis{ display:flex; flex-direction:column; align-items:flex-end; font-family:'JetBrains Mono', monospace; font-size:.86rem; color:var(--accent-soft); line-height:1.35; }
-  .sk-fl-preis .sk-lager{ font-family:'Work Sans', sans-serif; font-size:.7rem; }
+  /* Lagertext rechtsbündig; der Punkt läuft als Teil der Zeile mit,
+     statt bei zweizeiligem Text einsam links daneben zu stehen. */
+  .sk-fl-preis .sk-lager{ display:block; font-family:'Work Sans', sans-serif; font-size:.7rem; max-width:11rem; text-align:right; }
+  .sk-fl-preis .sk-lager::before{ display:inline-block; margin-right:.35rem; vertical-align:.05em; }
   .sk-formatliste .sk-plus{ background:transparent; }
   .sk-formatliste .sk-plus:hover{ background:var(--accent); }
   .sk-formatliste .sk-menge{ box-shadow:none; }
@@ -750,6 +762,16 @@
     .sk-tray-weiter{ padding:.6em 1em; }
     .shop-form-wrap form{ padding:1.4rem 1.1rem; }
     .auswahl-liste-wrap{ padding:.9rem 1rem; }
+  }
+  /* Sehr schmale Handys (z. B. iPhone SE, 320–400 px): Die vier
+     Format-Felder werden knapp. Schrift etwas kleiner, Innenabstand
+     enger, und „Lesezeichen“ darf an der Trennstelle umbrechen
+     („Lese-/zeichen“) statt aus dem Feld zu laufen. */
+  @media (max-width:420px){
+    .sk-format{ padding:.4rem .15rem; }
+    .sk-format-name{ font-size:.72rem; white-space:normal; hyphens:manual; line-height:1.15; }
+    .sk-format-preis{ font-size:.58rem; }
+    .sk-leiste .wrap{ padding-left:.75rem; padding-right:.75rem; }
   }
   @media (prefers-reduced-motion:reduce){
     .sk-foto img, .sk-format::after, .sk-tray, .sk-tray-fortschritt span,
@@ -1919,7 +1941,7 @@ BG.bereit(function () {
       return '<li data-key="' + escapeHtml(key) + '" data-typ="' + art.id + '">' +
         '<span class="sk-fl-name">' + escapeHtml(art.bezeichnung) +
           '<small>' + escapeHtml(art.kurz()) + '</small></span>' +
-        '<span class="sk-fl-preis">' + euro(einzelpreis(art.id)) +
+        '<span class="sk-fl-preis"><span>' + aktuellerPreisHtml(art.id) + '</span>' +
           (lager ? '<small class="sk-lager ' + lager.cls + '">' + escapeHtml(lagerKurz(lager)) + '</small>' : '') + '</span>' +
         mengenKnopf(key) +
         '</li>';
@@ -2031,7 +2053,7 @@ BG.bereit(function () {
     },
     {
       id: 'lesezeichen',
-      label: BG.t('Lesezeichen', 'Bookmarks'),
+      label: BG.t('Lese\u00ADzeichen', 'Bookmarks'),   /* \u00AD = Trennstelle, nur bei Platzmangel */
       bezeichnung: BG.t('Lesezeichen', 'Bookmark'),
       kurz: function () { return BG.t('5 × 18 cm, mit QR-Code', '5 × 18 cm, with QR code'); },
       info: function () { return BG.t('5 × 18 cm, 400 g matt kaschiert, abgerundete Ecken, mit QR-Code zur Geschichte. Gedruckt bei ' + (DRUCKPARTNER.lesezeichen || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
@@ -2080,56 +2102,66 @@ BG.bereit(function () {
   /* Kurzfassung des Lagerstands für Karte und große Ansicht —
      auf einer schmalen Handykarte ist kein Platz für ganze Sätze. */
   function lagerKurz(lager) {
-    if (!lager) { return ''; }
-    if (lager.cls === 'back') { return BG.t('Druck in 1–2 Wochen', 'Printed in 1–2 weeks'); }
-    if (lager.cls === 'low') { return lager.html; }
-    return BG.t('vorrätig', 'in stock');
+    return lager ? lager.html : '';
   }
 
-  /* Einzelpreis (erste Staffelstufe bzw. Download-Preis) */
-  function einzelpreis(typ) {
-    if (typ === 'download') { return PREISE.download; }
-    var st = (STAFFEL[typ] || [])[0];
-    return st ? st.fuer / st.abMenge : 0;
+  /* ============================================================
+     PREIS AUF KARTE UND GROSSER ANSICHT
+     ============================================================
+     Zeigt, was ein Stück GERADE kostet — passend zum Warenkorb.
+     Liegen z. B. schon 2 Poster drin, gilt die 2er-Stufe: dann steht
+     dort „9,00 €“ durchgestrichen und daneben „je 7,50 €“. Krumme
+     Stufen (3 für 5 €) werden als Paket gezeigt, nie als „1,67 €“.
+     Wird nach jeder Änderung am Warenkorb neu gezeichnet. */
+  function aktuellerPreisHtml(typ) {
+    if (typ === 'download') { return euro(PREISE.download); }
+    var stufen = STAFFEL[staffelTyp(typ)] || [];
+    if (!stufen.length) { return ''; }
+    var erste = stufen[0];
+    var stufe = aktiveStufe(typ, Math.max(staffelMenge(typ), 1));
+    var normal = euro(erste.fuer / erste.abMenge);
+    if (stufe === erste) { return normal; }
+    var jetzt = stufeGlatt(stufe)
+      ? BG.t('je ', '') + euro(stufe.fuer / stufe.abMenge) + BG.t('', ' each')
+      : stufeKurz(stufe);
+    return '<s>' + normal + '</s> <span class="sk-preis-staffel">' + jetzt + '</span>';
   }
 
-  function stockInfo(b, art) {
-    var vorhanden = (art === 'poster') ? b.bereitsPoster : b.bereitsPostkarte;
-    var menge = (art === 'poster') ? b.bestandPoster : b.bestand;
-
-    if (!vorhanden) {
+  /* ============================================================
+     LAGERSTAND — eine Regel für Postkarte, Poster und Lesezeichen
+     ============================================================
+     Gepflegt wird er im Admin-Bereich (Motive → Postkarte / Poster /
+     Lesezeichen → „vorrätig“ und „Bestand“).
+       Zahl 4 oder mehr    → „49 auf Lager“          (grüner Punkt)
+       Zahl 1 bis 3        → „Nur noch 2 auf Lager“  (Rost-Punkt)
+       0, leer oder nicht vorrätig
+                           → „Druck in 1–2 Wochen nach Bestellung“
+                             (hohler Punkt, zählt nicht als vorrätig)
+     ============================================================ */
+  function lagerText(vorhanden, menge) {
+    if (!vorhanden || typeof menge !== 'number' || menge <= 0) {
       return {
-        html: (art === 'poster' ? BG.t('Wird nachgedruckt · ca. 1–2 Wochen', 'Being reprinted · approx. 1–2 weeks') : BG.t('Wird für dich gedruckt · ca. 1–2 Wochen', 'Printed for you · approx. 1–2 weeks')),
+        html: BG.t('Druck in 1–2 Wochen nach Bestellung', 'Printed within 1–2 weeks of ordering'),
         cls: 'back', vorraetig: false
       };
     }
-    if (menge === 0) {
-      return { html: BG.t('Wird nachbestellt · ca. 1–2 Wochen', 'Being reordered · approx. 1–2 weeks'), cls: 'back', vorraetig: false };
+    if (menge <= 3) {
+      return { html: BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left'), cls: 'low', vorraetig: true };
     }
-    if (typeof menge === 'number') {
-      return {
-        html: (menge <= 3 ? BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left in stock') : BG.t('Noch ' + menge + ' auf Lager', menge + ' in stock')),
-        cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
-      };
-    }
-    return { html: BG.t('Vorrätig', 'In stock'), cls: 'ok', vorraetig: true };
+    return { html: BG.t(menge + ' auf Lager', menge + ' in stock'), cls: 'ok', vorraetig: true };
   }
 
-  /* Lagerzeile für Lesezeichen. Einen "gibt es noch gar nicht"-Fall
-     braucht es hier nicht: ohne bereitsLesezeichen erscheint das
-     Motiv in dieser Ansicht erst gar nicht. */
+  function stockInfo(b, art) {
+    return (art === 'poster')
+      ? lagerText(b.bereitsPoster, b.bestandPoster)
+      : lagerText(b.bereitsPostkarte, b.bestand);
+  }
+
+  /* Lesezeichen: erscheinen nur, wenn im Admin „vorrätig“ angehakt
+     ist (sonst gibt es das Motiv als Lesezeichen noch gar nicht).
+     Die Zahl entscheidet dann wie oben. */
   function lesezeichenLager(b) {
-    var menge = b.bestandLesezeichen;
-    if (menge === 0) {
-      return { html: BG.t('Gerade vergriffen · wird nachgedruckt', 'Currently sold out · being reprinted'), cls: 'back', vorraetig: false };
-    }
-    if (typeof menge === 'number') {
-      return {
-        html: (menge <= 3 ? BG.t('Nur noch ' + menge + ' auf Lager', 'Only ' + menge + ' left in stock') : BG.t('Noch ' + menge + ' auf Lager', menge + ' in stock')),
-        cls: (menge <= 3 ? 'low' : 'ok'), vorraetig: true
-      };
-    }
-    return { html: BG.t('Vorrätig', 'In stock'), cls: 'ok', vorraetig: true };   /* null = Zahl unbekannt */
+    return lagerText(true, b.bestandLesezeichen);
   }
 
   /* Welches Foto zeigt die Lesezeichen-Karte?
@@ -2353,7 +2385,7 @@ BG.bereit(function () {
       '<div class="sk-text">' +
         '<h3 class="sk-name">' + escapeHtml(b.art || stripHtml(b.beschriftung)) + '</h3>' +
         (b.zusatz ? '<p class="sk-zusatz">' + escapeHtml(b.zusatz) + '</p>' : '') +
-        '<p class="sk-meta"><span class="sk-preis">' + euro(einzelpreis(art.id)) + '</span>' +
+        '<p class="sk-meta"><span class="sk-preis" id="' + cid + '-preis">' + aktuellerPreisHtml(art.id) + '</span>' +
           (lager ? '<span class="sk-lager ' + lager.cls + '" id="' + cid + '-stock">' + escapeHtml(lagerKurz(lager)) + '</span>' : '') +
         '</p>' +
         '<p class="sk-anderswo" id="' + cid + '-anderswo"></p>' +
@@ -2367,11 +2399,13 @@ BG.bereit(function () {
     var karte = document.getElementById('motiv-' + b.id);
     var kaufEl = document.getElementById(cid + '-kauf');
     var anderswoEl = document.getElementById(cid + '-anderswo');
+    var preisEl = document.getElementById(cid + '-preis');
 
     function aktualisieren() {
       kaufEl.innerHTML = mengenKnopf(key);
       karte.classList.toggle('ist-gewaehlt', !!findePosition(key));
       anderswoEl.textContent = anderswoImKorb(b, art.id);
+      preisEl.innerHTML = aktuellerPreisHtml(art.id);   /* Staffelpreis mitziehen */
     }
     motivAktualisierer[b.id] = aktualisieren;
 
