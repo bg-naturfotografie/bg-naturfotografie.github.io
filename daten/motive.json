@@ -1,4 +1,2022 @@
 {
+  "motive": [
+    {
+      "id": "teichleben1",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/entchen1.jpg",
+      "art": {
+        "de": "Entenküken",
+        "en": "Duckling"
+      },
+      "zusatz": {
+        "de": "Nahaufnahme",
+        "en": "close-up"
+      },
+      "alt": {
+        "de": "Entchen Nahaufnahme frontal",
+        "en": "Duckling close-up, looking straight at the camera"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 20
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "im Wasser schwimmend",
+          "en": "swimming on the water"
+        },
+        "koordinaten": "53.613574, 9.848579",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben2",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/entchen2.jpg",
+      "art": {
+        "de": "Gänseküken",
+        "en": "Gosling"
+      },
+      "zusatz": {
+        "de": "schlafend bei Gänseblümchen",
+        "en": "asleep by the daisies"
+      },
+      "alt": {
+        "de": "schlafendes Gänseküken neben Gänseblümchen",
+        "en": "Gosling asleep next to daisies"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 20
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "flaeche",
+        "label": {
+          "de": "Hamburger Westen",
+          "en": "Hamburg West"
+        },
+        "koordinaten": "",
+        "radius": 2000,
+        "polygon": "[[53.56588, 9.73595], [53.57465, 9.73869], [53.58199, 9.7514], [53.58791, 9.77337], [53.5873, 9.80049], [53.5873, 9.82967], [53.58872, 9.84135], [53.60034, 9.85886], [53.61053, 9.87259], [53.61502, 9.8925], [53.61828, 9.91997], [53.61481, 9.94228], [53.60749, 9.967], [53.59546, 9.98245], [53.57547, 9.99069], [53.55221, 9.97833], [53.54465, 9.96563], [53.5414, 9.92443], [53.54201, 9.87568], [53.54487, 9.85062], [53.5514, 9.80839], [53.55854, 9.77509], [53.56548, 9.73595]]"
+      }
+    },
+    {
+      "id": "teichleben3",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/entchen3.jpg",
+      "art": {
+        "de": "Entenküken",
+        "en": "Duckling"
+      },
+      "zusatz": {
+        "de": "Sonnenbaden",
+        "en": "sunbathing"
+      },
+      "alt": {
+        "de": "zwei Entenküken am Ufer eines Teichs",
+        "en": "Two ducklings on the bank of a pond"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 29
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Friedrichshulder See",
+          "en": "Friedrichshulder See"
+        },
+        "koordinaten": "53.609464, 9.823733",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben4",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/ente1.jpg",
+      "art": {
+        "de": "Stockente",
+        "en": "Mallard"
+      },
+      "zusatz": {
+        "de": "Flügelzauber",
+        "en": "wing magic"
+      },
+      "alt": {
+        "de": "Stockente breitet die Flügel auf dem Wasser aus",
+        "en": "Mallard spreading its wings on the water"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Friedrichshulder See",
+          "en": "Friedrichshulder See"
+        },
+        "koordinaten": "53.609383, 9.822356",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben5",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/reiher1.jpg",
+      "art": {
+        "de": "Reiher",
+        "en": "Grey heron"
+      },
+      "zusatz": {
+        "de": "Winterkälte",
+        "en": "winter cold"
+      },
+      "alt": {
+        "de": "Reiher im Winter im Wasser stehend",
+        "en": "Heron standing in the water in winter"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Teich in Halstenbek im Winter",
+          "en": "Pond in Halstenbek in winter"
+        },
+        "koordinaten": "53.613876, 9.848697",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben6",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/reiher.jpg",
+      "art": {
+        "de": "Reiher",
+        "en": "Grey heron"
+      },
+      "zusatz": {
+        "de": "Frühlingsgrün",
+        "en": "spring green"
+      },
+      "alt": {
+        "de": "Reiher im Wasser stehend mit Grünschimmer",
+        "en": "Heron standing in the water with a green shimmer"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Teich in Halstenbek im Sommer",
+          "en": "Pond in Halstenbek in summer"
+        },
+        "koordinaten": "53.6138, 9.848238",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben7",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/blaesshuhn1.jpg",
+      "art": {
+        "de": "Blässhuhn",
+        "en": "Coot"
+      },
+      "zusatz": {
+        "de": "schwimmend",
+        "en": "swimming"
+      },
+      "alt": {
+        "de": "Blässhuhn frontal schwimmend",
+        "en": "Coot swimming towards the camera"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Friedrichshulder See",
+          "en": "Friedrichshulder See"
+        },
+        "koordinaten": "53.60943, 9.822364",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben8",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/puffin.jpg",
+      "art": {
+        "de": "Papageientaucher",
+        "en": "Puffin"
+      },
+      "zusatz": {
+        "de": "Brutkolonie Schottland",
+        "en": "breeding colony, Scotland"
+      },
+      "alt": {
+        "de": "Papageientaucher auf Felsvorsprung",
+        "en": "Puffin on a rocky ledge"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 29
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 8
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 47
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "kreis",
+        "label": {
+          "de": "Schottische Küste",
+          "en": "Scottish coast"
+        },
+        "koordinaten": "58.640829, -3.026797",
+        "radius": 2500,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben9",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/reiher3.jpg",
+      "art": {
+        "de": "Reiher",
+        "en": "Grey heron"
+      },
+      "zusatz": {
+        "de": "im Baum",
+        "en": "up a tree"
+      },
+      "alt": {
+        "de": "Reiher im Baum",
+        "en": "Heron sitting in a tree"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Friedrichshulder See",
+          "en": "Friedrichshulder See"
+        },
+        "koordinaten": "53.60943, 9.822364",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "teichleben10",
+      "kategorie": "Teichleben",
+      "bild": "bilder/teichleben/ente2.jpg",
+      "art": {
+        "de": "Stockente",
+        "en": "Mallard"
+      },
+      "zusatz": {
+        "de": "flügelschlagend im Moor",
+        "en": "flapping on the moor"
+      },
+      "alt": {
+        "de": "Stockente schüttelnd und Flügelschlagend auf einem See",
+        "en": "Mallard shaking and flapping its wings on a lake"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Himmelmoor",
+          "en": "Himmelmoor"
+        },
+        "koordinaten": "53.74068, 9.86683",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben1",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/rotkehlchen1.jpg",
+      "art": {
+        "de": "Rotkehlchen",
+        "en": "Robin"
+      },
+      "zusatz": {
+        "de": "Ast",
+        "en": "on a branch"
+      },
+      "alt": {
+        "de": "Rotkehlchen sitzt ruhig auf einem Ast im Garten",
+        "en": "Robin sitting quietly on a branch in the garden"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Bocksberger Moor",
+          "en": "By the Bocksberg moor"
+        },
+        "koordinaten": "53.61409, 9.84706",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben2",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/kohlmeise1.jpg",
+      "art": {
+        "de": "Kohlmeise",
+        "en": "Great tit"
+      },
+      "zusatz": {
+        "de": "im Grünen",
+        "en": "in the green"
+      },
+      "alt": {
+        "de": "Kohlmeise zwischen grünen Blättern im Garten",
+        "en": "Great tit between green leaves in the garden"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Halstenbek und Schenefeld Grenze",
+          "en": "Halstenbek / Schenefeld border"
+        },
+        "koordinaten": "53.61304, 9.8486",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben3",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/blaumeise1.jpg",
+      "art": {
+        "de": "Blaumeise",
+        "en": "Blue tit"
+      },
+      "zusatz": {
+        "de": "Ausguck",
+        "en": "lookout"
+      },
+      "alt": {
+        "de": "Blaumeise sitzt als Ausguck auf einem Zweig",
+        "en": "Blue tit keeping lookout on a twig"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Halstenbek, Trampelpfad",
+          "en": "Halstenbek, footpath"
+        },
+        "koordinaten": "53.61286, 9.84956",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben4",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/blaumeise2.jpg",
+      "art": {
+        "de": "Blaumeise",
+        "en": "Blue tit"
+      },
+      "zusatz": {
+        "de": "Frühlingsknospen",
+        "en": "spring buds"
+      },
+      "alt": {
+        "de": "Blaumeise zwischen Frühlingsknospen",
+        "en": "Blue tit among spring buds"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Halstenbek, Trampelpfad",
+          "en": "Halstenbek, footpath"
+        },
+        "koordinaten": "53.61286, 9.84956",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben5",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/eichelhaeher1.jpg",
+      "art": {
+        "de": "Eichelhäher",
+        "en": "Jay"
+      },
+      "zusatz": {
+        "de": "Fressen knacken",
+        "en": "cracking a snack"
+      },
+      "alt": {
+        "de": "Eichelhäher im Porträt beim Knacken einer Eichel",
+        "en": "Portrait of a jay cracking an acorn"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Wiese beim Blocksberger Moor",
+          "en": "Meadow by the Blocksberg moor"
+        },
+        "koordinaten": "53.61457, 9.84683",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben6",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/schwanzmeise1.jpg",
+      "art": {
+        "de": "Schwanzmeise",
+        "en": "Long-tailed tit"
+      },
+      "zusatz": {
+        "de": "auf Nahrungsjagd",
+        "en": "foraging"
+      },
+      "alt": {
+        "de": "Schwanzmeise sucht auf einem Zweig nach Nahrung",
+        "en": "Long-tailed tit searching a twig for food"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "vor dem Friedrichshulder See",
+          "en": "In front of Friedrichshulder See"
+        },
+        "koordinaten": "53.60933, 9.82227",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben7",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/schwanzmeise2.jpg",
+      "art": {
+        "de": "Schwanzmeise",
+        "en": "Long-tailed tit"
+      },
+      "zusatz": {
+        "de": "in Zweigen",
+        "en": "in the twigs"
+      },
+      "alt": {
+        "de": "Schwanzmeise zwischen dichten Zweigen",
+        "en": "Long-tailed tit among dense twigs"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 48
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "vor Baumschulen, Halstenbek",
+          "en": "By the tree nurseries, Halstenbek"
+        },
+        "koordinaten": "53.61482, 9.84667",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben8",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/schwanzmeise3.jpg",
+      "art": {
+        "de": "Schwanzmeise",
+        "en": "Long-tailed tit"
+      },
+      "zusatz": {
+        "de": "neugierig",
+        "en": "curious"
+      },
+      "alt": {
+        "de": "Neugierig blickende Schwanzmeise auf einem Zweig",
+        "en": "Long-tailed tit looking curiously from a twig"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 28
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 8
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "An der LSE",
+          "en": "By the LSE"
+        },
+        "koordinaten": "53.61101, 9.80525",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben9",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/zaunkoenig1.jpg",
+      "art": {
+        "de": "Zaunkönig",
+        "en": "Wren"
+      },
+      "zusatz": {
+        "de": "Höhen-Spagat",
+        "en": "high-wire splits"
+      },
+      "alt": {
+        "de": "Zaunkönig im Spagat zwischen zwei Zweigen im Gebüsch",
+        "en": "Wren doing the splits between two twigs in a bush"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Ahornweg Halstenbek1",
+          "en": "Ahornweg, Halstenbek1"
+        },
+        "koordinaten": "53.61243, 9.85308",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben10",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/sumpfmeise1.jpg",
+      "art": {
+        "de": "Sumpfmeise",
+        "en": "Marsh tit"
+      },
+      "zusatz": {
+        "de": "Wurzelwerk",
+        "en": "among the roots"
+      },
+      "alt": {
+        "de": "Sumpfmeise im Wurzelwerk am Boden",
+        "en": "Marsh tit among roots on the ground"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Friedrichshulder See2",
+          "en": "By Friedrichshulder See2"
+        },
+        "koordinaten": "53.61022, 9.82328",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben11",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/schmetterling1.jpg",
+      "art": {
+        "de": "Tagpfauenauge",
+        "en": "Peacock butterfly"
+      },
+      "zusatz": {
+        "de": "ruhiger Snack",
+        "en": "quiet snack"
+      },
+      "alt": {
+        "de": "Tagpfauenauge saugt mit ausgebreiteten Flügeln Nektar",
+        "en": "Peacock butterfly drinking nectar with open wings"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 29
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "versteckter Pfad",
+          "en": "Hidden path"
+        },
+        "koordinaten": "53.612, 9.8533",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben12",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/schmetterling2.jpg",
+      "art": {
+        "de": "Tagpfauenauge",
+        "en": "Peacock butterfly"
+      },
+      "zusatz": {
+        "de": "Farbenspiel",
+        "en": "play of colours"
+      },
+      "alt": {
+        "de": "Tagpfauenauge mit leuchtender Flügelzeichnung",
+        "en": "Peacock butterfly with glowing wing pattern"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 27
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "versteckter Pfad",
+          "en": "Hidden path"
+        },
+        "koordinaten": "53.612, 9.8533",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben13",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/rotkehlchen2.jpg",
+      "art": {
+        "de": "Rotkehlchen",
+        "en": "Robin"
+      },
+      "zusatz": {
+        "de": "Blattgesang",
+        "en": "leafy song"
+      },
+      "alt": {
+        "de": "Rotkehlchen zwischen grünen Blättern",
+        "en": "Robin between green leaves"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Pferdehof",
+          "en": "By the horse farm"
+        },
+        "koordinaten": "53.6086, 9.82483",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben14",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/rotkehlchen3.jpg",
+      "art": {
+        "de": "Rotkehlchen",
+        "en": "Robin"
+      },
+      "zusatz": {
+        "de": "unschuldig",
+        "en": "innocent"
+      },
+      "alt": {
+        "de": "Junges Rotkehlchen mit aufgeplustertem Gefieder",
+        "en": "Young robin with fluffed-up feathers"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Schack-See",
+          "en": "By the Schack-See"
+        },
+        "koordinaten": "53.59253, 9.84181",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben15",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/katze1.jpg",
+      "art": {
+        "de": "schwarze Katze",
+        "en": "Black cat"
+      },
+      "zusatz": {
+        "de": "dunkles Versteck",
+        "en": "dark hideout"
+      },
+      "alt": {
+        "de": "Schwarze Katze im Halbschatten zwischen Gartenpflanzen",
+        "en": "Black cat in half-shade between garden plants"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Voßbargweide",
+          "en": "Voßbargweide"
+        },
+        "koordinaten": "53.60864, 9.80956",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben16",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/goldammer1.jpg",
+      "art": {
+        "de": "Goldammer",
+        "en": "Yellowhammer"
+      },
+      "zusatz": {
+        "de": "Solo Gesang",
+        "en": "solo song"
+      },
+      "alt": {
+        "de": "Singende Goldammer mit gelbem Kopfgefieder auf einem Zweig",
+        "en": "Singing yellowhammer with yellow head on a twig"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Nahe des Wildgeheges Klövensteen",
+          "en": "Near the Klövensteen wildlife park"
+        },
+        "koordinaten": "53.59815, 9.74716",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben17",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/dorngrasmuecke1.jpg",
+      "art": {
+        "de": "Dorngrasmücke",
+        "en": "Common whitethroat"
+      },
+      "zusatz": {
+        "de": "singend",
+        "en": "singing"
+      },
+      "alt": {
+        "de": "Singende Dorngrasmücke in einem Strauch",
+        "en": "Common whitethroat singing in a shrub"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Zwischen Wiesen und Feldern Schenefeld",
+          "en": "Between meadows and fields, Schenefeld"
+        },
+        "koordinaten": "53.60881, 9.80292",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben18",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/schwanzmeise4.jpg",
+      "art": {
+        "de": "Schwanzmeise",
+        "en": "Long-tailed tit"
+      },
+      "zusatz": {
+        "de": "Moment im Flug",
+        "en": "a moment in flight"
+      },
+      "alt": {
+        "de": "Schwanzmeise im Flug frontal in Kamera schauend",
+        "en": "Long-tailed tit in flight, looking straight at the camera"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "vor dem Friedrichshulder See",
+          "en": "In front of Friedrichshulder See"
+        },
+        "koordinaten": "53.60933, 9.82227",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben19",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/gimpel3.jpg",
+      "art": {
+        "de": "Gimpel",
+        "en": "Bullfinch"
+      },
+      "zusatz": {
+        "de": "Winterstimmung",
+        "en": "winter mood"
+      },
+      "alt": {
+        "de": "Gimpel auf einem Zweig im Winter",
+        "en": "Bullfinch on a twig in winter"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "In der Ahornwegkurve",
+          "en": "In the Ahornweg bend"
+        },
+        "koordinaten": "53.61256, 9.85278",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben20",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/gimpel2.jpg",
+      "art": {
+        "de": "Gimpel",
+        "en": "Bullfinch"
+      },
+      "zusatz": {
+        "de": "Elvis Look",
+        "en": "the Elvis look"
+      },
+      "alt": {
+        "de": "Gimpel auf einem Zweig im Winter, aussehnd wie Elvis",
+        "en": "Bullfinch on a twig in winter, looking like Elvis"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "In der Ahornwegkurve",
+          "en": "In the Ahornweg bend"
+        },
+        "koordinaten": "53.61256, 9.85278",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben21",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/singdrossel1.jpg",
+      "art": {
+        "de": "Singdrossel",
+        "en": "Song thrush"
+      },
+      "zusatz": {
+        "de": "grüner Gesang",
+        "en": "green song"
+      },
+      "alt": {
+        "de": "singende Singdrossel auf Tannengrün",
+        "en": "Song thrush singing on fir branches"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 8
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Weg bei den Baumschulen",
+          "en": "On the path by the tree nurseries"
+        },
+        "koordinaten": "53.61518, 9.84667",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben22",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/buchfink.jpg",
+      "art": {
+        "de": "schottischer Buchfink",
+        "en": "Scottish chaffinch"
+      },
+      "zusatz": {
+        "de": "natürlicher Look",
+        "en": "natural look"
+      },
+      "alt": {
+        "de": "Buchfink im Wiesengras, aufgenommen in Schottland",
+        "en": "Chaffinch in meadow grass, photographed in Scotland"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 27
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "kreis",
+        "label": {
+          "de": "Schottische Küste",
+          "en": "Scottish coast"
+        },
+        "koordinaten": "58.640829, -3.026797",
+        "radius": 2500,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben23",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/kornblume.jpg",
+      "art": {
+        "de": "Kornblume",
+        "en": "Cornflower"
+      },
+      "zusatz": {
+        "de": "farblicher Akzent",
+        "en": "a splash of colour"
+      },
+      "alt": {
+        "de": "Blaue Kornblume als Farbakzent im Getreidefeld",
+        "en": "Blue cornflower as a splash of colour in a grain field"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Feldrand in Heede",
+          "en": "At the edge of a field in Heede"
+        },
+        "koordinaten": "53.78366, 9.79648",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben24",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/junger_moench.jpg",
+      "art": {
+        "de": "Mönchgrasmücke",
+        "en": "Blackcap"
+      },
+      "zusatz": {
+        "de": "mit rotem Snack",
+        "en": "with a red snack"
+      },
+      "alt": {
+        "de": "junge Mönchgrasmücke in grünen Zweigen mit roten Früchten",
+        "en": "Young blackcap in green branches with red berries"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 39
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 15
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Auf dem Spielplatz",
+          "en": "At the playground"
+        },
+        "koordinaten": "53.61263, 9.85239",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "gartenleben25",
+      "kategorie": "Gartenleben",
+      "bild": "bilder/gartenleben/junger_moench2.jpg",
+      "art": {
+        "de": "Mönchgrasmücke",
+        "en": "Blackcap"
+      },
+      "zusatz": {
+        "de": "junge Zuversicht",
+        "en": "young confidence"
+      },
+      "alt": {
+        "de": "junge Mönchgrasmücke in grünen Zweigen",
+        "en": "Young blackcap in green branches"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 47
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Auf dem Spielplatz",
+          "en": "At the playground"
+        },
+        "koordinaten": "53.61263, 9.85239",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben1",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/mission_impossible.jpg",
+      "art": {
+        "de": "Eichhörnchen",
+        "en": "Red squirrel"
+      },
+      "zusatz": {
+        "de": "Actionszene",
+        "en": "action scene"
+      },
+      "alt": {
+        "de": "Eichhörnchen hängend vom Baum",
+        "en": "Red squirrel hanging from a tree"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 25
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 48
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "flaeche",
+        "label": {
+          "de": "Hamburger Westen",
+          "en": "Hamburg West"
+        },
+        "koordinaten": "",
+        "radius": 2000,
+        "polygon": "[[53.56588, 9.73595], [53.57465, 9.73869], [53.58199, 9.7514], [53.58791, 9.77337], [53.5873, 9.80049], [53.5873, 9.82967], [53.58872, 9.84135], [53.60034, 9.85886], [53.61053, 9.87259], [53.61502, 9.8925], [53.61828, 9.91997], [53.61481, 9.94228], [53.60749, 9.967], [53.59546, 9.98245], [53.57547, 9.99069], [53.55221, 9.97833], [53.54465, 9.96563], [53.5414, 9.92443], [53.54201, 9.87568], [53.54487, 9.85062], [53.5514, 9.80839], [53.55854, 9.77509], [53.56548, 9.73595]]"
+      }
+    },
+    {
+      "id": "waldleben2",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/planning_squirrel.jpg",
+      "art": {
+        "de": "Eichhörnchen",
+        "en": "Red squirrel"
+      },
+      "zusatz": {
+        "de": "plant es etwas?",
+        "en": "planning something?"
+      },
+      "alt": {
+        "de": "Eichhörnchen mysteriös auf Baum schauend",
+        "en": "Red squirrel peering mysteriously from a tree"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 37
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 48
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Im Waldstück am See",
+          "en": "In the woods by the lake"
+        },
+        "koordinaten": "53.61393, 9.84892",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben3",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/sleepy_squirrel.jpg",
+      "art": {
+        "de": "Eichhörnchen",
+        "en": "Red squirrel"
+      },
+      "zusatz": {
+        "de": "entspannt und müde",
+        "en": "relaxed and sleepy"
+      },
+      "alt": {
+        "de": "Eichhörnchen müde auf Baum sitzend",
+        "en": "Sleepy red squirrel sitting in a tree"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 32
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 26
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Blocksberger Moor Kreuzung",
+          "en": "Blocksberg moor crossing"
+        },
+        "koordinaten": "53.61308, 9.84817",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben4",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/specht.jpg",
+      "art": {
+        "de": "Specht",
+        "en": "Woodpecker"
+      },
+      "zusatz": {
+        "de": "Hausbesichtigung",
+        "en": "house viewing"
+      },
+      "alt": {
+        "de": "Buntspecht schaut aus seiner Baumhöhle heraus",
+        "en": "Great spotted woodpecker looking out of its tree hole"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 28
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Im Waldstück am See",
+          "en": "In the woods by the lake"
+        },
+        "koordinaten": "53.61393, 9.84892",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben5",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/baum.jpg",
+      "art": {
+        "de": "Birke",
+        "en": "Birch"
+      },
+      "zusatz": {
+        "de": "kräftig im Moor",
+        "en": "strong on the moor"
+      },
+      "alt": {
+        "de": "Einzelne Birke im Moor bei Halstenbek",
+        "en": "A lone birch on the moor near Halstenbek"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 28
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Im Schnaakenmoor",
+          "en": "In the Schnaakenmoor"
+        },
+        "koordinaten": "53.6051, 9.75957",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben6",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/specht2.jpg",
+      "art": {
+        "de": "Buntspecht",
+        "en": "Great spotted woodpecker"
+      },
+      "zusatz": {
+        "de": "Winterstimmung",
+        "en": "winter mood"
+      },
+      "alt": {
+        "de": "Buntspecht klettert an einem verschneiten Stamm",
+        "en": "Great spotted woodpecker climbing a snowy trunk"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 42
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 27
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 47
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Fußballfeld",
+          "en": "By the football pitch"
+        },
+        "koordinaten": "53.61295, 9.85151",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben8",
+      "kategorie": "Waldleben",
+      "bild": "bilder/waldleben/rotkehlchengruen.jpg",
+      "art": {
+        "de": "Rotkehlchen",
+        "en": "Robin"
+      },
+      "zusatz": {
+        "de": "heldenhafte Pose",
+        "en": "heroic pose"
+      },
+      "alt": {
+        "de": "Rotkehlchen auf einem Ast vor grün leuchtendem Hintergrund",
+        "en": "Robin on a branch against a glowing green background"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 38
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 27
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 47
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Parkplatz im Klövensteen",
+          "en": "Car park in the Klövensteen"
+        },
+        "koordinaten": "53.60763, 9.79896",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "reduktion1",
+      "kategorie": "Reduktion",
+      "bild": "bilder/Reduktion/silhouette_robin.jpg",
+      "art": {
+        "de": "Rotkehlchen",
+        "en": "Robin"
+      },
+      "zusatz": {
+        "de": "Michael Jackson",
+        "en": "Michael Jackson"
+      },
+      "alt": {
+        "de": "schwarz-weiß Silhouette eines Rotkehlchens",
+        "en": "Black-and-white silhouette of a robin"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 8
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Feldesrand",
+          "en": "At the edge of a field"
+        },
+        "koordinaten": "53.60878, 9.80491",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "reduktion2",
+      "kategorie": "Reduktion",
+      "bild": "bilder/Reduktion/silhouette_singdrossel.jpg",
+      "art": {
+        "de": "Singdrossel",
+        "en": "Song thrush"
+      },
+      "zusatz": {
+        "de": "Blick nach rechts",
+        "en": "looking right"
+      },
+      "alt": {
+        "de": "schwarz-weiß Silhouette einer Singdrossel",
+        "en": "Black-and-white silhouette of a song thrush"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 8
+      },
+      "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "kreis",
+        "label": {
+          "de": "Fischbeker Heide",
+          "en": "Fischbek Heath"
+        },
+        "koordinaten": "53.45539, 9.84195",
+        "radius": 1554,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "reduktion3",
+      "kategorie": "Reduktion",
+      "bild": "bilder/Reduktion/silhouette_stare.jpg",
+      "art": {
+        "de": "Stare",
+        "en": "Starlings"
+      },
+      "zusatz": {
+        "de": "minimalistischer Ast-Kampf",
+        "en": "minimalist branch fight"
+      },
+      "alt": {
+        "de": "schwarz-weiß Silhouette zweier Stare auf einem Ast",
+        "en": "Black-and-white silhouette of two starlings on a branch"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 27
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Ahornweg",
+          "en": "Ahornweg"
+        },
+        "koordinaten": "53.61229, 9.85326",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "reduktion4",
+      "kategorie": "Reduktion",
+      "bild": "bilder/Reduktion/silhouette_zaunkönig.jpg",
+      "art": {
+        "de": "Zaunkönig",
+        "en": "Wren"
+      },
+      "zusatz": {
+        "de": "kraftvolle Silhouette",
+        "en": "powerful silhouette"
+      },
+      "alt": {
+        "de": "schwarz-weiß Silhouette eines flügelschlagenden Zaunkönigs",
+        "en": "Black-and-white silhouette of a wren flapping its wings"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": true,
+        "bestand": 27
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Halstenbek und Schenefeld Grenze",
+          "en": "Halstenbek / Schenefeld border"
+        },
+        "koordinaten": "53.61304, 9.8486",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "reduktion5",
+      "kategorie": "Reduktion",
+      "bild": "bilder/Reduktion/singdrossel_art.jpg",
+      "art": {
+        "de": "Singdrossel",
+        "en": "Song thrush"
+      },
+      "zusatz": {
+        "de": "Apfel Dilemma",
+        "en": "apple dilemma"
+      },
+      "alt": {
+        "de": "Singdrossel im Apfelbaum mit verdortem Apfel",
+        "en": "Song thrush in an apple tree with a withered apple"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 31
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Am Islandpferdehof",
+          "en": "By the Icelandic horse farm"
+        },
+        "koordinaten": "53.6069, 9.80855",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "reduktion6",
+      "kategorie": "Reduktion",
+      "bild": "bilder/Reduktion/Blaesshuhn.jpg",
+      "art": {
+        "de": "Blässhuhn",
+        "en": "Coot"
+      },
+      "zusatz": {
+        "de": "dunkle Aura",
+        "en": "dark aura"
+      },
+      "alt": {
+        "de": "Blässhuhn auf dunklem See, reduzierte Aufnahme",
+        "en": "Coot on a dark lake, reduced image"
+      },
+      "imShop": true,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": true,
+        "bestand": 30
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": 0
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "vor dem Friedrichshulder See",
+          "en": "In front of Friedrichshulder See"
+        },
+        "koordinaten": "53.60933, 9.82227",
+        "radius": 2000,
+        "polygon": ""
+      }
+    }
+  ],
   "serien": [
     {
       "id": "Teichleben",
@@ -6,6 +2024,7 @@
         "de": "Teichleben",
         "en": "Pond Life"
       },
+      "titelStartseite": null,
       "kurz": {
         "de": "Schwimmend, putzend, schlafend — das Leben am kühlen Gewässer nebenan.",
         "en": "Swimming, preening, sleeping — life by the cool water next door."
@@ -23,6 +2042,7 @@
         "de": "Gartenleben",
         "en": "Garden Life"
       },
+      "titelStartseite": null,
       "kurz": {
         "de": "Rotkehlchen, Meisen, Gimpel & Co. im Wechsel der Jahreszeiten.",
         "en": "Robins, tits, bullfinches & co. through the changing seasons."
@@ -40,6 +2060,7 @@
         "de": "Waldleben",
         "en": "Woodland Life"
       },
+      "titelStartseite": null,
       "kurz": {
         "de": "Eichhörnchen, Specht & Co. im grünen Lebensraum.",
         "en": "Squirrels, woodpeckers & co. in their green habitat."
@@ -71,1835 +2092,6 @@
         "reduktion5",
         "reduktion6"
       ]
-    }
-  ],
-  "motive": [
-    {
-      "id": "teichleben1",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/entchen1.jpg",
-      "art": {
-        "de": "Entenküken",
-        "en": "Duckling"
-      },
-      "zusatz": {
-        "de": "Nahaufnahme",
-        "en": "close-up"
-      },
-      "alt": {
-        "de": "Entchen Nahaufnahme frontal",
-        "en": "Duckling close-up, looking straight at the camera"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 20
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "im Wasser schwimmend",
-          "en": "swimming on the water"
-        },
-        "koordinaten": "53.613574, 9.848579"
-      }
-    },
-    {
-      "id": "teichleben2",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/entchen2.jpg",
-      "art": {
-        "de": "Gänseküken",
-        "en": "Gosling"
-      },
-      "zusatz": {
-        "de": "schlafend bei Gänseblümchen",
-        "en": "asleep by the daisies"
-      },
-      "alt": {
-        "de": "schlafendes Gänseküken neben Gänseblümchen",
-        "en": "Gosling asleep next to daisies"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 20
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "label": {
-          "de": "Hamburger Westen",
-          "en": "Hamburg West"
-        },
-        "art": "flaeche",
-        "polygon": "[[53.56588, 9.73595], [53.57465, 9.73869], [53.58199, 9.7514], [53.58791, 9.77337], [53.5873, 9.80049], [53.5873, 9.82967], [53.58872, 9.84135], [53.60034, 9.85886], [53.61053, 9.87259], [53.61502, 9.8925], [53.61828, 9.91997], [53.61481, 9.94228], [53.60749, 9.967], [53.59546, 9.98245], [53.57547, 9.99069], [53.55221, 9.97833], [53.54465, 9.96563], [53.5414, 9.92443], [53.54201, 9.87568], [53.54487, 9.85062], [53.5514, 9.80839], [53.55854, 9.77509], [53.56548, 9.73595]]"
-      }
-    },
-    {
-      "id": "teichleben3",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/entchen3.jpg",
-      "art": {
-        "de": "Entenküken",
-        "en": "Duckling"
-      },
-      "zusatz": {
-        "de": "Sonnenbaden",
-        "en": "sunbathing"
-      },
-      "alt": {
-        "de": "zwei Entenküken am Ufer eines Teichs",
-        "en": "Two ducklings on the bank of a pond"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 29
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Friedrichshulder See",
-          "en": "Friedrichshulder See"
-        },
-        "koordinaten": "53.609464, 9.823733"
-      }
-    },
-    {
-      "id": "teichleben4",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/ente1.jpg",
-      "art": {
-        "de": "Stockente",
-        "en": "Mallard"
-      },
-      "zusatz": {
-        "de": "Flügelzauber",
-        "en": "wing magic"
-      },
-      "alt": {
-        "de": "Stockente breitet die Flügel auf dem Wasser aus",
-        "en": "Mallard spreading its wings on the water"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Friedrichshulder See",
-          "en": "Friedrichshulder See"
-        },
-        "koordinaten": "53.609383, 9.822356"
-      }
-    },
-    {
-      "id": "teichleben5",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/reiher1.jpg",
-      "art": {
-        "de": "Reiher",
-        "en": "Grey heron"
-      },
-      "zusatz": {
-        "de": "Winterkälte",
-        "en": "winter cold"
-      },
-      "alt": {
-        "de": "Reiher im Winter im Wasser stehend",
-        "en": "Heron standing in the water in winter"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Teich in Halstenbek im Winter",
-          "en": "Pond in Halstenbek in winter"
-        },
-        "koordinaten": "53.613876, 9.848697"
-      }
-    },
-    {
-      "id": "teichleben6",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/reiher.jpg",
-      "art": {
-        "de": "Reiher",
-        "en": "Grey heron"
-      },
-      "zusatz": {
-        "de": "Frühlingsgrün",
-        "en": "spring green"
-      },
-      "alt": {
-        "de": "Reiher im Wasser stehend mit Grünschimmer",
-        "en": "Heron standing in the water with a green shimmer"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": null
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Teich in Halstenbek im Sommer",
-          "en": "Pond in Halstenbek in summer"
-        },
-        "koordinaten": "53.6138, 9.848238"
-      }
-    },
-    {
-      "id": "teichleben7",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/blaesshuhn1.jpg",
-      "art": {
-        "de": "Blässhuhn",
-        "en": "Coot"
-      },
-      "zusatz": {
-        "de": "schwimmend",
-        "en": "swimming"
-      },
-      "alt": {
-        "de": "Blässhuhn frontal schwimmend",
-        "en": "Coot swimming towards the camera"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Friedrichshulder See",
-          "en": "Friedrichshulder See"
-        },
-        "koordinaten": "53.60943, 9.822364"
-      }
-    },
-    {
-      "id": "teichleben8",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/puffin.jpg",
-      "art": {
-        "de": "Papageientaucher",
-        "en": "Puffin"
-      },
-      "zusatz": {
-        "de": "Brutkolonie Schottland",
-        "en": "breeding colony, Scotland"
-      },
-      "alt": {
-        "de": "Papageientaucher auf Felsvorsprung",
-        "en": "Puffin on a rocky ledge"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 8
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "kreis",
-        "label": {
-          "de": "Schottische Küste",
-          "en": "Scottish coast"
-        },
-        "koordinaten": "58.640829, -3.026797",
-        "radius": 2500
-      }
-    },
-    {
-      "id": "teichleben9",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/reiher3.jpg",
-      "art": {
-        "de": "Reiher",
-        "en": "Grey heron"
-      },
-      "zusatz": {
-        "de": "im Baum",
-        "en": "up a tree"
-      },
-      "alt": {
-        "de": "Reiher im Baum",
-        "en": "Heron sitting in a tree"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Friedrichshulder See",
-          "en": "Friedrichshulder See"
-        },
-        "koordinaten": "53.60943, 9.822364"
-      }
-    },
-    {
-      "id": "teichleben10",
-      "kategorie": "Teichleben",
-      "bild": "bilder/teichleben/ente2.jpg",
-      "art": {
-        "de": "Stockente",
-        "en": "Mallard"
-      },
-      "zusatz": {
-        "de": "flügelschlagend im Moor",
-        "en": "flapping on the moor"
-      },
-      "alt": {
-        "de": "Stockente schüttelnd und Flügelschlagend auf einem See",
-        "en": "Mallard shaking and flapping its wings on a lake"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Himmelmoor",
-          "en": "Himmelmoor"
-        },
-        "koordinaten": "53.74068, 9.86683"
-      }
-    },
-    {
-      "id": "gartenleben1",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/rotkehlchen1.jpg",
-      "art": {
-        "de": "Rotkehlchen",
-        "en": "Robin"
-      },
-      "zusatz": {
-        "de": "Ast",
-        "en": "on a branch"
-      },
-      "alt": {
-        "de": "Rotkehlchen sitzt ruhig auf einem Ast im Garten",
-        "en": "Robin sitting quietly on a branch in the garden"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Bocksberger Moor",
-          "en": "By the Bocksberg moor"
-        },
-        "koordinaten": "53.61409, 9.84706"
-      }
-    },
-    {
-      "id": "gartenleben2",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/kohlmeise1.jpg",
-      "art": {
-        "de": "Kohlmeise",
-        "en": "Great tit"
-      },
-      "zusatz": {
-        "de": "im Grünen",
-        "en": "in the green"
-      },
-      "alt": {
-        "de": "Kohlmeise zwischen grünen Blättern im Garten",
-        "en": "Great tit between green leaves in the garden"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Halstenbek und Schenefeld Grenze",
-          "en": "Halstenbek / Schenefeld border"
-        },
-        "koordinaten": "53.61304, 9.8486"
-      }
-    },
-    {
-      "id": "gartenleben3",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/blaumeise1.jpg",
-      "art": {
-        "de": "Blaumeise",
-        "en": "Blue tit"
-      },
-      "zusatz": {
-        "de": "Ausguck",
-        "en": "lookout"
-      },
-      "alt": {
-        "de": "Blaumeise sitzt als Ausguck auf einem Zweig",
-        "en": "Blue tit keeping lookout on a twig"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Halstenbek, Trampelpfad",
-          "en": "Halstenbek, footpath"
-        },
-        "koordinaten": "53.61286, 9.84956"
-      }
-    },
-    {
-      "id": "gartenleben4",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/blaumeise2.jpg",
-      "art": {
-        "de": "Blaumeise",
-        "en": "Blue tit"
-      },
-      "zusatz": {
-        "de": "Frühlingsknospen",
-        "en": "spring buds"
-      },
-      "alt": {
-        "de": "Blaumeise zwischen Frühlingsknospen",
-        "en": "Blue tit among spring buds"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Halstenbek, Trampelpfad",
-          "en": "Halstenbek, footpath"
-        },
-        "koordinaten": "53.61286, 9.84956"
-      }
-    },
-    {
-      "id": "gartenleben5",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/eichelhaeher1.jpg",
-      "art": {
-        "de": "Eichelhäher",
-        "en": "Jay"
-      },
-      "zusatz": {
-        "de": "Fressen knacken",
-        "en": "cracking a snack"
-      },
-      "alt": {
-        "de": "Eichelhäher im Porträt beim Knacken einer Eichel",
-        "en": "Portrait of a jay cracking an acorn"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Wiese beim Blocksberger Moor",
-          "en": "Meadow by the Blocksberg moor"
-        },
-        "koordinaten": "53.61457, 9.84683"
-      }
-    },
-    {
-      "id": "gartenleben6",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/schwanzmeise1.jpg",
-      "art": {
-        "de": "Schwanzmeise",
-        "en": "Long-tailed tit"
-      },
-      "zusatz": {
-        "de": "auf Nahrungsjagd",
-        "en": "foraging"
-      },
-      "alt": {
-        "de": "Schwanzmeise sucht auf einem Zweig nach Nahrung",
-        "en": "Long-tailed tit searching a twig for food"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "vor dem Friedrichshulder See",
-          "en": "In front of Friedrichshulder See"
-        },
-        "koordinaten": "53.60933, 9.82227"
-      }
-    },
-    {
-      "id": "gartenleben7",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/schwanzmeise2.jpg",
-      "art": {
-        "de": "Schwanzmeise",
-        "en": "Long-tailed tit"
-      },
-      "zusatz": {
-        "de": "in Zweigen",
-        "en": "in the twigs"
-      },
-      "alt": {
-        "de": "Schwanzmeise zwischen dichten Zweigen",
-        "en": "Long-tailed tit among dense twigs"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "vor Baumschulen, Halstenbek",
-          "en": "By the tree nurseries, Halstenbek"
-        },
-        "koordinaten": "53.61482, 9.84667"
-      }
-    },
-    {
-      "id": "gartenleben8",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/schwanzmeise3.jpg",
-      "art": {
-        "de": "Schwanzmeise",
-        "en": "Long-tailed tit"
-      },
-      "zusatz": {
-        "de": "neugierig",
-        "en": "curious"
-      },
-      "alt": {
-        "de": "Neugierig blickende Schwanzmeise auf einem Zweig",
-        "en": "Long-tailed tit looking curiously from a twig"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 8
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "An der LSE",
-          "en": "By the LSE"
-        },
-        "koordinaten": "53.61101, 9.80525"
-      }
-    },
-    {
-      "id": "gartenleben9",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/zaunkoenig1.jpg",
-      "art": {
-        "de": "Zaunkönig",
-        "en": "Wren"
-      },
-      "zusatz": {
-        "de": "Höhen-Spagat",
-        "en": "high-wire splits"
-      },
-      "alt": {
-        "de": "Zaunkönig im Spagat zwischen zwei Zweigen im Gebüsch",
-        "en": "Wren doing the splits between two twigs in a bush"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Ahornweg Halstenbek1",
-          "en": "Ahornweg, Halstenbek1"
-        },
-        "koordinaten": "53.61243, 9.85308"
-      }
-    },
-    {
-      "id": "gartenleben10",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/sumpfmeise1.jpg",
-      "art": {
-        "de": "Sumpfmeise",
-        "en": "Marsh tit"
-      },
-      "zusatz": {
-        "de": "Wurzelwerk",
-        "en": "among the roots"
-      },
-      "alt": {
-        "de": "Sumpfmeise im Wurzelwerk am Boden",
-        "en": "Marsh tit among roots on the ground"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Friedrichshulder See2",
-          "en": "By Friedrichshulder See2"
-        },
-        "koordinaten": "53.61022, 9.82328"
-      }
-    },
-    {
-      "id": "gartenleben11",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/schmetterling1.jpg",
-      "art": {
-        "de": "Tagpfauenauge",
-        "en": "Peacock butterfly"
-      },
-      "zusatz": {
-        "de": "ruhiger Snack",
-        "en": "quiet snack"
-      },
-      "alt": {
-        "de": "Tagpfauenauge saugt mit ausgebreiteten Flügeln Nektar",
-        "en": "Peacock butterfly drinking nectar with open wings"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "versteckter Pfad",
-          "en": "Hidden path"
-        },
-        "koordinaten": "53.612, 9.8533"
-      }
-    },
-    {
-      "id": "gartenleben12",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/schmetterling2.jpg",
-      "art": {
-        "de": "Tagpfauenauge",
-        "en": "Peacock butterfly"
-      },
-      "zusatz": {
-        "de": "Farbenspiel",
-        "en": "play of colours"
-      },
-      "alt": {
-        "de": "Tagpfauenauge mit leuchtender Flügelzeichnung",
-        "en": "Peacock butterfly with glowing wing pattern"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "versteckter Pfad",
-          "en": "Hidden path"
-        },
-        "koordinaten": "53.612, 9.8533"
-      }
-    },
-    {
-      "id": "gartenleben13",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/rotkehlchen2.jpg",
-      "art": {
-        "de": "Rotkehlchen",
-        "en": "Robin"
-      },
-      "zusatz": {
-        "de": "Blattgesang",
-        "en": "leafy song"
-      },
-      "alt": {
-        "de": "Rotkehlchen zwischen grünen Blättern",
-        "en": "Robin between green leaves"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Pferdehof",
-          "en": "By the horse farm"
-        },
-        "koordinaten": "53.6086, 9.82483"
-      }
-    },
-    {
-      "id": "gartenleben14",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/rotkehlchen3.jpg",
-      "art": {
-        "de": "Rotkehlchen",
-        "en": "Robin"
-      },
-      "zusatz": {
-        "de": "unschuldig",
-        "en": "innocent"
-      },
-      "alt": {
-        "de": "Junges Rotkehlchen mit aufgeplustertem Gefieder",
-        "en": "Young robin with fluffed-up feathers"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Schack-See",
-          "en": "By the Schack-See"
-        },
-        "koordinaten": "53.59253, 9.84181"
-      }
-    },
-    {
-      "id": "gartenleben15",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/katze1.jpg",
-      "art": {
-        "de": "schwarze Katze",
-        "en": "Black cat"
-      },
-      "zusatz": {
-        "de": "dunkles Versteck",
-        "en": "dark hideout"
-      },
-      "alt": {
-        "de": "Schwarze Katze im Halbschatten zwischen Gartenpflanzen",
-        "en": "Black cat in half-shade between garden plants"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Voßbargweide",
-          "en": "Voßbargweide"
-        },
-        "koordinaten": "53.60864, 9.80956"
-      }
-    },
-    {
-      "id": "gartenleben16",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/goldammer1.jpg",
-      "art": {
-        "de": "Goldammer",
-        "en": "Yellowhammer"
-      },
-      "zusatz": {
-        "de": "Solo Gesang",
-        "en": "solo song"
-      },
-      "alt": {
-        "de": "Singende Goldammer mit gelbem Kopfgefieder auf einem Zweig",
-        "en": "Singing yellowhammer with yellow head on a twig"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Nahe des Wildgeheges Klövensteen",
-          "en": "Near the Klövensteen wildlife park"
-        },
-        "koordinaten": "53.59815, 9.74716"
-      }
-    },
-    {
-      "id": "gartenleben17",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/dorngrasmuecke1.jpg",
-      "art": {
-        "de": "Dorngrasmücke",
-        "en": "Common whitethroat"
-      },
-      "zusatz": {
-        "de": "singend",
-        "en": "singing"
-      },
-      "alt": {
-        "de": "Singende Dorngrasmücke in einem Strauch",
-        "en": "Common whitethroat singing in a shrub"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Zwischen Wiesen und Feldern Schenefeld",
-          "en": "Between meadows and fields, Schenefeld"
-        },
-        "koordinaten": "53.60881, 9.80292"
-      }
-    },
-    {
-      "id": "gartenleben18",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/schwanzmeise4.jpg",
-      "art": {
-        "de": "Schwanzmeise",
-        "en": "Long-tailed tit"
-      },
-      "zusatz": {
-        "de": "Moment im Flug",
-        "en": "a moment in flight"
-      },
-      "alt": {
-        "de": "Schwanzmeise im Flug frontal in Kamera schauend",
-        "en": "Long-tailed tit in flight, looking straight at the camera"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": null
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "vor dem Friedrichshulder See",
-          "en": "In front of Friedrichshulder See"
-        },
-        "koordinaten": "53.60933, 9.82227"
-      }
-    },
-    {
-      "id": "gartenleben19",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/gimpel3.jpg",
-      "art": {
-        "de": "Gimpel",
-        "en": "Bullfinch"
-      },
-      "zusatz": {
-        "de": "Winterstimmung",
-        "en": "winter mood"
-      },
-      "alt": {
-        "de": "Gimpel auf einem Zweig im Winter",
-        "en": "Bullfinch on a twig in winter"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "In der Ahornwegkurve",
-          "en": "In the Ahornweg bend"
-        },
-        "koordinaten": "53.61256, 9.85278"
-      }
-    },
-    {
-      "id": "gartenleben20",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/gimpel2.jpg",
-      "art": {
-        "de": "Gimpel",
-        "en": "Bullfinch"
-      },
-      "zusatz": {
-        "de": "Elvis Look",
-        "en": "the Elvis look"
-      },
-      "alt": {
-        "de": "Gimpel auf einem Zweig im Winter, aussehnd wie Elvis",
-        "en": "Bullfinch on a twig in winter, looking like Elvis"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "In der Ahornwegkurve",
-          "en": "In the Ahornweg bend"
-        },
-        "koordinaten": "53.61256, 9.85278"
-      }
-    },
-    {
-      "id": "gartenleben21",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/singdrossel1.jpg",
-      "art": {
-        "de": "Singdrossel",
-        "en": "Song thrush"
-      },
-      "zusatz": {
-        "de": "grüner Gesang",
-        "en": "green song"
-      },
-      "alt": {
-        "de": "singende Singdrossel auf Tannengrün",
-        "en": "Song thrush singing on fir branches"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 8
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Weg bei den Baumschulen",
-          "en": "On the path by the tree nurseries"
-        },
-        "koordinaten": "53.61518, 9.84667"
-      }
-    },
-    {
-      "id": "gartenleben22",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/buchfink.jpg",
-      "art": {
-        "de": "schottischer Buchfink",
-        "en": "Scottish chaffinch"
-      },
-      "zusatz": {
-        "de": "natürlicher Look",
-        "en": "natural look"
-      },
-      "alt": {
-        "de": "Buchfink im Wiesengras, aufgenommen in Schottland",
-        "en": "Chaffinch in meadow grass, photographed in Scotland"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "kreis",
-        "label": {
-          "de": "Schottische Küste",
-          "en": "Scottish coast"
-        },
-        "koordinaten": "58.640829, -3.026797",
-        "radius": 2500
-      }
-    },
-    {
-      "id": "gartenleben23",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/kornblume.jpg",
-      "art": {
-        "de": "Kornblume",
-        "en": "Cornflower"
-      },
-      "zusatz": {
-        "de": "farblicher Akzent",
-        "en": "a splash of colour"
-      },
-      "alt": {
-        "de": "Blaue Kornblume als Farbakzent im Getreidefeld",
-        "en": "Blue cornflower as a splash of colour in a grain field"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Feldrand in Heede",
-          "en": "At the edge of a field in Heede"
-        },
-        "koordinaten": "53.78366, 9.79648"
-      }
-    },
-    {
-      "id": "gartenleben24",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/junger_moench.jpg",
-      "art": {
-        "de": "Mönchgrasmücke",
-        "en": "Blackcap"
-      },
-      "zusatz": {
-        "de": "mit rotem Snack",
-        "en": "with a red snack"
-      },
-      "alt": {
-        "de": "junge Mönchgrasmücke in grünen Zweigen mit roten Früchten",
-        "en": "Young blackcap in green branches with red berries"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 40
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 15
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Auf dem Spielplatz",
-          "en": "At the playground"
-        },
-        "koordinaten": "53.61263, 9.85239"
-      }
-    },
-    {
-      "id": "gartenleben25",
-      "kategorie": "Gartenleben",
-      "bild": "bilder/gartenleben/junger_moench2.jpg",
-      "art": {
-        "de": "Mönchgrasmücke",
-        "en": "Blackcap"
-      },
-      "zusatz": {
-        "de": "junge Zuversicht",
-        "en": "young confidence"
-      },
-      "alt": {
-        "de": "junge Mönchgrasmücke in grünen Zweigen",
-        "en": "Young blackcap in green branches"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Auf dem Spielplatz",
-          "en": "At the playground"
-        },
-        "koordinaten": "53.61263, 9.85239"
-      }
-    },
-    {
-      "id": "waldleben1",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/mission_impossible.jpg",
-      "art": {
-        "de": "Eichhörnchen",
-        "en": "Red squirrel"
-      },
-      "zusatz": {
-        "de": "Actionszene",
-        "en": "action scene"
-      },
-      "alt": {
-        "de": "Eichhörnchen hängend vom Baum",
-        "en": "Red squirrel hanging from a tree"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 29
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "label": {
-          "de": "Hamburger Westen",
-          "en": "Hamburg West"
-        },
-        "art": "flaeche",
-        "polygon": "[[53.56588, 9.73595], [53.57465, 9.73869], [53.58199, 9.7514], [53.58791, 9.77337], [53.5873, 9.80049], [53.5873, 9.82967], [53.58872, 9.84135], [53.60034, 9.85886], [53.61053, 9.87259], [53.61502, 9.8925], [53.61828, 9.91997], [53.61481, 9.94228], [53.60749, 9.967], [53.59546, 9.98245], [53.57547, 9.99069], [53.55221, 9.97833], [53.54465, 9.96563], [53.5414, 9.92443], [53.54201, 9.87568], [53.54487, 9.85062], [53.5514, 9.80839], [53.55854, 9.77509], [53.56548, 9.73595]]"
-      }
-    },
-    {
-      "id": "waldleben2",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/planning_squirrel.jpg",
-      "art": {
-        "de": "Eichhörnchen",
-        "en": "Red squirrel"
-      },
-      "zusatz": {
-        "de": "plant es etwas?",
-        "en": "planning something?"
-      },
-      "alt": {
-        "de": "Eichhörnchen mysteriös auf Baum schauend",
-        "en": "Red squirrel peering mysteriously from a tree"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 39
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Im Waldstück am See",
-          "en": "In the woods by the lake"
-        },
-        "koordinaten": "53.61393, 9.84892"
-      }
-    },
-    {
-      "id": "waldleben3",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/sleepy_squirrel.jpg",
-      "art": {
-        "de": "Eichhörnchen",
-        "en": "Red squirrel"
-      },
-      "zusatz": {
-        "de": "entspannt und müde",
-        "en": "relaxed and sleepy"
-      },
-      "alt": {
-        "de": "Eichhörnchen müde auf Baum sitzend",
-        "en": "Sleepy red squirrel sitting in a tree"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 40
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Blocksberger Moor Kreuzung",
-          "en": "Blocksberg moor crossing"
-        },
-        "koordinaten": "53.61308, 9.84817"
-      }
-    },
-    {
-      "id": "waldleben4",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/specht.jpg",
-      "art": {
-        "de": "Specht",
-        "en": "Woodpecker"
-      },
-      "zusatz": {
-        "de": "Hausbesichtigung",
-        "en": "house viewing"
-      },
-      "alt": {
-        "de": "Buntspecht schaut aus seiner Baumhöhle heraus",
-        "en": "Great spotted woodpecker looking out of its tree hole"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Im Waldstück am See",
-          "en": "In the woods by the lake"
-        },
-        "koordinaten": "53.61393, 9.84892"
-      }
-    },
-    {
-      "id": "waldleben5",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/baum.jpg",
-      "art": {
-        "de": "Birke",
-        "en": "Birch"
-      },
-      "zusatz": {
-        "de": "kräftig im Moor",
-        "en": "strong on the moor"
-      },
-      "alt": {
-        "de": "Einzelne Birke im Moor bei Halstenbek",
-        "en": "A lone birch on the moor near Halstenbek"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 28
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Im Schnaakenmoor",
-          "en": "In the Schnaakenmoor"
-        },
-        "koordinaten": "53.6051, 9.75957"
-      }
-    },
-    {
-      "id": "waldleben6",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/specht2.jpg",
-      "art": {
-        "de": "Buntspecht",
-        "en": "Great spotted woodpecker"
-      },
-      "zusatz": {
-        "de": "Winterstimmung",
-        "en": "winter mood"
-      },
-      "alt": {
-        "de": "Buntspecht klettert an einem verschneiten Stamm",
-        "en": "Great spotted woodpecker climbing a snowy trunk"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 42
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Fußballfeld",
-          "en": "By the football pitch"
-        },
-        "koordinaten": "53.61295, 9.85151"
-      }
-    },
-    {
-      "id": "waldleben8",
-      "kategorie": "Waldleben",
-      "bild": "bilder/waldleben/rotkehlchengruen.jpg",
-      "art": {
-        "de": "Rotkehlchen",
-        "en": "Robin"
-      },
-      "zusatz": {
-        "de": "heldenhafte Pose",
-        "en": "heroic pose"
-      },
-      "alt": {
-        "de": "Rotkehlchen auf einem Ast vor grün leuchtendem Hintergrund",
-        "en": "Robin on a branch against a glowing green background"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 39
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Parkplatz im Klövensteen",
-          "en": "Car park in the Klövensteen"
-        },
-        "koordinaten": "53.60763, 9.79896"
-      }
-    },
-    {
-      "id": "reduktion1",
-      "kategorie": "Reduktion",
-      "bild": "bilder/Reduktion/silhouette_robin.jpg",
-      "art": {
-        "de": "Rotkehlchen",
-        "en": "Robin"
-      },
-      "zusatz": {
-        "de": "Michael Jackson",
-        "en": "Michael Jackson"
-      },
-      "alt": {
-        "de": "schwarz-weiß Silhouette eines Rotkehlchens",
-        "en": "Black-and-white silhouette of a robin"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 8
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Feldesrand",
-          "en": "At the edge of a field"
-        },
-        "koordinaten": "53.60878, 9.80491"
-      }
-    },
-    {
-      "id": "reduktion2",
-      "kategorie": "Reduktion",
-      "bild": "bilder/Reduktion/silhouette_singdrossel.jpg",
-      "art": {
-        "de": "Singdrossel",
-        "en": "Song thrush"
-      },
-      "zusatz": {
-        "de": "Blick nach rechts",
-        "en": "looking right"
-      },
-      "alt": {
-        "de": "schwarz-weiß Silhouette einer Singdrossel",
-        "en": "Black-and-white silhouette of a song thrush"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 8
-      },
-      "lesezeichen": {
-        "vorraetig": true,
-        "bestand": 49
-      },
-      "ort": {
-        "art": "kreis",
-        "label": {
-          "de": "Fischbeker Heide",
-          "en": "Fischbek Heath"
-        },
-        "koordinaten": "53.45539, 9.84195",
-        "radius": 1554
-      }
-    },
-    {
-      "id": "reduktion3",
-      "kategorie": "Reduktion",
-      "bild": "bilder/Reduktion/silhouette_stare.jpg",
-      "art": {
-        "de": "Stare",
-        "en": "Starlings"
-      },
-      "zusatz": {
-        "de": "minimalistischer Ast-Kampf",
-        "en": "minimalist branch fight"
-      },
-      "alt": {
-        "de": "schwarz-weiß Silhouette zweier Stare auf einem Ast",
-        "en": "Black-and-white silhouette of two starlings on a branch"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Ahornweg",
-          "en": "Ahornweg"
-        },
-        "koordinaten": "53.61229, 9.85326"
-      }
-    },
-    {
-      "id": "reduktion4",
-      "kategorie": "Reduktion",
-      "bild": "bilder/Reduktion/silhouette_zaunkönig.jpg",
-      "art": {
-        "de": "Zaunkönig",
-        "en": "Wren"
-      },
-      "zusatz": {
-        "de": "kraftvolle Silhouette",
-        "en": "powerful silhouette"
-      },
-      "alt": {
-        "de": "schwarz-weiß Silhouette eines flügelschlagenden Zaunkönigs",
-        "en": "Black-and-white silhouette of a wren flapping its wings"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": true,
-        "bestand": 27
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Halstenbek und Schenefeld Grenze",
-          "en": "Halstenbek / Schenefeld border"
-        },
-        "koordinaten": "53.61304, 9.8486"
-      }
-    },
-    {
-      "id": "reduktion5",
-      "kategorie": "Reduktion",
-      "bild": "bilder/Reduktion/singdrossel_art.jpg",
-      "art": {
-        "de": "Singdrossel",
-        "en": "Song thrush"
-      },
-      "zusatz": {
-        "de": "Apfel Dilemma",
-        "en": "apple dilemma"
-      },
-      "alt": {
-        "de": "Singdrossel im Apfelbaum mit verdortem Apfel",
-        "en": "Song thrush in an apple tree with a withered apple"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 31
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "Am Islandpferdehof",
-          "en": "By the Icelandic horse farm"
-        },
-        "koordinaten": "53.6069, 9.80855"
-      }
-    },
-    {
-      "id": "reduktion6",
-      "kategorie": "Reduktion",
-      "bild": "bilder/Reduktion/Blaesshuhn.jpg",
-      "art": {
-        "de": "Blässhuhn",
-        "en": "Coot"
-      },
-      "zusatz": {
-        "de": "dunkle Aura",
-        "en": "dark aura"
-      },
-      "alt": {
-        "de": "Blässhuhn auf dunklem See, reduzierte Aufnahme",
-        "en": "Coot on a dark lake, reduced image"
-      },
-      "imShop": true,
-      "postkarte": {
-        "vorraetig": true,
-        "bestand": 30
-      },
-      "poster": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "lesezeichen": {
-        "vorraetig": false,
-        "bestand": 0
-      },
-      "ort": {
-        "art": "punkt",
-        "label": {
-          "de": "vor dem Friedrichshulder See",
-          "en": "In front of Friedrichshulder See"
-        },
-        "koordinaten": "53.60933, 9.82227"
-      }
     }
   ]
 }
