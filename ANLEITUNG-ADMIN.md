@@ -156,6 +156,14 @@ deutsche Text, und unten links erscheint **„⚠ Übersetzung fehlt“**
   Brut- und Ruheplätze bitte nur als Kreis oder Fläche.
 - **Vorübergehend ausblenden** nimmt ein Motiv von der Seite, ohne es
   zu löschen.
+- **Inventar-Code** (M-01, M-02 …) ist derselbe wie auf deiner
+  ausgedruckten Inventarliste. Er steht in der Motivliste ganz vorn, so
+  findest du beim Bestand-Pflegen sofort das richtige Motiv. Auf der
+  Webseite erscheint er nirgends. Motive ohne Code (noch nicht gedruckt)
+  zeigen dort „––––“. Neues gedrucktes Motiv: nächste freie Nummer
+  eintragen (zurzeit M-33).
+- **Stückzahl:** ab 4 zeigt der Shop „… auf Lager“, bei 1–3 „Nur noch …
+  auf Lager“. Leer oder 0 heißt „Druck in 1–2 Wochen nach Bestellung“.
 
 ### Bilder hochladen
 

@@ -2,6 +2,7 @@
   "motive": [
     {
       "id": "teichleben1",
+      "code": "M-01",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/entchen1.jpg",
       "art": {
@@ -44,6 +45,7 @@
     },
     {
       "id": "teichleben2",
+      "code": "M-02",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/entchen2.jpg",
       "art": {
@@ -86,6 +88,7 @@
     },
     {
       "id": "teichleben3",
+      "code": "M-03",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/entchen3.jpg",
       "art": {
@@ -128,6 +131,7 @@
     },
     {
       "id": "teichleben4",
+      "code": "M-04",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/ente1.jpg",
       "art": {
@@ -296,6 +300,7 @@
     },
     {
       "id": "teichleben8",
+      "code": "M-05",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/puffin.jpg",
       "art": {
@@ -380,6 +385,7 @@
     },
     {
       "id": "teichleben10",
+      "code": "M-06",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/ente2.jpg",
       "art": {
@@ -464,6 +470,7 @@
     },
     {
       "id": "gartenleben2",
+      "code": "M-07",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/kohlmeise1.jpg",
       "art": {
@@ -674,6 +681,7 @@
     },
     {
       "id": "gartenleben7",
+      "code": "M-08",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/schwanzmeise2.jpg",
       "art": {
@@ -716,6 +724,7 @@
     },
     {
       "id": "gartenleben8",
+      "code": "M-09",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/schwanzmeise3.jpg",
       "art": {
@@ -758,6 +767,7 @@
     },
     {
       "id": "gartenleben9",
+      "code": "M-10",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/zaunkoenig1.jpg",
       "art": {
@@ -842,6 +852,7 @@
     },
     {
       "id": "gartenleben11",
+      "code": "M-11",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/schmetterling1.jpg",
       "art": {
@@ -884,6 +895,7 @@
     },
     {
       "id": "gartenleben12",
+      "code": "M-12",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/schmetterling2.jpg",
       "art": {
@@ -1010,6 +1022,7 @@
     },
     {
       "id": "gartenleben15",
+      "code": "M-13",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/katze1.jpg",
       "art": {
@@ -1052,6 +1065,7 @@
     },
     {
       "id": "gartenleben16",
+      "code": "M-14",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/goldammer1.jpg",
       "art": {
@@ -1262,6 +1276,7 @@
     },
     {
       "id": "gartenleben21",
+      "code": "M-15",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/singdrossel1.jpg",
       "art": {
@@ -1304,6 +1319,7 @@
     },
     {
       "id": "gartenleben22",
+      "code": "M-16",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/buchfink.jpg",
       "art": {
@@ -1346,6 +1362,7 @@
     },
     {
       "id": "gartenleben23",
+      "code": "M-17",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/kornblume.jpg",
       "art": {
@@ -1388,6 +1405,7 @@
     },
     {
       "id": "gartenleben24",
+      "code": "M-19",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/junger_moench.jpg",
       "art": {
@@ -1430,6 +1448,7 @@
     },
     {
       "id": "gartenleben25",
+      "code": "M-18",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/junger_moench2.jpg",
       "art": {
@@ -1472,6 +1491,7 @@
     },
     {
       "id": "waldleben1",
+      "code": "M-20",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/mission_impossible.jpg",
       "art": {
@@ -1514,6 +1534,7 @@
     },
     {
       "id": "waldleben2",
+      "code": "M-21",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/planning_squirrel.jpg",
       "art": {
@@ -1556,6 +1577,7 @@
     },
     {
       "id": "waldleben3",
+      "code": "M-22",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/sleepy_squirrel.jpg",
       "art": {
@@ -1598,6 +1620,7 @@
     },
     {
       "id": "waldleben4",
+      "code": "M-23",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/specht.jpg",
       "art": {
@@ -1640,6 +1663,7 @@
     },
     {
       "id": "waldleben5",
+      "code": "M-24",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/baum.jpg",
       "art": {
@@ -1682,6 +1706,7 @@
     },
     {
       "id": "waldleben6",
+      "code": "M-25",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/specht2.jpg",
       "art": {
@@ -1724,6 +1749,7 @@
     },
     {
       "id": "waldleben8",
+      "code": "M-26",
       "kategorie": "Waldleben",
       "bild": "bilder/waldleben/rotkehlchengruen.jpg",
       "art": {
@@ -1766,6 +1792,7 @@
     },
     {
       "id": "reduktion1",
+      "code": "M-27",
       "kategorie": "Reduktion",
       "bild": "bilder/Reduktion/silhouette_robin.jpg",
       "art": {
@@ -1808,6 +1835,7 @@
     },
     {
       "id": "reduktion2",
+      "code": "M-28",
       "kategorie": "Reduktion",
       "bild": "bilder/Reduktion/silhouette_singdrossel.jpg",
       "art": {
@@ -1850,6 +1878,7 @@
     },
     {
       "id": "reduktion3",
+      "code": "M-29",
       "kategorie": "Reduktion",
       "bild": "bilder/Reduktion/silhouette_stare.jpg",
       "art": {
@@ -1892,6 +1921,7 @@
     },
     {
       "id": "reduktion4",
+      "code": "M-30",
       "kategorie": "Reduktion",
       "bild": "bilder/Reduktion/silhouette_zaunkönig.jpg",
       "art": {
@@ -1934,6 +1964,7 @@
     },
     {
       "id": "reduktion5",
+      "code": "M-31",
       "kategorie": "Reduktion",
       "bild": "bilder/Reduktion/singdrossel_art.jpg",
       "art": {
@@ -1976,6 +2007,7 @@
     },
     {
       "id": "reduktion6",
+      "code": "M-32",
       "kategorie": "Reduktion",
       "bild": "bilder/Reduktion/Blaesshuhn.jpg",
       "art": {
