@@ -174,6 +174,7 @@
     },
     {
       "id": "teichleben5",
+      "code": "",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/reiher1.jpg",
       "art": {
@@ -216,6 +217,7 @@
     },
     {
       "id": "teichleben6",
+      "code": "",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/reiher.jpg",
       "art": {
@@ -258,6 +260,7 @@
     },
     {
       "id": "teichleben7",
+      "code": "",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/blaesshuhn1.jpg",
       "art": {
@@ -327,7 +330,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 47
+        "bestand": 43
       },
       "bildLesezeichen": "",
       "ort": {
@@ -343,6 +346,7 @@
     },
     {
       "id": "teichleben9",
+      "code": "",
       "kategorie": "Teichleben",
       "bild": "bilder/teichleben/reiher3.jpg",
       "art": {
@@ -412,7 +416,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 49
+        "bestand": 46
       },
       "bildLesezeichen": "",
       "ort": {
@@ -428,6 +432,7 @@
     },
     {
       "id": "gartenleben1",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/rotkehlchen1.jpg",
       "art": {
@@ -513,6 +518,7 @@
     },
     {
       "id": "gartenleben3",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/blaumeise1.jpg",
       "art": {
@@ -555,6 +561,7 @@
     },
     {
       "id": "gartenleben4",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/blaumeise2.jpg",
       "art": {
@@ -597,6 +604,7 @@
     },
     {
       "id": "gartenleben5",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/eichelhaeher1.jpg",
       "art": {
@@ -639,6 +647,7 @@
     },
     {
       "id": "gartenleben6",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/schwanzmeise1.jpg",
       "art": {
@@ -708,7 +717,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 48
+        "bestand": 44
       },
       "bildLesezeichen": "",
       "ort": {
@@ -747,7 +756,7 @@
       },
       "poster": {
         "vorraetig": true,
-        "bestand": 8
+        "bestand": 7
       },
       "lesezeichen": {
         "vorraetig": false,
@@ -810,6 +819,7 @@
     },
     {
       "id": "gartenleben10",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/sumpfmeise1.jpg",
       "art": {
@@ -938,6 +948,7 @@
     },
     {
       "id": "gartenleben13",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/rotkehlchen2.jpg",
       "art": {
@@ -980,6 +991,7 @@
     },
     {
       "id": "gartenleben14",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/rotkehlchen3.jpg",
       "art": {
@@ -1108,6 +1120,7 @@
     },
     {
       "id": "gartenleben17",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/dorngrasmuecke1.jpg",
       "art": {
@@ -1150,6 +1163,7 @@
     },
     {
       "id": "gartenleben18",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/schwanzmeise4.jpg",
       "art": {
@@ -1192,6 +1206,7 @@
     },
     {
       "id": "gartenleben19",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/gimpel3.jpg",
       "art": {
@@ -1234,6 +1249,7 @@
     },
     {
       "id": "gartenleben20",
+      "code": "",
       "kategorie": "Gartenleben",
       "bild": "bilder/gartenleben/gimpel2.jpg",
       "art": {
@@ -1346,7 +1362,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 49
+        "bestand": 45
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1475,7 +1491,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 47
+        "bestand": 45
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1518,7 +1534,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 48
+        "bestand": 45
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1553,7 +1569,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 37
+        "bestand": 36
       },
       "poster": {
         "vorraetig": false,
@@ -1561,7 +1577,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 48
+        "bestand": 41
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1596,7 +1612,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 32
+        "bestand": 29
       },
       "poster": {
         "vorraetig": true,
@@ -1639,7 +1655,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 28
+        "bestand": 27
       },
       "poster": {
         "vorraetig": false,
@@ -1682,11 +1698,11 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 28
+        "bestand": 27
       },
       "poster": {
-        "vorraetig": false,
-        "bestand": 0
+        "vorraetig": true,
+        "bestand": 8
       },
       "lesezeichen": {
         "vorraetig": false,
@@ -1725,7 +1741,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 42
+        "bestand": 41
       },
       "poster": {
         "vorraetig": true,
@@ -1733,7 +1749,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 47
+        "bestand": 42
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1768,15 +1784,15 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 38
+        "bestand": 36
       },
       "poster": {
         "vorraetig": true,
-        "bestand": 27
+        "bestand": 26
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 47
+        "bestand": 42
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1862,7 +1878,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 49
+        "bestand": 47
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1940,7 +1956,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 31
+        "bestand": 30
       },
       "poster": {
         "vorraetig": true,
