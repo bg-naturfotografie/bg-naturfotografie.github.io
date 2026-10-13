@@ -15,14 +15,27 @@
         "de": "",
         "en": ""
       }
+    },
+    {
+      "datum": "2026-12-05",
+      "bisDatum": "",
+      "von": "",
+      "bis": "",
+      "titel": {
+        "de": "Wintermarkt des Haidehofs",
+        "en": "wintermarket Haidehof"
+      },
+      "adresse": "Haidehof 3 (Gut Haidehof), 22880 Wedel",
+      "link": "",
+      "hinweis": null
     }
   ],
-  "keinTermin": {
-    "de": "Gerade steht kein Markt fest. Sobald es einen neuen Termin gibt, steht er hier zuerst.",
-    "en": "No market is confirmed right now. As soon as there is a new date, you will find it here first."
-  },
   "hinweis": {
     "de": "Weitere Märkte für den Advent sind angefragt. Sobald etwas fest ist, steht es hier zuerst.",
     "en": "More Advent markets are in the works. As soon as something is confirmed, you will find it here first."
+  },
+  "keinTermin": {
+    "de": "Gerade steht kein Markt fest. Sobald es einen neuen Termin gibt, steht er hier zuerst.",
+    "en": "No market is confirmed right now. As soon as there is a new date, you will find it here first."
   }
 }
