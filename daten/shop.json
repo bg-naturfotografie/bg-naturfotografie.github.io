@@ -11,15 +11,15 @@
     "postkarte": [
       {
         "abMenge": 1,
-        "fuer": 2
+        "fuer": 2.5
       },
       {
         "abMenge": 3,
-        "fuer": 5
+        "fuer": 6
       },
       {
         "abMenge": 5,
-        "fuer": 7.5
+        "fuer": 9
       }
     ],
     "poster": [
@@ -35,15 +35,15 @@
     "lesezeichen": [
       {
         "abMenge": 1,
-        "fuer": 2
+        "fuer": 2.5
       },
       {
         "abMenge": 3,
-        "fuer": 5
+        "fuer": 6
       },
       {
         "abMenge": 5,
-        "fuer": 7.5
+        "fuer": 9
       }
     ]
   },

@@ -339,7 +339,31 @@
 
   /* ---------- Weitere Möglichkeiten (Größer als A4, Tassen & Co.) ---------- */
   .sk-extras{ padding:0 0 4rem; }
-  .sk-extras-raster{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; }
+  /* auto-fit: am PC drei Kacheln nebeneinander, am Tablet zwei,
+     am Handy untereinander — ohne eigene Umbruchregeln */
+  .sk-extras-raster{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.2rem; }
+
+  /* ---- Klappkarten-Platzhalter ----
+     Kleine gezeichnete Klappkarte: links die Innenseite (Papier),
+     rechts die Vorderseite mit Foto, leicht aufgeklappt. Reines
+     CSS, damit kein eigenes Produktfoto nötig ist, solange es die
+     Karten noch nicht gibt. */
+  .sk-extra-neu{ border-color:rgba(201,124,61,0.45); }
+  .sk-klapp-bild{
+    display:flex; height:118px; margin:0 0 1.1rem; perspective:600px;
+  }
+  .sk-klapp-innen, .sk-klapp-aussen{ width:84px; height:118px; display:block; }
+  .sk-klapp-innen{
+    background:linear-gradient(90deg, #d9d2bf, #EDE7D6 70%);
+    transform-origin:right center; transform:rotateY(28deg);
+    box-shadow:-6px 8px 16px -8px rgba(0,0,0,.7);
+  }
+  .sk-klapp-aussen{ overflow:hidden; box-shadow:6px 8px 18px -8px rgba(0,0,0,.8); border:3px solid #EDE7D6; }
+  .sk-klapp-aussen img{ width:100%; height:100%; object-fit:cover; }
+  .sk-bald{
+    display:inline-block; margin:0 0 .5rem; padding:.15rem .6rem; border-radius:99px;
+    background:rgba(201,124,61,0.16); color:var(--accent-soft); font-size:.78rem;
+  }
   .sk-extra{
     padding:1.6rem 1.6rem 1rem; background:var(--bg-panel);
     border:1px solid var(--line); border-radius:var(--radius);
@@ -347,7 +371,7 @@
   }
   .sk-extra h3{ font-size:1.35rem; margin:0 0 .4rem; }
   .sk-extra .info-folds{ margin-top:1.2rem; }
-  @media (max-width:760px){ .sk-extras-raster{ grid-template-columns:1fr; } .sk-extra{ padding:1.3rem 1.1rem .6rem; } }
+  @media (max-width:760px){ .sk-extra{ padding:1.3rem 1.1rem .6rem; } }
 
   /* Sticker-Bereich (erscheint erst, wenn es Sticker gibt) */
   .cat-block-shop{ scroll-margin-top:90px; }
@@ -922,6 +946,20 @@
      ============================================================ -->
 <section class="sk-extras">
   <div class="wrap sk-extras-raster">
+    <!-- KLAPPKARTEN — Platzhalter, solange es sie noch nicht gibt.
+         Text: Admin-Bereich → Seitentexte → Shop → „Klappkarten“.
+         Sobald die Karten gedruckt sind, werden sie eine eigene
+         Produktart oben in der Format-Leiste (wie Postkarten). -->
+    <div class="sk-extra sk-extra-neu" id="klappkarten">
+      <div class="sk-klapp-bild" aria-hidden="true">
+        <span class="sk-klapp-innen"></span>
+        <span class="sk-klapp-aussen"><img src="bilder/klein/gartenleben/rotkehlchen1.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='bilder/gartenleben/rotkehlchen1.jpg';"></span>
+      </div>
+      <p class="sk-bald" data-en="Coming soon">Bald im Shop</p>
+      <h3 data-en="Folded cards">Klappkarten</h3>
+      <div class="cat-sub" data-txt="shop.klappkarten" data-absaetze><p>Meine Motive als Klappkarte mit Umschlag — für Geburtstag, Dank oder einfach so. Innen bleibt Platz für deine eigenen Worte.</p></div>
+      <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-vormerken data-en="Let me know when they're here">Bescheid geben, wenn sie da sind</a></p>
+    </div>
     <div class="sk-extra" id="grossformate">
     <h3 data-en="Larger than A4">Größer als A4</h3>
     <p class="cat-sub" data-en="For your wall: my motifs in A3, A2 and larger, on photo paper, fine art paper, canvas, aluminium or behind acrylic glass — printed in the Saal Digital photo lab.">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
@@ -1000,7 +1038,7 @@
       <details class="info-fold">
         <summary data-en="Prices, quantity discount &amp; shipping">Preise, Staffelrabatt &amp; Versand</summary>
         <div class="fold-body">
-          <p id="staffel-erklaerung" data-en="For postcards, bookmarks and posters: the more you take, the cheaper each piece. Quantities count across &lt;b&gt;all motifs together&lt;/b&gt;. &lt;b&gt;Postcards and bookmarks can be mixed freely&lt;/b&gt;. Posters count separately.">Bei Postkarten, Lesezeichen und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 5 €“. Poster zählen für sich.</p>
+          <p id="staffel-erklaerung" data-en="For postcards, bookmarks and posters: the more you take, the cheaper each piece. Quantities count across &lt;b&gt;all motifs together&lt;/b&gt;. &lt;b&gt;Postcards and bookmarks can be mixed freely&lt;/b&gt;. Posters count separately.">Bei Postkarten, Lesezeichen und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 6 €“. Poster zählen für sich.</p>
           <!-- Die Staffel-Tabelle baut das Script aus daten/shop.json
                (Admin-Bereich → Shop → Staffelpreise). Was hier steht,
                ist nur der Notfall-Stand. -->
@@ -1008,9 +1046,9 @@
             <div>
               <span class="staffel-titel">Postkarten</span>
               <ul>
-                <li><b>1 Stück</b> · 2,00 €</li>
-                <li><b>3 Stück</b> · 5,00 €</li>
-                <li><b>ab 5 Stück</b> · je 1,50 €</li>
+                <li><b>1 Stück</b> · 2,50 €</li>
+                <li><b>3 Stück</b> · 6,00 €</li>
+                <li><b>ab 5 Stück</b> · je 1,80 €</li>
               </ul>
             </div>
             <div>
@@ -1023,9 +1061,9 @@
             <div>
               <span class="staffel-titel">Lesezeichen</span>
               <ul>
-                <li><b>1 Stück</b> · 2,00 €</li>
-                <li><b>3 Stück</b> · 5,00 €</li>
-                <li><b>ab 5 Stück</b> · je 1,50 €</li>
+                <li><b>1 Stück</b> · 2,50 €</li>
+                <li><b>3 Stück</b> · 6,00 €</li>
+                <li><b>ab 5 Stück</b> · je 1,80 €</li>
               </ul>
             </div>
           </div>
@@ -2439,10 +2477,16 @@ BG.bereit(function () {
       '<span class="sk-staffel">' + escapeHtml(teile.filter(Boolean).join(' · ')) + '</span>';
 
     /* Hinweisband: bei Postern der Verweis auf große Formate. */
-    document.getElementById('shop-band').innerHTML =
-      (art.id === 'poster')
-        ? '<div class="shop-band"><span>' + BG.t('Du möchtest es größer, auf Leinwand oder Alu-Dibond?', 'Want it bigger, on canvas or aluminium?') + '</span><a href="#grossformate">' + BG.t('Große Formate über Saal Digital', 'Large formats via Saal Digital') + '</a></div>'
-        : '';
+    /* Bei Postkarten zusätzlich der Hinweis auf die kommenden
+       Klappkarten (Kachel weiter unten, #klappkarten). Wenn es sie
+       gibt, diese Zeile einfach entfernen. */
+    var band = '';
+    if (art.id === 'poster') {
+      band = '<div class="shop-band"><span>' + BG.t('Du möchtest es größer, auf Leinwand oder Alu-Dibond?', 'Want it bigger, on canvas or aluminium?') + '</span><a href="#grossformate">' + BG.t('Große Formate über Saal Digital', 'Large formats via Saal Digital') + '</a></div>';
+    } else if (art.id === 'postkarte') {
+      band = '<div class="shop-band"><span>' + BG.t('Bald neu: Klappkarten mit Umschlag.', 'Coming soon: folded cards with envelope.') + '</span><a href="#klappkarten">' + BG.t('Mehr dazu', 'More') + '</a></div>';
+    }
+    document.getElementById('shop-band').innerHTML = band;
 
     document.getElementById('shop-treffer').textContent =
       gesamt === 0 ? '' : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs'));
@@ -3127,6 +3171,20 @@ BG.bereit(function () {
      derselben Seite, Zurück-Taste), muss der Filter trotzdem
      nachziehen. */
   window.addEventListener('hashchange', hervorhebenBeiSprungmarke);
+
+  /* "Bescheid geben, wenn sie da sind" (Klappkarten): wählt im
+     Formular das Anliegen "Sonstiges" und schreibt einen kurzen
+     Satz in die Nachricht. Der Link springt danach ganz normal
+     zum Formular (#kontakt-anfrage). */
+  document.querySelectorAll('[data-vormerken]').forEach(function (knopf) {
+    knopf.addEventListener('click', function () {
+      var chip = document.querySelector('#anliegen-chips [data-key="sonstiges"]');
+      var feld = document.getElementById('af-nachricht');
+      if (chip) { chip.click(); }
+      var satz = BG.t('Bitte gib mir Bescheid, sobald es die Klappkarten gibt.', 'Please let me know when the folded cards are available.');
+      if (feld && feld.value.indexOf(satz) === -1) { feld.value = feld.value + satz; }
+    });
+  });
 
   setupShop();
   renderSaalBereich();
