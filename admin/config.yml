@@ -1240,7 +1240,7 @@ singletons:
           „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: konditionen
-      label: Zusammenarbeit (Auswahl, Menge & Preise, Präsentation …)
+      label: Konditionen und Ablauf (Auswahl, Mengen und Preise, Präsentation …)
       widget: object
       fields:
       - name: de
@@ -1256,7 +1256,7 @@ singletons:
       hint: 'Jeder Absatz (Leerzeile dazwischen) wird eine eigene Kachel. Das erste **fett** geschriebene Wort wird
         zur Überschrift der Kachel. Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: regional
-      label: Abschnitt „Aus der Region“
+      label: Abschnitt „Lokal aus Halstenbek“
       widget: object
       fields:
       - name: de
