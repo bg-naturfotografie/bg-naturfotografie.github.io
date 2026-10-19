@@ -1189,6 +1189,87 @@ singletons:
         hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
           „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: klappkarten
+      label: Kachel „Klappkarten“ (bald im Shop)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+  - name: laeden
+    label: Seite für Läden (Kommission)
+    widget: object
+    collapsed: true
+    hint: Die Seite portfolio-laeden.html — nur per Link, nicht im Menü und nicht bei Google.
+    fields:
+    - name: titel
+      label: Überschrift
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: intro
+      label: Einleitung
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: konditionen
+      label: Konditionen (Provision, Abrechnung, Nachschub …)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Jeder Absatz (Leerzeile dazwischen) wird ein eigener Punkt. Formatierung: **fett**, *kursiv*, [Linktext](adresse).
+        Kein HTML.'
+    - name: regional
+      label: Abschnitt „Aus der Region“
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
   - name: geschichten
     label: Geschichten-Übersicht
     widget: object

@@ -110,11 +110,11 @@ Größere läuft über deinen Saal-Digital-Shop (siehe unten).
 Die Staffel arbeitet mit **Paketpreisen je Stufe** (`abMenge` Stück
 kosten zusammen `fuer` €). Der daraus folgende Stückpreis gilt für
 jedes Stück, sobald die Stufe erreicht ist — auch über die Paketgröße
-hinaus (4 Karten = 4 × 5/3 = 6,67 €, 7 Karten = 7 × 1,50 = 10,50 €):
+hinaus (4 Karten = 4 × 2,00 = 8,00 €, 7 Karten = 7 × 1,80 = 12,60 €):
 
 ```
-postkarte:    1 → 2,00 €   3 → 5,00 €   5 → 7,50 € (je 1,50)
-lesezeichen:  1 → 2,00 €   3 → 5,00 €   5 → 7,50 € (je 1,50)
+postkarte:    1 → 2,50 €   3 → 6,00 € (je 2,00)   5 → 9,00 € (je 1,80)
+lesezeichen:  1 → 2,50 €   3 → 6,00 € (je 2,00)   5 → 9,00 € (je 1,80)
 poster:       1 → 9,00 €   2 → 15,00 € (je 7,50)
 ```
 

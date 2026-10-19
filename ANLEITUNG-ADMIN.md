@@ -165,6 +165,21 @@ deutsche Text, und unten links erscheint **„⚠ Übersetzung fehlt“**
 - **Stückzahl:** ab 4 zeigt der Shop „… auf Lager“, bei 1–3 „Nur noch …
   auf Lager“. Leer oder 0 heißt „Druck in 1–2 Wochen nach Bestellung“.
 
+### Seiten nur per Link (Veranstalter, Läden)
+
+Zwei Seiten stehen nicht im Menü und nicht bei Google — du schickst
+sie gezielt per Link:
+
+- `bg-naturfotografie.de/portfolio-veranstalter.html` — für Märkte und
+  Veranstalter.
+- `bg-naturfotografie.de/portfolio-laeden.html` — für Läden, die deine
+  Sachen in **Kommission** verkaufen. Preise, Druckereien und die
+  Motive „die gerade da sind“ aktualisieren sich von selbst aus
+  Shop-Preisen und Lagerbestand. Überschrift, Einleitung, Konditionen
+  und den Regional-Text änderst du unter **Seitentexte → Seite für
+  Läden**. Die Seite lässt sich auch gut ausdrucken (Druckansicht ist
+  hell).
+
 ### Bilder hochladen
 
 Im Feld „Foto“ einfach ein Bild hineinziehen. Es wird beim Hochladen

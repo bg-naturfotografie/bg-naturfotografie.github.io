@@ -77,6 +77,10 @@
     "intro": {
       "de": "Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.",
       "en": "All motifs are my own. Put together what interests you — I will get back to you with price, shipping and payment details."
+    },
+    "klappkarten": {
+      "de": "Meine Motive als Klappkarte mit Umschlag — für Geburtstag, Dank oder einfach so. Innen bleibt Platz für deine eigenen Worte.",
+      "en": "My motifs as folded cards with envelope — for birthdays, thank-yous or just because. The inside is left blank for your own words."
     }
   },
   "geschichten": {
@@ -87,6 +91,24 @@
     "intro": {
       "de": "Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.",
       "en": "Some photos happen in a lucky moment, others after a bit of patience. Here are the moments behind the motifs."
+    }
+  },
+  "laeden": {
+    "titel": {
+      "de": "Naturfotografie aus der Nachbarschaft — für Ihr Ladenregal",
+      "en": "Nature photography from the neighbourhood — for your shop"
+    },
+    "intro": {
+      "de": "Postkarten, Lesezeichen und A4-Drucke mit Vögeln und Tieren aus Halstenbek und Umgebung. Ich biete sie Läden als **Kommissionsware** an: Sie bezahlen nur, was tatsächlich verkauft ist.",
+      "en": "Postcards, bookmarks and A4 prints of birds and animals from Halstenbek and the surrounding area, offered to shops **on consignment**: you only pay for what actually sells."
+    },
+    "konditionen": {
+      "de": "**Provision:** nach Absprache — ein fester Anteil vom Verkaufspreis bleibt bei Ihnen.\n\n**Abrechnung:** in festen Abständen nach verkaufter Stückzahl, zum Beispiel monatlich oder quartalsweise.\n\n**Nachschub:** Ich bringe die Ware persönlich vorbei und fülle auf, was verkauft wurde.\n\n**Präsentation:** Aufsteller oder Kartenständer besprechen wir gemeinsam — je nachdem, wie viel Platz Sie haben.",
+      "en": "**Commission:** by agreement — a fixed share of the retail price stays with you.\n\n**Settlement:** at regular intervals based on units sold, for example monthly or quarterly.\n\n**Restocking:** I deliver in person and top up whatever has sold.\n\n**Display:** we agree on a stand or card rack together, depending on how much space you have."
+    },
+    "regional": {
+      "de": "Fotografiert wird in Halstenbek, im Kreis Pinneberg und im Hamburger Westen — Rotkehlchen im Garten, Enten am Teich, Eichhörnchen im Wald. Ich füttere nicht und locke keine Tiere an; was auf den Bildern zu sehen ist, ist im Moment entstanden.",
+      "en": "Everything is photographed in Halstenbek, the Pinneberg district and western Hamburg — robins in the garden, ducks on the pond, squirrels in the woods. I don't feed or lure animals; what you see happened in the moment."
     }
   }
 }

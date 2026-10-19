@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     SEITE FÜR LÄDEN (KOMMISSIONSWARE) — NUR PER LINK
+
+     Diese Seite zeigst du Läden, die deine Postkarten, Lesezeichen
+     und Drucke in Kommission verkaufen könnten. Anders als das
+     Veranstalter-Portfolio (portfolio-veranstalter.html) geht es
+     hier vor allem um die PRODUKTE: Formate, Material, Verkaufs-
+     preise, welche Motive gerade da sind, und wie Kommission läuft.
+
+     Wie beim Veranstalter-Portfolio gelten drei Regeln, damit die
+     Seite nicht öffentlich auffindbar ist:
+       1. "noindex, nofollow" unten — nicht bei Google & Co.
+       2. NICHT in der sitemap.xml, von KEINER Seite verlinkt.
+       3. KEIN Eintrag in der robots.txt (die ist selbst öffentlich
+          und würde die Adresse verraten).
+
+     WAS SICH VON SELBST AKTUELL HÄLT
+       - Verkaufspreise      → daten/shop.json   (Admin → Shop: Preise)
+       - Motive & Bestand    → daten/motive.json (Admin → Motive)
+       - Druckereien         → daten/shop.json
+       - Texte (Überschrift, Einleitung, Konditionen, Region)
+                             → daten/texte.json  (Admin → Seitentexte
+                               → „Seite für Läden“)
+     Was direkt hier im HTML steht: die vier Schritte „So läuft
+     Kommission“ und die Kontaktdaten unten.
+     ============================================================ -->
+<meta name="robots" content="noindex, nofollow">
+
+<title>Für Läden | BG Naturfotografie</title>
+<meta name="description" content="Postkarten, Lesezeichen und A4-Drucke von BG Naturfotografie als Kommissionsware für Läden in der Region.">
+<meta name="author" content="Benedict Gertz">
+<meta name="theme-color" content="#11140F">
+<link rel="icon" href="bilder/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="bilder/logo.png">
+
+<!-- Vorschau, wenn du den Link per Mail oder WhatsApp schickst.
+     Wirkt trotz noindex (das betrifft nur Suchmaschinen). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BG Naturfotografie">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Für Läden: Postkarten, Lesezeichen & Drucke in Kommission">
+<meta property="og:description" content="Naturfotografie aus Halstenbek fürs Ladenregal — Sortiment, Preise und verfügbare Motive.">
+<meta property="og:image" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
+<meta property="og:image:alt" content="Postkarten mit Vogelmotiven von BG Naturfotografie">
+
+<link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script src="sprache.js"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
+
+<style>
+/* ============================================================
+   NUR FÜR DIESE SEITE — alle Klassen mit Präfix "pl-"
+   (portfolio-läden), damit nichts mit styles.css kollidiert.
+   Farben und Schriften kommen aus den Tokens in styles.css.
+
+   Leitidee: Ein Ladenbesitzer entscheidet über das Regal, nicht
+   über ein einzelnes Foto. Deshalb stehen die echten Produktfotos
+   und harte Fakten (Format, Material, Preis, Verfügbarkeit) vorn;
+   Region und Haltung kommen danach, kurz.
+   ============================================================ */
+
+/* ---------- Kopf: Text links, Produktfotos rechts ---------- */
+.pl-kopf{ padding:7.5rem 0 3.5rem; }
+.pl-kopf .wrap{
+  display:grid; grid-template-columns:minmax(0, 1.05fr) minmax(0, 1fr);
+  gap:3rem; align-items:center;
+}
+.pl-kopf h1{ font-size:clamp(2rem,4.4vw,3.2rem); margin-bottom:1rem; max-width:17ch; }
+.pl-kopf .pl-intro{ color:var(--text-muted); font-size:1.05rem; max-width:52ch; margin:0 0 1.6rem; }
+.pl-kopf .pl-intro b{ color:var(--text-light); font-weight:500; }
+.pl-knoepfe{ display:flex; flex-wrap:wrap; gap:.7rem; }
+
+/* Die drei echten Produktfotos, leicht überlappend — wie Muster,
+   die man auf den Ladentisch legt. */
+.pl-muster{ position:relative; aspect-ratio:5/4; }
+.pl-muster img{
+  position:absolute; width:58%; aspect-ratio:1; object-fit:cover;
+  border:1px solid var(--line); box-shadow:0 18px 40px -18px rgba(0,0,0,.9);
+}
+.pl-muster img:nth-child(1){ left:0;   top:6%;  z-index:2; }
+.pl-muster img:nth-child(2){ right:0;  top:0;   z-index:1; }
+.pl-muster img:nth-child(3){ left:24%; bottom:0; z-index:3; width:52%; }
+
+/* ---------- Sortiment: eine Zeile je Produkt ---------- */
+.pl-produkte{ display:flex; flex-direction:column; gap:1.2rem; margin:0; padding:0; list-style:none; }
+.pl-produkt{
+  /* Rasterflächen: am PC Foto | Name+Steckbrief | Preis,
+     am Handy (unten) Foto | Name+Preis, Steckbrief darunter */
+  display:grid; grid-template-columns:190px minmax(0, 1fr) auto; column-gap:1.6rem; row-gap:.5rem;
+  grid-template-areas:"bild titel preis" "bild info preis"; align-items:center;
+  padding:1.2rem; background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
+}
+.pl-produkt img, .pl-produkt-ohnebild{ grid-area:bild; }
+.pl-produkt img{ width:190px; aspect-ratio:1; object-fit:cover; }
+.pl-produkt h3{ grid-area:titel; align-self:end; font-size:1.4rem; margin:0; }
+.pl-produkt .pl-steckbrief{ grid-area:info; align-self:start; }
+.pl-preisblock{ grid-area:preis; }
+/* Steckbrief als Definitionsliste: links Merkmal, rechts Wert */
+.pl-steckbrief{ display:grid; grid-template-columns:auto 1fr; gap:.25rem 1rem; margin:0; font-size:.92rem; }
+.pl-steckbrief dt{ color:var(--text-muted); }
+.pl-steckbrief dd{ margin:0; color:var(--text-light); }
+/* Preisblock rechts: das, was der Laden zuerst wissen will */
+.pl-preisblock{ text-align:right; min-width:9.5rem; }
+.pl-preis{ display:block; font-family:'Fraunces', serif; font-size:2rem; line-height:1; color:var(--accent-soft); }
+.pl-preis-klein{ display:block; font-size:.8rem; color:var(--text-muted); margin-top:.35rem; }
+.pl-preis-staffel{ display:block; font-size:.84rem; color:var(--text-light); margin-top:.5rem; }
+/* Platzhalter (Klappkarten): ruhiger, gestrichelt */
+.pl-produkt.pl-bald{ background:transparent; border-style:dashed; }
+.pl-produkt.pl-bald .pl-preis{ font-size:1.1rem; font-family:'Work Sans', sans-serif; }
+.pl-produkt-ohnebild{ width:190px; aspect-ratio:1; display:grid; place-items:center; background:var(--bg-panel); color:var(--text-muted); font-size:.85rem; text-align:center; padding:1rem; }
+.pl-fussnote{ color:var(--text-muted); font-size:.86rem; max-width:70ch; margin:1.2rem 0 0; }
+
+/* ---------- Verfügbare Motive ---------- */
+.pl-filter{ display:flex; flex-wrap:wrap; gap:.45rem; margin:0 0 1.4rem; }
+.pl-filter button{
+  min-height:40px; padding:.35rem .95rem; cursor:pointer;
+  background:transparent; color:var(--text-muted);
+  border:1px solid var(--line); border-radius:99px; font:inherit; font-size:.88rem;
+}
+.pl-filter button:hover{ color:var(--text-light); border-color:var(--line-strong); }
+.pl-filter button[aria-pressed="true"]{ background:var(--text-light); color:var(--bg-deep); border-color:var(--text-light); }
+.pl-filter .pl-zahl{ font-family:'JetBrains Mono', monospace; font-size:.7rem; opacity:.7; margin-left:.35rem; }
+.pl-motive{
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
+  gap:1.4rem 1rem; list-style:none; margin:0; padding:0;
+}
+.pl-motiv img{ width:100%; aspect-ratio:4/5; object-fit:cover; background:var(--bg-panel); }
+.pl-motiv-name{ margin:.5rem 0 .3rem; font-size:.9rem; line-height:1.3; color:var(--text-light); }
+.pl-motiv-name span{ display:block; color:var(--text-muted); font-size:.78rem; }
+/* Kleine Marken: P = Postkarte, L = Lesezeichen, A4 = Druck */
+.pl-marken{ display:flex; flex-wrap:wrap; gap:.3rem; margin:0; padding:0; list-style:none; }
+.pl-marken li{
+  font-size:.7rem; line-height:1; padding:.25rem .45rem; border-radius:99px;
+  border:1px solid rgba(127,174,134,0.55); color:#a9cfae;
+}
+.pl-leer{ color:var(--text-muted); font-size:.9rem; }
+
+/* ---------- So läuft Kommission (echte Reihenfolge → nummeriert) ---------- */
+.pl-schritte{
+  list-style:none; margin:0; padding:0; counter-reset:schritt;
+  display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:1.2rem;
+}
+.pl-schritte li{ counter-increment:schritt; border-top:2px solid var(--accent); padding-top:1rem; }
+.pl-schritte li::before{
+  content:counter(schritt); display:block; margin-bottom:.4rem;
+  font-family:'Fraunces', serif; font-size:1.6rem; line-height:1; color:var(--accent-soft);
+}
+.pl-schritte b{ display:block; color:var(--text-light); font-weight:500; margin-bottom:.25rem; }
+.pl-schritte p{ margin:0; color:var(--text-muted); font-size:.92rem; }
+
+/* Konditionen aus dem Admin-Bereich: jeder Absatz ein Kasten */
+.pl-konditionen{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin:2.4rem 0 0;
+}
+.pl-konditionen p{
+  margin:0; padding:1rem 1.1rem; background:var(--bg-panel-2);
+  border:1px solid var(--line); border-radius:var(--radius);
+  color:var(--text-muted); font-size:.92rem;
+}
+.pl-konditionen b{ display:block; color:var(--text-light); font-weight:500; margin-bottom:.2rem; }
+
+/* ---------- Region & Argumente ---------- */
+.pl-region{ display:grid; grid-template-columns:minmax(0, 1fr) minmax(0, 1fr); gap:3rem; align-items:start; }
+.pl-region-text p{ color:var(--text-muted); max-width:56ch; }
+.pl-gruende{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1rem; }
+.pl-gruende li{ padding-left:1rem; border-left:2px solid var(--line-strong); }
+.pl-gruende b{ display:block; color:var(--text-light); font-weight:500; }
+.pl-gruende span{ color:var(--text-muted); font-size:.92rem; }
+
+/* ---------- Fakten & Kontakt ---------- */
+.pl-fakten{
+  background:var(--bg-panel-2); border:1px solid var(--line);
+  border-radius:var(--radius); padding:.4rem 1.4rem; margin:0; max-width:760px;
+}
+.pl-fakten > div{
+  display:grid; grid-template-columns:170px 1fr; gap:1rem;
+  padding:.8rem 0; border-bottom:1px solid var(--line);
+}
+.pl-fakten > div:last-child{ border-bottom:0; }
+.pl-fakten dt{ color:var(--text-muted); font-size:.88rem; padding-top:.1rem; }
+.pl-fakten dd{ margin:0; color:var(--text-light); font-size:.94rem; }
+
+/* ---------- Handy & Tablet ---------- */
+@media (max-width:900px){
+  .pl-kopf .wrap{ grid-template-columns:1fr; gap:2rem; }
+  .pl-muster{ max-width:440px; }
+  .pl-schritte{ grid-template-columns:1fr 1fr; }
+  .pl-region{ grid-template-columns:1fr; gap:1.6rem; }
+}
+@media (max-width:640px){
+  .pl-kopf{ padding:6rem 0 2.4rem; }
+  .pl-kopf .wrap, section .wrap{ padding-left:1rem; padding-right:1rem; }
+  /* Produktzeile: Foto + Preis nebeneinander, Steckbrief darunter */
+  .pl-produkt{
+    grid-template-columns:96px minmax(0, 1fr); column-gap:1rem; row-gap:.2rem; padding:1rem;
+    grid-template-areas:"bild titel" "bild preis" "info info";
+  }
+  .pl-produkt h3{ font-size:1.25rem; }
+  .pl-produkt .pl-steckbrief{ margin-top:.8rem; font-size:.88rem; }
+  .pl-produkt img, .pl-produkt-ohnebild{ width:96px; }
+  .pl-produkt-ohnebild{ font-size:.7rem; padding:.4rem; }
+  .pl-preisblock{ align-self:start; }
+  .pl-preisblock{ text-align:left; min-width:0; }
+  .pl-preis{ font-size:1.6rem; }
+  /* Drei Motive nebeneinander: der Laden will einen Überblick,
+     keine Einzelbilder — sonst wird die Liste sehr lang. */
+  .pl-motive{ grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1rem .5rem; }
+  .pl-motiv-name{ font-size:.78rem; }
+  .pl-motiv-name span{ font-size:.7rem; }
+  .pl-marken li{ font-size:.62rem; padding:.2rem .35rem; }
+  .pl-schritte{ grid-template-columns:1fr; }
+  .pl-fakten > div{ grid-template-columns:1fr; gap:.15rem; }
+}
+
+/* ---------- Ausdruck / PDF ----------
+   Läden legen sich so etwas gern ausgedruckt neben die Kasse.
+   Dunkle Flächen würden die Patrone leeren → auf Weiß. */
+@media print{
+  .nav, .sprunglink, .pl-druck-aus, .pl-filter, .sprach-schalter{ display:none !important; }
+  body{ background:#fff; color:#000; }
+  .pl-kopf{ padding-top:0; }
+  section{ padding:1.2rem 0; background:#fff !important; }
+  .pl-produkt, .pl-fakten, .pl-konditionen p{ background:#fff; border-color:#bbb; }
+  h1, h2, h3, .pl-steckbrief dd, .pl-schritte b, .pl-gruende b, .pl-fakten dd,
+  .pl-konditionen b, .pl-motiv-name{ color:#000; }
+  .pl-steckbrief dt, .pl-schritte p, .pl-gruende span, .pl-fakten dt,
+  .pl-konditionen p, .pl-kopf .pl-intro, .pl-region-text p, .pl-motiv-name span{ color:#333; }
+  .pl-preis{ color:#000; }
+  .pl-produkt, .pl-motiv, .pl-schritte li{ break-inside:avoid; }
+  .pl-motive{ grid-template-columns:repeat(6, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+
+<!-- Navigation wie auf allen Seiten, damit Läden auch Galerie und
+     Geschichten ansehen können. Diese Seite selbst steht NICHT im Menü. -->
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
+  <div class="wrap">
+    <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
+      <b>BG</b> Naturfotografie</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
+      <li><a href="produkte-bestellen.html">Shop</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ KOPF ============ -->
+<section id="inhalt" tabindex="-1" class="pl-kopf">
+  <div class="wrap">
+    <div>
+      <!-- Überschrift und Einleitung: Admin → Seitentexte → Seite für Läden -->
+      <h1 data-txt="laeden.titel">Naturfotografie aus der Nachbarschaft — für Ihr Ladenregal</h1>
+      <div class="pl-intro" data-txt="laeden.intro" data-absaetze><p>Postkarten, Lesezeichen und A4-Drucke mit Vögeln und Tieren aus Halstenbek und Umgebung. Ich biete sie Läden als <b>Kommissionsware</b> an: Sie bezahlen nur, was tatsächlich verkauft ist.</p></div>
+      <p class="pl-knoepfe pl-druck-aus">
+        <a class="btn btn-fill" href="#kontakt">Ansichtsexemplare anfragen</a>
+        <a class="btn btn-outline" href="#sortiment">Sortiment &amp; Preise</a>
+      </p>
+    </div>
+    <div class="pl-muster">
+      <img src="bilder/klein/postkarten.jpg" onerror="this.onerror=null;this.src='bilder/postkarten.jpg';" alt="Mehrere Postkarten mit Vogelmotiven, gefächert">
+      <img src="bilder/klein/prints.jpg" onerror="this.onerror=null;this.src='bilder/prints.jpg';" alt="A4-Fotodruck einer schwarzen Katze im hohen Gras">
+      <img src="bilder/klein/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/lesezeichen.jpg';" alt="Vier Lesezeichen mit Eichhörnchen, Buchfink, Rotkehlchen und Schwanzmeise">
+    </div>
+  </div>
+</section>
+
+<!-- ============ SORTIMENT ============
+     Preise und Druckereien setzt das Skript unten aus
+     daten/shop.json ein. Was hier im HTML steht, ist nur der
+     Notfall-Stand, falls die Datei einmal nicht lädt. -->
+<section id="sortiment" style="background:var(--bg-panel);">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Sortiment</h2>
+      <p>Alles wird in Auflage gedruckt und liegt bei mir bereit. Die Preise sind empfohlene
+        Endverkaufspreise — dieselben wie in meinem Onlineshop.</p>
+    </div>
+
+    <ul class="pl-produkte">
+      <li class="pl-produkt">
+        <img src="bilder/klein/postkarten.jpg" onerror="this.onerror=null;this.src='bilder/postkarten.jpg';" alt="" loading="lazy">
+        <h3>Postkarten</h3>
+        <dl class="pl-steckbrief">
+            <dt>Format</dt><dd>10 × 15 cm (A6)</dd>
+            <dt>Papier</dt><dd>350 g, matt</dd>
+            <dt>Rückseite</dt><dd>Artname und Fundort</dd>
+            <dt>Druck</dt><dd data-druckpartner="postkarte">WIRmachenDRUCK</dd>
+          </dl>
+        <div class="pl-preisblock" data-preise="postkarte">
+          <span class="pl-preis">2,50 €</span>
+          <span class="pl-preis-klein">empf. Verkaufspreis</span>
+          <span class="pl-preis-staffel">3 für 6 € · 5 für 9 €</span>
+        </div>
+      </li>
+
+      <li class="pl-produkt">
+        <img src="bilder/klein/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/lesezeichen.jpg';" alt="" loading="lazy">
+        <h3>Lesezeichen</h3>
+        <dl class="pl-steckbrief">
+            <dt>Format</dt><dd>5 × 18 cm, abgerundete Ecken</dd>
+            <dt>Karton</dt><dd>400 g, matt kaschiert</dd>
+            <dt>Besonderheit</dt><dd>QR-Code zur Geschichte hinter dem Foto</dd>
+            <dt>Druck</dt><dd data-druckpartner="lesezeichen">Peterprint</dd>
+          </dl>
+        <div class="pl-preisblock" data-preise="lesezeichen">
+          <span class="pl-preis">2,50 €</span>
+          <span class="pl-preis-klein">empf. Verkaufspreis</span>
+          <span class="pl-preis-staffel">3 für 6 € · 5 für 9 € · mit Postkarten mischbar</span>
+        </div>
+      </li>
+
+      <li class="pl-produkt">
+        <img src="bilder/klein/prints.jpg" onerror="this.onerror=null;this.src='bilder/prints.jpg';" alt="" loading="lazy">
+        <h3>A4-Drucke</h3>
+        <dl class="pl-steckbrief">
+            <dt>Format</dt><dd>21 × 29,7 cm, ohne Rahmen</dd>
+            <dt>Material</dt><dd>Fotoabzug, matt</dd>
+            <dt>Passt in</dt><dd>jeden handelsüblichen A4-Rahmen</dd>
+            <dt>Druck</dt><dd data-druckpartner="poster">Saal Digital</dd>
+          </dl>
+        <div class="pl-preisblock" data-preise="poster">
+          <span class="pl-preis">9,00 €</span>
+          <span class="pl-preis-klein">empf. Verkaufspreis</span>
+          <span class="pl-preis-staffel">2 für 15 €</span>
+        </div>
+      </li>
+
+      <li class="pl-produkt pl-bald">
+        <div class="pl-produkt-ohnebild">Foto folgt</div>
+        <h3>Klappkarten</h3>
+        <dl class="pl-steckbrief">
+            <dt>Ausführung</dt><dd>mit Umschlag, innen frei</dd>
+            <dt>Motive</dt><dd>aus den vier Serien</dd>
+          </dl>
+        <div class="pl-preisblock">
+          <span class="pl-preis">in Vorbereitung</span>
+          <span class="pl-preis-klein">gern schon vormerken</span>
+        </div>
+      </li>
+    </ul>
+
+    <p class="pl-fussnote" id="pl-fussnote">Als Kleinunternehmer nach § 19 UStG weise ich keine Umsatzsteuer aus.</p>
+  </div>
+</section>
+
+<!-- ============ VERFÜGBARE MOTIVE ============
+     Baut das Skript unten aus daten/motive.json: nur Motive, von
+     denen gerade etwas auf Lager ist (Stückzahl größer als 0). -->
+<section id="motive">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Motive, die gerade da sind</h2>
+      <p>Aus diesen Motiven stellen wir Ihre Auswahl zusammen. Die Marken zeigen, in welcher Form ein Motiv
+        vorrätig ist. Wünschen Sie ein anderes Motiv, drucke ich es nach.</p>
+    </div>
+    <div class="pl-filter" id="pl-filter" role="group" aria-label="Nach Produkt filtern"></div>
+    <ul class="pl-motive" id="pl-motive">
+      <li class="pl-leer">Die Motive werden geladen …</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ KOMMISSION ============
+     Die vier Schritte stehen direkt hier (echte Reihenfolge, deshalb
+     nummeriert). Die Konditionen darunter kommen aus dem Admin-Bereich
+     → Seitentexte → Seite für Läden → Konditionen. -->
+<section id="kommission" style="background:var(--bg-panel);">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>So läuft Kommission</h2>
+      <p>Für Sie ohne Vorkasse und ohne Risiko: Was nicht verkauft wird, nehme ich wieder mit.</p>
+    </div>
+    <ol class="pl-schritte">
+      <li><b>Kennenlernen</b><p>Ich komme mit Ansichtsexemplaren vorbei. Gemeinsam wählen wir Motive, die zu Ihrem Laden und Ihrer Kundschaft passen.</p></li>
+      <li><b>Lieferung</b><p>Ich bringe die Ware persönlich. Sie bekommen eine Liste mit allen Motiven und Stückzahlen.</p></li>
+      <li><b>Verkauf</b><p>Sie verkaufen zum empfohlenen Preis. Fragen zu Motiven beantworten die Geschichten hinter dem QR-Code.</p></li>
+      <li><b>Abrechnung</b><p>Wir zählen gemeinsam nach, rechnen das Verkaufte ab und ich fülle auf.</p></li>
+    </ol>
+    <div class="pl-konditionen" data-txt="laeden.konditionen" data-absaetze>
+      <p><b>Provision:</b> nach Absprache — ein fester Anteil vom Verkaufspreis bleibt bei Ihnen.</p>
+      <p><b>Abrechnung:</b> in festen Abständen nach verkaufter Stückzahl, zum Beispiel monatlich oder quartalsweise.</p>
+      <p><b>Nachschub:</b> Ich bringe die Ware persönlich vorbei und fülle auf, was verkauft wurde.</p>
+      <p><b>Präsentation:</b> Aufsteller oder Kartenständer besprechen wir gemeinsam — je nachdem, wie viel Platz Sie haben.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUS DER REGION ============ -->
+<section id="region">
+  <div class="wrap pl-region">
+    <div class="pl-region-text">
+      <h2>Aus der Region, für die Region</h2>
+      <div data-txt="laeden.regional" data-absaetze><p>Fotografiert wird in Halstenbek, im Kreis Pinneberg und im Hamburger Westen — Rotkehlchen im Garten, Enten am Teich, Eichhörnchen im Wald. Ich füttere nicht und locke keine Tiere an; was auf den Bildern zu sehen ist, ist im Moment entstanden.</p></div>
+      <p class="pl-druck-aus"><a href="geschichten.html">Die Geschichten hinter den Fotos ansehen</a></p>
+    </div>
+    <ul class="pl-gruende">
+      <li><b>Wiedererkennen</b><span>Arten, die Ihre Kundschaft aus dem eigenen Garten und vom Spaziergang kennt.</span></li>
+      <li><b>Gesprächsstoff</b><span>Zu vielen Motiven gibt es eine kurze Geschichte, auf dem Lesezeichen direkt per QR-Code.</span></li>
+      <li><b>Kleiner Preis</b><span>Postkarten und Lesezeichen sind schnelle Mitnahmeartikel, zum Beispiel an der Kasse.</span></li>
+      <li><b>Ein Ansprechpartner</b><span>Fotografiert, gestaltet, verpackt und geliefert von mir — kein Großhandel dazwischen.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ KONTAKT ============ -->
+<section id="kontakt" style="background:var(--bg-panel);">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Kontakt</h2>
+      <p>Schreiben Sie mir oder rufen Sie an — ich bringe gern Ansichtsexemplare vorbei.</p>
+    </div>
+    <dl class="pl-fakten">
+      <div><dt>Ansprechpartner</dt><dd>Benedict Gertz — BG Naturfotografie</dd></div>
+      <div><dt>Sitz</dt><dd>Halstenbek, Kreis Pinneberg</dd></div>
+      <div>
+        <dt>E-Mail</dt>
+        <!-- Adresse wird unten per Skript zusammengesetzt, damit
+             Spam-Sammler sie im Quelltext nicht finden. -->
+        <dd><span id="pl-mail"><noscript>benedict.gertz [at] web [punkt] de</noscript></span></dd>
+      </div>
+      <div>
+        <!-- Nummer hier nicht zeigen? Diesen ganzen <div>-Block löschen. -->
+        <dt>Telefon</dt><dd><a href="tel:+4915770210488">0157 70210488</a></dd>
+      </div>
+      <div><dt>Web</dt><dd><a href="index.html">bg-naturfotografie.de</a> · <a href="https://instagram.com/bg.naturfotografie" rel="noopener">@bg.naturfotografie</a></dd></div>
+      <div><dt>Formales</dt><dd>Angemeldetes Gewerbe · Kleinunternehmer nach § 19 UStG (keine Umsatzsteuer auf der Abrechnung) · LUCID-Registrierung nach VerpackG</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 BG Naturfotografie</span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script src="daten.js" data-brauche="motive shop" defer></script>
+<script>
+/* E-Mail-Adresse erst im Browser zusammensetzen (Schutz vor
+   Spam-Sammlern). Adresse geändert? Nur die drei Teile anpassen. */
+(function () {
+  var adresse = 'benedict.gertz' + '@' + 'web' + '.' + 'de';
+  var ziel = document.getElementById('pl-mail');
+  if (!ziel) return;
+  var link = document.createElement('a');
+  link.href = 'mailto:' + adresse + '?subject=' + encodeURIComponent('Kommission – BG Naturfotografie');
+  link.textContent = adresse;
+  ziel.textContent = '';
+  ziel.appendChild(link);
+})();
+
+/* ============================================================
+   DATEN EINSETZEN (läuft, sobald daten.js fertig geladen hat)
+   ============================================================ */
+BG.bereit(function () {
+  var esc = BG.escapeHtml;
+
+  /* ---------- 1. Preise aus daten/shop.json ----------
+     Erste Staffelstufe = Einzelpreis (groß), die übrigen als
+     "3 für 6 € · 5 für 9 €" darunter. So stimmt diese Seite immer
+     mit dem Shop überein, wenn du im Admin-Bereich Preise änderst. */
+  document.querySelectorAll('[data-preise]').forEach(function (block) {
+    var typ = block.getAttribute('data-preise');
+    var stufen = (typeof STAFFEL !== 'undefined' && STAFFEL[typ]) || [];
+    if (!stufen.length) return;
+    var erste = stufen[0];
+    block.querySelector('.pl-preis').textContent = BG.euro(erste.fuer / erste.abMenge);
+    var pakete = stufen.slice(1).map(function (st) {
+      return st.abMenge + ' für ' + BG.euro(st.fuer, true);
+    });
+    if (typ === 'lesezeichen') pakete.push('mit Postkarten mischbar');
+    var zeile = block.querySelector('.pl-preis-staffel');
+    if (zeile) zeile.textContent = pakete.join(' · ');
+  });
+
+  /* ---------- 2. Druckereien aus daten/shop.json ---------- */
+  document.querySelectorAll('[data-druckpartner]').forEach(function (el) {
+    var name = (typeof DRUCKPARTNER !== 'undefined') ? DRUCKPARTNER[el.getAttribute('data-druckpartner')] : '';
+    if (name) el.textContent = name;
+  });
+
+  /* ---------- 3. Motive, die gerade vorrätig sind ----------
+     Ein Motiv erscheint, wenn mindestens eine Form (Postkarte,
+     Lesezeichen, A4) als "liegt gedruckt bei mir" markiert ist UND
+     eine Stückzahl über 0 hat — dieselbe Regel wie im Shop. */
+  var FORMEN = [
+    { id: 'postkarte',   name: 'Postkarte',   da: function (b) { return b.bereitsPostkarte && b.bestand > 0; } },
+    { id: 'lesezeichen', name: 'Lesezeichen', da: function (b) { return b.bereitsLesezeichen && b.bestandLesezeichen > 0; } },
+    { id: 'poster',      name: 'A4-Druck',    da: function (b) { return b.bereitsPoster && b.bestandPoster > 0; } }
+  ];
+  var alle = (typeof GALERIE_BILDER !== 'undefined' ? GALERIE_BILDER : []).filter(function (b) {
+    return b.imShop !== false && FORMEN.some(function (f) { return f.da(b); });
+  });
+  var filter = 'alle';
+
+  function filterZeichnen() {
+    var knoepfe = [{ id: 'alle', name: 'Alle', n: alle.length }].concat(FORMEN.map(function (f) {
+      return { id: f.id, name: f.name === 'A4-Druck' ? 'A4-Drucke' : f.name + (f.id === 'postkarte' ? 'n' : ''),
+               n: alle.filter(f.da).length };
+    }));
+    document.getElementById('pl-filter').innerHTML = knoepfe.map(function (k) {
+      return '<button type="button" data-filter="' + k.id + '" aria-pressed="' + (k.id === filter) + '">' +
+        esc(k.name) + '<span class="pl-zahl">' + k.n + '</span></button>';
+    }).join('');
+  }
+
+  function motiveZeichnen() {
+    var form = FORMEN.filter(function (f) { return f.id === filter; })[0];
+    var liste = form ? alle.filter(form.da) : alle;
+    var ziel = document.getElementById('pl-motive');
+    if (!liste.length) {
+      ziel.innerHTML = '<li class="pl-leer">Gerade ist hier nichts vorrätig — sprechen Sie mich gern an.</li>';
+      return;
+    }
+    ziel.innerHTML = liste.map(function (b) {
+      var marken = FORMEN.filter(function (f) { return f.da(b); })
+        .map(function (f) { return '<li>' + esc(f.name) + '</li>'; }).join('');
+      return '<li class="pl-motiv">' +
+        '<img src="' + esc(BG.klein(b.bild)) + '"' + BG.bildFallback(b.bild) + ' alt="' + esc(b.alt) + '" loading="lazy">' +
+        '<p class="pl-motiv-name">' + esc(b.art) + (b.zusatz ? '<span>' + esc(b.zusatz) + '</span>' : '') + '</p>' +
+        '<ul class="pl-marken" aria-label="Vorrätig als">' + marken + '</ul>' +
+      '</li>';
+    }).join('');
+  }
+
+  document.getElementById('pl-filter').addEventListener('click', function (e) {
+    var knopf = e.target.closest('[data-filter]');
+    if (!knopf) return;
+    filter = knopf.getAttribute('data-filter');
+    filterZeichnen();
+    motiveZeichnen();
+  });
+
+  filterZeichnen();
+  motiveZeichnen();
+});
+</script>
+
+</body>
+</html>
