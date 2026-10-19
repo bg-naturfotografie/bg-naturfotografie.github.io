@@ -83,6 +83,24 @@
       "en": "My motifs as folded cards with envelope — for birthdays, thank-yous or just because. The inside is left blank for your own words."
     }
   },
+  "laeden": {
+    "titel": {
+      "de": "Naturfotografie aus der Nachbarschaft — für Ihr Ladenregal",
+      "en": "Nature photography from the neighbourhood — for your shop"
+    },
+    "intro": {
+      "de": "Postkarten, Lesezeichen und A4-Drucke mit Vögeln und Tieren aus Halstenbek und Umgebung. Ich würde sie gern auch in Läden aus der Region zeigen — am liebsten in **Kommission**.",
+      "en": "Postcards, bookmarks and A4 prints of birds and animals from Halstenbek and the surrounding area. I'd love to show them in local shops too — ideally **on consignment**."
+    },
+    "konditionen": {
+      "de": "**Auswahl** Ich komme gern mit Ansichtsexemplaren vorbei. Wenn Sie möchten, stelle ich vorab schon eine Auswahl zusammen, die zu Ihrem Laden passen könnte.\n\n**Menge & Preise** Stückzahlen, Verkaufspreise und Ihren Anteil legen wir gemeinsam fest. Meine Shop-Preise sind nur ein Anhaltspunkt.\n\n**Präsentation** Ob Aufsteller, Kartenständer oder ein Platz im Regal — wir schauen zusammen, was in Ihren Laden passt.\n\n**Nachschub & Abrechnung** Wie oft ich nachfülle und wie wir abrechnen, stimmen wir so ab, wie es für Sie am einfachsten ist.",
+      "en": "**Selection** I'm happy to drop by with samples. If you like, I can put together a selection in advance that might suit your shop.\n\n**Quantities & prices** We agree on quantities, retail prices and your share together. My shop prices above are just a starting point.\n\n**Display** Stand, card rack or a spot on the shelf — we'll see together what fits your shop.\n\n**Restocking & settlement** How often I restock and how we settle up is arranged in whatever way is easiest for you."
+    },
+    "regional": {
+      "de": "Fotografiert wird in Halstenbek, im Kreis Pinneberg und im Hamburger Westen — Rotkehlchen im Garten, Enten am Teich, Eichhörnchen im Wald. Ich füttere nicht und locke keine Tiere an; was auf den Bildern zu sehen ist, ist im Moment entstanden.",
+      "en": "Everything is photographed in Halstenbek, the Pinneberg district and western Hamburg — robins in the garden, ducks on the pond, squirrels in the woods. I don't feed or lure animals; what you see happened in the moment."
+    }
+  },
   "geschichten": {
     "eyebrow": {
       "de": "Hinter den Fotos",
@@ -91,24 +109,6 @@
     "intro": {
       "de": "Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.",
       "en": "Some photos happen in a lucky moment, others after a bit of patience. Here are the moments behind the motifs."
-    }
-  },
-  "laeden": {
-    "titel": {
-      "de": "Naturfotografie aus der Nachbarschaft — für Ihr Ladenregal",
-      "en": "Nature photography from the neighbourhood — for your shop"
-    },
-    "intro": {
-      "de": "Postkarten, Lesezeichen und A4-Drucke mit Vögeln und Tieren aus Halstenbek und Umgebung. Ich würde sie gern auch in Läden aus der Region zeigen — am liebsten in **Kommission**, damit wir in Ruhe ausprobieren können, was bei Ihrer Kundschaft ankommt.",
-      "en": "Postcards, bookmarks and A4 prints of birds and animals from Halstenbek and the surrounding area. I'd love to show them in local shops too — ideally **on consignment**, so we can take our time finding out what your customers like."
-    },
-    "konditionen": {
-      "de": "**Auswahl** Ich komme gern mit Ansichtsexemplaren vorbei. Wenn Sie möchten, stelle ich vorab schon eine Auswahl zusammen, die zu Ihrem Laden passen könnte.\n\n**Menge & Preise** Stückzahlen, Verkaufspreise und Ihren Anteil legen wir gemeinsam fest. Meine Shop-Preise oben sind nur ein Anhaltspunkt.\n\n**Präsentation** Ob Aufsteller, Kartenständer oder ein Platz im Regal — wir schauen zusammen, was in Ihren Laden passt.\n\n**Nachschub & Abrechnung** Wie oft ich nachfülle und wie wir abrechnen, stimmen wir so ab, wie es für Sie am einfachsten ist.",
-      "en": "**Selection** I'm happy to drop by with samples. If you like, I can put together a selection in advance that might suit your shop.\n\n**Quantities & prices** We agree on quantities, retail prices and your share together. My shop prices above are just a starting point.\n\n**Display** Stand, card rack or a spot on the shelf — we'll see together what fits your shop.\n\n**Restocking & settlement** How often I restock and how we settle up is arranged in whatever way is easiest for you."
-    },
-    "regional": {
-      "de": "Fotografiert wird in Halstenbek, im Kreis Pinneberg und im Hamburger Westen — Rotkehlchen im Garten, Enten am Teich, Eichhörnchen im Wald. Ich füttere nicht und locke keine Tiere an; was auf den Bildern zu sehen ist, ist im Moment entstanden.",
-      "en": "Everything is photographed in Halstenbek, the Pinneberg district and western Hamburg — robins in the garden, ducks on the pond, squirrels in the woods. I don't feed or lure animals; what you see happened in the moment."
     }
   }
 }
