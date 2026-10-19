@@ -27,8 +27,7 @@
        - Texte (Überschrift, Einleitung, Konditionen, Region)
                              → daten/texte.json  (Admin → Seitentexte
                                → „Seite für Läden“)
-     Was direkt hier im HTML steht: die vier Schritte „So läuft
-     Kommission“ und die Kontaktdaten unten.
+     Was direkt hier im HTML steht: die Kontaktdaten unten.
      ============================================================ -->
 <meta name="robots" content="noindex, nofollow">
 
@@ -132,7 +131,15 @@
   display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr));
   gap:1.4rem 1rem; list-style:none; margin:0; padding:0;
 }
-.pl-motiv img{ width:100%; aspect-ratio:4/5; object-fit:cover; background:var(--bg-panel); }
+.pl-motiv{ min-width:0; }
+/* Quadratische Bühne für jedes Motiv: Hoch- UND Querformate stehen
+   vollständig darin (contain = nichts wird abgeschnitten) und
+   wirken etwa gleich groß. Die Reihen bleiben gleich hoch. */
+.pl-motiv-buehne{
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  background:var(--bg-panel); padding:.4rem;
+}
+.pl-motiv-buehne img{ max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
 .pl-motiv-name{ margin:.5rem 0 .3rem; font-size:.9rem; line-height:1.3; color:var(--text-light); }
 .pl-motiv-name span{ display:block; color:var(--text-muted); font-size:.78rem; }
 /* Kleine Marken: P = Postkarte, L = Lesezeichen, A4 = Druck */
@@ -143,22 +150,10 @@
 }
 .pl-leer{ color:var(--text-muted); font-size:.9rem; }
 
-/* ---------- So läuft Kommission (echte Reihenfolge → nummeriert) ---------- */
-.pl-schritte{
-  list-style:none; margin:0; padding:0; counter-reset:schritt;
-  display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:1.2rem;
-}
-.pl-schritte li{ counter-increment:schritt; border-top:2px solid var(--accent); padding-top:1rem; }
-.pl-schritte li::before{
-  content:counter(schritt); display:block; margin-bottom:.4rem;
-  font-family:'Fraunces', serif; font-size:1.6rem; line-height:1; color:var(--accent-soft);
-}
-.pl-schritte b{ display:block; color:var(--text-light); font-weight:500; margin-bottom:.25rem; }
-.pl-schritte p{ margin:0; color:var(--text-muted); font-size:.92rem; }
-
-/* Konditionen aus dem Admin-Bereich: jeder Absatz ein Kasten */
+/* Zusammenarbeit aus dem Admin-Bereich: jeder Absatz ein Kasten.
+   Das fett geschriebene erste Wort wird zur kleinen Überschrift. */
 .pl-konditionen{
-  display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin:2.4rem 0 0;
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin:0;
 }
 .pl-konditionen p{
   margin:0; padding:1rem 1.1rem; background:var(--bg-panel-2);
@@ -192,7 +187,6 @@
 @media (max-width:900px){
   .pl-kopf .wrap{ grid-template-columns:1fr; gap:2rem; }
   .pl-muster{ max-width:440px; }
-  .pl-schritte{ grid-template-columns:1fr 1fr; }
   .pl-region{ grid-template-columns:1fr; gap:1.6rem; }
 }
 @media (max-width:640px){
@@ -216,7 +210,6 @@
   .pl-motiv-name{ font-size:.78rem; }
   .pl-motiv-name span{ font-size:.7rem; }
   .pl-marken li{ font-size:.62rem; padding:.2rem .35rem; }
-  .pl-schritte{ grid-template-columns:1fr; }
   .pl-fakten > div{ grid-template-columns:1fr; gap:.15rem; }
 }
 
@@ -229,12 +222,13 @@
   .pl-kopf{ padding-top:0; }
   section{ padding:1.2rem 0; background:#fff !important; }
   .pl-produkt, .pl-fakten, .pl-konditionen p{ background:#fff; border-color:#bbb; }
-  h1, h2, h3, .pl-steckbrief dd, .pl-schritte b, .pl-gruende b, .pl-fakten dd,
+  h1, h2, h3, .pl-steckbrief dd, .pl-gruende b, .pl-fakten dd,
   .pl-konditionen b, .pl-motiv-name{ color:#000; }
-  .pl-steckbrief dt, .pl-schritte p, .pl-gruende span, .pl-fakten dt,
+  .pl-steckbrief dt, .pl-gruende span, .pl-fakten dt,
   .pl-konditionen p, .pl-kopf .pl-intro, .pl-region-text p, .pl-motiv-name span{ color:#333; }
   .pl-preis{ color:#000; }
-  .pl-produkt, .pl-motiv, .pl-schritte li{ break-inside:avoid; }
+  .pl-produkt, .pl-motiv, .pl-konditionen p{ break-inside:avoid; }
+  .pl-motiv-buehne{ background:#fff; }
   .pl-motive{ grid-template-columns:repeat(6, 1fr); }
 }
 </style>
@@ -267,9 +261,9 @@
     <div>
       <!-- Überschrift und Einleitung: Admin → Seitentexte → Seite für Läden -->
       <h1 data-txt="laeden.titel">Naturfotografie aus der Nachbarschaft — für Ihr Ladenregal</h1>
-      <div class="pl-intro" data-txt="laeden.intro" data-absaetze><p>Postkarten, Lesezeichen und A4-Drucke mit Vögeln und Tieren aus Halstenbek und Umgebung. Ich biete sie Läden als <b>Kommissionsware</b> an: Sie bezahlen nur, was tatsächlich verkauft ist.</p></div>
+      <div class="pl-intro" data-txt="laeden.intro" data-absaetze><p>Postkarten, Lesezeichen und A4-Drucke mit Vögeln und Tieren aus Halstenbek und Umgebung. Ich würde sie gern auch in Läden aus der Region zeigen — am liebsten in <b>Kommission</b>, damit wir in Ruhe ausprobieren können, was bei Ihrer Kundschaft ankommt.</p></div>
       <p class="pl-knoepfe pl-druck-aus">
-        <a class="btn btn-fill" href="#kontakt">Ansichtsexemplare anfragen</a>
+        <a class="btn btn-fill" href="#kontakt">Kontakt aufnehmen</a>
         <a class="btn btn-outline" href="#sortiment">Sortiment &amp; Preise</a>
       </p>
     </div>
@@ -289,8 +283,8 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Sortiment</h2>
-      <p>Alles wird in Auflage gedruckt und liegt bei mir bereit. Die Preise sind empfohlene
-        Endverkaufspreise — dieselben wie in meinem Onlineshop.</p>
+      <p>Alles wird in Auflage gedruckt und liegt bei mir bereit. Die Preise sind die aus meinem
+        Onlineshop — als Orientierung. Was in Ihrem Laden passt, besprechen wir gemeinsam.</p>
     </div>
 
     <ul class="pl-produkte">
@@ -305,7 +299,7 @@
           </dl>
         <div class="pl-preisblock" data-preise="postkarte">
           <span class="pl-preis">2,50 €</span>
-          <span class="pl-preis-klein">empf. Verkaufspreis</span>
+          <span class="pl-preis-klein">Preis in meinem Shop</span>
           <span class="pl-preis-staffel">3 für 6 € · 5 für 9 €</span>
         </div>
       </li>
@@ -321,7 +315,7 @@
           </dl>
         <div class="pl-preisblock" data-preise="lesezeichen">
           <span class="pl-preis">2,50 €</span>
-          <span class="pl-preis-klein">empf. Verkaufspreis</span>
+          <span class="pl-preis-klein">Preis in meinem Shop</span>
           <span class="pl-preis-staffel">3 für 6 € · 5 für 9 € · mit Postkarten mischbar</span>
         </div>
       </li>
@@ -337,7 +331,7 @@
           </dl>
         <div class="pl-preisblock" data-preise="poster">
           <span class="pl-preis">9,00 €</span>
-          <span class="pl-preis-klein">empf. Verkaufspreis</span>
+          <span class="pl-preis-klein">Preis in meinem Shop</span>
           <span class="pl-preis-staffel">2 für 15 €</span>
         </div>
       </li>
@@ -367,8 +361,9 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Motive, die gerade da sind</h2>
-      <p>Aus diesen Motiven stellen wir Ihre Auswahl zusammen. Die Marken zeigen, in welcher Form ein Motiv
-        vorrätig ist. Wünschen Sie ein anderes Motiv, drucke ich es nach.</p>
+      <p>Diese Motive sind gerade vorrätig; die Marken zeigen, in welcher Form. Wenn Sie möchten,
+        stelle ich vorab schon eine Auswahl für Sie zusammen — oder wir suchen gemeinsam aus.
+        Fehlt ein Lieblingsmotiv, drucke ich es gern nach.</p>
     </div>
     <div class="pl-filter" id="pl-filter" role="group" aria-label="Nach Produkt filtern"></div>
     <ul class="pl-motive" id="pl-motive">
@@ -377,27 +372,24 @@
   </div>
 </section>
 
-<!-- ============ KOMMISSION ============
-     Die vier Schritte stehen direkt hier (echte Reihenfolge, deshalb
-     nummeriert). Die Konditionen darunter kommen aus dem Admin-Bereich
-     → Seitentexte → Seite für Läden → Konditionen. -->
-<section id="kommission" style="background:var(--bg-panel);">
+<!-- ============ ZUSAMMENARBEIT ============
+     Bewusst kein fester Ablauf und keine Vorgaben: Läden kennen
+     Kommission und wollen mitreden. Die Punkte kommen aus dem
+     Admin-Bereich → Seitentexte → Seite für Läden → „Zusammenarbeit“
+     (jeder Absatz wird eine Kachel). Was hier im HTML steht, ist nur
+     der Notfall-Stand. -->
+<section id="zusammenarbeit" style="background:var(--bg-panel);">
   <div class="wrap">
     <div class="sec-head">
-      <h2>So läuft Kommission</h2>
-      <p>Für Sie ohne Vorkasse und ohne Risiko: Was nicht verkauft wird, nehme ich wieder mit.</p>
+      <h2>Gemeinsam schauen, was passt</h2>
+      <p>Jeder Laden ist anders. Welche Motive, wie viele und zu welchen Preisen — das finden wir am besten
+        zusammen heraus. Ich richte mich gern nach dem, was bei Ihnen gut funktioniert.</p>
     </div>
-    <ol class="pl-schritte">
-      <li><b>Kennenlernen</b><p>Ich komme mit Ansichtsexemplaren vorbei. Gemeinsam wählen wir Motive, die zu Ihrem Laden und Ihrer Kundschaft passen.</p></li>
-      <li><b>Lieferung</b><p>Ich bringe die Ware persönlich. Sie bekommen eine Liste mit allen Motiven und Stückzahlen.</p></li>
-      <li><b>Verkauf</b><p>Sie verkaufen zum empfohlenen Preis. Fragen zu Motiven beantworten die Geschichten hinter dem QR-Code.</p></li>
-      <li><b>Abrechnung</b><p>Wir zählen gemeinsam nach, rechnen das Verkaufte ab und ich fülle auf.</p></li>
-    </ol>
     <div class="pl-konditionen" data-txt="laeden.konditionen" data-absaetze>
-      <p><b>Provision:</b> nach Absprache — ein fester Anteil vom Verkaufspreis bleibt bei Ihnen.</p>
-      <p><b>Abrechnung:</b> in festen Abständen nach verkaufter Stückzahl, zum Beispiel monatlich oder quartalsweise.</p>
-      <p><b>Nachschub:</b> Ich bringe die Ware persönlich vorbei und fülle auf, was verkauft wurde.</p>
-      <p><b>Präsentation:</b> Aufsteller oder Kartenständer besprechen wir gemeinsam — je nachdem, wie viel Platz Sie haben.</p>
+      <p><b>Auswahl</b> Ich komme gern mit Ansichtsexemplaren vorbei. Wenn Sie möchten, stelle ich vorab schon eine Auswahl zusammen, die zu Ihrem Laden passen könnte.</p>
+      <p><b>Menge &amp; Preise</b> Stückzahlen, Verkaufspreise und Ihren Anteil legen wir gemeinsam fest. Meine Shop-Preise oben sind nur ein Anhaltspunkt.</p>
+      <p><b>Präsentation</b> Ob Aufsteller, Kartenständer oder ein Platz im Regal — wir schauen zusammen, was in Ihren Laden passt.</p>
+      <p><b>Nachschub &amp; Abrechnung</b> Wie oft ich nachfülle und wie wir abrechnen, stimmen wir so ab, wie es für Sie am einfachsten ist.</p>
     </div>
   </div>
 </section>
@@ -413,7 +405,7 @@
     <ul class="pl-gruende">
       <li><b>Wiedererkennen</b><span>Arten, die Ihre Kundschaft aus dem eigenen Garten und vom Spaziergang kennt.</span></li>
       <li><b>Gesprächsstoff</b><span>Zu vielen Motiven gibt es eine kurze Geschichte, auf dem Lesezeichen direkt per QR-Code.</span></li>
-      <li><b>Kleiner Preis</b><span>Postkarten und Lesezeichen sind schnelle Mitnahmeartikel, zum Beispiel an der Kasse.</span></li>
+      <li><b>Kleine Mitbringsel</b><span>Postkarten und Lesezeichen sind kleine Geschenke, die man gern spontan mitnimmt.</span></li>
       <li><b>Ein Ansprechpartner</b><span>Fotografiert, gestaltet, verpackt und geliefert von mir — kein Großhandel dazwischen.</span></li>
     </ul>
   </div>
@@ -424,7 +416,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Kontakt</h2>
-      <p>Schreiben Sie mir oder rufen Sie an — ich bringe gern Ansichtsexemplare vorbei.</p>
+      <p>Ich freue mich, von Ihnen zu hören — gern komme ich auf einen Kaffee und ein paar Ansichtsexemplare vorbei.</p>
     </div>
     <dl class="pl-fakten">
       <div><dt>Ansprechpartner</dt><dd>Benedict Gertz — BG Naturfotografie</dd></div>
@@ -534,7 +526,7 @@ BG.bereit(function () {
       var marken = FORMEN.filter(function (f) { return f.da(b); })
         .map(function (f) { return '<li>' + esc(f.name) + '</li>'; }).join('');
       return '<li class="pl-motiv">' +
-        '<img src="' + esc(BG.klein(b.bild)) + '"' + BG.bildFallback(b.bild) + ' alt="' + esc(b.alt) + '" loading="lazy">' +
+        '<div class="pl-motiv-buehne"><img src="' + esc(BG.klein(b.bild)) + '"' + BG.bildFallback(b.bild) + ' alt="' + esc(b.alt) + '" loading="lazy"></div>' +
         '<p class="pl-motiv-name">' + esc(b.art) + (b.zusatz ? '<span>' + esc(b.zusatz) + '</span>' : '') + '</p>' +
         '<ul class="pl-marken" aria-label="Vorrätig als">' + marken + '</ul>' +
       '</li>';

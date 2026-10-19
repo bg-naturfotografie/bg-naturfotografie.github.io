@@ -1240,7 +1240,7 @@ singletons:
           „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: konditionen
-      label: Konditionen (Provision, Abrechnung, Nachschub …)
+      label: Zusammenarbeit (Auswahl, Menge & Preise, Präsentation …)
       widget: object
       fields:
       - name: de
@@ -1253,8 +1253,8 @@ singletons:
         required: false
         hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
           „⚠ Übersetzung fehlt“.
-      hint: 'Jeder Absatz (Leerzeile dazwischen) wird ein eigener Punkt. Formatierung: **fett**, *kursiv*, [Linktext](adresse).
-        Kein HTML.'
+      hint: 'Jeder Absatz (Leerzeile dazwischen) wird eine eigene Kachel. Das erste **fett** geschriebene Wort wird
+        zur Überschrift der Kachel. Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
     - name: regional
       label: Abschnitt „Aus der Region“
       widget: object
