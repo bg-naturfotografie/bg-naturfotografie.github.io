@@ -183,6 +183,10 @@ sie gezielt per Link:
   Konditionen: wer du bist, wie aus einem Foto ein Produkt wird (alles
   selbst, nur der Druck ist ausgelagert), Produkte, Serien und eine
   Motivauswahl. Gedacht für Anfragen bei Plattformen und Shops.
+  Alle Texte änderst du unter **Seitentexte → Vorstellungsseite**,
+  auch die Punkte neben „Über mich“ und die Schritte „Vom Foto zum
+  Produkt“ (hinzufügen, löschen, verschieben). Im Schritt-Text wird
+  `{druckereien}` automatisch durch deine Druckereien ersetzt.
 
 ### Bilder hochladen
 
