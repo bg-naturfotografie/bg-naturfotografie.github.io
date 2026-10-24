@@ -1270,6 +1270,389 @@ singletons:
         hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
           „⚠ Übersetzung fehlt“.
       hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+  - name: vorstellung
+    label: Vorstellungsseite (wer ich bin)
+    widget: object
+    collapsed: true
+    hint: Die Seite vorstellung.html — nur per Link, nicht im Menü und nicht bei Google.
+    fields:
+    - name: zeile
+      label: Kleine Zeile über der Überschrift (Name)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: titel
+      label: Überschrift
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: intro
+      label: Einleitung
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: ueberTitel
+      label: '„Über mich“: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: ueberText
+      label: '„Über mich“: Text'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Leerzeile = neuer Absatz. Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: fakten
+      label: '„Über mich“: Punkte rechts daneben'
+      label_singular: Punkt
+      widget: list
+      summary: '{{fields.titel.de}}'
+      collapsed: true
+      fields:
+      - name: titel
+        label: Überschrift des Punkts
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: true
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+      - name: text
+        label: Text
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: text
+          required: true
+        - name: en
+          label: English
+          widget: text
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+        hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: wegTitel
+      label: '„Vom Foto zum Produkt“: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: wegIntro
+      label: '„Vom Foto zum Produkt“: Einleitung'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: schritte
+      label: '„Vom Foto zum Produkt“: Schritte (Reihenfolge = Nummer)'
+      label_singular: Schritt
+      widget: list
+      summary: '{{fields.titel.de}}'
+      collapsed: true
+      fields:
+      - name: titel
+        label: Name des Schritts
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: string
+          required: true
+        - name: en
+          label: English
+          widget: string
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+      - name: extern
+        label: Macht ein Partner (z. B. Druckerei) statt ich selbst
+        widget: boolean
+        default: false
+        required: false
+        hint: An = gestrichelte Linie und Etikett „Druckpartner“. Aus = Linie in Orange und „selbst“.
+      - name: text
+        label: Text
+        widget: object
+        fields:
+        - name: de
+          label: Deutsch
+          widget: text
+          required: true
+        - name: en
+          label: English
+          widget: text
+          required: false
+          hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+            „⚠ Übersetzung fehlt“.
+        hint: '{druckereien} wird automatisch durch die Druckereien aus „Shop: Preise & Versand“ ersetzt. Formatierung:
+          **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+    - name: produkteTitel
+      label: '„Meine Produkte“: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: produkteIntro
+      label: '„Meine Produkte“: Einleitung'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: postkarteMasse
+      label: 'Postkarten: Maße und Papier'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: postkarteText
+      label: 'Postkarten: Beschreibung'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: lesezeichenMasse
+      label: 'Lesezeichen: Maße und Papier'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: lesezeichenText
+      label: 'Lesezeichen: Beschreibung'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: posterMasse
+      label: 'A4-Drucke: Maße und Material'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: posterText
+      label: 'A4-Drucke: Beschreibung'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: bald
+      label: Satz unter den Produkten (z. B. Klappkarten)
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: false
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+      hint: 'Formatierung: **fett**, *kursiv*, [Linktext](adresse). Kein HTML.'
+      required: false
+    - name: serienTitel
+      label: 'Serien: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: serienIntro
+      label: 'Serien: Text'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: motiveTitel
+      label: 'Motivauswahl: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: kontaktTitel
+      label: 'Kontakt: Überschrift'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: string
+        required: true
+      - name: en
+        label: English
+        widget: string
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
+    - name: kontaktText
+      label: 'Kontakt: Text'
+      widget: object
+      fields:
+      - name: de
+        label: Deutsch
+        widget: text
+        required: true
+      - name: en
+        label: English
+        widget: text
+        required: false
+        hint: Leer gelassen? Dann steht auf der englischen Seite vorerst der deutsche Text — und unten links erscheint
+          „⚠ Übersetzung fehlt“.
   - name: geschichten
     label: Geschichten-Übersicht
     widget: object

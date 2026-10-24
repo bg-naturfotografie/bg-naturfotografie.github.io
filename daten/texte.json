@@ -110,5 +110,201 @@
       "de": "Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.",
       "en": "Some photos happen in a lucky moment, others after a bit of patience. Here are the moments behind the motifs."
     }
+  },
+  "vorstellung": {
+    "zeile": {
+      "de": "Benedict Gertz · BG Naturfotografie",
+      "en": "Benedict Gertz · BG Naturfotografie"
+    },
+    "titel": {
+      "de": "Naturfotografie aus Halstenbek, vom Foto bis zur fertigen Karte",
+      "en": "Nature photography from Halstenbek, from photo to finished card"
+    },
+    "intro": {
+      "de": "Ich fotografiere heimische Vögel und Wildtiere in Halstenbek und Umgebung. Aus meinen Aufnahmen gestalte ich Postkarten, Lesezeichen und A4-Drucke. **Fotografie, Bearbeitung, Gestaltung und Texte stammen vollständig von mir.** Nur den Druck übernehmen spezialisierte Druckereien.",
+      "en": "I photograph native birds and wildlife in Halstenbek and the surrounding area and turn my photos into postcards, bookmarks and A4 prints. **Photography, editing, design and texts are entirely my own work.** Only the printing is done by specialised print shops."
+    },
+    "ueberTitel": {
+      "de": "Über mich",
+      "en": "About me"
+    },
+    "ueberText": {
+      "de": "Mein Name ist Benedict Gertz, und unter dem Namen BG Naturfotografie zeige ich die Natur direkt vor der Haustür. Ich fotografiere in Gärten, an Teichen und in den Wäldern zwischen Pinneberg und dem Hamburger Westen. Mich reizt nicht die Ferne, sondern das Alltägliche: Rotkehlchen, Schwanzmeisen, Enten und Eichhörnchen, die man selbst am nächsten Morgen wiederfinden kann.\n\nZu vielen Motiven schreibe ich die Geschichte auf, wie das Foto entstanden ist. Über einen QR-Code auf dem Lesezeichen lässt sie sich direkt nachlesen. So wird aus einer Karte ein kleiner Moment, den man weitergeben kann.",
+      "en": "My name is Benedict Gertz, and as BG Naturfotografie I show nature right on the doorstep. I photograph in gardens, at ponds and in the woods between Pinneberg and western Hamburg. What fascinates me is not the far away but the everyday: robins, long-tailed tits, ducks and squirrels that you can find again yourself the next morning.\n\nFor many motifs I write down the story of how the photo came about. A QR code on the bookmark leads straight to it. That turns a card into a small moment you can pass on."
+    },
+    "fakten": [
+      {
+        "titel": {
+          "de": "Aus Halstenbek",
+          "en": "From Halstenbek"
+        },
+        "text": {
+          "de": "Ich lebe und fotografiere im Kreis Pinneberg und verschicke alles selbst von hier aus.",
+          "en": "I live and photograph in the Pinneberg district and ship everything myself from here."
+        }
+      },
+      {
+        "titel": {
+          "de": "Mit Rücksicht fotografiert",
+          "en": "Photographed with care"
+        },
+        "text": {
+          "de": "Ich füttere keine Tiere und locke sie nicht an. Was auf den Bildern zu sehen ist, ist im Moment entstanden.",
+          "en": "I never feed or lure animals. What you see in the pictures happened in the moment."
+        }
+      },
+      {
+        "titel": {
+          "de": "Im Naturschutz aktiv",
+          "en": "Active in conservation"
+        },
+        "text": {
+          "de": "Ehrenamtlich engagiere ich mich in der NABU-Ortsgruppe Halstenbek.",
+          "en": "I volunteer in the local NABU group in Halstenbek."
+        }
+      },
+      {
+        "titel": {
+          "de": "Angemeldetes Gewerbe",
+          "en": "Registered business"
+        },
+        "text": {
+          "de": "BG Naturfotografie ist als Kleinunternehmen nach § 19 UStG angemeldet.",
+          "en": "BG Naturfotografie is registered as a small business under § 19 UStG."
+        }
+      }
+    ],
+    "wegTitel": {
+      "de": "Vom Foto zum Produkt",
+      "en": "From photo to product"
+    },
+    "wegIntro": {
+      "de": "Jedes Produkt durchläuft sechs Schritte. Fünf davon erledige ich selbst. Für den Druck arbeite ich mit Druckereien zusammen, deren Qualität ich für meine Motive ausgewählt habe.",
+      "en": "Every product goes through six steps. I do five of them myself. For printing I work with print shops whose quality I chose for my motifs."
+    },
+    "schritte": [
+      {
+        "titel": {
+          "de": "Fotografieren",
+          "en": "Photographing"
+        },
+        "extern": false,
+        "text": {
+          "de": "Ich bin viel draußen unterwegs und fotografiere, was mir spontan begegnet. Jeden Tag freue ich mich darüber, was ungeplant vor meine Kamera kommt.",
+          "en": "I spend a lot of time outdoors and photograph whatever I come across. Every day I look forward to what turns up in front of my camera unplanned."
+        }
+      },
+      {
+        "titel": {
+          "de": "Bearbeiten",
+          "en": "Editing"
+        },
+        "extern": false,
+        "text": {
+          "de": "Auswahl, Farbe, Licht und Zuschnitt bearbeite ich jedes Bild einzeln.",
+          "en": "I edit selection, colour, light and crop for every picture individually."
+        }
+      },
+      {
+        "titel": {
+          "de": "Gestalten",
+          "en": "Designing"
+        },
+        "extern": false,
+        "text": {
+          "de": "Ich bringe jedes Motiv in Form, von der Postkarte bis zum Lesezeichen.",
+          "en": "I shape every motif into its format, from postcard to bookmark."
+        }
+      },
+      {
+        "titel": {
+          "de": "Texten",
+          "en": "Writing"
+        },
+        "extern": false,
+        "text": {
+          "de": "Artname, Fundort und die Geschichte zum Foto schreibe ich selbst.",
+          "en": "I write the species name, location and the story behind the photo myself."
+        }
+      },
+      {
+        "titel": {
+          "de": "Drucken",
+          "en": "Printing"
+        },
+        "extern": true,
+        "text": {
+          "de": "Gedruckt wird bei {druckereien}.",
+          "en": "Printing is done by {druckereien}."
+        }
+      },
+      {
+        "titel": {
+          "de": "Verpacken und Versenden",
+          "en": "Packing and shipping"
+        },
+        "extern": false,
+        "text": {
+          "de": "Ich prüfe, verpacke und verschicke jede Bestellung selbst aus Halstenbek.",
+          "en": "I check, pack and ship every order myself from Halstenbek."
+        }
+      }
+    ],
+    "produkteTitel": {
+      "de": "Meine Produkte",
+      "en": "My products"
+    },
+    "produkteIntro": {
+      "de": "Alle Produkte gibt es mit Motiven aus meinen vier Serien. Gestaltung und Texte sind jeweils auf das Format abgestimmt.",
+      "en": "All products are available with motifs from my four series. Design and texts are matched to each format."
+    },
+    "postkarteMasse": {
+      "de": "10 × 15 cm, 350 g, matt",
+      "en": "10 × 15 cm, 350 g, matt"
+    },
+    "postkarteText": {
+      "de": "Auf der Rückseite stehen Artname und Fundort, damit man weiß, wen und wo man sieht.",
+      "en": "The back shows species and location, so you know who you see and where."
+    },
+    "lesezeichenMasse": {
+      "de": "5 × 18 cm, 400 g, matt kaschiert",
+      "en": "5 × 18 cm, 400 g, matt laminated"
+    },
+    "lesezeichenText": {
+      "de": "Ein QR-Code führt direkt zur Geschichte hinter dem Foto. Die Ecken sind abgerundet.",
+      "en": "A QR code leads straight to the story behind the photo. The corners are rounded."
+    },
+    "posterMasse": {
+      "de": "Fotoabzug, matt, ohne Rahmen",
+      "en": "Photo print, matt, unframed"
+    },
+    "posterText": {
+      "de": "Die Drucke passen in jeden handelsüblichen A4-Rahmen. Größere Formate sind auf Anfrage möglich.",
+      "en": "The prints fit any standard A4 frame. Larger formats are available on request."
+    },
+    "bald": {
+      "de": "**In Vorbereitung:** Klappkarten mit Umschlag, die innen Platz für eigene Worte lassen.",
+      "en": "**Coming soon:** folded cards with envelope, blank inside for your own words."
+    },
+    "serienTitel": {
+      "de": "Vier Serien",
+      "en": "Four series"
+    },
+    "serienIntro": {
+      "de": "Teichleben, Gartenleben und Waldleben zeigen die Natur vor der Haustür. Die Serie Reduktion ist bewusst grafisch gestaltet und konzentriert sich auf Silhouette, Fläche und Farbe.",
+      "en": "Pond Life, Garden Life and Woodland Life show nature on the doorstep. The Reduction series is deliberately graphic and focuses on silhouette, surface and colour."
+    },
+    "motiveTitel": {
+      "de": "Eine Auswahl meiner Motive",
+      "en": "A selection of my motifs"
+    },
+    "kontaktTitel": {
+      "de": "Kontakt",
+      "en": "Contact"
+    },
+    "kontaktText": {
+      "de": "Ich freue mich über Ihre Nachricht und beantworte gern alle Fragen zu meinen Motiven und Produkten.",
+      "en": "I look forward to your message and am happy to answer any questions about my motifs and products."
+    }
   }
 }

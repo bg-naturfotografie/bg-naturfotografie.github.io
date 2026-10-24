@@ -21,10 +21,15 @@
        2. NICHT in der sitemap.xml, von KEINER Seite verlinkt.
        3. KEIN Eintrag in der robots.txt (die ist öffentlich lesbar).
 
+     ALLE TEXTE änderst du im Admin-Bereich:
+       Seitentexte → „Vorstellungsseite“
+     (Überschriften, Einleitung, Über mich, die Punkte rechts daneben,
+     die sechs Schritte, Produkttexte, Serien, Kontakt).
+     Was im HTML steht, ist nur der Notfall-Stand.
+
      Was sich von selbst aktuell hält:
        - Druckereien und Shop-Preise → daten/shop.json
        - Motivauswahl und Serien     → daten/motive.json
-     Die Texte stehen direkt hier im HTML.
      ============================================================ -->
 <meta name="robots" content="noindex, nofollow">
 
@@ -92,7 +97,8 @@
 /* ---------- Vom Foto zum Produkt (echte Reihenfolge → nummeriert) ---------- */
 .vs-weg{
   list-style:none; margin:0; padding:0; counter-reset:schritt;
-  display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:1rem;
+  /* --schritte setzt das Skript auf die Anzahl der Schritte aus dem Admin */
+  display:grid; grid-template-columns:repeat(var(--schritte, 6), minmax(0, 1fr)); gap:1rem;
 }
 .vs-weg li{ counter-increment:schritt; padding-top:1rem; border-top:3px solid var(--accent); }
 .vs-weg li::before{
@@ -220,9 +226,9 @@
 <section id="inhalt" tabindex="-1" class="vs-kopf">
   <div class="wrap">
     <div>
-      <p class="vs-name">Benedict Gertz · BG Naturfotografie</p>
-      <h1>Naturfotografie aus Halstenbek, vom Foto bis zur fertigen Karte</h1>
-      <div class="vs-intro">
+      <p class="vs-name" data-txt="vorstellung.zeile">Benedict Gertz · BG Naturfotografie</p>
+      <h1 data-txt="vorstellung.titel">Naturfotografie aus Halstenbek, vom Foto bis zur fertigen Karte</h1>
+      <div class="vs-intro" data-txt="vorstellung.intro" data-absaetze>
         <p>Ich fotografiere heimische Vögel und Wildtiere in Halstenbek und Umgebung. Aus meinen Aufnahmen gestalte
           ich Postkarten, Lesezeichen und A4-Drucke. <b>Fotografie, Bearbeitung, Gestaltung und Texte stammen
           vollständig von mir.</b> Nur den Druck übernehmen spezialisierte Druckereien.</p>
@@ -243,7 +249,8 @@
 <section id="ueber" style="background:var(--bg-panel);">
   <div class="wrap vs-ueber">
     <div class="vs-ueber-text">
-      <h2>Über mich</h2>
+      <h2 data-txt="vorstellung.ueberTitel">Über mich</h2>
+      <div data-txt="vorstellung.ueberText" data-absaetze>
       <p>Mein Name ist Benedict Gertz, und unter dem Namen BG Naturfotografie zeige ich die Natur direkt vor
         der Haustür. Ich fotografiere in Gärten, an Teichen und in den Wäldern zwischen Pinneberg und dem
         Hamburger Westen. Mich reizt nicht die Ferne, sondern das Alltägliche: Rotkehlchen, Schwanzmeisen,
@@ -251,8 +258,9 @@
       <p>Zu vielen Motiven schreibe ich die Geschichte auf, wie das Foto entstanden ist. Über einen QR-Code auf
         dem Lesezeichen lässt sie sich direkt nachlesen. So wird aus einer Karte ein kleiner Moment, den man
         weitergeben kann.</p>
+      </div>
     </div>
-    <ul class="vs-fakten">
+    <ul class="vs-fakten" id="vs-fakten">
       <li><b>Aus Halstenbek</b><span>Ich lebe und fotografiere im Kreis Pinneberg und verschicke alles selbst von hier aus.</span></li>
       <li><b>Mit Rücksicht fotografiert</b><span>Ich füttere keine Tiere und locke sie nicht an. Was auf den Bildern zu sehen ist, ist im Moment entstanden.</span></li>
       <li><b>Im Naturschutz aktiv</b><span>Ehrenamtlich engagiere ich mich in der NABU-Ortsgruppe Halstenbek.</span></li>
@@ -267,12 +275,12 @@
 <section id="werkstatt">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Vom Foto zum Produkt</h2>
-      <p>Jedes Produkt durchläuft sechs Schritte. Fünf davon erledige ich selbst. Für den Druck arbeite ich mit
+      <h2 data-txt="vorstellung.wegTitel">Vom Foto zum Produkt</h2>
+      <p data-txt="vorstellung.wegIntro">Jedes Produkt durchläuft sechs Schritte. Fünf davon erledige ich selbst. Für den Druck arbeite ich mit
         Druckereien zusammen, deren Qualität ich für meine Motive ausgewählt habe.</p>
     </div>
-    <ol class="vs-weg">
-      <li><span class="vs-wer">selbst</span><b>Fotografieren</b><p>Ich bin draußen unterwegs und warte oft lange auf den richtigen Moment.</p></li>
+    <ol class="vs-weg" id="vs-weg">
+      <li><span class="vs-wer">selbst</span><b>Fotografieren</b><p>Ich bin viel draußen unterwegs und fotografiere, was mir spontan begegnet. Jeden Tag freue ich mich darüber, was ungeplant vor meine Kamera kommt.</p></li>
       <li><span class="vs-wer">selbst</span><b>Bearbeiten</b><p>Auswahl, Farbe, Licht und Zuschnitt bearbeite ich jedes Bild einzeln.</p></li>
       <li><span class="vs-wer">selbst</span><b>Gestalten</b><p>Ich bringe jedes Motiv in Form, von der Postkarte bis zum Lesezeichen.</p></li>
       <li><span class="vs-wer">selbst</span><b>Texten</b><p>Artname, Fundort und die Geschichte zum Foto schreibe ich selbst.</p></li>
@@ -289,8 +297,8 @@
 <section id="produkte" style="background:var(--bg-panel);">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Meine Produkte</h2>
-      <p>Alle Produkte gibt es mit Motiven aus meinen vier Serien. Gestaltung und Texte sind jeweils auf das
+      <h2 data-txt="vorstellung.produkteTitel">Meine Produkte</h2>
+      <p data-txt="vorstellung.produkteIntro">Alle Produkte gibt es mit Motiven aus meinen vier Serien. Gestaltung und Texte sind jeweils auf das
         Format abgestimmt.</p>
     </div>
     <ul class="vs-produkte">
@@ -298,8 +306,8 @@
         <img src="bilder/klein/postkarten.jpg" onerror="this.onerror=null;this.src='bilder/postkarten.jpg';" alt="Mehrere Postkarten mit Vogelmotiven" loading="lazy">
         <div class="vs-produkt-text">
           <h3>Postkarten</h3>
-          <p class="vs-masse">10 × 15 cm, 350 g, matt</p>
-          <p>Auf der Rückseite stehen Artname und Fundort, damit man weiß, wen und wo man sieht.</p>
+          <p class="vs-masse" data-txt="vorstellung.postkarteMasse">10 × 15 cm, 350 g, matt</p>
+          <p data-txt="vorstellung.postkarteText">Auf der Rückseite stehen Artname und Fundort, damit man weiß, wen und wo man sieht.</p>
           <p class="vs-preis" data-preis="postkarte">Im Shop ab 1,80 €</p>
         </div>
       </li>
@@ -307,8 +315,8 @@
         <img src="bilder/klein/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/lesezeichen.jpg';" alt="Vier Lesezeichen mit Naturmotiven" loading="lazy">
         <div class="vs-produkt-text">
           <h3>Lesezeichen</h3>
-          <p class="vs-masse">5 × 18 cm, 400 g, matt kaschiert</p>
-          <p>Ein QR-Code führt direkt zur Geschichte hinter dem Foto. Die Ecken sind abgerundet.</p>
+          <p class="vs-masse" data-txt="vorstellung.lesezeichenMasse">5 × 18 cm, 400 g, matt kaschiert</p>
+          <p data-txt="vorstellung.lesezeichenText">Ein QR-Code führt direkt zur Geschichte hinter dem Foto. Die Ecken sind abgerundet.</p>
           <p class="vs-preis" data-preis="lesezeichen">Im Shop ab 1,80 €</p>
         </div>
       </li>
@@ -316,13 +324,13 @@
         <img src="bilder/klein/prints.jpg" onerror="this.onerror=null;this.src='bilder/prints.jpg';" alt="A4-Fotodruck einer schwarzen Katze im hohen Gras" loading="lazy">
         <div class="vs-produkt-text">
           <h3>A4-Drucke</h3>
-          <p class="vs-masse">Fotoabzug, matt, ohne Rahmen</p>
-          <p>Die Drucke passen in jeden handelsüblichen A4-Rahmen. Größere Formate sind auf Anfrage möglich.</p>
+          <p class="vs-masse" data-txt="vorstellung.posterMasse">Fotoabzug, matt, ohne Rahmen</p>
+          <p data-txt="vorstellung.posterText">Die Drucke passen in jeden handelsüblichen A4-Rahmen. Größere Formate sind auf Anfrage möglich.</p>
           <p class="vs-preis" data-preis="poster">Im Shop ab 7,50 €</p>
         </div>
       </li>
     </ul>
-    <p class="vs-bald"><b>In Vorbereitung:</b> Klappkarten mit Umschlag, die innen Platz für eigene Worte lassen.</p>
+    <p class="vs-bald" data-txt="vorstellung.bald"><b>In Vorbereitung:</b> Klappkarten mit Umschlag, die innen Platz für eigene Worte lassen.</p>
   </div>
 </section>
 
@@ -331,14 +339,14 @@
 <section id="motive">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Vier Serien</h2>
-      <p>Teichleben, Gartenleben und Waldleben zeigen die Natur vor der Haustür. Die Serie Reduktion ist bewusst
+      <h2 data-txt="vorstellung.serienTitel">Vier Serien</h2>
+      <p data-txt="vorstellung.serienIntro">Teichleben, Gartenleben und Waldleben zeigen die Natur vor der Haustür. Die Serie Reduktion ist bewusst
         grafisch gestaltet und konzentriert sich auf Silhouette, Fläche und Farbe.</p>
     </div>
     <ul class="vs-serien" id="vs-serien"></ul>
 
     <div class="sec-head" style="margin-top:4rem;">
-      <h3 style="font-size:1.5rem;">Eine Auswahl meiner Motive</h3>
+      <h3 style="font-size:1.5rem;" data-txt="vorstellung.motiveTitel">Eine Auswahl meiner Motive</h3>
     </div>
     <ul class="vs-motive" id="vs-motive"><li style="color:var(--text-muted);">Die Motive werden geladen …</li></ul>
     <p class="vs-mehr vs-druck-aus"><a class="btn btn-outline" href="produkte-bestellen.html">Alle Motive im Shop ansehen</a></p>
@@ -349,8 +357,8 @@
 <section id="kontakt" style="background:var(--bg-panel);">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Kontakt</h2>
-      <p>Ich freue mich über Ihre Nachricht und beantworte gern alle Fragen zu meinen Motiven und Produkten.</p>
+      <h2 data-txt="vorstellung.kontaktTitel">Kontakt</h2>
+      <p data-txt="vorstellung.kontaktText">Ich freue mich über Ihre Nachricht und beantworte gern alle Fragen zu meinen Motiven und Produkten.</p>
     </div>
     <dl class="vs-fakten-tabelle">
       <div><dt>Name</dt><dd>Benedict Gertz, BG Naturfotografie</dd></div>
@@ -391,14 +399,49 @@
 BG.bereit(function () {
   var esc = BG.escapeHtml;
 
-  /* ---------- Druckereien aus daten/shop.json ---------- */
+  /* ---------- Druckereien aus daten/shop.json ----------
+     Ergibt z. B. "WIRmachenDRUCK, Saal Digital und Peterprint".
+     Im Admin-Text eines Schritts steht dafür {druckereien}. */
+  var druckereien = 'WIRmachenDRUCK, Saal Digital und Peterprint';
   if (typeof DRUCKPARTNER !== 'undefined') {
     var namen = [DRUCKPARTNER.postkarte, DRUCKPARTNER.poster, DRUCKPARTNER.lesezeichen]
       .filter(function (n, i, alle) { return n && alle.indexOf(n) === i; });
     if (namen.length) {
-      var liste = namen.length > 1 ? namen.slice(0, -1).join(', ') + ' und ' + namen[namen.length - 1] : namen[0];
-      document.getElementById('vs-druck-text').textContent = 'Gedruckt wird bei ' + liste + '.';
+      druckereien = namen.length > 1 ? namen.slice(0, -1).join(', ') + ' und ' + namen[namen.length - 1] : namen[0];
     }
+  }
+
+  /* ---------- Listen aus dem Admin-Bereich ----------
+     Die Punkte neben „Über mich“ und die Schritte „Vom Foto zum
+     Produkt“ sind Listen (beliebig viele Einträge). Fehlen sie in
+     daten/texte.json, bleibt der Notfall-Stand aus dem HTML stehen. */
+  var T = (BG.texte && BG.texte.vorstellung) || {};
+  function tx(wert) {   /* {de,en} → Text der aktuellen Sprache, sonst Deutsch */
+    if (!wert) return '';
+    if (typeof wert === 'string') return wert;
+    return (BG.sprache === 'en' && wert.en) ? wert.en : (wert.de || '');
+  }
+
+  if (T.fakten && T.fakten.length) {
+    document.getElementById('vs-fakten').innerHTML = T.fakten.map(function (f) {
+      return '<li><b>' + esc(tx(f.titel)) + '</b><span>' + BG.md(tx(f.text)) + '</span></li>';
+    }).join('');
+  }
+
+  var weg = document.getElementById('vs-weg');
+  if (T.schritte && T.schritte.length) {
+    weg.innerHTML = T.schritte.map(function (st) {
+      var extern = st.extern === true;
+      return '<li' + (extern ? ' class="vs-extern"' : '') + '>' +
+        '<span class="vs-wer">' + (extern ? BG.t('Druckpartner', 'Print partner') : BG.t('selbst', 'myself')) + '</span>' +
+        '<b>' + esc(tx(st.titel)) + '</b>' +
+        '<p>' + BG.md(tx(st.text)).replace(/\{druckereien\}/g, esc(druckereien)) + '</p></li>';
+    }).join('');
+    /* Spaltenzahl folgt der Anzahl der Schritte (am PC) */
+    weg.style.setProperty('--schritte', T.schritte.length);
+  } else {
+    var dt = document.getElementById('vs-druck-text');
+    if (dt) dt.textContent = 'Gedruckt wird bei ' + druckereien + '.';
   }
 
   /* ---------- „Im Shop ab …“: günstigster Stückpreis der Staffel ---------- */
