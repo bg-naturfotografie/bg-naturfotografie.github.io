@@ -167,7 +167,7 @@ deutsche Text, und unten links erscheint **„⚠ Übersetzung fehlt“**
 
 ### Seiten nur per Link (Veranstalter, Läden)
 
-Zwei Seiten stehen nicht im Menü und nicht bei Google — du schickst
+Drei Seiten stehen nicht im Menü und nicht bei Google — du schickst
 sie gezielt per Link:
 
 - `bg-naturfotografie.de/portfolio-veranstalter.html` — für Märkte und
@@ -179,6 +179,10 @@ sie gezielt per Link:
   und den Regional-Text änderst du unter **Seitentexte → Seite für
   Läden**. Die Seite lässt sich auch gut ausdrucken (Druckansicht ist
   hell).
+- `bg-naturfotografie.de/vorstellung.html` — eine Vorstellung ohne
+  Konditionen: wer du bist, wie aus einem Foto ein Produkt wird (alles
+  selbst, nur der Druck ist ausgelagert), Produkte, Serien und eine
+  Motivauswahl. Gedacht für Anfragen bei Plattformen und Shops.
 
 ### Bilder hochladen
 
