@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     VORSTELLUNG — WER ICH BIN UND WAS ICH MACHE (nur per Link)
+
+     Eine ruhige Visitenkarte für Anfragen bei Plattformen, Shops
+     oder Kooperationen (z. B. Society Handmade). Anders als die
+     Seite für Läden steht hier nichts zu Kommission oder
+     Konditionen, sondern nur: Person, Arbeitsweise, Produkte.
+
+     Wichtigste Botschaft: Fotografie, Bearbeitung, Gestaltung und
+     Texte mache ich selbst, nur der Druck ist ausgelagert. Das zeigt
+     der Abschnitt „Vom Foto zum Produkt“.
+
+     Wie die anderen Portfolio-Seiten:
+       1. "noindex, nofollow" unten — nicht bei Google & Co.
+       2. NICHT in der sitemap.xml, von KEINER Seite verlinkt.
+       3. KEIN Eintrag in der robots.txt (die ist öffentlich lesbar).
+
+     Was sich von selbst aktuell hält:
+       - Druckereien und Shop-Preise → daten/shop.json
+       - Motivauswahl und Serien     → daten/motive.json
+     Die Texte stehen direkt hier im HTML.
+     ============================================================ -->
+<meta name="robots" content="noindex, nofollow">
+
+<title>Über BG Naturfotografie | Benedict Gertz</title>
+<meta name="description" content="Benedict Gertz, BG Naturfotografie aus Halstenbek: Naturfotografie, selbst gestaltet und betextet, als Postkarten, Lesezeichen und Drucke.">
+<meta name="author" content="Benedict Gertz">
+<meta name="theme-color" content="#11140F">
+<link rel="icon" href="bilder/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="bilder/logo.png">
+
+<!-- Vorschau, wenn der Link per Mail oder Nachricht geteilt wird -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BG Naturfotografie">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Über BG Naturfotografie: vom Foto bis zur fertigen Karte">
+<meta property="og:description" content="Heimische Vögel und Wildtiere aus Halstenbek, selbst fotografiert, gestaltet und betextet.">
+<meta property="og:image" content="https://bg-naturfotografie.de/bilder/postkarten.jpg">
+<meta property="og:image:alt" content="Postkarten mit Vogelmotiven von BG Naturfotografie">
+
+<link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<script src="sprache.js"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
+
+<style>
+/* ============================================================
+   NUR FÜR DIESE SEITE — Klassen mit Präfix "vs-" (Vorstellung).
+   Farben und Schriften aus den Tokens in styles.css.
+
+   Das Erkennungszeichen der Seite ist die Werkstatt-Leiste
+   „Vom Foto zum Produkt“: fünf Schritte in meiner Hand (Linie in
+   Markenfarbe), ein Schritt beim Druckpartner (gestrichelt). So
+   sieht man auf einen Blick, was selbst gemacht ist.
+   ============================================================ */
+
+/* ---------- Kopf: Porträt + Name ---------- */
+.vs-kopf{ padding:7.5rem 0 4rem; }
+.vs-kopf .wrap{
+  display:grid; grid-template-columns:minmax(0, 1.15fr) minmax(0, .85fr);
+  gap:3.5rem; align-items:center;
+}
+.vs-name{ margin:0 0 .6rem; color:var(--accent-soft); font-size:1rem; }
+.vs-kopf h1{ font-size:clamp(2.1rem,4.6vw,3.4rem); margin-bottom:1.2rem; max-width:18ch; }
+.vs-kopf .vs-intro{ color:var(--text-muted); font-size:1.06rem; max-width:54ch; }
+.vs-kopf .vs-intro b{ color:var(--text-light); font-weight:500; }
+.vs-knoepfe{ display:flex; flex-wrap:wrap; gap:.7rem; margin-top:1.8rem; }
+
+/* Porträt im Hochformat, darüber leicht versetzt eine Postkarte */
+.vs-portrait{ position:relative; max-width:400px; justify-self:end; width:100%; }
+.vs-portrait > img{ width:100%; aspect-ratio:4/5; object-fit:cover; object-position:55% 40%; }
+.vs-portrait .vs-karte{
+  position:absolute; left:-14%; bottom:-8%; width:46%; aspect-ratio:1; object-fit:cover;
+  border:1px solid var(--line-strong); box-shadow:0 18px 40px -16px rgba(0,0,0,.9);
+}
+
+/* ---------- Über mich: drei kurze Fakten ---------- */
+.vs-ueber{ display:grid; grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr); gap:3rem; align-items:start; }
+.vs-ueber-text p{ color:var(--text-muted); max-width:60ch; }
+.vs-fakten{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1rem; }
+.vs-fakten li{ padding-left:1rem; border-left:2px solid var(--line-strong); }
+.vs-fakten b{ display:block; color:var(--text-light); font-weight:500; }
+.vs-fakten span{ color:var(--text-muted); font-size:.93rem; }
+
+/* ---------- Vom Foto zum Produkt (echte Reihenfolge → nummeriert) ---------- */
+.vs-weg{
+  list-style:none; margin:0; padding:0; counter-reset:schritt;
+  display:grid; grid-template-columns:repeat(6, minmax(0, 1fr)); gap:1rem;
+}
+.vs-weg li{ counter-increment:schritt; padding-top:1rem; border-top:3px solid var(--accent); }
+.vs-weg li::before{
+  content:counter(schritt); display:block; margin-bottom:.35rem;
+  font-family:'Fraunces', serif; font-size:1.6rem; line-height:1; color:var(--accent-soft);
+}
+.vs-weg b{ display:block; color:var(--text-light); font-weight:500; margin-bottom:.3rem; }
+.vs-weg p{ margin:0; color:var(--text-muted); font-size:.9rem; }
+.vs-wer{
+  display:inline-block; margin:0 0 .5rem; padding:.12rem .55rem; border-radius:99px;
+  font-size:.72rem; background:rgba(201,124,61,0.16); color:var(--accent-soft);
+}
+/* Der eine ausgelagerte Schritt: gestrichelt und ruhiger */
+.vs-weg li.vs-extern{ border-top:3px dashed var(--line-strong); }
+.vs-weg li.vs-extern::before{ color:var(--text-muted); }
+.vs-weg li.vs-extern .vs-wer{ background:rgba(237,231,214,0.08); color:var(--text-muted); }
+.vs-legende{ display:flex; flex-wrap:wrap; gap:.4rem 1.6rem; margin:1.8rem 0 0; color:var(--text-muted); font-size:.86rem; }
+.vs-legende span::before{
+  content:''; display:inline-block; width:22px; height:0; margin-right:.5rem; vertical-align:middle;
+  border-top:3px solid var(--accent);
+}
+.vs-legende span.vs-l-extern::before{ border-top:3px dashed var(--line-strong); }
+
+/* ---------- Produkte ---------- */
+.vs-produkte{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1.4rem; list-style:none; margin:0; padding:0; }
+.vs-produkt{ background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
+.vs-produkt img{ width:100%; aspect-ratio:1; object-fit:cover; }
+.vs-produkt-text{ padding:1.2rem 1.3rem 1.4rem; display:flex; flex-direction:column; gap:.6rem; flex:1; }
+.vs-produkt h3{ font-size:1.35rem; margin:0; }
+.vs-produkt p{ margin:0; color:var(--text-muted); font-size:.93rem; }
+.vs-produkt .vs-masse{ font-size:.84rem; color:var(--text-light); }
+.vs-produkt .vs-preis{ margin-top:auto; padding-top:.6rem; border-top:1px solid var(--line); font-size:.84rem; color:var(--accent-soft); }
+.vs-bald{ margin:1.4rem 0 0; color:var(--text-muted); font-size:.92rem; }
+.vs-bald b{ color:var(--text-light); font-weight:500; }
+
+/* ---------- Serien ---------- */
+.vs-serien{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:1rem; list-style:none; margin:0; padding:0; }
+.vs-serie a{ display:block; color:inherit; }
+.vs-serie img{ width:100%; aspect-ratio:3/4; object-fit:cover; border:1px solid var(--line); transition:border-color .2s; }
+.vs-serie a:hover img{ border-color:var(--accent); }
+.vs-serie b{ display:block; margin-top:.6rem; color:var(--text-light); font-weight:500; }
+.vs-serie span{ color:var(--text-muted); font-size:.84rem; }
+
+/* ---------- Motivauswahl (nichts wird abgeschnitten) ---------- */
+.vs-motive{ display:grid; grid-template-columns:repeat(8, minmax(0, 1fr));   /* 16 Motive = 2 volle Reihen */ gap:1rem; list-style:none; margin:0; padding:0; }
+.vs-motiv{ min-width:0; }
+.vs-buehne{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; background:var(--bg-panel); padding:.4rem; }
+.vs-buehne img{ max-width:100%; max-height:100%; width:auto; height:auto; }
+.vs-motiv p{ margin:.45rem 0 0; font-size:.86rem; color:var(--text-light); line-height:1.3; }
+.vs-motiv p span{ display:block; color:var(--text-muted); font-size:.76rem; }
+.vs-mehr{ margin:1.6rem 0 0; }
+
+/* ---------- Kontakt ---------- */
+.vs-fakten-tabelle{
+  background:var(--bg-panel-2); border:1px solid var(--line);
+  border-radius:var(--radius); padding:.4rem 1.4rem; margin:0; max-width:760px;
+}
+.vs-fakten-tabelle > div{ display:grid; grid-template-columns:170px 1fr; gap:1rem; padding:.8rem 0; border-bottom:1px solid var(--line); }
+.vs-fakten-tabelle > div:last-child{ border-bottom:0; }
+.vs-fakten-tabelle dt{ color:var(--text-muted); font-size:.88rem; padding-top:.1rem; }
+.vs-fakten-tabelle dd{ margin:0; color:var(--text-light); font-size:.94rem; }
+
+/* ---------- Tablet & Handy ---------- */
+@media (max-width:1000px){
+  .vs-weg{ grid-template-columns:repeat(3, minmax(0, 1fr)); row-gap:1.8rem; }
+}
+@media (max-width:900px){
+  .vs-kopf .wrap{ grid-template-columns:1fr; gap:3rem; }
+  .vs-portrait{ justify-self:start; max-width:320px; margin-left:12%; }
+  .vs-ueber{ grid-template-columns:1fr; gap:1.6rem; }
+  .vs-produkte{ grid-template-columns:1fr; max-width:520px; }
+  .vs-serien{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .vs-motive{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width:640px){
+  .vs-kopf{ padding:6rem 0 3.4rem; }
+  .vs-kopf .wrap, section .wrap{ padding-left:1rem; padding-right:1rem; }
+  .vs-weg{ grid-template-columns:1fr 1fr; gap:1.6rem .9rem; }
+  /* Porträt etwas einrücken, damit die Postkarte davor nicht am Rand klebt */
+  .vs-portrait{ margin-left:2.6rem; max-width:calc(100% - 2.6rem); }
+  .vs-portrait .vs-karte{ left:-2.6rem; width:42%; }
+  .vs-motive{ grid-template-columns:repeat(3, minmax(0, 1fr)); gap:.8rem .5rem; }
+  .vs-motiv p{ font-size:.76rem; }
+  .vs-motiv p span{ font-size:.68rem; }
+  .vs-fakten-tabelle > div{ grid-template-columns:1fr; gap:.15rem; }
+}
+
+/* ---------- Ausdruck / PDF: hell, ohne Navigation ---------- */
+@media print{
+  .nav, .sprunglink, .vs-druck-aus, .sprach-schalter{ display:none !important; }
+  body{ background:#fff; color:#000; }
+  section{ padding:1.2rem 0; background:#fff !important; }
+  .vs-kopf{ padding-top:0; }
+  .vs-produkt, .vs-fakten-tabelle, .vs-buehne{ background:#fff; border-color:#bbb; }
+  h1, h2, h3, .vs-weg b, .vs-fakten b, .vs-fakten-tabelle dd, .vs-serie b, .vs-motiv p{ color:#000; }
+  .vs-kopf .vs-intro, .vs-ueber-text p, .vs-weg p, .vs-fakten span, .vs-produkt p,
+  .vs-fakten-tabelle dt, .vs-serie span, .vs-motiv p span{ color:#333; }
+  .vs-weg li, .vs-produkt, .vs-motiv{ break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+
+<!-- Navigation wie überall, damit man Galerie und Shop ansehen kann.
+     Diese Seite selbst steht NICHT im Menü. -->
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
+  <div class="wrap">
+    <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
+      <b>BG</b> Naturfotografie</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
+      <li><a href="produkte-bestellen.html">Shop</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ KOPF ============ -->
+<section id="inhalt" tabindex="-1" class="vs-kopf">
+  <div class="wrap">
+    <div>
+      <p class="vs-name">Benedict Gertz · BG Naturfotografie</p>
+      <h1>Naturfotografie aus Halstenbek, vom Foto bis zur fertigen Karte</h1>
+      <div class="vs-intro">
+        <p>Ich fotografiere heimische Vögel und Wildtiere in Halstenbek und Umgebung. Aus meinen Aufnahmen gestalte
+          ich Postkarten, Lesezeichen und A4-Drucke. <b>Fotografie, Bearbeitung, Gestaltung und Texte stammen
+          vollständig von mir.</b> Nur den Druck übernehmen spezialisierte Druckereien.</p>
+      </div>
+      <p class="vs-knoepfe vs-druck-aus">
+        <a class="btn btn-fill" href="#werkstatt">So entstehen meine Produkte</a>
+        <a class="btn btn-outline" href="#kontakt">Kontakt</a>
+      </p>
+    </div>
+    <figure class="vs-portrait" style="margin:0;">
+      <img src="bilder/klein/profile.jpg" onerror="this.onerror=null;this.src='bilder/profile.jpg';" alt="Benedict Gertz liegt lächelnd im Gras">
+      <img class="vs-karte" src="bilder/klein/postkarten.jpg" onerror="this.onerror=null;this.src='bilder/postkarten.jpg';" alt="Postkarten mit Vogelmotiven, gefächert">
+    </figure>
+  </div>
+</section>
+
+<!-- ============ ÜBER MICH ============ -->
+<section id="ueber" style="background:var(--bg-panel);">
+  <div class="wrap vs-ueber">
+    <div class="vs-ueber-text">
+      <h2>Über mich</h2>
+      <p>Mein Name ist Benedict Gertz, und unter dem Namen BG Naturfotografie zeige ich die Natur direkt vor
+        der Haustür. Ich fotografiere in Gärten, an Teichen und in den Wäldern zwischen Pinneberg und dem
+        Hamburger Westen. Mich reizt nicht die Ferne, sondern das Alltägliche: Rotkehlchen, Schwanzmeisen,
+        Enten und Eichhörnchen, die man selbst am nächsten Morgen wiederfinden kann.</p>
+      <p>Zu vielen Motiven schreibe ich die Geschichte auf, wie das Foto entstanden ist. Über einen QR-Code auf
+        dem Lesezeichen lässt sie sich direkt nachlesen. So wird aus einer Karte ein kleiner Moment, den man
+        weitergeben kann.</p>
+    </div>
+    <ul class="vs-fakten">
+      <li><b>Aus Halstenbek</b><span>Ich lebe und fotografiere im Kreis Pinneberg und verschicke alles selbst von hier aus.</span></li>
+      <li><b>Mit Rücksicht fotografiert</b><span>Ich füttere keine Tiere und locke sie nicht an. Was auf den Bildern zu sehen ist, ist im Moment entstanden.</span></li>
+      <li><b>Im Naturschutz aktiv</b><span>Ehrenamtlich engagiere ich mich in der NABU-Ortsgruppe Halstenbek.</span></li>
+      <li><b>Angemeldetes Gewerbe</b><span>BG Naturfotografie ist als Kleinunternehmen nach § 19 UStG angemeldet.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ VOM FOTO ZUM PRODUKT ============
+     Echte Reihenfolge, deshalb nummeriert. Schritt 5 (Druck) ist
+     als einziger ausgelagert und deshalb gestrichelt markiert. -->
+<section id="werkstatt">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Vom Foto zum Produkt</h2>
+      <p>Jedes Produkt durchläuft sechs Schritte. Fünf davon erledige ich selbst. Für den Druck arbeite ich mit
+        Druckereien zusammen, deren Qualität ich für meine Motive ausgewählt habe.</p>
+    </div>
+    <ol class="vs-weg">
+      <li><span class="vs-wer">selbst</span><b>Fotografieren</b><p>Ich bin draußen unterwegs und warte oft lange auf den richtigen Moment.</p></li>
+      <li><span class="vs-wer">selbst</span><b>Bearbeiten</b><p>Auswahl, Farbe, Licht und Zuschnitt bearbeite ich jedes Bild einzeln.</p></li>
+      <li><span class="vs-wer">selbst</span><b>Gestalten</b><p>Ich bringe jedes Motiv in Form, von der Postkarte bis zum Lesezeichen.</p></li>
+      <li><span class="vs-wer">selbst</span><b>Texten</b><p>Artname, Fundort und die Geschichte zum Foto schreibe ich selbst.</p></li>
+      <li class="vs-extern"><span class="vs-wer">Druckpartner</span><b>Drucken</b><p id="vs-druck-text">Gedruckt wird bei WIRmachenDRUCK, Saal Digital und Peterprint.</p></li>
+      <li><span class="vs-wer">selbst</span><b>Verpacken und Versenden</b><p>Ich prüfe, verpacke und verschicke jede Bestellung selbst aus Halstenbek.</p></li>
+    </ol>
+    <p class="vs-legende" aria-hidden="true"><span>von mir selbst</span><span class="vs-l-extern">ausgelagert</span></p>
+  </div>
+</section>
+
+<!-- ============ PRODUKTE ============
+     Druckereien und „im Shop ab …“ setzt das Skript unten aus
+     daten/shop.json ein. -->
+<section id="produkte" style="background:var(--bg-panel);">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Meine Produkte</h2>
+      <p>Alle Produkte gibt es mit Motiven aus meinen vier Serien. Gestaltung und Texte sind jeweils auf das
+        Format abgestimmt.</p>
+    </div>
+    <ul class="vs-produkte">
+      <li class="vs-produkt">
+        <img src="bilder/klein/postkarten.jpg" onerror="this.onerror=null;this.src='bilder/postkarten.jpg';" alt="Mehrere Postkarten mit Vogelmotiven" loading="lazy">
+        <div class="vs-produkt-text">
+          <h3>Postkarten</h3>
+          <p class="vs-masse">10 × 15 cm, 350 g, matt</p>
+          <p>Auf der Rückseite stehen Artname und Fundort, damit man weiß, wen und wo man sieht.</p>
+          <p class="vs-preis" data-preis="postkarte">Im Shop ab 1,80 €</p>
+        </div>
+      </li>
+      <li class="vs-produkt">
+        <img src="bilder/klein/lesezeichen.jpg" onerror="this.onerror=null;this.src='bilder/lesezeichen.jpg';" alt="Vier Lesezeichen mit Naturmotiven" loading="lazy">
+        <div class="vs-produkt-text">
+          <h3>Lesezeichen</h3>
+          <p class="vs-masse">5 × 18 cm, 400 g, matt kaschiert</p>
+          <p>Ein QR-Code führt direkt zur Geschichte hinter dem Foto. Die Ecken sind abgerundet.</p>
+          <p class="vs-preis" data-preis="lesezeichen">Im Shop ab 1,80 €</p>
+        </div>
+      </li>
+      <li class="vs-produkt">
+        <img src="bilder/klein/prints.jpg" onerror="this.onerror=null;this.src='bilder/prints.jpg';" alt="A4-Fotodruck einer schwarzen Katze im hohen Gras" loading="lazy">
+        <div class="vs-produkt-text">
+          <h3>A4-Drucke</h3>
+          <p class="vs-masse">Fotoabzug, matt, ohne Rahmen</p>
+          <p>Die Drucke passen in jeden handelsüblichen A4-Rahmen. Größere Formate sind auf Anfrage möglich.</p>
+          <p class="vs-preis" data-preis="poster">Im Shop ab 7,50 €</p>
+        </div>
+      </li>
+    </ul>
+    <p class="vs-bald"><b>In Vorbereitung:</b> Klappkarten mit Umschlag, die innen Platz für eigene Worte lassen.</p>
+  </div>
+</section>
+
+<!-- ============ SERIEN + MOTIVAUSWAHL ============
+     Beides baut das Skript aus daten/motive.json. -->
+<section id="motive">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Vier Serien</h2>
+      <p>Teichleben, Gartenleben und Waldleben zeigen die Natur vor der Haustür. Die Serie Reduktion ist bewusst
+        grafisch gestaltet und konzentriert sich auf Silhouette, Fläche und Farbe.</p>
+    </div>
+    <ul class="vs-serien" id="vs-serien"></ul>
+
+    <div class="sec-head" style="margin-top:4rem;">
+      <h3 style="font-size:1.5rem;">Eine Auswahl meiner Motive</h3>
+    </div>
+    <ul class="vs-motive" id="vs-motive"><li style="color:var(--text-muted);">Die Motive werden geladen …</li></ul>
+    <p class="vs-mehr vs-druck-aus"><a class="btn btn-outline" href="produkte-bestellen.html">Alle Motive im Shop ansehen</a></p>
+  </div>
+</section>
+
+<!-- ============ KONTAKT ============ -->
+<section id="kontakt" style="background:var(--bg-panel);">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Kontakt</h2>
+      <p>Ich freue mich über Ihre Nachricht und beantworte gern alle Fragen zu meinen Motiven und Produkten.</p>
+    </div>
+    <dl class="vs-fakten-tabelle">
+      <div><dt>Name</dt><dd>Benedict Gertz, BG Naturfotografie</dd></div>
+      <div><dt>Sitz</dt><dd>Halstenbek, Kreis Pinneberg</dd></div>
+      <div>
+        <dt>E-Mail</dt>
+        <!-- Adresse wird unten per Skript zusammengesetzt (Spam-Schutz) -->
+        <dd><span id="vs-mail"><noscript>benedict.gertz [at] web [punkt] de</noscript></span></dd>
+      </div>
+      <div><dt>Webseite und Shop</dt><dd><a href="index.html">bg-naturfotografie.de</a></dd></div>
+      <div><dt>Instagram</dt><dd><a href="https://instagram.com/bg.naturfotografie" rel="noopener">@bg.naturfotografie</a></dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 BG Naturfotografie · Alle Aufnahmen &copy; Benedict Gertz</span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="geschichten.html" data-en="Stories">Geschichten</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script src="daten.js" data-brauche="motive shop" defer></script>
+<script>
+/* E-Mail-Adresse erst im Browser zusammensetzen (Spam-Schutz).
+   Adresse geändert? Nur die Teile hier anpassen. */
+(function () {
+  var adresse = 'benedict.gertz' + '@' + 'web' + '.' + 'de';
+  var ziel = document.getElementById('vs-mail');
+  if (!ziel) return;
+  var link = document.createElement('a');
+  link.href = 'mailto:' + adresse;
+  link.textContent = adresse;
+  ziel.textContent = '';
+  ziel.appendChild(link);
+})();
+
+BG.bereit(function () {
+  var esc = BG.escapeHtml;
+
+  /* ---------- Druckereien aus daten/shop.json ---------- */
+  if (typeof DRUCKPARTNER !== 'undefined') {
+    var namen = [DRUCKPARTNER.postkarte, DRUCKPARTNER.poster, DRUCKPARTNER.lesezeichen]
+      .filter(function (n, i, alle) { return n && alle.indexOf(n) === i; });
+    if (namen.length) {
+      var liste = namen.length > 1 ? namen.slice(0, -1).join(', ') + ' und ' + namen[namen.length - 1] : namen[0];
+      document.getElementById('vs-druck-text').textContent = 'Gedruckt wird bei ' + liste + '.';
+    }
+  }
+
+  /* ---------- „Im Shop ab …“: günstigster Stückpreis der Staffel ---------- */
+  document.querySelectorAll('[data-preis]').forEach(function (el) {
+    var stufen = (typeof STAFFEL !== 'undefined' && STAFFEL[el.getAttribute('data-preis')]) || [];
+    if (!stufen.length) return;
+    var min = stufen.reduce(function (m, st) { return Math.min(m, st.fuer / st.abMenge); }, Infinity);
+    el.textContent = 'Im Shop ab ' + BG.euro(min);
+  });
+
+  var motive = (typeof GALERIE_BILDER !== 'undefined' ? GALERIE_BILDER : []).filter(function (b) { return b.imShop !== false; });
+  function finde(id) { return motive.filter(function (b) { return b.id === id; })[0]; }
+
+  /* ---------- Serien: Titelbild = erstes Startseiten-Motiv ---------- */
+  document.getElementById('vs-serien').innerHTML = (window.SERIEN || []).map(function (s) {
+    var titel = finde(s.startseite[0]) || motive.filter(function (b) { return b.kategorie === s.id; })[0];
+    var anzahl = motive.filter(function (b) { return b.kategorie === s.id; }).length;
+    if (!titel) return '';
+    return '<li class="vs-serie"><a href="' + esc(s.seite) + '">' +
+      '<img src="' + esc(BG.klein(titel.bild)) + '"' + BG.bildFallback(titel.bild) + ' alt="' + esc(titel.alt) + '" loading="lazy">' +
+      '<b>' + esc(s.name) + '</b><span>' + anzahl + ' Motive</span></a></li>';
+  }).join('');
+
+  /* ---------- Motivauswahl ----------
+     Bis zu 4 Motive je Serie, bevorzugt solche, die als Postkarte
+     gedruckt vorliegen. Reihenfolge wie in daten/motive.json. */
+  var JE_SERIE = 4;
+  var auswahl = [];
+  (window.SERIEN || []).forEach(function (s) {
+    var der = motive.filter(function (b) { return b.kategorie === s.id; });
+    var gedruckt = der.filter(function (b) { return b.bereitsPostkarte; });
+    auswahl = auswahl.concat(gedruckt.concat(der.filter(function (b) { return !b.bereitsPostkarte; })).slice(0, JE_SERIE));
+  });
+  document.getElementById('vs-motive').innerHTML = auswahl.map(function (b) {
+    return '<li class="vs-motiv"><div class="vs-buehne">' +
+      '<img src="' + esc(BG.klein(b.bild)) + '"' + BG.bildFallback(b.bild) + ' alt="' + esc(b.alt) + '" loading="lazy"></div>' +
+      '<p>' + esc(b.art) + (b.zusatz ? '<span>' + esc(b.zusatz) + '</span>' : '') + '</p></li>';
+  }).join('');
+});
+</script>
+
+</body>
+</html>
