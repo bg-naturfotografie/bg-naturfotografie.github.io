@@ -38,7 +38,7 @@
           "de": "Auf dem See",
           "en": "On the lake"
         },
-        "koordinaten": "",
+        "koordinaten": "53.61381, 9.84868",
         "radius": 2000,
         "polygon": ""
       }
@@ -2183,6 +2183,20 @@
         "reduktion5",
         "reduktion6"
       ]
+    },
+    {
+      "id": "Pflanzenleben",
+      "name": {
+        "de": "Pflanzenleben",
+        "en": "Plants"
+      },
+      "titelStartseite": null,
+      "kurz": {
+        "de": "Auch die Pflanzenwelt hat ihre eigene Schönheit.",
+        "en": "Nearby plants are beautiful as well"
+      },
+      "seite": "",
+      "startseite": []
     }
   ]
 }
