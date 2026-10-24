@@ -1,6 +1,49 @@
 {
   "motive": [
     {
+      "id": "teichleben11",
+      "code": "",
+      "kategorie": "Teichleben",
+      "bild": "/bilder/fotos/_j6a5580_dxo_1.webp",
+      "art": {
+        "de": "Graureiher",
+        "en": "Grey heron"
+      },
+      "zusatz": {
+        "de": "wartend im Schnee",
+        "en": "waiting in the snow"
+      },
+      "alt": {
+        "de": "Graureiher steht auf zugefrorenem und eingeschneitem See",
+        "en": "Grey heron standing on a frozen, snow-covered lake"
+      },
+      "imShop": false,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "bildLesezeichen": "",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Auf dem See",
+          "en": "On the lake"
+        },
+        "koordinaten": "",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
       "id": "teichleben1",
       "code": "M-01",
       "kategorie": "Teichleben",
