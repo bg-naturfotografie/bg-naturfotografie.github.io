@@ -101,16 +101,6 @@
       "en": "I am based in Halstenbek in the Pinneberg district. I photograph locally, in gardens, at ponds and in the woods between Pinneberg and western Hamburg. I never feed or lure the animals."
     }
   },
-  "geschichten": {
-    "eyebrow": {
-      "de": "Hinter den Fotos",
-      "en": "Behind the photos"
-    },
-    "intro": {
-      "de": "Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.",
-      "en": "Some photos happen in a lucky moment, others after a bit of patience. Here are the moments behind the motifs."
-    }
-  },
   "vorstellung": {
     "zeile": {
       "de": "Benedict Gertz · BG Naturfotografie",
@@ -129,8 +119,8 @@
       "en": "About me"
     },
     "ueberText": {
-      "de": "Mein Name ist Benedict Gertz, und unter dem Namen BG Naturfotografie zeige ich die Natur direkt vor der Haustür. Ich fotografiere in Gärten, an Teichen und in den Wäldern zwischen Pinneberg und dem Hamburger Westen. Mich reizt nicht die Ferne, sondern das Alltägliche: Rotkehlchen, Schwanzmeisen, Enten und Eichhörnchen, die man selbst am nächsten Morgen wiederfinden kann.\n\nZu vielen Motiven schreibe ich die Geschichte auf, wie das Foto entstanden ist. Über einen QR-Code auf dem Lesezeichen lässt sie sich direkt nachlesen. So wird aus einer Karte ein kleiner Moment, den man weitergeben kann.",
-      "en": "My name is Benedict Gertz, and as BG Naturfotografie I show nature right on the doorstep. I photograph in gardens, at ponds and in the woods between Pinneberg and western Hamburg. What fascinates me is not the far away but the everyday: robins, long-tailed tits, ducks and squirrels that you can find again yourself the next morning.\n\nFor many motifs I write down the story of how the photo came about. A QR code on the bookmark leads straight to it. That turns a card into a small moment you can pass on."
+      "de": "Mein Name ist Benedict Gertz, und unter dem Namen BG Naturfotografie zeige ich die Natur direkt vor der Haustür. Ich fotografiere in Gärten, an Teichen und in den Wäldern vor allem zwischen Pinneberg und dem Hamburger Westen. Mich reizt nicht die Ferne, sondern das Alltägliche: Rotkehlchen, Schwanzmeisen, Enten und Eichhörnchen, die man selbst am nächsten Morgen wiederfinden kann.\n\nZu allen Motiven schreibe ich die Geschichte auf, wie das Foto entstanden ist. Diese lassen sich über einen QR-Code auf dem Lesezeichen oder über meine Webseite direkt nachlesen.  So wird aus einer Karte ein kleiner Moment, den man weitergeben kann.",
+      "en": "My name is Benedict Gertz, and as BG Naturfotografie I show nature right on the doorstep. I photograph in gardens, at ponds and in the woods between Pinneberg and western Hamburg. What fascinates me is not the far away but the everyday: robins, long-tailed tits, ducks and squirrels that you can find again yourself the next morning.\n\nFor all motifs I write down the story of how the photo came about. A QR code on the bookmark leads straight to it. Every other story is listed on my website. That turns a card into a small moment you can pass on."
     },
     "fakten": [
       {
@@ -159,7 +149,7 @@
           "en": "Active in conservation"
         },
         "text": {
-          "de": "Ehrenamtlich engagiere ich mich in der NABU-Ortsgruppe Halstenbek.",
+          "de": "Ehrenamtlich engagiere ich mich in der NABU-Ortsgruppe Schenefeld/Halstenbek.",
           "en": "I volunteer in the local NABU group in Halstenbek."
         }
       },
@@ -169,7 +159,7 @@
           "en": "Registered business"
         },
         "text": {
-          "de": "BG Naturfotografie ist als Kleinunternehmen nach § 19 UStG angemeldet.",
+          "de": "BG Naturfotografie ist als Kleinunternehmen nach § 19 UStG angemeldet und im LUCID Verpackungsregister registriert.",
           "en": "BG Naturfotografie is registered as a small business under § 19 UStG."
         }
       }
@@ -201,8 +191,8 @@
         },
         "extern": false,
         "text": {
-          "de": "Auswahl, Farbe, Licht und Zuschnitt bearbeite ich jedes Bild einzeln.",
-          "en": "I edit selection, colour, light and crop for every picture individually."
+          "de": "Jedes Foto ist von mir selbst ausgewählt und in der Farbe, Darstellung, Zuschnitt, Format und Größe eigenständig bearbeitet. Keine externen Personen oder KI-Agenten sind an diesem Prozess beteiligt.",
+          "en": "I edit selection, colour, light and crop for every picture individually. No other person or AI-agent is involved in the finished look."
         }
       },
       {
@@ -212,7 +202,7 @@
         },
         "extern": false,
         "text": {
-          "de": "Ich bringe jedes Motiv in Form, von der Postkarte bis zum Lesezeichen.",
+          "de": "Ich bringe jedes Motiv ins richtige Format, von der Postkarte bis zum Lesezeichen.",
           "en": "I shape every motif into its format, from postcard to bookmark."
         }
       },
@@ -305,6 +295,16 @@
     "kontaktText": {
       "de": "Ich freue mich über Ihre Nachricht und beantworte gern alle Fragen zu meinen Motiven und Produkten.",
       "en": "I look forward to your message and am happy to answer any questions about my motifs and products."
+    }
+  },
+  "geschichten": {
+    "eyebrow": {
+      "de": "Hinter den Fotos",
+      "en": "Behind the photos"
+    },
+    "intro": {
+      "de": "Manche Fotos entstehen in einem glücklichen Moment, andere nach etwas Geduld. Hier sind die Momente hinter den Motiven.",
+      "en": "Some photos happen in a lucky moment, others after a bit of patience. Here are the moments behind the motifs."
     }
   }
 }
