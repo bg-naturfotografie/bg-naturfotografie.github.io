@@ -1,20 +1,37 @@
 {
-  "wechselSekunden": 7,
   "buehne": [
     {
-      "id": "waldleben1"
+      "id": "waldleben1",
+      "ausschnitt": ""
     },
     {
-      "id": "teichleben1"
+      "id": "teichleben1",
+      "ausschnitt": ""
     },
     {
-      "id": "gartenleben21"
+      "id": "gartenleben21",
+      "ausschnitt": ""
     },
     {
-      "id": "reduktion3"
+      "id": "reduktion3",
+      "ausschnitt": ""
     },
     {
-      "id": "waldleben5"
+      "id": "waldleben5",
+      "ausschnitt": ""
+    },
+    {
+      "id": "gartenleben12",
+      "ausschnitt": ""
+    },
+    {
+      "id": "gartenleben14",
+      "ausschnitt": ""
+    },
+    {
+      "id": "reduktion2",
+      "ausschnitt": ""
     }
-  ]
+  ],
+  "wechselSekunden": 7
 }
