@@ -28,11 +28,43 @@
       "adresse": "Haidehof 3 (Gut Haidehof), 22880 Wedel",
       "link": "",
       "hinweis": null
+    },
+    {
+      "datum": "2026-11-28",
+      "bisDatum": "2026-11-28",
+      "von": "14:00",
+      "bis": "19:00",
+      "titel": {
+        "de": "Adventszauber Halstenbek",
+        "en": "Adventszauber Halstenbek"
+      },
+      "adresse": "Rathausplatz, Gustavstraße 6, 25469 Halstenbek",
+      "link": "",
+      "hinweis": {
+        "de": "2 Meter Standfläche im großen Zelt",
+        "en": "2 meters in the big tent"
+      }
+    },
+    {
+      "datum": "2026-11-29",
+      "bisDatum": "2026-11-29",
+      "von": "11:00",
+      "bis": "19:00",
+      "titel": {
+        "de": "Adventszauber Halstenbek",
+        "en": "Adventszauber Halstenbek"
+      },
+      "adresse": "Rathausplatz, Gustavstraße 6, 25469 Halstenbek",
+      "link": "",
+      "hinweis": {
+        "de": "2 Meter Standfläche im großen Zelt",
+        "en": "2 meters in the big tent"
+      }
     }
   ],
   "hinweis": {
-    "de": "Weitere Märkte für den Advent sind angefragt. Sobald etwas fest ist, steht es hier zuerst.",
-    "en": "More Advent markets are in the works. As soon as something is confirmed, you will find it here first."
+    "de": "Letzt Chance in diesem Jahr.",
+    "en": "Last Chances for this year."
   },
   "keinTermin": {
     "de": "Gerade steht kein Markt fest. Sobald es einen neuen Termin gibt, steht er hier zuerst.",
