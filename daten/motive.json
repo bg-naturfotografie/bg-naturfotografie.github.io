@@ -17,7 +17,7 @@
         "de": "helle Hazelkätzchen vor dunklem, blauen Winterhintergrund, mit Raureif bedeckt",
         "en": "light hazel catkins against a dark, blue winter background, covered with hoarfrost"
       },
-      "imShop": false,
+      "imShop": true,
       "versteckt": false,
       "postkarte": {
         "vorraetig": false,
@@ -28,8 +28,12 @@
         "bestand": null
       },
       "lesezeichen": {
-        "vorraetig": false,
-        "bestand": null
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 49
       },
       "bildLesezeichen": "/bilder/lesezeichen/haselkätzchen.webp",
       "ort": {
@@ -57,7 +61,7 @@
         "de": "Ein Eichhörnchen sitzt in frühlingshaften Ästen, umgeben von grün- und Blautönen",
         "en": "A squirrel sits in spring-like branches, surrounded by shades of green and blue."
       },
-      "imShop": false,
+      "imShop": true,
       "versteckt": false,
       "postkarte": {
         "vorraetig": false,
@@ -68,6 +72,10 @@
         "bestand": null
       },
       "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "klappkarte": {
         "vorraetig": false,
         "bestand": null
       },
@@ -100,7 +108,7 @@
         "de": "Ein Eichhörnchen schaut akrobatisch hängend im Baum durch herbstfarbene Blätter",
         "en": "A squirrel, hanging acrobatically in a tree, peers through autumn-colored leaves."
       },
-      "imShop": false,
+      "imShop": true,
       "versteckt": false,
       "postkarte": {
         "vorraetig": false,
@@ -111,6 +119,10 @@
         "bestand": null
       },
       "lesezeichen": {
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "klappkarte": {
         "vorraetig": false,
         "bestand": null
       },
@@ -140,7 +152,7 @@
         "de": "Baumläufer vor grünem Hintergrund an einem Birkenstamm",
         "en": "Treecreeper ifront of green background at a birch tree"
       },
-      "imShop": false,
+      "imShop": true,
       "versteckt": false,
       "postkarte": {
         "vorraetig": false,
@@ -151,8 +163,12 @@
         "bestand": null
       },
       "lesezeichen": {
-        "vorraetig": false,
-        "bestand": null
+        "vorraetig": true,
+        "bestand": 49
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 49
       },
       "bildLesezeichen": "/bilder/lesezeichen/baumläufer.webp",
       "ort": {
@@ -183,7 +199,7 @@
         "de": "Ein Zapfen am Tannenzweig malerisch fotografiert.",
         "en": "A cone on a branch with colorful fir needels."
       },
-      "imShop": false,
+      "imShop": true,
       "versteckt": false,
       "postkarte": {
         "vorraetig": false,
@@ -196,6 +212,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": null
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 75
       },
       "bildLesezeichen": "",
       "ort": {
@@ -226,7 +246,7 @@
         "de": "Graureiher steht auf zugefrorenem und eingeschneitem See",
         "en": "Grey heron standing on a frozen, snow-covered lake"
       },
-      "imShop": false,
+      "imShop": true,
       "versteckt": false,
       "postkarte": {
         "vorraetig": false,
@@ -239,6 +259,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": null
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 50
       },
       "bildLesezeichen": "",
       "ort": {
@@ -283,6 +307,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -325,6 +353,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -369,6 +401,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -411,6 +447,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -455,6 +495,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -497,6 +541,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -541,6 +589,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -582,7 +634,11 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 43
+        "bestand": 42
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -627,6 +683,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -669,6 +729,10 @@
       "lesezeichen": {
         "vorraetig": true,
         "bestand": 46
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -713,6 +777,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -755,6 +823,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -799,6 +871,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -841,6 +917,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -885,6 +965,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -927,6 +1011,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -971,6 +1059,10 @@
         "vorraetig": true,
         "bestand": 44
       },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 50
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1013,6 +1105,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 50
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1057,6 +1153,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1099,6 +1199,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1143,6 +1247,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1185,6 +1293,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1229,6 +1341,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1271,6 +1387,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 75
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1315,6 +1435,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1357,6 +1481,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1401,6 +1529,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1443,6 +1575,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1487,6 +1623,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 50
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1529,6 +1669,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1573,6 +1717,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1616,6 +1764,10 @@
         "vorraetig": true,
         "bestand": 45
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "kreis",
@@ -1649,7 +1801,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 30
+        "bestand": 29
       },
       "poster": {
         "vorraetig": false,
@@ -1658,6 +1810,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1702,6 +1858,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1743,7 +1903,11 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 45
+        "bestand": 44
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1786,7 +1950,11 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 45
+        "bestand": 44
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1831,6 +1999,10 @@
         "vorraetig": true,
         "bestand": 41
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1873,6 +2045,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 75
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1917,6 +2093,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -1959,6 +2139,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -2003,6 +2187,10 @@
         "vorraetig": true,
         "bestand": 42
       },
+      "klappkarte": {
+        "vorraetig": true,
+        "bestand": 75
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -2045,6 +2233,10 @@
       "lesezeichen": {
         "vorraetig": true,
         "bestand": 42
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -2089,6 +2281,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -2130,7 +2326,11 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 47
+        "bestand": 46
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -2175,6 +2375,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -2217,6 +2421,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
@@ -2261,6 +2469,10 @@
         "vorraetig": false,
         "bestand": 0
       },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
       "bildLesezeichen": "",
       "ort": {
         "art": "punkt",
@@ -2303,6 +2515,10 @@
       "lesezeichen": {
         "vorraetig": false,
         "bestand": 0
+      },
+      "klappkarte": {
+        "vorraetig": false,
+        "bestand": null
       },
       "bildLesezeichen": "",
       "ort": {
