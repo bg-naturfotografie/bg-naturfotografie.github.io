@@ -123,7 +123,7 @@
 .vs-legende span.vs-l-extern::before{ border-top:3px dashed var(--line-strong); }
 
 /* ---------- Produkte ---------- */
-.vs-produkte{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:1.4rem; list-style:none; margin:0; padding:0; }
+.vs-produkte{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:1.4rem; list-style:none; margin:0; padding:0; }
 .vs-produkt{ background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; }
 .vs-produkt img{ width:100%; aspect-ratio:1; object-fit:cover; }
 .vs-produkt-text{ padding:1.2rem 1.3rem 1.4rem; display:flex; flex-direction:column; gap:.6rem; flex:1; }
@@ -131,6 +131,7 @@
 .vs-produkt p{ margin:0; color:var(--text-muted); font-size:.93rem; }
 .vs-produkt .vs-masse{ font-size:.84rem; color:var(--text-light); }
 .vs-produkt .vs-preis{ margin-top:auto; padding-top:.6rem; border-top:1px solid var(--line); font-size:.84rem; color:var(--accent-soft); }
+.vs-bald:empty{ display:none; }
 .vs-bald{ margin:1.4rem 0 0; color:var(--text-muted); font-size:.92rem; }
 .vs-bald b{ color:var(--text-light); font-weight:500; }
 
@@ -165,11 +166,14 @@
 @media (max-width:1000px){
   .vs-weg{ grid-template-columns:repeat(3, minmax(0, 1fr)); row-gap:1.8rem; }
 }
+@media (max-width:1100px){
+  .vs-produkte{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width:900px){
   .vs-kopf .wrap{ grid-template-columns:1fr; gap:3rem; }
   .vs-portrait{ justify-self:start; max-width:320px; margin-left:12%; }
   .vs-ueber{ grid-template-columns:1fr; gap:1.6rem; }
-  .vs-produkte{ grid-template-columns:1fr; max-width:520px; }
+  .vs-produkte{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
   .vs-serien{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
   .vs-motive{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
 }
@@ -329,8 +333,18 @@
           <p class="vs-preis" data-preis="poster">Im Shop ab 7,50 €</p>
         </div>
       </li>
+      <li class="vs-produkt">
+        <!-- Foto: Admin-Bereich → Shop → Produktfotos → Klappkarten -->
+        <img src="bilder/klein/produkte/klappkarte-ersatz.jpg" data-produktbild="klappkarte" alt="Klappkarte mit Vogelmotiv und Umschlag" loading="lazy">
+        <div class="vs-produkt-text">
+          <h3>Klappkarten</h3>
+          <p class="vs-masse" data-txt="vorstellung.klappkarteMasse">Klappkarte mit eigenem Umschlag</p>
+          <p data-txt="vorstellung.klappkarteText">Innen bleibt Platz für eigene Worte. Jede Karte kommt mit passendem Umschlag.</p>
+          <p class="vs-preis" data-preis="klappkarte">Im Shop ab 2,50 €</p>
+        </div>
+      </li>
     </ul>
-    <p class="vs-bald" data-txt="vorstellung.bald"><b>In Vorbereitung:</b> Klappkarten mit Umschlag, die innen Platz für eigene Worte lassen.</p>
+    <p class="vs-bald" data-txt="vorstellung.bald"></p>
   </div>
 </section>
 
@@ -404,7 +418,7 @@ BG.bereit(function () {
      Im Admin-Text eines Schritts steht dafür {druckereien}. */
   var druckereien = 'WIRmachenDRUCK, Saal Digital und Peterprint';
   if (typeof DRUCKPARTNER !== 'undefined') {
-    var namen = [DRUCKPARTNER.postkarte, DRUCKPARTNER.poster, DRUCKPARTNER.lesezeichen]
+    var namen = [DRUCKPARTNER.postkarte, DRUCKPARTNER.poster, DRUCKPARTNER.lesezeichen, DRUCKPARTNER.klappkarte]
       .filter(function (n, i, alle) { return n && alle.indexOf(n) === i; });
     if (namen.length) {
       druckereien = namen.length > 1 ? namen.slice(0, -1).join(', ') + ' und ' + namen[namen.length - 1] : namen[0];

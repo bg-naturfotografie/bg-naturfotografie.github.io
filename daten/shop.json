@@ -2,7 +2,8 @@
   "druckpartner": {
     "postkarte": "WIRmachenDRUCK",
     "poster": "Saal Digital",
-    "lesezeichen": "Peterprint"
+    "lesezeichen": "Peterprint",
+    "klappkarte": "WIRmachenDRUCK"
   },
   "saalShopUrl": "https://photo-portal.shop/share/ktL7QZy/",
   "posterFormat": "A4",
@@ -45,6 +46,16 @@
         "abMenge": 5,
         "fuer": 9
       }
+    ],
+    "klappkarte": [
+      {
+        "abMenge": 1,
+        "fuer": 3
+      },
+      {
+        "abMenge": 2,
+        "fuer": 5
+      }
     ]
   },
   "kartenMischbar": true,
@@ -78,5 +89,8 @@
     "de": "Kein Versand, kein Versandkostenanteil. Den Übergabetermin machen wir per Mail aus.",
     "en": "No shipping, no shipping cost. We will arrange the hand-over by e-mail."
   },
-  "sticker": []
+  "sticker": [],
+  "produktbilder": {
+    "klappkarte": ""
+  }
 }

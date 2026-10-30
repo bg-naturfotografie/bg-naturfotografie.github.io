@@ -336,16 +336,20 @@
         </div>
       </li>
 
-      <li class="pl-produkt pl-bald">
-        <div class="pl-produkt-ohnebild">Foto folgt</div>
+      <li class="pl-produkt">
+        <!-- Foto: Admin-Bereich → Shop → Produktfotos → Klappkarten -->
+        <img src="bilder/klein/produkte/klappkarte-ersatz.jpg" data-produktbild="klappkarte" alt="" loading="lazy">
         <h3>Klappkarten</h3>
         <dl class="pl-steckbrief">
-            <dt>Ausführung</dt><dd>mit Umschlag, innen frei</dd>
-            <dt>Motive</dt><dd>aus den vier Serien</dd>
+            <dt>Ausführung</dt><dd>Klappkarte, innen frei für eigene Worte</dd>
+            <dt>Umschlag</dt><dd>Jede Karte kommt mit eigenem Versandumschlag</dd>
+            <dt>Motive</dt><dd>aus meinen Serien</dd>
+            <dt>Druck</dt><dd data-druckpartner="klappkarte">WIRmachenDRUCK</dd>
           </dl>
-        <div class="pl-preisblock">
-          <span class="pl-preis">in Vorbereitung</span>
-          <span class="pl-preis-klein">Vormerkung möglich</span>
+        <div class="pl-preisblock" data-preise="klappkarte">
+          <span class="pl-preis">3,00 €</span>
+          <span class="pl-preis-klein">Endverkaufspreis (Onlineshop)</span>
+          <span class="pl-preis-staffel">2 für 5 €</span>
         </div>
       </li>
     </ul>
@@ -480,6 +484,7 @@ BG.bereit(function () {
       return st.abMenge + ' für ' + BG.euro(st.fuer, true);
     });
     if (typ === 'lesezeichen') pakete.push('mit Postkarten mischbar');
+    if (typ === 'klappkarte') pakete.push('je mit Umschlag');
     var zeile = block.querySelector('.pl-preis-staffel');
     if (zeile) zeile.textContent = pakete.join(' · ');
   });
@@ -497,7 +502,8 @@ BG.bereit(function () {
   var FORMEN = [
     { id: 'postkarte',   name: 'Postkarte',   da: function (b) { return b.bereitsPostkarte && b.bestand > 0; } },
     { id: 'lesezeichen', name: 'Lesezeichen', da: function (b) { return b.bereitsLesezeichen && b.bestandLesezeichen > 0; } },
-    { id: 'poster',      name: 'A4-Druck',    da: function (b) { return b.bereitsPoster && b.bestandPoster > 0; } }
+    { id: 'poster',      name: 'A4-Druck',    da: function (b) { return b.bereitsPoster && b.bestandPoster > 0; } },
+    { id: 'klappkarte',  name: 'Klappkarte',  da: function (b) { return b.bereitsKlappkarte && b.bestandKlappkarte > 0; } }
   ];
   var alle = (typeof GALERIE_BILDER !== 'undefined' ? GALERIE_BILDER : []).filter(function (b) {
     return b.imShop !== false && FORMEN.some(function (f) { return f.da(b); });
@@ -506,7 +512,7 @@ BG.bereit(function () {
 
   function filterZeichnen() {
     var knoepfe = [{ id: 'alle', name: 'Alle', n: alle.length }].concat(FORMEN.map(function (f) {
-      return { id: f.id, name: f.name === 'A4-Druck' ? 'A4-Drucke' : f.name + (f.id === 'postkarte' ? 'n' : ''),
+      return { id: f.id, name: { postkarte: 'Postkarten', lesezeichen: 'Lesezeichen', poster: 'A4-Drucke', klappkarte: 'Klappkarten' }[f.id] || f.name,
                n: alle.filter(f.da).length };
     }));
     document.getElementById('pl-filter').innerHTML = knoepfe.map(function (k) {

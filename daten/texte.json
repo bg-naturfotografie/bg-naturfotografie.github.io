@@ -77,10 +77,6 @@
     "intro": {
       "de": "Alle Motive stammen von mir. Du stellst zusammen, was dich interessiert — ich melde mich mit Preis, Versand und Zahlungsweg.",
       "en": "All motifs are my own. Put together what interests you — I will get back to you with price, shipping and payment details."
-    },
-    "klappkarten": {
-      "de": "Meine Motive als Klappkarte mit Umschlag — für Geburtstag, Dank oder einfach so. Innen bleibt Platz für deine eigenen Worte.",
-      "en": "My motifs as folded cards with envelope — for birthdays, thank-yous or just because. The inside is left blank for your own words."
     }
   },
   "laeden": {
@@ -273,8 +269,8 @@
       "en": "The prints fit any standard A4 frame. Larger formats are available on request."
     },
     "bald": {
-      "de": "**In Vorbereitung:** Klappkarten mit Umschlag, die innen Platz für eigene Worte lassen.",
-      "en": "**Coming soon:** folded cards with envelope, blank inside for your own words."
+      "de": "",
+      "en": ""
     },
     "serienTitel": {
       "de": "Vier Serien",
@@ -295,6 +291,14 @@
     "kontaktText": {
       "de": "Ich freue mich über Ihre Nachricht und beantworte gern alle Fragen zu meinen Motiven und Produkten.",
       "en": "I look forward to your message and am happy to answer any questions about my motifs and products."
+    },
+    "klappkarteMasse": {
+      "de": "Klappkarte mit eigenem Umschlag",
+      "en": "Folded card with its own envelope"
+    },
+    "klappkarteText": {
+      "de": "Innen bleibt Platz für eigene Worte. Jede Karte kommt mit passendem Umschlag.",
+      "en": "The inside is left blank for your own words. Every card comes with a matching envelope."
     }
   },
   "geschichten": {
