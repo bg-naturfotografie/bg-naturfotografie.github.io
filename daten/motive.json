@@ -1,6 +1,172 @@
 {
   "motive": [
     {
+      "id": "pflanzenleben2",
+      "code": "",
+      "kategorie": "Pflanzenleben",
+      "bild": "/bilder/fotos/kätzchenj6a5029_dxo.webp",
+      "art": {
+        "de": "Haselkätzchen",
+        "en": "hazel catkins"
+      },
+      "zusatz": {
+        "de": "im Raureif",
+        "en": "in hoarfrost"
+      },
+      "alt": {
+        "de": "helle Hazelkätzchen vor dunklem, blauen Winterhintergrund, mit Raureif bedeckt",
+        "en": "light hazel catkins against a dark, blue winter background, covered with hoarfrost"
+      },
+      "imShop": false,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "bildLesezeichen": "/bilder/lesezeichen/haselkätzchen.webp",
+      "ort": {
+        "art": "punkt",
+        "label": null,
+        "koordinaten": "53.6128, 9.84963",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben11",
+      "code": "",
+      "kategorie": "Waldleben",
+      "bild": "/bilder/fotos/frühlingeichhornj6a3120_dxo1.webp",
+      "art": {
+        "de": "Eichhörnchen",
+        "en": "squirrel"
+      },
+      "zusatz": {
+        "de": "Blick in die Ferne",
+        "en": "A view into the distance"
+      },
+      "alt": {
+        "de": "Ein Eichhörnchen sitzt in frühlingshaften Ästen, umgeben von grün- und Blautönen",
+        "en": "A squirrel sits in spring-like branches, surrounded by shades of green and blue."
+      },
+      "imShop": false,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "bildLesezeichen": "/bilder/lesezeichen/eichhörnchen-fruehling.webp",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Spielplatz Krupunder",
+          "en": "playground Krupunder"
+        },
+        "koordinaten": "53.61249, 9.85187",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben10",
+      "code": "",
+      "kategorie": "Waldleben",
+      "bild": "/bilder/fotos/1j6a7727_dxo-7.webp",
+      "art": {
+        "de": "Eichhörnchen",
+        "en": "squirrel"
+      },
+      "zusatz": {
+        "de": "neugierig im Herbst",
+        "en": "curious in autumn"
+      },
+      "alt": {
+        "de": "Ein Eichhörnchen schaut akrobatisch hängend im Baum durch herbstfarbene Blätter",
+        "en": "A squirrel, hanging acrobatically in a tree, peers through autumn-colored leaves."
+      },
+      "imShop": false,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "bildLesezeichen": "/bilder/lesezeichen/eichhörnchen-herbst.webp",
+      "ort": {
+        "art": "punkt",
+        "label": null,
+        "koordinaten": "53.6128, 9.84963",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
+      "id": "waldleben9",
+      "code": "",
+      "kategorie": "Waldleben",
+      "bild": "/bilder/fotos/baumläufer_j6a5833_dxo_1-2.webp",
+      "art": {
+        "de": "Baumläufer",
+        "en": "Treecreeper"
+      },
+      "zusatz": {
+        "de": "am Birkenstamm",
+        "en": "at the birch trunk"
+      },
+      "alt": {
+        "de": "Baumläufer vor grünem Hintergrund an einem Birkenstamm",
+        "en": "Treecreeper ifront of green background at a birch tree"
+      },
+      "imShop": false,
+      "versteckt": false,
+      "postkarte": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "poster": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "lesezeichen": {
+        "vorraetig": false,
+        "bestand": null
+      },
+      "bildLesezeichen": "/bilder/lesezeichen/baumläufer.webp",
+      "ort": {
+        "art": "punkt",
+        "label": {
+          "de": "Spielplatz Krupunder",
+          "en": "playground Krupunder"
+        },
+        "koordinaten": "53.61249, 9.85187",
+        "radius": 2000,
+        "polygon": ""
+      }
+    },
+    {
       "id": "pflanzenleben1",
       "code": "",
       "kategorie": "Pflanzenleben",
