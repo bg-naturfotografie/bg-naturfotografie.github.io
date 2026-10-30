@@ -115,7 +115,9 @@
   /* Format: vier gleich breite Felder. Das gewählte bekommt eine
      Linie in Markenfarbe unten — wie ein Reiter im Karteikasten. */
   .sk-formate{
-    display:grid; grid-template-columns:repeat(4, minmax(0, 1fr));
+    /* Eine Spalte je Format (Postkarten, Poster, Lesezeichen,
+       Klappkarten, Downloads) — passt sich der Anzahl automatisch an */
+    display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0, 1fr);
     border:1px solid var(--line); border-radius:var(--radius);
     background:var(--bg-panel);
   }
@@ -343,27 +345,6 @@
      am Handy untereinander — ohne eigene Umbruchregeln */
   .sk-extras-raster{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.2rem; }
 
-  /* ---- Klappkarten-Platzhalter ----
-     Kleine gezeichnete Klappkarte: links die Innenseite (Papier),
-     rechts die Vorderseite mit Foto, leicht aufgeklappt. Reines
-     CSS, damit kein eigenes Produktfoto nötig ist, solange es die
-     Karten noch nicht gibt. */
-  .sk-extra-neu{ border-color:rgba(201,124,61,0.45); }
-  .sk-klapp-bild{
-    display:flex; height:118px; margin:0 0 1.1rem; perspective:600px;
-  }
-  .sk-klapp-innen, .sk-klapp-aussen{ width:84px; height:118px; display:block; }
-  .sk-klapp-innen{
-    background:linear-gradient(90deg, #d9d2bf, #EDE7D6 70%);
-    transform-origin:right center; transform:rotateY(28deg);
-    box-shadow:-6px 8px 16px -8px rgba(0,0,0,.7);
-  }
-  .sk-klapp-aussen{ overflow:hidden; box-shadow:6px 8px 18px -8px rgba(0,0,0,.8); border:3px solid #EDE7D6; }
-  .sk-klapp-aussen img{ width:100%; height:100%; object-fit:cover; }
-  .sk-bald{
-    display:inline-block; margin:0 0 .5rem; padding:.15rem .6rem; border-radius:99px;
-    background:rgba(201,124,61,0.16); color:var(--accent-soft); font-size:.78rem;
-  }
   .sk-extra{
     padding:1.6rem 1.6rem 1rem; background:var(--bg-panel);
     border:1px solid var(--line); border-radius:var(--radius);
@@ -394,7 +375,7 @@
   .druck-info dt{ font-size:.76rem; color:var(--text-muted); margin:0 0 .1rem; }
   .druck-info dd{ margin:0; font-size:.92rem; color:var(--text-light); }
   .druck-info dd small{ display:block; font-size:.74rem; color:var(--text-muted); }
-  @media (max-width:640px){ .druck-info{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px){ .druck-info{ grid-template-columns:repeat(2, minmax(0, 1fr)); padding:.9rem 1rem; } .druck-info dd{ overflow-wrap:anywhere; } }
 
   /* ============================================================
      AUSWAHL-LEISTE UNTEN
@@ -792,8 +773,8 @@
      enger, und „Lesezeichen“ darf an der Trennstelle umbrechen
      („Lese-/zeichen“) statt aus dem Feld zu laufen. */
   @media (max-width:420px){
-    .sk-format{ padding:.4rem .15rem; }
-    .sk-format-name{ font-size:.72rem; white-space:normal; hyphens:manual; line-height:1.15; }
+    .sk-format{ padding:.4rem .1rem; }
+    .sk-format-name{ font-size:.7rem; white-space:normal; hyphens:manual; line-height:1.15; }
     .sk-format-preis{ font-size:.58rem; }
     .sk-leiste .wrap{ padding-left:.75rem; padding-right:.75rem; }
   }
@@ -826,13 +807,13 @@
     },
     {
       "@type": "Question",
-      "name": "Was kosten Postkarten, Poster und Lesezeichen?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten und Lesezeichen kosten je 2,00 \u20ac pro St\u00fcck, 3 St\u00fcck 5,00 \u20ac und 5 St\u00fcck 7,50 \u20ac (ab 5 St\u00fcck also 1,50 \u20ac pro St\u00fcck). Ein A4-Poster kostet 9,00 \u20ac, ab 2 St\u00fcck 7,50 \u20ac pro St\u00fcck. Gez\u00e4hlt wird \u00fcber alle Motive zusammen; Postkarten und Lesezeichen sind frei mischbar, Poster z\u00e4hlen f\u00fcr sich. Alle Preise zzgl. Versand." }
+      "name": "Was kosten Postkarten, Klappkarten, Poster und Lesezeichen?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten und Lesezeichen kosten je 2,50 \u20ac pro St\u00fcck, 3 St\u00fcck 6,00 \u20ac und 5 St\u00fcck 9,00 \u20ac (ab 5 St\u00fcck also 1,80 \u20ac pro St\u00fcck). Klappkarten mit eigenem Umschlag kosten 3,00 \u20ac, 2 St\u00fcck 5,00 \u20ac. Ein A4-Poster kostet 9,00 \u20ac, ab 2 St\u00fcck 7,50 \u20ac pro St\u00fcck. Gez\u00e4hlt wird \u00fcber alle Motive zusammen; Postkarten und Lesezeichen sind frei mischbar, Klappkarten und Poster z\u00e4hlen f\u00fcr sich. Alle Preise zzgl. Versand." }
     },
     {
       "@type": "Question",
       "name": "Wer druckt die Produkte?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten druckt WIRmachenDRUCK, A4-Poster sind Fotoabz\u00fcge von Saal Digital, Lesezeichen kommen von Peterprint. Ich bestelle alles in gr\u00f6\u00dferen Mengen zu mir und verpacke und verschicke jede Bestellung selbst aus Halstenbek. Nur Formate gr\u00f6\u00dfer als A4 liefert Saal Digital direkt." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Postkarten und Klappkarten druckt WIRmachenDRUCK, A4-Poster sind Fotoabz\u00fcge von Saal Digital, Lesezeichen kommen von Peterprint. Ich bestelle alles in gr\u00f6\u00dferen Mengen zu mir und verpacke und verschicke jede Bestellung selbst aus Halstenbek. Nur Formate gr\u00f6\u00dfer als A4 liefert Saal Digital direkt." }
     },
     {
       "@type": "Question",
@@ -842,7 +823,7 @@
     {
       "@type": "Question",
       "name": "Gibt es ein Widerrufsrecht?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Postkarten, Poster und Lesezeichen sind vorgefertigte Standardware, daf\u00fcr gilt das gesetzliche Widerrufsrecht von 14 Tagen \u2014 auch wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Ja. Postkarten, Klappkarten, Poster und Lesezeichen sind vorgefertigte Standardware, daf\u00fcr gilt das gesetzliche Widerrufsrecht von 14 Tagen \u2014 auch wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen." }
     },
     {
       "@type": "Question",
@@ -946,20 +927,6 @@
      ============================================================ -->
 <section class="sk-extras">
   <div class="wrap sk-extras-raster">
-    <!-- KLAPPKARTEN — Platzhalter, solange es sie noch nicht gibt.
-         Text: Admin-Bereich → Seitentexte → Shop → „Klappkarten“.
-         Sobald die Karten gedruckt sind, werden sie eine eigene
-         Produktart oben in der Format-Leiste (wie Postkarten). -->
-    <div class="sk-extra sk-extra-neu" id="klappkarten">
-      <div class="sk-klapp-bild" aria-hidden="true">
-        <span class="sk-klapp-innen"></span>
-        <span class="sk-klapp-aussen"><img src="bilder/klein/gartenleben/rotkehlchen1.jpg" alt="" loading="lazy" onerror="this.onerror=null;this.src='bilder/gartenleben/rotkehlchen1.jpg';"></span>
-      </div>
-      <p class="sk-bald" data-en="Coming soon">Bald im Shop</p>
-      <h3 data-en="Folded cards">Klappkarten</h3>
-      <div class="cat-sub" data-txt="shop.klappkarten" data-absaetze><p>Meine Motive als Klappkarte mit Umschlag — für Geburtstag, Dank oder einfach so. Innen bleibt Platz für deine eigenen Worte.</p></div>
-      <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-vormerken data-en="Let me know when they're here">Bescheid geben, wenn sie da sind</a></p>
-    </div>
     <div class="sk-extra" id="grossformate">
     <h3 data-en="Larger than A4">Größer als A4</h3>
     <p class="cat-sub" data-en="For your wall: my motifs in A3, A2 and larger, on photo paper, fine art paper, canvas, aluminium or behind acrylic glass — printed in the Saal Digital photo lab.">Für die Wand: meine Motive in A3, A2 und größer, auf Fotopapier, Fine-Art-Papier, Leinwand, Alu-Dibond oder hinter Acrylglas — gedruckt im Fotolabor von Saal Digital.</p>
@@ -1019,6 +986,7 @@
       <div><dt data-en="Postcards">Postkarten</dt><dd><span data-druckpartner="postkarte">WIRmachenDRUCK</span><small data-en="350 g, matt">350 g, matt</small></dd></div>
       <div><dt>Poster A4</dt><dd><span data-druckpartner="poster">Saal Digital</span><small data-en="photo print, matt">Fotoabzug, matt</small></dd></div>
       <div><dt data-en="Bookmarks">Lesezeichen</dt><dd><span data-druckpartner="lesezeichen">Peterprint</span><small data-en="400 g, matt laminated">400 g, matt kaschiert</small></dd></div>
+      <div><dt data-en="Folded cards">Klappkarten</dt><dd><span data-druckpartner="klappkarte">WIRmachenDRUCK</span><small data-en="with its own envelope">mit eigenem Umschlag</small></dd></div>
       <div><dt data-en="Packing &amp; shipping">Verpackung &amp; Versand</dt><dd><span data-en="me">ich selbst</span><small data-en="from Halstenbek">aus Halstenbek</small></dd></div>
     </dl>
 
@@ -1026,8 +994,8 @@
       <details class="info-fold">
         <summary data-en="How ordering works">So läuft eine Bestellung ab</summary>
         <div class="fold-body">
-          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Your selection.</b> The bar at the bottom shows everything you have picked; it also ends up in the form below.</li><li><b>Ask or order.</b> Send a non-binding request — or place a binding order straight away, with shipping or pick-up in Halstenbek.</li><li><b>I get back to you.</b> Quote or order confirmation with payment details by e-mail, usually within 2–3 days. I ship everything myself from Halstenbek.</li>">
-            <li><b>Format und Motiv wählen.</b> Oben Postkarte, Poster (A4), Lesezeichen oder Download wählen, dann beim Motiv auf das + tippen — die Menge kannst du jederzeit ändern.</li>
+          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark, folded card or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Your selection.</b> The bar at the bottom shows everything you have picked; it also ends up in the form below.</li><li><b>Ask or order.</b> Send a non-binding request — or place a binding order straight away, with shipping or pick-up in Halstenbek.</li><li><b>I get back to you.</b> Quote or order confirmation with payment details by e-mail, usually within 2–3 days. I ship everything myself from Halstenbek.</li>">
+            <li><b>Format und Motiv wählen.</b> Oben Postkarte, Poster (A4), Lesezeichen, Klappkarte oder Download wählen, dann beim Motiv auf das + tippen — die Menge kannst du jederzeit ändern.</li>
             <li><b>Deine Auswahl.</b> Die Leiste unten am Bildschirm zeigt alles, was du ausgesucht hast — und es landet automatisch im Formular.</li>
             <li><b>Anfragen oder bestellen.</b> Unverbindlich anfragen — oder direkt verbindlich bestellen, mit Versand oder Abholung in Halstenbek.</li>
             <li><b>Ich melde mich.</b> Angebot bzw. Auftragsbestätigung mit Zahlungsweg per Mail, meist innerhalb von 2–3 Tagen. Verschickt wird von mir aus Halstenbek.</li>
@@ -1038,7 +1006,7 @@
       <details class="info-fold">
         <summary data-en="Prices, quantity discount &amp; shipping">Preise, Staffelrabatt &amp; Versand</summary>
         <div class="fold-body">
-          <p id="staffel-erklaerung" data-en="For postcards, bookmarks and posters: the more you take, the cheaper each piece. Quantities count across &lt;b&gt;all motifs together&lt;/b&gt;. &lt;b&gt;Postcards and bookmarks can be mixed freely&lt;/b&gt;. Posters count separately.">Bei Postkarten, Lesezeichen und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 6 €“. Poster zählen für sich.</p>
+          <p id="staffel-erklaerung" data-en="For postcards, bookmarks, folded cards and posters: the more you take, the cheaper each piece. Quantities count across &lt;b&gt;all motifs together&lt;/b&gt;. &lt;b&gt;Postcards and bookmarks can be mixed freely&lt;/b&gt;. Folded cards and posters each count separately.">Bei Postkarten, Lesezeichen, Klappkarten und Postern gilt: Je mehr du nimmst, desto günstiger wird das einzelne Stück. Gezählt wird über <b>alle Motive zusammen</b>. <b>Postkarten und Lesezeichen sind frei mischbar</b> — 2 Karten und 1 Lesezeichen sind also schon „3 für 6 €“. Klappkarten und Poster zählen jeweils für sich.</p>
           <!-- Die Staffel-Tabelle baut das Script aus daten/shop.json
                (Admin-Bereich → Shop → Staffelpreise). Was hier steht,
                ist nur der Notfall-Stand. -->
@@ -1066,6 +1034,13 @@
                 <li><b>ab 5 Stück</b> · je 1,80 €</li>
               </ul>
             </div>
+            <div>
+              <span class="staffel-titel">Klappkarten</span>
+              <ul>
+                <li><b>1 Stück</b> · 3,00 €</li>
+                <li><b>ab 2 Stück</b> · je 2,50 €</li>
+              </ul>
+            </div>
           </div>
           <p class="fold-note" id="preis-fussnote">Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden, ab 30 € Warenwert versandkostenfrei). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.</p>
         </div>
@@ -1074,9 +1049,9 @@
       <details class="info-fold">
         <summary data-en="Production, returns &amp; cancellation">Herstellung, Rückgabe &amp; Widerruf</summary>
         <div class="fold-body">
-          <p id="herstellung-text" data-en="Everything is printed in advance in runs: postcards by WIRmachenDRUCK, A4 posters as photo prints by Saal Digital, bookmarks by Peterprint. I pack and ship everything myself from Halstenbek — the printers never see your data.">Alles wird vorab in Auflage gedruckt: Postkarten bei WIRmachenDRUCK, A4-Poster als Fotoabzug bei Saal Digital, Lesezeichen bei Peterprint. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.</p>
+          <p id="herstellung-text" data-en="Everything is printed in advance in runs: postcards by WIRmachenDRUCK, A4 posters as photo prints by Saal Digital, bookmarks by Peterprint. I pack and ship everything myself from Halstenbek — the printers never see your data.">Alles wird vorab in Auflage gedruckt: Postkarten bei WIRmachenDRUCK, A4-Poster als Fotoabzug bei Saal Digital, Lesezeichen bei Peterprint, Klappkarten (stets mit eigenem Umschlag) bei WIRmachenDRUCK. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.</p>
           <p data-en="Larger formats and other materials are ordered directly in my &lt;a href=&quot;#grossformate&quot;&gt;Saal Digital shop&lt;/a&gt;. There, Saal Digital is your contractual partner and prints and delivers directly to you.">Größere Formate und andere Materialien bestellst du direkt in meinem <a href="#grossformate">Saal-Digital-Shop</a>. Dort ist Saal Digital dein Vertragspartner, druckt und liefert direkt an dich.</p>
-          <p data-en="Since these are ready-made standard goods, the statutory &lt;b&gt;14-day right of withdrawal&lt;/b&gt; applies to postcards, posters and bookmarks — even if a motif is currently sold out and being reprinted. It is excluded only for genuine custom-made items such as merchandise made to order.">Weil es sich um vorgefertigte Standardware handelt, gilt für Postkarten, Poster und Lesezeichen das gesetzliche <b>Widerrufsrecht von 14 Tagen</b> — auch dann, wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen wie Merch auf Wunsch.</p>
+          <p data-en="Since these are ready-made standard goods, the statutory &lt;b&gt;14-day right of withdrawal&lt;/b&gt; applies to postcards, folded cards, posters and bookmarks — even if a motif is currently sold out and being reprinted. It is excluded only for genuine custom-made items such as merchandise made to order.">Weil es sich um vorgefertigte Standardware handelt, gilt für Postkarten, Klappkarten, Poster und Lesezeichen das gesetzliche <b>Widerrufsrecht von 14 Tagen</b> — auch dann, wenn ein Motiv gerade vergriffen ist und nachgedruckt wird. Ausgeschlossen ist es nur bei echten Sonderanfertigungen wie Merch auf Wunsch.</p>
           <p class="fold-note" data-en="All details in the &lt;a href=&quot;agb.html&quot;&gt;terms &amp;amp; cancellation policy&lt;/a&gt; (German).">Alle Details in den <a href="agb.html">AGB &amp; der Widerrufsbelehrung</a>.</p>
         </div>
       </details>
@@ -1544,7 +1519,7 @@ BG.bereit(function () {
 
   /* Warenwert des ganzen Korbs (ohne Versand) — Summe der Typsummen. */
   function warenwertGesamt() {
-    return ['postkarte', 'poster', 'lesezeichen', 'download', 'sticker'].reduce(function (n, typ) {
+    return ['postkarte', 'poster', 'lesezeichen', 'klappkarte', 'download', 'sticker'].reduce(function (n, typ) {
       return n + typSumme(typ, gesamtMenge(typ));
     }, 0);
   }
@@ -1714,9 +1689,10 @@ BG.bereit(function () {
     /* Anzeigenamen der Typen — auch für gemischte Gruppenzeilen. */
     var NAME = {
       postkarte: BG.t('Postkarten', 'Postcards'), poster: 'Poster ' + POSTER_FORMAT, lesezeichen: BG.t('Lesezeichen', 'Bookmarks'),
+      klappkarte: BG.t('Klappkarten', 'Folded cards'),
       download: 'Downloads', sticker: 'Sticker'
     };
-    ['postkarte', 'poster', 'lesezeichen', 'download', 'sticker'].forEach(function (typ) {
+    ['postkarte', 'poster', 'lesezeichen', 'klappkarte', 'download', 'sticker'].forEach(function (typ) {
       /* Gemischte Gruppen (Postkarten + Lesezeichen) bekommen EINE
          Zeile, geschrieben vom ersten Typ der Gruppe. Die anderen
          Typen der Gruppe werden hier übersprungen. */
@@ -1751,9 +1727,10 @@ BG.bereit(function () {
     var WORT = {
       postkarte:   [BG.t('Postkarte', 'postcard'), BG.t('Postkarten', 'postcards')],
       poster:      [BG.t('Poster', 'poster'), BG.t('Poster', 'posters')],
-      lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')]
+      lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')],
+      klappkarte:  [BG.t('Klappkarte', 'folded card'), BG.t('Klappkarten', 'folded cards')]
     };
-    ['postkarte', 'poster', 'lesezeichen'].forEach(function (typ) {
+    ['postkarte', 'poster', 'lesezeichen', 'klappkarte'].forEach(function (typ) {
       /* Pro Gruppe nur EIN Hinweis (vom ersten Typ der Gruppe). */
       if (staffelTyp(typ) !== typ) { return; }
       var menge = staffelMenge(typ);
@@ -1891,9 +1868,10 @@ BG.bereit(function () {
     var WORT = {
       postkarte: [BG.t('Karte', 'card'), BG.t('Karten', 'cards')],
       poster: [BG.t('Poster', 'poster'), BG.t('Poster', 'posters')],
-      lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')]
+      lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')],
+      klappkarte: [BG.t('Klappkarte', 'folded card'), BG.t('Klappkarten', 'folded cards')]
     };
-    ['postkarte', 'poster', 'lesezeichen'].some(function (typ) {
+    ['postkarte', 'poster', 'lesezeichen', 'klappkarte'].some(function (typ) {
       if (staffelTyp(typ) !== typ) { return false; }
       var menge = staffelMenge(typ);
       if (!menge) { return false; }
@@ -2069,7 +2047,7 @@ BG.bereit(function () {
   var PRODUKTARTEN = [
     {
       id: 'postkarte',
-      label: BG.t('Postkarten', 'Postcards'),
+      label: BG.t('Post\u00ADkarten', 'Post\u00ADcards'),   /* \u00AD = Trennstelle, nur bei Platzmangel */
       bezeichnung: BG.t('Postkarte', 'Postcard'),
       kurz: function () { return BG.t('10 × 15 cm, matt', '10 × 15 cm, matt'); },
       info: function () { return BG.t('10 × 15 cm, 350 g matt, Artname und Fundort auf der Rückseite. Gedruckt bei ' + (DRUCKPARTNER.postkarte || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
@@ -2104,8 +2082,24 @@ BG.bereit(function () {
       leerText: BG.t('Die Lesezeichen folgen in Kürze.', 'Bookmarks are coming soon.')
     },
     {
+      /* KLAPPKARTEN — wie Lesezeichen nur von Motiven, die im Admin-
+         Bereich unter „Klappkarte“ als „liegt gedruckt bei mir“
+         markiert sind. Staffel steht in daten/shop.json (zählt für
+         sich, nicht mit Postkarten gemischt). */
+      id: 'klappkarte',
+      label: BG.t('Klapp\u00ADkarten', 'Folded cards'),   /* \u00AD = Trennstelle */
+      bezeichnung: BG.t('Klappkarte', 'Folded card'),
+      kurz: function () { return BG.t('mit eigenem Umschlag', 'with its own envelope'); },
+      info: function () { return BG.t('Klappkarte, innen frei für eigene Worte, stets mit eigenem Versandumschlag. Gedruckt bei ' + (DRUCKPARTNER.klappkarte || 'meiner Druckerei') + ', von mir aus Halstenbek verschickt.',
+        'Folded card, blank inside for your own words, always with its own envelope. Printed by ' + (DRUCKPARTNER.klappkarte || 'my printer') + ', shipped by me from Halstenbek.'); },
+      filter: function (b) { return b.bereitsKlappkarte === true; },
+      lager: function (b) { return lagerText(true, b.bestandKlappkarte); },
+      bild: function (b) { return b.bild; },
+      leerText: BG.t('Die Klappkarten sind gerade frisch gedruckt und erscheinen hier in Kürze.', 'The folded cards have just been printed and will appear here shortly.')
+    },
+    {
       id: 'download',
-      label: 'Downloads',
+      label: 'Down\u00ADloads',
       bezeichnung: 'Download',
       kurz: function () { return BG.t('Bilddatei per E-Mail', 'Image file by e-mail'); },
       info: function () { return BG.t('Die Bilddatei zum Selberdrucken oder als Hintergrundbild — kein Versand, kein Warten.', 'The image file to print yourself or use as a wallpaper — no shipping, no waiting.'); },
@@ -2477,14 +2471,9 @@ BG.bereit(function () {
       '<span class="sk-staffel">' + escapeHtml(teile.filter(Boolean).join(' · ')) + '</span>';
 
     /* Hinweisband: bei Postern der Verweis auf große Formate. */
-    /* Bei Postkarten zusätzlich der Hinweis auf die kommenden
-       Klappkarten (Kachel weiter unten, #klappkarten). Wenn es sie
-       gibt, diese Zeile einfach entfernen. */
     var band = '';
     if (art.id === 'poster') {
       band = '<div class="shop-band"><span>' + BG.t('Du möchtest es größer, auf Leinwand oder Alu-Dibond?', 'Want it bigger, on canvas or aluminium?') + '</span><a href="#grossformate">' + BG.t('Große Formate über Saal Digital', 'Large formats via Saal Digital') + '</a></div>';
-    } else if (art.id === 'postkarte') {
-      band = '<div class="shop-band"><span>' + BG.t('Bald neu: Klappkarten mit Umschlag.', 'Coming soon: folded cards with envelope.') + '</span><a href="#klappkarten">' + BG.t('Mehr dazu', 'More') + '</a></div>';
     }
     document.getElementById('shop-band').innerHTML = band;
 
@@ -3112,8 +3101,8 @@ BG.bereit(function () {
 
     /* Alte Links auf die früheren eigenen Bereiche: Die gibt es so
        nicht mehr, sie sind jetzt Produktarten im Filter. */
-    if (hash === 'lesezeichen' || hash === 'downloads') {
-      shopProduktSetzen(hash === 'downloads' ? 'download' : 'lesezeichen');
+    if (hash === 'lesezeichen' || hash === 'downloads' || hash === 'klappkarten') {
+      shopProduktSetzen({ downloads: 'download', lesezeichen: 'lesezeichen', klappkarten: 'klappkarte' }[hash]);
       document.getElementById('motive').scrollIntoView();
       return;
     }
@@ -3172,19 +3161,6 @@ BG.bereit(function () {
      nachziehen. */
   window.addEventListener('hashchange', hervorhebenBeiSprungmarke);
 
-  /* "Bescheid geben, wenn sie da sind" (Klappkarten): wählt im
-     Formular das Anliegen "Sonstiges" und schreibt einen kurzen
-     Satz in die Nachricht. Der Link springt danach ganz normal
-     zum Formular (#kontakt-anfrage). */
-  document.querySelectorAll('[data-vormerken]').forEach(function (knopf) {
-    knopf.addEventListener('click', function () {
-      var chip = document.querySelector('#anliegen-chips [data-key="sonstiges"]');
-      var feld = document.getElementById('af-nachricht');
-      if (chip) { chip.click(); }
-      var satz = BG.t('Bitte gib mir Bescheid, sobald es die Klappkarten gibt.', 'Please let me know when the folded cards are available.');
-      if (feld && feld.value.indexOf(satz) === -1) { feld.value = feld.value + satz; }
-    });
-  });
 
   setupShop();
   renderSaalBereich();
@@ -3205,10 +3181,10 @@ BG.bereit(function () {
   (function preisInfosAusDaten() {
     var cols = document.getElementById('staffel-cols');
     if (cols) {
-      cols.innerHTML = ['postkarte', 'poster', 'lesezeichen'].map(function (typ) {
+      cols.innerHTML = ['postkarte', 'poster', 'lesezeichen', 'klappkarte'].map(function (typ) {
         var stufen = STAFFEL[typ] || [];
         if (!stufen.length) return '';
-        var name = { postkarte: BG.t('Postkarten', 'Postcards'), poster: 'Poster ' + POSTER_FORMAT, lesezeichen: BG.t('Lesezeichen', 'Bookmarks') }[typ];
+        var name = { postkarte: BG.t('Postkarten', 'Postcards'), poster: 'Poster ' + POSTER_FORMAT, lesezeichen: BG.t('Lesezeichen', 'Bookmarks'), klappkarte: BG.t('Klappkarten', 'Folded cards') }[typ];
         return '<div><span class="staffel-titel">' + name + '</span><ul>' +
           stufen.map(function (st, i) {
             var letzte = (i === stufen.length - 1);
@@ -3234,8 +3210,8 @@ BG.bereit(function () {
     var herst = document.getElementById('herstellung-text');
     if (herst) {
       herst.textContent = BG.t(
-        'Alles wird vorab in Auflage gedruckt: Postkarten bei ' + DRUCKPARTNER.postkarte + ', ' + POSTER_FORMAT + '-Poster als Fotoabzug bei ' + DRUCKPARTNER.poster + ', Lesezeichen bei ' + DRUCKPARTNER.lesezeichen + '. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.',
-        'Everything is printed in advance in runs: postcards by ' + DRUCKPARTNER.postkarte + ', ' + POSTER_FORMAT + ' posters as photo prints by ' + DRUCKPARTNER.poster + ', bookmarks by ' + DRUCKPARTNER.lesezeichen + '. I pack and ship everything myself from Halstenbek — the printers never see your data.');
+        'Alles wird vorab in Auflage gedruckt: Postkarten bei ' + DRUCKPARTNER.postkarte + ', ' + POSTER_FORMAT + '-Poster als Fotoabzug bei ' + DRUCKPARTNER.poster + ', Lesezeichen bei ' + DRUCKPARTNER.lesezeichen + ', Klappkarten (stets mit eigenem Umschlag) bei ' + (DRUCKPARTNER.klappkarte || DRUCKPARTNER.postkarte) + '. Verpackt und verschickt wird alles von mir aus Halstenbek — die Druckereien bekommen deine Daten nie zu sehen.',
+        'Everything is printed in advance in runs: postcards by ' + DRUCKPARTNER.postkarte + ', ' + POSTER_FORMAT + ' posters as photo prints by ' + DRUCKPARTNER.poster + ', bookmarks by ' + DRUCKPARTNER.lesezeichen + ', folded cards (always with their own envelope) by ' + (DRUCKPARTNER.klappkarte || DRUCKPARTNER.postkarte) + '. I pack and ship everything myself from Halstenbek — the printers never see your data.');
     }
   })();
 

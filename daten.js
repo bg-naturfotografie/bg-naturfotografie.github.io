@@ -208,7 +208,7 @@
       .map(function (m) {
         var art = tx(m.art);
         var zusatz = tx(m.zusatz);
-        var pk = m.postkarte || {}, po = m.poster || {}, lz = m.lesezeichen || {};
+        var pk = m.postkarte || {}, po = m.poster || {}, lz = m.lesezeichen || {}, kk = m.klappkarte || {};
 
         /* "bestand" darf im Admin-Bereich leer bleiben = Zahl
            unbekannt. Leer kommt als '' oder null an → beides null. */
@@ -235,6 +235,10 @@
           bestandPoster: zahl(po.bestand),
           bereitsLesezeichen: lz.vorraetig === true,
           bestandLesezeichen: zahl(lz.bestand),
+          // Klappkarten: wie Lesezeichen nur von Motiven, die du
+          // wirklich hast drucken lassen (Admin → Motiv → Klappkarte)
+          bereitsKlappkarte: kk.vorraetig === true,
+          bestandKlappkarte: zahl(kk.bestand),
           imShop: m.imShop !== false,
           geschichte: null,
           ort: null
@@ -305,6 +309,9 @@
       }
     };
     global.ABHOLUNG_HINWEIS = tx(json.abholungHinweis);
+    // Produktfotos aus dem Admin-Bereich (Shop → Produktfotos), z. B.
+    // das Übersichtsfoto der Klappkarten. Leer = Seite zeigt Ersatz.
+    global.PRODUKTBILDER = json.produktbilder || {};
     global.STICKER = (json.sticker || []).map(function (s) {
       return {
         id: s.id, motiv: tx(s.motiv), kategorie: s.kategorie || null,
@@ -376,6 +383,21 @@
     document.documentElement.classList.remove('texte-laden');
   }
 
+  /* PRODUKTFOTOS aus dem Admin-Bereich (Shop → Produktfotos).
+     Jedes <img data-produktbild="klappkarte"> bekommt das dort
+     hochgeladene Foto. Ist noch keins hochgeladen, bleibt das Bild
+     stehen, das im HTML eingetragen ist (die Ersatzansicht). */
+  function produktbilderEinsetzen() {
+    var bilder = global.PRODUKTBILDER || {};
+    document.querySelectorAll('img[data-produktbild]').forEach(function (img) {
+      var pfad = bilder[img.getAttribute('data-produktbild')];
+      if (!pfad) return;
+      pfad = String(pfad).replace(/^\//, '');
+      img.onerror = function () { img.onerror = null; img.src = pfad; };
+      img.src = BG.klein(pfad);
+    });
+  }
+
   /* ------------------------------------------------------------
      ALLES LADEN, DANN DIE WARTENDEN SKRIPTE STARTEN
      ------------------------------------------------------------ */
@@ -413,6 +435,7 @@
     return domFertig;
   }).then(function () {
     texteEinsetzen(geladen.texte);
+    produktbilderEinsetzen();
     fertig = true;
     wartende.forEach(function (fn) {
       // Ein Fehler in einem Skript soll die anderen nicht aufhalten

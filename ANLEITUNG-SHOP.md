@@ -116,7 +116,16 @@ hinaus (4 Karten = 4 × 2,00 = 8,00 €, 7 Karten = 7 × 1,80 = 12,60 €):
 postkarte:    1 → 2,50 €   3 → 6,00 € (je 2,00)   5 → 9,00 € (je 1,80)
 lesezeichen:  1 → 2,50 €   3 → 6,00 € (je 2,00)   5 → 9,00 € (je 1,80)
 poster:       1 → 9,00 €   2 → 15,00 € (je 7,50)
+klappkarte:   1 → 3,00 €   2 → 5,00 € (je 2,50)   zählt für sich, mit Umschlag
 ```
+
+**Klappkarten** erscheinen im Shop (Reiter „Klappkarten“, vor
+Downloads) nur bei Motiven, bei denen im Admin-Bereich unter
+„Klappkarte“ der Haken **„Liegt gedruckt bei mir“** gesetzt ist —
+genau wie bei Lesezeichen. Solange kein Motiv markiert ist, ist der
+Reiter ausgegraut. Das Übersichtsfoto für Startseite, Läden- und
+Vorstellungsseite lädst du unter **Shop → Produktfotos →
+Klappkarten** hoch; bis dahin erscheint eine gezeichnete Ersatzansicht.
 
 Krumme Stückpreise (5 ÷ 3 = 1,666…) sind kein Problem: Der Shop
 rechnet mit dem exakten Bruch und rundet erst die Summe je

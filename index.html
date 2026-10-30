@@ -105,6 +105,7 @@
     { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Postkarte 10 \u00d7 15 cm" }, "price": "2.50", "priceCurrency": "EUR" },
     { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Poster A4" }, "price": "9.00", "priceCurrency": "EUR" },
     { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Lesezeichen 5 \u00d7 18 cm" }, "price": "2.50", "priceCurrency": "EUR" },
+    { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Klappkarte mit Umschlag" }, "price": "3.00", "priceCurrency": "EUR" },
     { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Digitaler Download" }, "price": "4.00", "priceCurrency": "EUR" }
   ]
 }
@@ -328,7 +329,7 @@
 <!-- ============================================================
      MITNEHMEN — der Shop-Anriss
      ============================================================
-     Drei Kacheln mit echtem Preis. Alles Weitere (Ablauf,
+     Vier Kacheln mit echtem Preis. Alles Weitere (Ablauf,
      Staffelpreise, Versand, Sonderwünsche) steckt in den
      Aufklappern darunter, damit hier nur das Wesentliche steht.
      ============================================================ -->
@@ -374,6 +375,18 @@
           <span class="mn-format">5 × 18 cm</span>
           <h3 class="mn-name" data-en="Bookmark">Lesezeichen</h3>
           <span class="mn-preis" data-preis="lesezeichen">2,50 €<small>3 für 6 € · 5 für 9 € · mit Postkarten mischbar</small></span>
+        </div>
+      </a>
+
+      <!-- Klappkarten-Kachel. Das Foto lädst du im Admin-Bereich unter
+           Shop → Produktfotos → Klappkarten hoch (data-produktbild).
+           Bis dahin steht hier die gezeichnete Ersatzansicht. -->
+      <a class="mn-karte" href="produkte-bestellen.html#klappkarten">
+        <div class="mn-bild"><img loading="lazy" src="bilder/klein/produkte/klappkarte-ersatz.jpg" data-produktbild="klappkarte" alt="Klappkarte mit Vogelmotiv und Umschlag" data-en-alt="Folded card with bird motif and envelope"></div>
+        <div class="mn-body">
+          <span class="mn-format" data-en="with envelope">mit Umschlag</span>
+          <h3 class="mn-name" data-en="Folded card">Klappkarte</h3>
+          <span class="mn-preis" data-preis="klappkarte">3,00 €<small>2 für 5 €</small></span>
         </div>
       </a>
     </div>
@@ -867,10 +880,10 @@ BG.bereit(function () {
     var b = function (name) { return '<b style="color:var(--text-light); font-weight:500;">' + esc(name || '') + '</b>'; };
     zeile.innerHTML = BG.t(
       'Gedruckt wird in Auflage bei ' + b(DRUCKPARTNER.postkarte) + ' (Postkarten), ' + b(DRUCKPARTNER.poster) +
-        ' (' + esc(POSTER_FORMAT) + '-Poster) und ' + b(DRUCKPARTNER.lesezeichen) + ' (Lesezeichen) — verpackt und verschickt von mir aus Halstenbek.' +
+        ' (' + esc(POSTER_FORMAT) + '-Poster), ' + b(DRUCKPARTNER.lesezeichen) + ' (Lesezeichen) und ' + b(DRUCKPARTNER.klappkarte || DRUCKPARTNER.postkarte) + ' (Klappkarten mit Umschlag) — verpackt und verschickt von mir aus Halstenbek.' +
         (SAAL_SHOP_URL ? ' Größer als ' + esc(POSTER_FORMAT) + ', auf Acryl-Glas oder Alu-Dibond? <a href="produkte-bestellen.html#grossformate">Über meinen Saal-Digital-Shop →</a>' : ''),
       'Printed in runs by ' + b(DRUCKPARTNER.postkarte) + ' (postcards), ' + b(DRUCKPARTNER.poster) +
-        ' (' + esc(POSTER_FORMAT) + ' posters) and ' + b(DRUCKPARTNER.lesezeichen) + ' (bookmarks) — packed and shipped by me from Halstenbek.' +
+        ' (' + esc(POSTER_FORMAT) + ' posters), ' + b(DRUCKPARTNER.lesezeichen) + ' (bookmarks) and ' + b(DRUCKPARTNER.klappkarte || DRUCKPARTNER.postkarte) + ' (folded cards with envelope) — packed and shipped by me from Halstenbek.' +
         (SAAL_SHOP_URL ? ' Larger than ' + esc(POSTER_FORMAT) + ', on acrylic glass or aluminium? <a href="produkte-bestellen.html#grossformate">Via my Saal Digital shop →</a>' : '')
     );
   }
