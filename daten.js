@@ -312,6 +312,9 @@
     // Produktfotos aus dem Admin-Bereich (Shop → Produktfotos), z. B.
     // das Übersichtsfoto der Klappkarten. Leer = Seite zeigt Ersatz.
     global.PRODUKTBILDER = json.produktbilder || {};
+    // Feste Verkaufspreise für Läden (Kommission), ohne Mengenrabatt.
+    // Stehen auf portfolio-laeden.html. Admin → Shop → Preise für Läden.
+    global.LADENPREISE = json.ladenpreise || {};
     global.STICKER = (json.sticker || []).map(function (s) {
       return {
         id: s.id, motiv: tx(s.motiv), kategorie: s.kategorie || null,

@@ -872,6 +872,31 @@ singletons:
     - name: klappkarte
       label: Klappkarten
       widget: string
+  - name: ladenpreise
+    label: Preise für Läden (Kommission)
+    widget: object
+    required: false
+    hint: Feste Endverkaufspreise pro Stück auf der Seite für Läden (portfolio-laeden.html), ohne Mengenrabatt. Die
+      Staffelpreise oben gelten nur für den Onlineshop.
+    fields:
+    - name: postkarte
+      label: Postkarte (€)
+      widget: number
+      value_type: float
+      min: 0
+      step: 0.01
+    - name: lesezeichen
+      label: Lesezeichen (€)
+      widget: number
+      value_type: float
+      min: 0
+      step: 0.01
+    - name: klappkarte
+      label: Klappkarte (€)
+      widget: number
+      value_type: float
+      min: 0
+      step: 0.01
   - name: produktbilder
     label: Produktfotos
     widget: object
