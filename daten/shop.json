@@ -92,5 +92,10 @@
   "sticker": [],
   "produktbilder": {
     "klappkarte": ""
+  },
+  "ladenpreise": {
+    "postkarte": 2.5,
+    "lesezeichen": 2.5,
+    "klappkarte": 3.5
   }
 }
