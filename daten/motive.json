@@ -33,7 +33,7 @@
       },
       "klappkarte": {
         "vorraetig": true,
-        "bestand": 49
+        "bestand": 50
       },
       "bildLesezeichen": "/bilder/lesezeichen/haselkätzchen.webp",
       "ort": {
@@ -168,7 +168,7 @@
       },
       "klappkarte": {
         "vorraetig": true,
-        "bestand": 49
+        "bestand": 50
       },
       "bildLesezeichen": "/bilder/lesezeichen/baumläufer.webp",
       "ort": {
@@ -262,7 +262,7 @@
       },
       "klappkarte": {
         "vorraetig": true,
-        "bestand": 50
+        "bestand": 48
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1057,7 +1057,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 44
+        "bestand": 43
       },
       "klappkarte": {
         "vorraetig": true,
@@ -1096,7 +1096,7 @@
       "versteckt": false,
       "postkarte": {
         "vorraetig": true,
-        "bestand": 28
+        "bestand": 27
       },
       "poster": {
         "vorraetig": true,
@@ -1108,7 +1108,7 @@
       },
       "klappkarte": {
         "vorraetig": true,
-        "bestand": 50
+        "bestand": 47
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1390,7 +1390,7 @@
       },
       "klappkarte": {
         "vorraetig": true,
-        "bestand": 75
+        "bestand": 74
       },
       "bildLesezeichen": "",
       "ort": {
@@ -1762,7 +1762,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 45
+        "bestand": 44
       },
       "klappkarte": {
         "vorraetig": false,
@@ -2048,7 +2048,7 @@
       },
       "klappkarte": {
         "vorraetig": true,
-        "bestand": 75
+        "bestand": 71
       },
       "bildLesezeichen": "",
       "ort": {
@@ -2185,7 +2185,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 42
+        "bestand": 40
       },
       "klappkarte": {
         "vorraetig": true,
@@ -2326,7 +2326,7 @@
       },
       "lesezeichen": {
         "vorraetig": true,
-        "bestand": 46
+        "bestand": 45
       },
       "klappkarte": {
         "vorraetig": false,
