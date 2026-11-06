@@ -143,7 +143,7 @@
   .sk-format[aria-pressed="true"] .sk-format-preis{ color:var(--accent-soft); }
   .sk-format:disabled{ opacity:.4; cursor:default; }
 
-  /* Serien + "Nur vorrätige" in einer Reihe. Die Serien lassen sich
+  /* Serien + "Alle Motive" in einer Reihe. Die Serien lassen sich
      am Handy seitlich wischen; der Lager-Schalter bleibt rechts
      stehen, damit er nie aus dem Bild rutscht. */
   .sk-reihe{ display:flex; align-items:center; gap:.6rem; min-width:0; }
@@ -885,7 +885,7 @@
      ============================================================
      Oben die Werkzeugleiste, die beim Scrollen mitklebt:
        1. Format (Postkarte, Poster, Lesezeichen, Download) mit Preis
-       2. Serien zum Durchwischen + „Nur vorrätige“
+       2. Serien zum Durchwischen + „Alle Motive“ (Standard: nur vorrätige)
      Darunter das Raster: am Handy zwei Motive nebeneinander, am PC
      bis zu vier. Jedes Motiv hat einen runden „+“-Knopf direkt auf
      dem Foto — ein Tipp, und es liegt in der Auswahl. Ein Tipp aufs
@@ -900,8 +900,12 @@
       <div class="sk-formate" id="filter-produkt" role="group" aria-label="Format"></div>
       <div class="sk-reihe">
         <div class="sk-serien" id="filter-serie" role="group" aria-label="Serie" data-en-aria-label="Series"></div>
-        <button type="button" class="sk-chip sk-chip-lager" id="filter-vorraetig" aria-pressed="false">
-          <span class="sk-punkt" aria-hidden="true"></span><span data-en="In stock only">Nur vorrätige</span>
+        <!-- Standard: nur vorrätige Motive. Gedrückt: alle Motive,
+             auch die, die erst gedruckt werden. -->
+        <button type="button" class="sk-chip sk-chip-lager" id="filter-vorraetig" aria-pressed="false"
+                title="Auch Motive zeigen, die ich nach der Bestellung drucken lasse (1–2 Wochen)"
+                data-en-title="Also show motifs I print after you order (1–2 weeks)">
+          <span class="sk-punkt" aria-hidden="true"></span><span data-en="All motifs">Alle Motive</span>
         </button>
       </div>
     </div>
@@ -2119,7 +2123,11 @@ BG.bereit(function () {
   var shopZustand = {
     produkt: 'postkarte',
     serie: 'alle',
-    nurVorraetig: false,
+    /* Standard: nur Motive zeigen, die gerade vorrätig sind.
+       Der Schalter „Alle Motive“ zeigt zusätzlich die, die erst
+       gedruckt werden (1–2 Wochen). Bei Lesezeichen und Downloads
+       gilt der Filter nicht (siehe lagerFilterAktiv). */
+    alleMotive: false,
     sichtbar: MOTIVE_PRO_SEITE
   };
 
@@ -2259,14 +2267,33 @@ BG.bereit(function () {
   /* Dieselbe Liste, zusätzlich durch Serie und "nur Vorrätiges"
      gefiltert. serieUeberschreiben: für die Zählung in der
      Seitenleiste, die ja pro Serie eine eigene Zahl braucht. */
+  /* Gilt der Lager-Filter für diese Produktart? Nein bei Downloads
+     (kein Lager) und bei Lesezeichen (dort gibt es ohnehin nur
+     Motive, die als Lesezeichen gedruckt wurden — alle zeigen). */
+  function lagerFilterMoeglich(art) {
+    return !!art.lager && art.id !== 'lesezeichen';
+  }
+  function lagerFilterAktiv(art) {
+    return lagerFilterMoeglich(art) && !shopZustand.alleMotive;
+  }
+
   function motiveGefiltert(serieUeberschreiben) {
     var art = produktArt(shopZustand.produkt);
     var serie = serieUeberschreiben || shopZustand.serie;
-    return motiveFuer(shopZustand.produkt).filter(function (b) {
+    var nurVorraetig = lagerFilterAktiv(art);
+    var liste = motiveFuer(shopZustand.produkt).filter(function (b) {
       if (serie !== 'alle' && b.kategorie !== serie) { return false; }
-      if (shopZustand.nurVorraetig && art.lager && !art.lager(b).vorraetig) { return false; }
+      if (nurVorraetig && !art.lager(b).vorraetig) { return false; }
       return true;
     });
+    /* Bei „Alle Motive“: vorrätige zuerst, danach die, die erst
+       gedruckt werden — Reihenfolge innerhalb bleibt wie im Admin */
+    if (lagerFilterMoeglich(art) && shopZustand.alleMotive) {
+      var da = liste.filter(function (b) { return art.lager(b).vorraetig; });
+      var spaeter = liste.filter(function (b) { return !art.lager(b).vorraetig; });
+      liste = da.concat(spaeter);
+    }
+    return liste;
   }
 
   /* Preisspanne als Fließtext, direkt aus STAFFEL erzeugt — so kann
@@ -2370,10 +2397,10 @@ BG.bereit(function () {
     });
     document.getElementById('filter-serie').innerHTML = html;
 
-    /* "Nur vorrätige" gibt es bei Downloads nicht */
+    /* „Alle Motive“ gibt es nicht bei Downloads und Lesezeichen */
     var lagerKnopf = document.getElementById('filter-vorraetig');
-    lagerKnopf.hidden = !produktArt(shopZustand.produkt).lager;
-    lagerKnopf.setAttribute('aria-pressed', shopZustand.nurVorraetig ? 'true' : 'false');
+    lagerKnopf.hidden = !lagerFilterMoeglich(produktArt(shopZustand.produkt));
+    lagerKnopf.setAttribute('aria-pressed', shopZustand.alleMotive ? 'true' : 'false');
   }
 
   /* Günstigster Stückpreis einer Staffel (für "ab 1,50 €") */
@@ -2477,17 +2504,35 @@ BG.bereit(function () {
     }
     document.getElementById('shop-band').innerHTML = band;
 
+    /* „12 Motive vorrätig“ bzw. „48 Motive“ — so ist klar, ob gerade
+       nur die vorrätigen zu sehen sind. */
     document.getElementById('shop-treffer').textContent =
-      gesamt === 0 ? '' : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs'));
+      gesamt === 0 ? '' : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs')) +
+        (lagerFilterAktiv(art) ? BG.t(' vorrätig', ' in stock') : '');
 
     var grid = document.getElementById('shop-grid');
     grid.classList.toggle('sk-raster-lz', art.id === 'lesezeichen');
     motivAktualisierer = {};   /* Karten von eben sind gleich weg */
 
     if (!gesamt) {
-      grid.innerHTML = '<p class="empty-note">' +
-        escapeHtml(art.leerText || BG.t('Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.', 'Nothing for this selection right now — try widening the filter.')) +
-        '</p>';
+      /* Nichts vorrätig, aber mit „Alle Motive“ gäbe es etwas? Dann
+         genau das anbieten statt einer leeren Fläche. */
+      var ohneLager = lagerFilterAktiv(art) && motiveFuer(art.id).some(function (b) {
+        return shopZustand.serie === 'alle' || b.kategorie === shopZustand.serie;
+      });
+      grid.innerHTML = ohneLager
+        ? '<p class="empty-note">' + BG.t('Davon ist gerade nichts vorrätig. Ich lasse aber gern drucken (1–2 Wochen).', 'Nothing from this is in stock right now, but I am happy to have it printed (1–2 weeks).') +
+          ' <button type="button" class="sk-chip" id="sk-alle-zeigen">' + BG.t('Alle Motive zeigen', 'Show all motifs') + '</button></p>'
+        : '<p class="empty-note">' +
+          escapeHtml(art.leerText || BG.t('Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.', 'Nothing for this selection right now — try widening the filter.')) +
+          '</p>';
+      var alleKnopf = document.getElementById('sk-alle-zeigen');
+      if (alleKnopf) {
+        alleKnopf.addEventListener('click', function () {
+          shopZustand.alleMotive = true;
+          mitUebergang(renderShop);
+        });
+      }
       document.getElementById('shop-mehr').innerHTML = '';
       renderFilter();
       return;
@@ -2548,7 +2593,7 @@ BG.bereit(function () {
         var neu = document.querySelector('#filter-serie [aria-pressed="true"]');
         if (neu) { neu.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); }
       } else if (lager) {
-        shopZustand.nurVorraetig = !shopZustand.nurVorraetig;
+        shopZustand.alleMotive = !shopZustand.alleMotive;
         shopZustand.sichtbar = MOTIVE_PRO_SEITE;
         mitUebergang(renderShop);
       } else {
@@ -3137,9 +3182,11 @@ BG.bereit(function () {
       shopZustand.serie = 'alle';
       index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
     }
-    if (index === -1 && shopZustand.nurVorraetig) {
-      shopZustand.nurVorraetig = false;
-      document.getElementById('filter-vorraetig').setAttribute('aria-pressed', 'false');
+    if (index === -1 && !shopZustand.alleMotive) {
+      /* Motiv ist gerade nicht vorrätig → „Alle Motive“ einschalten,
+         damit der QR-Code trotzdem genau dieses Motiv zeigt */
+      shopZustand.alleMotive = true;
+      document.getElementById('filter-vorraetig').setAttribute('aria-pressed', 'true');
       index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
     }
     if (index === -1) { return; }   /* Motiv gibt es in dieser Ausführung nicht */
