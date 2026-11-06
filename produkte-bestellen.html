@@ -143,7 +143,7 @@
   .sk-format[aria-pressed="true"] .sk-format-preis{ color:var(--accent-soft); }
   .sk-format:disabled{ opacity:.4; cursor:default; }
 
-  /* Serien + "Nur vorrätige" in einer Reihe. Die Serien lassen sich
+  /* Serien in einer Reihe. Die Serien lassen sich
      am Handy seitlich wischen; der Lager-Schalter bleibt rechts
      stehen, damit er nie aus dem Bild rutscht. */
   .sk-reihe{ display:flex; align-items:center; gap:.6rem; min-width:0; }
@@ -172,14 +172,6 @@
   .sk-zahl{ font-family:'JetBrains Mono', monospace; font-size:.68rem; opacity:.7; }
   .sk-chip[aria-pressed="true"] .sk-zahl{ opacity:.65; }
 
-  .sk-chip-lager{ flex:0 0 auto; gap:.45rem; }
-  .sk-chip-lager[hidden]{ display:none; }
-  .sk-punkt{
-    width:9px; height:9px; border-radius:50%;
-    border:1.5px solid #7fae86; background:transparent; transition:background .18s;
-  }
-  .sk-chip-lager[aria-pressed="true"]{ background:rgba(127,174,134,0.16); border-color:#7fae86; color:var(--text-light); }
-  .sk-chip-lager[aria-pressed="true"] .sk-punkt{ background:#7fae86; }
 
   /* ---------- Zeile über dem Raster: Preise + Anzahl ---------- */
   .sk-kopf{
@@ -560,6 +552,21 @@
     background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
     padding:1rem 1.2rem; margin-bottom:1.6rem;
   }
+  /* Wunschmotiv-Feld: leicht abgesetzt, damit es nicht wie ein
+     Pflichtfeld wirkt, aber gut zu finden ist */
+  .wunsch-feld{ margin:0 0 1.6rem; padding:.9rem 1.1rem; border:1px dashed var(--line-strong); border-radius:var(--radius); }
+  .wunsch-feld label{ display:block; margin-bottom:.4rem; color:var(--text-light); font-size:.92rem; }
+  .wunsch-feld input{ width:100%; }
+  .wunsch-hinweis{ margin:.45rem 0 0; font-size:.8rem; color:var(--text-muted); }
+  .wunsch-feld.gefuellt{ border-style:solid; border-color:var(--accent); }
+  /* „Vormerken“ in der großen Ansicht */
+  .sk-vormerken{
+    min-height:40px; padding:.3rem .8rem; cursor:pointer; border-radius:99px;
+    background:transparent; color:var(--accent-soft); border:1px solid var(--accent);
+    font:inherit; font-size:.82rem; white-space:nowrap;
+  }
+  .sk-vormerken:hover:not(:disabled){ background:var(--accent); color:var(--bg-deep); }
+  .sk-vormerken:disabled{ border-color:#7fae86; color:#7fae86; cursor:default; }
   .auswahl-liste-wrap h3{ font-size:.95rem; margin:0 0 .6rem; color:var(--text-light); }
   .auswahl-liste{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
   .auswahl-liste li{
@@ -885,7 +892,7 @@
      ============================================================
      Oben die Werkzeugleiste, die beim Scrollen mitklebt:
        1. Format (Postkarte, Poster, Lesezeichen, Download) mit Preis
-       2. Serien zum Durchwischen + „Nur vorrätige“
+       2. Serien zum Durchwischen (es erscheinen nur vorrätige Motive)
      Darunter das Raster: am Handy zwei Motive nebeneinander, am PC
      bis zu vier. Jedes Motiv hat einen runden „+“-Knopf direkt auf
      dem Foto — ein Tipp, und es liegt in der Auswahl. Ein Tipp aufs
@@ -900,9 +907,7 @@
       <div class="sk-formate" id="filter-produkt" role="group" aria-label="Format"></div>
       <div class="sk-reihe">
         <div class="sk-serien" id="filter-serie" role="group" aria-label="Serie" data-en-aria-label="Series"></div>
-        <button type="button" class="sk-chip sk-chip-lager" id="filter-vorraetig" aria-pressed="false">
-          <span class="sk-punkt" aria-hidden="true"></span><span data-en="In stock only">Nur vorrätige</span>
-        </button>
+
       </div>
     </div>
   </div>
@@ -915,7 +920,10 @@
     <div id="shop-band"></div>
     <div class="sk-raster" id="shop-grid"></div>
     <div class="shop-mehr" id="shop-mehr"></div>
-    <p class="section-idea-note" data-en="Motif missing or want it differently? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt; — I&#39;ll see what I can do.">Motiv fehlt oder du hättest es gern anders? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben — ich schaue, was geht.</p>
+    <!-- Nur vorrätige Motive stehen im Shop. Wer ein anderes möchte,
+         kann es hier vormerken (springt zum Feld „Wunschmotiv“). -->
+    <p class="section-idea-note"><span data-en="Your favourite motif isn&#39;t here? I&#39;ll gladly note it for the next print run. All motifs are always available as downloads.">Dein Lieblingsmotiv ist nicht dabei? Ich merke es gern für den nächsten Druck vor. Als Download gibt es jedes Motiv jederzeit.</span>
+      <a href="#kontakt-anfrage" data-vormerken-leer data-en="Note a wish motif">Wunschmotiv vormerken</a></p>
   </div>
 </section>
 
@@ -1076,6 +1084,19 @@
         <div class="auswahl-summe" id="auswahl-summe"></div>
       </div>
       <input type="hidden" name="Ausgewählte Produkte" id="auswahl-hidden-field" value="">
+
+      <!-- WUNSCHMOTIV — für Motive, die gerade nicht vorrätig sind.
+           Kommt in deiner E-Mail als eigene Zeile „Wunschmotiv
+           (vormerken)“ an; der Betreff bekommt dann „+ Motivwunsch“.
+           Die Liste zum Antippen (datalist) füllt das Skript mit allen
+           Motivnamen. -->
+      <div class="form-feld wunsch-feld" id="wunsch-feld">
+        <label for="af-wunsch"><span data-en="Wish motif to note (optional)">Wunschmotiv vormerken (optional)</span></label>
+        <input type="text" id="af-wunsch" name="Wunschmotiv (vormerken)" list="motiv-namen" autocomplete="off"
+               placeholder="z. B. Graureiher (Postkarte)" data-en-placeholder="e.g. Grey heron (postcard)">
+        <datalist id="motiv-namen"></datalist>
+        <p class="wunsch-hinweis" data-en="Not in stock right now — I&#39;ll note it and get in touch when I print it.">Gerade nicht vorrätig? Ich merke es vor und melde mich, wenn ich es drucke.</p>
+      </div>
 
       <!-- ============================================================
            1. BESTELLART — der wichtigste Schalter im Formular.
@@ -1959,7 +1980,9 @@ BG.bereit(function () {
           '<small>' + escapeHtml(art.kurz()) + '</small></span>' +
         '<span class="sk-fl-preis"><span>' + aktuellerPreisHtml(art.id) + '</span>' +
           (lager ? '<small class="sk-lager ' + lager.cls + '">' + escapeHtml(lagerKurz(lager)) + '</small>' : '') + '</span>' +
-        mengenKnopf(key) +
+        ((lager && !lager.vorraetig)
+          ? '<button type="button" class="sk-vormerken" data-aktion="vormerken">' + BG.t('Vormerken', 'Note it') + '</button>'
+          : mengenKnopf(key)) +
         '</li>';
     }).join('');
   }
@@ -1968,8 +1991,31 @@ BG.bereit(function () {
     var knopf = e.target.closest('button');
     if (!li || !knopf) { return; }
     var art = produktArt(li.getAttribute('data-typ'));
+    if (knopf.getAttribute('data-aktion') === 'vormerken') {
+      wunschVormerken(ansichtMotiv, art);
+      knopf.textContent = BG.t('Vorgemerkt ✓', 'Noted ✓');
+      knopf.disabled = true;
+      return;
+    }
     mengenKnopfKlick(knopf, li.getAttribute('data-key'), ansichtMotiv, art);
   });
+
+  /* ============================================================
+     WUNSCHMOTIV VORMERKEN
+     ============================================================
+     Trägt „Motiv (Format)“ in das Formularfeld „Wunschmotiv“ ein.
+     Mehrere Wünsche werden mit „; “ getrennt. In deiner E-Mail steht
+     das als eigene Zeile „Wunschmotiv (vormerken)“, und der Betreff
+     bekommt „+ Motivwunsch“ — so siehst du es sofort. */
+  function wunschVormerken(b, art) {
+    var feld = document.getElementById('af-wunsch');
+    if (!feld || !b) { return; }
+    var eintrag = stripHtml(b.beschriftung || b.alt) + (art ? ' (' + art.bezeichnung + ')' : '');
+    var liste = feld.value ? feld.value.split(/;\s*/) : [];
+    if (liste.indexOf(eintrag) === -1) { liste.push(eintrag); }
+    feld.value = liste.join('; ');
+    feld.dispatchEvent(new Event('input', { bubbles: true }));
+  }
 
   /* ============================================================
      DRUCKEREI & SAAL-DIGITAL-SHOP
@@ -2119,7 +2165,9 @@ BG.bereit(function () {
   var shopZustand = {
     produkt: 'postkarte',
     serie: 'alle',
-    nurVorraetig: false,
+    /* Im Shop stehen nur Motive, die gerade vorrätig sind (Stückzahl
+       im Admin größer als 0). Andere lassen sich vormerken — siehe
+       „Wunschmotiv vormerken“ im Formular. Downloads: immer alle. */
     sichtbar: MOTIVE_PRO_SEITE
   };
 
@@ -2167,13 +2215,14 @@ BG.bereit(function () {
        Zahl 4 oder mehr    → „49 auf Lager“          (grüner Punkt)
        Zahl 1 bis 3        → „Nur noch 2 auf Lager“  (Rost-Punkt)
        0, leer oder nicht vorrätig
-                           → „Druck in 1–2 Wochen nach Bestellung“
+                           → „Gerade nicht vorrätig“ (erscheint dann nicht im
+                             Raster, nur in der großen Ansicht mit „Vormerken“)
                              (hohler Punkt, zählt nicht als vorrätig)
      ============================================================ */
   function lagerText(vorhanden, menge) {
     if (!vorhanden || typeof menge !== 'number' || menge <= 0) {
       return {
-        html: BG.t('Druck in 1–2 Wochen nach Bestellung', 'Printed within 1–2 weeks of ordering'),
+        html: BG.t('Gerade nicht vorrätig', 'Currently out of stock'),
         cls: 'back', vorraetig: false
       };
     }
@@ -2259,14 +2308,30 @@ BG.bereit(function () {
   /* Dieselbe Liste, zusätzlich durch Serie und "nur Vorrätiges"
      gefiltert. serieUeberschreiben: für die Zählung in der
      Seitenleiste, die ja pro Serie eine eigene Zahl braucht. */
+  /* Gilt der Lager-Filter für diese Produktart? Für alles Gedruckte
+     ja (Postkarten, Poster, Lesezeichen, Klappkarten), für Downloads
+     nicht — die gibt es von jedem Motiv. */
+  function lagerFilterAktiv(art) {
+    return !!art.lager;
+  }
+
+  /* Alle vorrätigen Motive einer Produktart (ohne Serienfilter) —
+     für die Zahl in der Format-Leiste und für „ausgegraut“. */
+  function vorraetigFuer(typ) {
+    var art = produktArt(typ);
+    return motiveFuer(typ).filter(function (b) { return !art.lager || art.lager(b).vorraetig; });
+  }
+
   function motiveGefiltert(serieUeberschreiben) {
     var art = produktArt(shopZustand.produkt);
     var serie = serieUeberschreiben || shopZustand.serie;
-    return motiveFuer(shopZustand.produkt).filter(function (b) {
+    var nurVorraetig = lagerFilterAktiv(art);
+    var liste = motiveFuer(shopZustand.produkt).filter(function (b) {
       if (serie !== 'alle' && b.kategorie !== serie) { return false; }
-      if (shopZustand.nurVorraetig && art.lager && !art.lager(b).vorraetig) { return false; }
+      if (nurVorraetig && !art.lager(b).vorraetig) { return false; }
       return true;
     });
+    return liste;
   }
 
   /* Preisspanne als Fließtext, direkt aus STAFFEL erzeugt — so kann
@@ -2349,7 +2414,7 @@ BG.bereit(function () {
     /* Formate als Segment-Leiste: Name und Einzelpreis. Lesezeichen
        ohne Motive bleiben sichtbar, aber ausgegraut. */
     document.getElementById('filter-produkt').innerHTML = PRODUKTARTEN.map(function (art) {
-      var anzahl = motiveFuer(art.id).length;
+      var anzahl = vorraetigFuer(art.id).length;   /* nichts vorrätig → ausgegraut */
       var aktiv = art.id === shopZustand.produkt;
       return '<button type="button" class="sk-format" data-produkt="' + art.id + '"' +
         ' aria-pressed="' + aktiv + '"' + (anzahl === 0 ? ' disabled' : '') + '>' +
@@ -2370,10 +2435,6 @@ BG.bereit(function () {
     });
     document.getElementById('filter-serie').innerHTML = html;
 
-    /* "Nur vorrätige" gibt es bei Downloads nicht */
-    var lagerKnopf = document.getElementById('filter-vorraetig');
-    lagerKnopf.hidden = !produktArt(shopZustand.produkt).lager;
-    lagerKnopf.setAttribute('aria-pressed', shopZustand.nurVorraetig ? 'true' : 'false');
   }
 
   /* Günstigster Stückpreis einer Staffel (für "ab 1,50 €") */
@@ -2477,16 +2538,21 @@ BG.bereit(function () {
     }
     document.getElementById('shop-band').innerHTML = band;
 
+    /* „12 Motive vorrätig“ bzw. „48 Motive“ — so ist klar, ob gerade
+       nur die vorrätigen zu sehen sind. */
     document.getElementById('shop-treffer').textContent =
-      gesamt === 0 ? '' : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs'));
+      gesamt === 0 ? '' : gesamt + (gesamt === 1 ? BG.t(' Motiv', ' motif') : BG.t(' Motive', ' motifs')) +
+        (lagerFilterAktiv(art) ? BG.t(' vorrätig', ' in stock') : '');
 
     var grid = document.getElementById('shop-grid');
     grid.classList.toggle('sk-raster-lz', art.id === 'lesezeichen');
     motivAktualisierer = {};   /* Karten von eben sind gleich weg */
 
     if (!gesamt) {
-      grid.innerHTML = '<p class="empty-note">' +
-        escapeHtml(art.leerText || BG.t('Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.', 'Nothing for this selection right now — try widening the filter.')) +
+      grid.innerHTML = '<p class="empty-note">' + (lagerFilterAktiv(art)
+          ? BG.t('Davon ist gerade nichts vorrätig. Wenn dir ein Motiv fehlt, merke ich es gern für den nächsten Druck vor.', 'Nothing from this is in stock right now. If you are missing a motif, I am happy to note it for the next print run.') +
+            ' <a href="#kontakt-anfrage" data-vormerken-leer>' + BG.t('Wunschmotiv vormerken', 'Note a wish motif') + '</a>'
+          : escapeHtml(art.leerText || BG.t('Für diese Auswahl habe ich gerade nichts — nimm den Filter etwas weiter.', 'Nothing for this selection right now — try widening the filter.'))) +
         '</p>';
       document.getElementById('shop-mehr').innerHTML = '';
       renderFilter();
@@ -2537,7 +2603,6 @@ BG.bereit(function () {
     document.getElementById('sk-leiste').addEventListener('click', function (e) {
       var format = e.target.closest('[data-produkt]');
       var serie = e.target.closest('[data-serie]');
-      var lager = e.target.closest('#filter-vorraetig');
       if (format) {
         mitUebergang(function () { shopProduktSetzen(format.getAttribute('data-produkt'), true); });
       } else if (serie) {
@@ -2547,10 +2612,6 @@ BG.bereit(function () {
         /* gewählten Chip ins Bild schieben (am Handy wischt man) */
         var neu = document.querySelector('#filter-serie [aria-pressed="true"]');
         if (neu) { neu.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' }); }
-      } else if (lager) {
-        shopZustand.nurVorraetig = !shopZustand.nurVorraetig;
-        shopZustand.sichtbar = MOTIVE_PRO_SEITE;
-        mitUebergang(renderShop);
       } else {
         return;
       }
@@ -2786,6 +2847,35 @@ BG.bereit(function () {
     var chipsWrap = document.getElementById('anliegen-chips');
     var subjectEl = document.getElementById('anfrage-subject');
     var nachrichtEl = document.getElementById('af-nachricht');
+    var wunschEl = document.getElementById('af-wunsch');
+
+    /* Motivnamen zum Antippen im Wunschfeld */
+    document.getElementById('motiv-namen').innerHTML = (GALERIE_BILDER || [])
+      .filter(function (b) { return b.imShop !== false; })
+      .map(function (b) { return '<option value="' + escapeHtml(stripHtml(b.beschriftung || b.alt)) + '">'; }).join('');
+
+    /* Betreff: „+ Motivwunsch“ anhängen, solange das Feld gefüllt ist */
+    function wunschImBetreff() {
+      var basis = subjectEl.value.replace(/ \+ Motivwunsch(?= — )/, '');
+      var schonDrin = /\] Motivwunsch /.test(basis);   /* Anliegen ist schon „Motivwunsch“ */
+      subjectEl.value = (wunschEl.value.trim() && !schonDrin) ? basis.replace(' — BG Naturfotografie', ' + Motivwunsch — BG Naturfotografie') : basis;
+      document.getElementById('wunsch-feld').classList.toggle('gefuellt', !!wunschEl.value.trim());
+      /* Nachricht ist Pflicht — bei reinem Wunsch nicht leer lassen */
+      if (wunschEl.value.trim() && !nachrichtEl.value.trim()) {
+        nachrichtEl.value = BG.t('Bitte für mich vormerken: ', 'Please note for me: ') + wunschEl.value.trim();
+      }
+    }
+    wunschEl.addEventListener('input', wunschImBetreff);
+    wunschEl.addEventListener('change', wunschImBetreff);
+
+    /* Links „Wunschmotiv vormerken“: zum Feld springen und es fokussieren */
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('[data-vormerken-leer]');
+      if (!link) { return; }
+      e.preventDefault();
+      document.getElementById('wunsch-feld').scrollIntoView({ block: 'center' });
+      wunschEl.focus({ preventScroll: true });
+    });
 
     function activate(chip) {
       chipsWrap.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
@@ -2802,6 +2892,7 @@ BG.bereit(function () {
     chipsWrap.querySelectorAll('.chip').forEach(function (chip) {
       chip.addEventListener('click', function () {
         activate(chip);
+        wunschImBetreff();   /* „+ Motivwunsch“ im Betreff behalten */
         nachrichtEl.focus();
         nachrichtEl.setSelectionRange(nachrichtEl.value.length, nachrichtEl.value.length);
       });
@@ -3137,12 +3228,19 @@ BG.bereit(function () {
       shopZustand.serie = 'alle';
       index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
     }
-    if (index === -1 && shopZustand.nurVorraetig) {
-      shopZustand.nurVorraetig = false;
-      document.getElementById('filter-vorraetig').setAttribute('aria-pressed', 'false');
-      index = motiveGefiltert().map(function (b) { return b.id; }).indexOf(bildId);
+    if (index === -1) {
+      /* Motiv ist gerade nicht vorrätig (oder gibt es in dieser
+         Ausführung nicht): Statt ins Leere zu führen, öffnet sich die
+         große Ansicht. Dort sieht man alle Formate — was vorrätig ist,
+         mit „+“, der Rest mit „Vormerken“, dazu immer der Download. */
+      var motiv = (GALERIE_BILDER || []).filter(function (b) { return b.id === bildId && b.imShop !== false; })[0];
+      if (motiv) {
+        renderShop();
+        document.getElementById('motive').scrollIntoView();
+        ansichtOeffnen(motiv);
+      }
+      return;
     }
-    if (index === -1) { return; }   /* Motiv gibt es in dieser Ausführung nicht */
 
     if (index + 1 > shopZustand.sichtbar) {
       shopZustand.sichtbar = Math.ceil((index + 1) / MOTIVE_PRO_SEITE) * MOTIVE_PRO_SEITE;
