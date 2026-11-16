@@ -586,7 +586,7 @@
         T('Bestellnummer: ', 'Order number: ') + zweck + '\n' +
         T('Betrag: ', 'Amount: ') + euro(gesamtBetrag) + '\n\n' +
         (istPaypal
-          ? 'PayPal: ' + paypalLink + '\n' + T('(Bestellnummer bitte ins Nachrichtenfeld)', '(please put the order number in the message field)')
+          ? 'PayPal: ' + paypalLink + '\n' + T('(Bestellnummer bitte ins Nachrichtenfeld sofern nicht schon geschehen)', '(please put the order number in the message field)')
           : T('Empfänger: ', 'Recipient: ') + Z.empfaenger + '\nIBAN: ' + ibanSchoen + (Z.bic ? '\nBIC: ' + Z.bic : '') + '\n' +
             T('Verwendungszweck: ', 'Reference: ') + zweck);
       window.location.href = 'mailto:?subject=' + encodeURIComponent(T('Zahlung Bestellung ', 'Payment order ') + zweck) +
