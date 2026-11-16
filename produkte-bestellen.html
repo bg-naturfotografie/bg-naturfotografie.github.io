@@ -1320,6 +1320,7 @@
         <button type="button" class="chip" data-text="Bildlizenz" data-key="lizenz" data-en="Image licence">Bildlizenz</button>
         <button type="button" class="chip" data-text="Motivwunsch" data-key="motivwunsch" data-en="Motif wish">Motivwunsch</button>
         <button type="button" class="chip" data-text="Sonstiges" data-key="sonstiges" data-en="Other">Sonstiges</button>
+        <button type="button" class="chip" data-text="Stornierung" data-key="storno" data-en="Cancellation" id="chip-storno" hidden>Stornierung</button>
       </div>
       <input type="hidden" name="_subject" id="frage-subject" value="[Frage] — BG Naturfotografie">
 
@@ -2997,6 +2998,10 @@ BG.bereit(function () {
      FRAGE STELLEN: Anliegen-Chips, Wunschmotiv, Absenden
      ============================================================ */
   var chipsWrap = document.getElementById('anliegen-chips');
+  /* Stornierung von der Bestätigungsseite: ?anliegen=storno&nr=BG-0372.
+     Läuft wie jede Frage über Formspree, Betreff "[Stornierung BG-0372]". */
+  var urlParams = new URLSearchParams(window.location.search);
+  var stornoNr = (urlParams.get('nr') || '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 20);
   var frageSubject = document.getElementById('frage-subject');
   var frageNachricht = document.getElementById('fr-nachricht');
   var wunschEl = document.getElementById('af-wunsch');
@@ -3006,7 +3011,7 @@ BG.bereit(function () {
     if (!chip) { return; }
     chipsWrap.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
     chip.classList.add('active');
-    frageSubject.value = '[' + chip.dataset.text + '] — BG Naturfotografie';
+    frageSubject.value = '[' + chip.dataset.text + (key === 'storno' && stornoNr ? ' ' + stornoNr : '') + '] — BG Naturfotografie';
   }
   chipsWrap.querySelectorAll('.chip').forEach(function (chip) {
     chip.addEventListener('click', function () { anliegenWaehlen(chip.dataset.key); frageNachricht.focus(); });
@@ -3026,7 +3031,13 @@ BG.bereit(function () {
   wunschEl.addEventListener('change', wunschUebernehmen);
 
   /* Vorauswahl über ?anliegen=markt|lizenz|motivwunsch|sonstiges */
-  var vorauswahl = new URLSearchParams(window.location.search).get('anliegen');
+  var vorauswahl = urlParams.get('anliegen');
+  if (vorauswahl === 'storno') {
+    document.getElementById('chip-storno').hidden = false;
+    document.getElementById('frage-titel').textContent = BG.t('Bestellung stornieren', 'Cancel order');
+    frageNachricht.value = BG.t('Bitte storniere meine Bestellung ' + (stornoNr || '(Bestellnummer)') + '.',
+      'Please cancel my order ' + (stornoNr || '(order number)') + '.');
+  }
   if (vorauswahl) { setTimeout(function () { frageOeffnen(vorauswahl); }, 300); }
 
   var frageForm = document.getElementById('frage-form');
@@ -3040,7 +3051,8 @@ BG.bereit(function () {
     if (!formularPruefen(frageForm, frageSammel)) { return; }
     document.getElementById('fr-email-spiegel').value = document.getElementById('fr-email').value.trim();
     var basis = window.location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/, '') + 'danke.html';
-    formularAbsenden(frageForm, basis + '?art=anfrage', frageSammel, document.getElementById('fr-submit'));
+    var istStorno = !!chipsWrap.querySelector('.chip.active[data-key="storno"]');
+    formularAbsenden(frageForm, basis + (istStorno ? '?art=storno&nr=' + encodeURIComponent(stornoNr) : '?art=anfrage'), frageSammel, document.getElementById('fr-submit'));
   });
 
   /* ============================================================

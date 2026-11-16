@@ -258,9 +258,10 @@
   <h2 data-en="What happens next">Wie es weitergeht</h2>
   <ol class="danke-schritte" id="danke-schritte"></ol>
 
-  <h2 data-en="If you change your mind">Falls du es dir anders überlegst</h2>
-  <!-- STORNIEREN: Bis zum Versand bzw. zur Übergabe kostenlos per Mail.
-       Der Knopf öffnet das Mailprogramm mit fertigem Text. -->
+  <h2 id="anders-titel" data-en="If you change your mind">Falls du es dir anders überlegst</h2>
+  <!-- STORNIEREN: Bis zum Versand bzw. zur Übergabe kostenlos.
+       Der Knopf öffnet im Shop das Formular "Frage stellen" mit
+       Bestellnummer; die Nachricht kommt über Formspree. -->
   <div class="storno" id="storno" hidden>
     <p id="storno-text"></p>
     <a class="spaeter-knopf" id="storno-knopf" href="#">Bestellung stornieren</a>
@@ -380,6 +381,7 @@
 
   var p = new URLSearchParams(window.location.search);
   var istBestellung = (p.get('art') === 'bestellung');
+  var istStorno = (p.get('art') === 'storno');
   var liefer = p.get('liefer') || 'versand';          /* versand | abholung | digital */
   var zahlweg = p.get('zahl') || 'ueberweisung';     /* ueberweisung | paypal | bar */
   var barzahlung = (zahlweg === 'bar');
@@ -419,6 +421,11 @@
     }
     document.title = T('Bestellung eingegangen | BG Naturfotografie', 'Order received | BG Naturfotografie');
     var titelTag = document.querySelector('title'); if (titelTag) titelTag.removeAttribute('data-en');
+  } else if (istStorno) {
+    setzeText('danke-titel', T('Stornierung ist angekommen', 'Cancellation received'));
+    setzeText('danke-unter', T('Danke für deine Nachricht zu ' + (nr || 'deiner Bestellung') + '.', 'Thanks for your message about ' + (nr || 'your order') + '.'));
+    document.getElementById('anders-titel').hidden = true;
+    document.getElementById('danke-widerruf').hidden = true;
   } else if (!ohneAngaben) {
     setzeText('danke-titel', T('Anfrage ist angekommen', 'Your request has arrived'));
     setzeText('danke-unter', T('Vielen Dank. Bis ich mich melde, ist für dich nichts verbindlich — du entscheidest erst, wenn du mein Angebot vor dir hast.',
@@ -491,6 +498,11 @@
       schritte.appendChild(schritt(T('Verpacken und ab die Post.', 'Packed and posted.'),
         T('Vorrätige Motive gehen in der Regel innerhalb der nächsten 3 Tage nach Zahlungseingang von mir aus Halstenbek raus. Wird ein Motiv nachgedruckt, dauert es ein bis zwei Wochen länger — dann melde ich mich vorher.', 'Motifs in stock usually leave Halstenbek within the next 3 days after payment. If a motif is being reprinted, it takes one to two weeks longer — I will let you know beforehand.')));
     }
+  } else if (istStorno) {
+    schritte.appendChild(schritt(T('Ich bestätige per Mail.', 'I confirm by e-mail.'),
+      T('Innerhalb der nächsten 3 Tage bekommst du meine Bestätigung. Kostenlos ist die Stornierung, solange ich noch nichts verschickt oder übergeben habe.', 'Within the next 3 days you get my confirmation. Cancelling is free as long as I have not shipped or handed anything over yet.')));
+    schritte.appendChild(schritt(T('Geld zurück.', 'Money back.'),
+      T('Hast du schon bezahlt, bekommst du den vollen Betrag auf demselben Weg zurück. Noch nicht bezahlt? Dann musst du nichts weiter tun.', 'If you have already paid, you get the full amount back the same way. Not paid yet? Then there is nothing else to do.')));
   } else {
     schritte.appendChild(schritt(T('Eingang bestätigt.', 'Receipt confirmed.'),
       T('Deine Nachricht ist bei mir angekommen. Eine automatische Kopie per Mail gibt es nicht, ich antworte persönlich.', 'Your message has reached me. There is no automatic copy by e-mail, I reply personally.')));
@@ -708,13 +720,11 @@
     var stornoNr = nr || T('meine Bestellung', 'my order');
     document.getElementById('storno').hidden = false;
     document.getElementById('storno-text').textContent = T(
-      'Du kannst deine Bestellung kostenlos stornieren, solange ich sie noch nicht verschickt oder übergeben habe. Ein Klick auf den Knopf öffnet dein Mailprogramm mit fertigem Text. Hast du schon bezahlt, bekommst du das Geld vollständig zurück.',
-      'You can cancel your order free of charge as long as I have not shipped or handed it over yet. The button opens your e-mail program with a ready-made text. If you have already paid, you get the full amount back.');
+      'Du kannst deine Bestellung kostenlos stornieren, solange ich sie noch nicht verschickt oder übergeben habe. Der Knopf öffnet ein kurzes Formular mit deiner Bestellnummer. Hast du schon bezahlt, bekommst du das Geld vollständig zurück.',
+      'You can cancel your order free of charge as long as I have not shipped or handed it over yet. The button opens a short form with your order number. If you have already paid, you get the full amount back.');
     var sk = document.getElementById('storno-knopf');
     sk.textContent = T('Bestellung stornieren', 'Cancel order');
-    sk.href = 'mailto:impressum.skarvaan@web.de?subject=' + encodeURIComponent('Stornierung ' + stornoNr) +
-      '&body=' + encodeURIComponent(T('Hallo Bene,\n\nbitte storniere meine Bestellung ' + stornoNr + '.\n\nName: \n\nDanke!',
-                                       'Hello Bene,\n\nplease cancel my order ' + stornoNr + '.\n\nName: \n\nThank you!'));
+    sk.href = 'produkte-bestellen.html?anliegen=storno&nr=' + encodeURIComponent(nr);
   }
 
   /* ---------- Widerruf ---------- */
