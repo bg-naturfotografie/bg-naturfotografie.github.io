@@ -220,6 +220,13 @@
     display:block; width:100%; height:100%; padding:0; margin:0;
     background:none; border:0; cursor:zoom-in;
   }
+  /* QUERFORMAT: Querbilder bekommen eine doppelt breite Karte, damit
+     sie als Querformat zu sehen sind statt hochkant beschnitten.
+     Ob ein Bild quer ist, merkt das Skript beim Laden (Klasse
+     ist-quer). "dense" füllt Lücken, die dabei entstehen. */
+  .sk-raster{ grid-auto-flow:row dense; }
+  .sk-karte.ist-quer{ grid-column:span 2; }
+  .sk-karte.ist-quer .sk-foto{ aspect-ratio:8/5; }
   @media (hover:hover){ .sk-karte:hover .sk-foto img{ transform:scale(1.035); } }
   /* Tastatur-Fokus nach innen legen — außen würde er vom Bildrand abgeschnitten */
   .sk-foto-knopf:focus-visible{ outline:3px solid var(--fokus); outline-offset:-3px; }
@@ -683,7 +690,55 @@
     border-radius:var(--radius); font-size:.86rem; color:var(--text-light); max-width:70ch;
   }
 
-  #kontakt-anfrage-section{ background:var(--bg-panel); }
+
+  /* ============================================================
+     KASSE + FRAGE STELLEN (Popups)
+     ============================================================
+     Am PC ein Fenster in der Mitte, am Handy ein Blatt von unten
+     wie die Schublade. */
+  .sk-kasse{
+    padding:0; border:1px solid var(--line-strong); color:var(--text-light);
+    background:var(--bg-panel); border-radius:6px;
+    width:min(640px, calc(100% - 2rem)); max-height:calc(100dvh - 2rem);
+    margin:auto; overflow:auto; overscroll-behavior:contain;
+  }
+  .sk-kasse::backdrop{ background:rgba(6,8,5,0.66); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
+  .sk-kasse-kopf{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1rem 1rem .6rem 1.4rem; position:sticky; top:0; background:var(--bg-panel); z-index:2;
+    border-bottom:1px solid var(--line);
+  }
+  .sk-kasse-kopf h2{ font-size:1.4rem; margin:0; }
+  .sk-kasse-inhalt{ padding:1.2rem 1.4rem 1.6rem; }
+  .sk-kasse form{ gap:1rem; }
+  .sk-kasse .form-lead{ color:var(--text-muted); font-size:.92rem; margin:0; }
+  .sk-kasse .chips{ margin:.2rem 0 .4rem; }
+  .kasse-gesamt{
+    display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+    padding:.9rem 0 .2rem; border-top:1px solid var(--line);
+    font-family:'JetBrains Mono', monospace; font-size:1.05rem; color:var(--text-light);
+  }
+  .kasse-gesamt:empty{ display:none; }
+  .kasse-gesamt b{ color:var(--accent-soft); font-weight:500; font-size:1.2rem; }
+  .kasse-knopf{ border:none; cursor:pointer; width:100%; font-size:1.05rem; padding:1em; }
+  .sk-kasse #bestellart-block{ display:none; }
+  .adress-pflicht{ padding-top:.4rem; }
+  .adress-titel{ margin:.6rem 1rem .4rem; font-weight:500; color:var(--text-light); }
+  @media (max-width:700px){
+    .sk-kasse{
+      width:100%; max-width:100%; max-height:94dvh; margin:auto 0 0;
+      border-width:1px 0 0; border-radius:14px 14px 0 0;
+    }
+    .sk-kasse-inhalt{ padding:1rem 1rem max(1.4rem, env(safe-area-inset-bottom)); }
+  }
+  .frage-section{ background:var(--bg-panel); padding:3.5rem 0; text-align:center; }
+  .frage-section h2{ font-size:1.4rem; margin:0 0 .5rem; }
+  .frage-section p{ color:var(--text-muted); margin:0 0 1.2rem; }
+  .frage-section .btn{ cursor:pointer; background:transparent; font:inherit; font-weight:500; }
+  .testbanner{
+    position:sticky; top:0; z-index:999; background:#b5532a; color:#fff; text-align:center;
+    font-size:.85rem; padding:.45rem 1rem; font-family:'Work Sans', sans-serif;
+  }
   .shop-form-wrap form{ background:var(--bg-panel-2); border:1px solid var(--line); border-radius:var(--radius); padding:2rem; max-width:640px; }
   .shop-form-wrap h2{ font-size:1.4rem; margin-bottom:.3rem; }
   .shop-form-wrap .form-lead{ color:var(--text-muted); font-size:.92rem; margin:0 0 1.6rem; }
@@ -810,7 +865,7 @@
     {
       "@type": "Question",
       "name": "Wie l\u00e4uft eine Bestellung bei BG Naturfotografie ab?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Motiv und Menge ausw\u00e4hlen, in den Warenkorb legen und das kurze Formular abschicken \u2014 wahlweise als unverbindliche Anfrage oder als verbindliche Bestellung. Die Best\u00e4tigung mit Zahlungsweg kommt per Mail, meist innerhalb von 2\u20133 Tagen. Verschickt wird aus Halstenbek, Abholung ist auch m\u00f6glich." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Motiv und Menge ausw\u00e4hlen, in den Warenkorb legen, an der Kasse Versand oder Abholung und Zahlungsweg w\u00e4hlen und bestellen. Direkt danach stehen die Zahlungsdaten (\u00dcberweisung mit QR-Code oder PayPal) auf dem Bildschirm. Verschickt wird aus Halstenbek, Abholung ist auch m\u00f6glich." }
     },
     {
       "@type": "Question",
@@ -881,8 +936,8 @@
     <!-- So läuft es ab: drei echte Schritte nacheinander, deshalb nummeriert -->
     <ol class="sk-schritte">
       <li><span class="sk-nr" aria-hidden="true">1</span><span data-en="Choose format and motifs">Format und Motive wählen</span></li>
-      <li><span class="sk-nr" aria-hidden="true">2</span><span data-en="Send a request or order">Anfrage oder Bestellung abschicken</span></li>
-      <li><span class="sk-nr" aria-hidden="true">3</span><span data-en="I reply within 2–3 days with payment details">Ich melde mich in 2–3 Tagen mit dem Zahlungsweg</span></li>
+      <li><span class="sk-nr" aria-hidden="true">2</span><span data-en="Order at the checkout">An der Kasse bestellen</span></li>
+      <li><span class="sk-nr" aria-hidden="true">3</span><span data-en="Pay — I ship within 3 days of payment">Bezahlen — ich verschicke innerhalb der nächsten 3 Tage nach Zahlungseingang</span></li>
     </ol>
   </div>
 </section>
@@ -953,7 +1008,7 @@
     <h3 data-en="Mugs &amp; co.">Tassen &amp; Co.</h3>
     <p class="cat-sub" data-en="No fixed range — but on request almost anything that isn&#39;t clothing is possible: mug, cap, tote bag, coaster.">Kein festes Sortiment — aber auf Wunsch geht fast alles, was kein Kleidungsstück ist: Tasse, Cap, Beutel, Untersetzer.</p>
 
-    <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-en="Write your wish into the request form">Wunsch ins Anfrageformular schreiben</a></p>
+    <p style="margin:1.2rem 0 0;"><a class="btn btn-outline" href="#kontakt-anfrage" data-en="Send me your wish">Wunsch schicken</a></p>
 
     <div class="info-folds">
       <details class="info-fold">
@@ -973,7 +1028,7 @@
     <p class="cat-sub" data-en="Plotted, cut and packed by hand at my home.">Handgeplottet, zugeschnitten und verpackt bei mir zu Hause.</p>
     <span class="origin-badge"><span class="origin-dot selbst"></span> <span data-en="Made &amp; shipped by me">Selbst gefertigt &amp; versendet</span></span>
     <div class="sk-raster" id="sticker-grid"></div>
-    <p class="section-idea-note" data-en="Want a motif as a sticker? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt;.">Wunschmotiv als Sticker? Kurz ins <a href="#kontakt-anfrage">Anfrageformular</a> schreiben.</p>
+    <p class="section-idea-note" data-en="Want a motif as a sticker? Just write it in the &lt;a href=&quot;#kontakt-anfrage&quot;&gt;request form&lt;/a&gt;.">Wunschmotiv als Sticker? Kurz <a href="#kontakt-anfrage">schreiben</a>.</p>
   </div>
 </section>
 
@@ -1002,11 +1057,11 @@
       <details class="info-fold">
         <summary data-en="How ordering works">So läuft eine Bestellung ab</summary>
         <div class="fold-body">
-          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark, folded card or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Your selection.</b> The bar at the bottom shows everything you have picked; it also ends up in the form below.</li><li><b>Ask or order.</b> Send a non-binding request — or place a binding order straight away, with shipping or pick-up in Halstenbek.</li><li><b>I get back to you.</b> Quote or order confirmation with payment details by e-mail, usually within 2–3 days. I ship everything myself from Halstenbek.</li>">
+          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark, folded card or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Basket.</b> The bar at the bottom shows everything you have picked, with the price.</li><li><b>Checkout.</b> Choose shipping or pick-up, bank transfer, PayPal or cash on pick-up — and “Order with obligation to pay”.</li><li><b>Pay.</b> Right afterwards you see my bank details with a QR code for your banking app, or the PayPal button with the amount filled in. Once payment arrives, I ship everything from Halstenbek.</li>">
             <li><b>Format und Motiv wählen.</b> Oben Postkarte, Poster (A4), Lesezeichen, Klappkarte oder Download wählen, dann beim Motiv auf das + tippen — die Menge kannst du jederzeit ändern.</li>
-            <li><b>Deine Auswahl.</b> Die Leiste unten am Bildschirm zeigt alles, was du ausgesucht hast — und es landet automatisch im Formular.</li>
-            <li><b>Anfragen oder bestellen.</b> Unverbindlich anfragen — oder direkt verbindlich bestellen, mit Versand oder Abholung in Halstenbek.</li>
-            <li><b>Ich melde mich.</b> Angebot bzw. Auftragsbestätigung mit Zahlungsweg per Mail, meist innerhalb von 2–3 Tagen. Verschickt wird von mir aus Halstenbek.</li>
+            <li><b>Warenkorb.</b> Die Leiste unten am Bildschirm zeigt alles, was du ausgesucht hast, samt Preis.</li>
+            <li><b>Zur Kasse.</b> Versand oder Abholung wählen, Überweisung, PayPal oder bar bei Abholung — und „Zahlungspflichtig bestellen“.</li>
+            <li><b>Bezahlen.</b> Direkt danach siehst du die Kontodaten mit QR-Code für die Banking-App bzw. den PayPal-Knopf mit fertigem Betrag. Nach Zahlungseingang verschicke ich alles von mir aus Halstenbek.</li>
           </ol>
         </div>
       </details>
@@ -1067,70 +1122,63 @@
   </div>
 </section>
 
-<!-- ============ ANFRAGEFORMULAR (Markt / Lizenz / Motivwunsch / Sonstiges) ============ -->
-<section id="kontakt-anfrage-section">
-  <div class="wrap shop-form-wrap">
+<!-- ============================================================
+     FRAGEN & ANFRAGEN (statt des großen Formulars auf der Seite)
+     ============================================================
+     Bestellt wird über den Warenkorb → Kasse. Alles andere
+     (Marktanfrage, Bildlizenz, Motivwunsch, Fragen) läuft über den
+     Knopf hier, der ein kleines Formular öffnet (#sk-frage).
+     Die Sprungmarke #kontakt-anfrage bleibt erhalten, damit alte
+     Links von anderen Seiten weiter funktionieren.
+     ============================================================ -->
+<section id="kontakt-anfrage-section" class="frage-section">
+  <div class="wrap">
+    <h2 id="kontakt-anfrage" data-en="Questions, market enquiry or image licence?">Fragen, Marktanfrage oder Bildlizenz?</h2>
+    <p data-en="Write me a short message — I usually reply within the next 3 days.">Schreib mir eine kurze Nachricht — ich antworte meist innerhalb der nächsten 3 Tage.</p>
+    <button type="button" class="btn btn-outline" data-frage-oeffnen data-en="Ask a question">Frage stellen</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     KASSE (Popup)
+     ============================================================
+     Öffnet sich über „Zur Kasse“ in der Leiste unten oder in der
+     Schublade. Hier steht die ganze Bestellung, Lieferart,
+     Zahlungsweg, Adresse und der Knopf „Zahlungspflichtig
+     bestellen“. Danach geht es auf danke.html — dort stehen die
+     Zahlungsdaten (Überweisung mit QR-Code bzw. PayPal-Knopf).
+     ============================================================ -->
+<dialog class="sk-kasse" id="sk-kasse" aria-labelledby="kasse-titel">
+  <div class="sk-kasse-kopf">
+    <h2 id="kasse-titel" data-en="Checkout">Kasse</h2>
+    <button type="button" class="sk-zu" data-schliessen aria-label="Schließen" data-en-aria-label="Close">&times;</button>
+  </div>
+  <div class="sk-kasse-inhalt">
     <!-- FORMSPREE-SETUP: eigene Formspree-ID eintragen -->
-    <!-- novalidate: die Prüfung macht das Script unten, damit die
-         Fehlermeldungen in jedem Browser gleich und auf Deutsch sind. -->
     <form action="https://formspree.io/f/xvzejbje" method="POST" id="anfrage-form" novalidate>
-      <h2 id="kontakt-anfrage" data-en="Your order">Deine Bestellung</h2>
-      <p class="form-lead" id="form-lead">Bestellwunsch, Marktanfrage, Bildlizenz oder fehlendes Motiv — eine kurze Nachricht genügt. Ich melde mich mit Preis, Versand oder Abholung und Zahlungsweg.</p>
+      <p class="form-lead" id="form-lead" data-en="Check your order, choose delivery and payment — done.">Prüf deine Bestellung, wähle Lieferung und Bezahlung — fertig.</p>
 
       <div class="auswahl-liste-wrap">
-        <h3 data-en="Your selection">Deine Auswahl</h3>
+        <h3 data-en="Your order">Deine Bestellung</h3>
         <ul class="auswahl-liste" id="auswahl-liste"></ul>
-        <p class="auswahl-leer" id="auswahl-leer" data-en="Nothing selected yet — tap the round + on a motif above, or simply write your request below.">Noch nichts ausgewählt — tippe oben bei einem Motiv auf das runde +, oder schreib unten einfach dein Anliegen.</p>
+        <p class="auswahl-leer" id="auswahl-leer" data-en="Your basket is empty — tap the round + on a motif.">Dein Warenkorb ist leer — tippe bei einem Motiv auf das runde +.</p>
         <div class="auswahl-summe" id="auswahl-summe"></div>
       </div>
       <input type="hidden" name="Ausgewählte Produkte" id="auswahl-hidden-field" value="">
+      <input type="hidden" name="Bestellnummer" id="af-bestellnummer" value="">
 
-      <!-- WUNSCHMOTIV — für Motive, die gerade nicht vorrätig sind.
-           Kommt in deiner E-Mail als eigene Zeile „Wunschmotiv
-           (vormerken)“ an; der Betreff bekommt dann „+ Motivwunsch“.
-           Die Liste zum Antippen (datalist) füllt das Skript mit allen
-           Motivnamen. -->
-      <div class="form-feld wunsch-feld" id="wunsch-feld">
-        <label for="af-wunsch"><span data-en="Wish motif to note (optional)">Wunschmotiv vormerken (optional)</span></label>
-        <input type="text" id="af-wunsch" name="Wunschmotiv (vormerken)" list="motiv-namen" autocomplete="off"
-               placeholder="z. B. Graureiher (Postkarte)" data-en-placeholder="e.g. Grey heron (postcard)">
-        <datalist id="motiv-namen"></datalist>
-        <p class="wunsch-hinweis" data-en="Not in stock right now — I&#39;ll note it and get in touch when I print it.">Gerade nicht vorrätig? Ich merke es vor und melde mich, wenn ich es drucke.</p>
+      <!-- In der Kasse wird immer verbindlich bestellt. Die Schalter
+           bleiben (unsichtbar) drin, weil das Skript sie abfragt. -->
+      <div id="bestellart-block" hidden>
+        <input type="radio" name="Bestellart" value="Unverbindliche Anfrage" data-art="anfrage">
+        <input type="radio" name="Bestellart" value="Verbindliche Bestellung" data-art="verbindlich" checked>
       </div>
 
-      <!-- ============================================================
-           1. BESTELLART — der wichtigste Schalter im Formular.
-           Er entscheidet, welche Felder danach Pflicht werden und
-           wie der Absende-Button heißt.
-
-           "anfrage"     = unverbindlich, wie bisher. Adresse optional.
-           "verbindlich" = echte Bestellung. Bei Versand ist die
-                           Adresse Pflicht, dazu kommt ein Zahlweg
-                           und die AGB-/Widerrufs-Bestätigung.
-           ============================================================ -->
-      <div class="wahl-block" id="bestellart-block" style="display:none;">
-        <span class="wahl-titel" data-en="How would you like to continue?">Wie möchtest du weitermachen?</span>
-        <div class="wahl-optionen">
-          <label class="wahl-opt">
-            <input type="radio" name="Bestellart" value="Unverbindliche Anfrage" data-art="anfrage" checked>
-            <span class="opt-name" data-en="Non-binding request">Unverbindlich anfragen</span>
-            <span class="opt-sub" data-en="I&#39;ll get back to you with a pro-forma invoice and all the details. Nothing binding yet.">Ich melde mich mit Proforma-Rechnung und allen Details. Noch nichts verbindlich.</span>
-          </label>
-          <label class="wahl-opt">
-            <input type="radio" name="Bestellart" value="Verbindliche Bestellung" data-art="verbindlich">
-            <span class="opt-name" data-en="Binding order">Verbindlich bestellen</span>
-            <span class="opt-sub" data-en="Order directly — you get an immediate confirmation of receipt; the order confirmation with payment details follows by e-mail.">Direkt bestellen — du bekommst sofort eine Eingangsbestätigung, die Auftragsbestätigung mit Zahlungsweg folgt per Mail.</span>
-          </label>
-        </div>
-      </div>
-
-      <!-- ============================================================
-           2. LIEFERART — steuert die Versandkosten und ob eine
-           Adresse gebraucht wird. Bei reinen Downloads wird dieser
-           Block automatisch ausgeblendet.
-           ============================================================ -->
-      <div class="wahl-block" id="lieferart-block" style="display:none;">
-        <span class="wahl-titel" data-en="Shipping or pick-up?">Versand oder Abholung?</span>
+      <!-- LIEFERART — bei reinen Downloads blendet das Skript sie aus.
+           Was genau gewählt wurde, steht im value und damit in
+           deiner Mail. -->
+      <div class="wahl-block" id="lieferart-block">
+        <span class="wahl-titel" data-en="How do you get it?">Wie kommt es zu dir?</span>
         <div class="wahl-optionen">
           <label class="wahl-opt">
             <input type="radio" name="Lieferart" value="Versand" data-liefer="versand" checked>
@@ -1138,44 +1186,36 @@
             <span class="opt-sub" id="versand-opt-sub" data-en="Packed and shipped from Halstenbek.">Verpackt und verschickt aus Halstenbek.</span>
           </label>
           <label class="wahl-opt">
-            <input type="radio" name="Lieferart" value="Abholung in Halstenbek" data-liefer="abholung">
+            <input type="radio" name="Lieferart" value="Abholung in Halstenbek (Ort und Zeit per Mail)" data-liefer="abholung">
             <span class="opt-name" data-en="Pick-up in Halstenbek">Abholung in Halstenbek</span>
-            <span class="opt-sub" data-en="No shipping — we&#39;ll arrange a time by e-mail.">Kein Versand — Termin machen wir per Mail aus.</span>
+            <span class="opt-sub" data-en="No shipping — we&#39;ll arrange place and time by e-mail.">Kein Versand — Ort und Zeit machen wir per Mail aus.</span>
           </label>
         </div>
       </div>
 
-      <!-- ============================================================
-           3. ZAHLWEG — nur bei verbindlicher Bestellung.
-           Barzahlung erscheint ausschließlich bei Abholung, weil
-           Bargeld per Post schlicht nicht funktioniert. Das
-           schaltet das Script unten um.
-           ============================================================ -->
-      <div class="wahl-block" data-wenn="verbindlich" id="zahlweg-block">
-        <span class="wahl-titel" data-en="Payment method">Zahlungsweg</span>
+      <!-- ZAHLUNGSWEG — Barzahlung erscheint nur bei Abholung. -->
+      <div class="wahl-block sichtbar" id="zahlweg-block">
+        <span class="wahl-titel" data-en="How do you pay?">Wie bezahlst du?</span>
         <div class="wahl-optionen">
           <label class="wahl-opt">
-            <input type="radio" name="Zahlweg" value="PayPal oder Überweisung (vorab)" data-zahl="vorab" checked>
-            <span class="opt-name" data-en="PayPal / bank transfer">PayPal / Überweisung</span>
-            <span class="opt-sub" data-en="You&#39;ll receive the payment details by e-mail. Shipping after payment is received.">Du bekommst die Zahlungsdaten per Mail. Versand nach Zahlungseingang.</span>
+            <input type="radio" name="Zahlweg" value="Überweisung" data-zahl="ueberweisung" checked>
+            <span class="opt-name" data-en="Bank transfer">Überweisung</span>
+            <span class="opt-sub" data-en="Right after ordering you get my bank details and a QR code for your banking app.">Direkt nach dem Bestellen bekommst du die Kontodaten und einen QR-Code für deine Banking-App.</span>
+          </label>
+          <label class="wahl-opt">
+            <input type="radio" name="Zahlweg" value="PayPal" data-zahl="paypal">
+            <span class="opt-name">PayPal</span>
+            <span class="opt-sub" data-en="Right after ordering, one click takes you to PayPal — the amount is already filled in.">Direkt nach dem Bestellen geht es mit einem Klick zu PayPal, der Betrag ist schon eingetragen.</span>
           </label>
           <label class="wahl-opt" id="zahlweg-bar">
-            <input type="radio" name="Zahlweg" value="Barzahlung bei Abholung" data-zahl="bar">
-            <span class="opt-name" data-en="Cash on pick-up">Barzahlung bei Abholung</span>
-            <span class="opt-sub" data-en="Exact change is nice — but I&#39;ll bring change anyway.">Passend wäre schön — Wechselgeld habe ich aber dabei.</span>
+            <input type="radio" name="Zahlweg" value="Bar bei Übergabe" data-zahl="bar">
+            <span class="opt-name" data-en="Cash on hand-over">Bar bei Übergabe</span>
+            <span class="opt-sub" data-en="Only for pick-up. Exact change is nice — but I&#39;ll bring change anyway.">Nur bei Abholung. Passend wäre schön, Wechselgeld habe ich aber dabei.</span>
           </label>
         </div>
       </div>
 
-      <div class="chips" id="anliegen-chips">
-        <button type="button" class="chip" data-text="Bestellanfrage" data-key="bestellung" data-en="Order request">Bestellanfrage</button>
-        <button type="button" class="chip" data-text="Marktanfrage" data-key="markt" data-en="Market enquiry">Marktanfrage</button>
-        <button type="button" class="chip" data-text="Bildlizenz" data-key="lizenz" data-en="Image licence">Bildlizenz</button>
-        <button type="button" class="chip" data-text="Motivwunsch" data-key="motivwunsch" data-en="Motif wish">Motivwunsch</button>
-        <button type="button" class="chip" data-text="Sonstiges" data-key="sonstiges" data-en="Other">Sonstiges</button>
-      </div>
-
-      <input type="hidden" name="_subject" id="anfrage-subject" value="[Shop-Anfrage] Sonstiges — BG Naturfotografie">
+      <input type="hidden" name="_subject" id="anfrage-subject" value="[BESTELLUNG] — BG Naturfotografie">
 
       <p class="form-pflichthinweis"><abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr> <span data-en="Required fields">Pflichtangaben</span></p>
 
@@ -1189,29 +1229,13 @@
         <input type="email" id="af-email" name="E-Mail" required aria-required="true" autocomplete="email" inputmode="email">
         <p class="feld-fehler" id="af-email-fehler"></p>
       </div>
-      <div data-feld>
-        <label for="af-nachricht"><span data-en="Message">Nachricht</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
-        <textarea id="af-nachricht" name="Nachricht" required aria-required="true" placeholder="z. B. Datum &amp; Ort des Markts, gewünschte Bildlizenz-Nutzung oder das Motiv, das dir fehlt ..." data-en-placeholder="e.g. date &amp; place of the market, intended image licence use, or the motif you&#39;re missing ..."></textarea>
-        <p class="feld-fehler" id="af-nachricht-fehler"></p>
-      </div>
 
-      <!-- ============================================================
-           ADRESSE
-           ============================================================
-           Zwei Zustände, das Script schaltet um:
-
-           a) Unverbindliche Anfrage  -> eingeklappter Aufklapper,
-              alles freiwillig (wie bisher).
-           b) Verbindliche Bestellung + Versand -> aufgeklappt und
-              Pflicht, weil ohne Adresse kein Paket rausgeht.
-
-           Bei Abholung und bei reinen Downloads verschwindet der
-           Block komplett — dann braucht ihn niemand.
-           ============================================================ -->
-      <details class="adress-fold" id="adress-fold">
-        <summary id="adress-summary"><span id="adress-summary-text" data-en="Add delivery address now">Lieferadresse schon mitgeben</span> <span class="optional-tag">optional</span></summary>
+      <!-- ADRESSE — nur bei Versand, dann Pflicht (schaltet das Skript).
+           Bei Abholung verschwindet der Block, dann reichen Name und E-Mail. -->
+      <div class="adress-fold adress-pflicht" id="adress-fold">
+        <p class="adress-titel"><span data-en="Delivery address">Lieferadresse</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></p>
         <div class="fold-body">
-          <p class="adress-note" id="adress-note" data-en="Optional — it only helps me quote the right shipping price straight away instead of asking again. Your request goes out just the same without an address.">Freiwillig — hilft mir nur dabei, dir direkt den richtigen Versandpreis zu nennen, statt noch einmal nachzufragen. Ohne Adresse geht die Anfrage genauso raus.</p>
+          <p class="adress-note" id="adress-note" data-en="Required for shipping. For pick-up, name and e-mail are enough.">Für den Versand nötig. Bei Abholung reichen Name und E-Mail.</p>
           <div data-feld>
             <label for="af-strasse"><span data-en="Street &amp; number">Straße &amp; Hausnummer</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required" data-pflicht-stern hidden>*</abbr></label>
             <input type="text" id="af-strasse" name="Straße und Hausnummer" autocomplete="street-address">
@@ -1235,61 +1259,105 @@
             <p class="feld-fehler" id="af-land-fehler"></p>
           </div>
         </div>
-      </details>
+      </div>
 
-      <!-- Einwilligung. Falls du sie nicht möchtest: diesen ganzen
-           div-Block löschen — die Prüfung unten überspringt ihn dann
-           automatisch, es muss nichts weiter angepasst werden. -->
+      <div data-feld>
+        <label for="af-nachricht"><span data-en="Note (optional)">Anmerkung</span> <span class="optional-tag">optional</span></label>
+        <textarea id="af-nachricht" name="Nachricht" rows="3" placeholder="z. B. „Als Geschenk, bitte ohne Rechnung im Umschlag“" data-en-placeholder="e.g. “It&#39;s a gift, please no invoice in the envelope”"></textarea>
+        <p class="feld-fehler" id="af-nachricht-fehler"></p>
+      </div>
+
       <div class="feld-check" data-feld>
         <input type="checkbox" id="af-datenschutz" name="Datenschutz" value="gelesen und akzeptiert" required aria-required="true">
-        <label for="af-datenschutz"><span data-en="I have read the &lt;a href=&quot;datenschutz.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;privacy policy&lt;/a&gt; and agree that my details will be stored to process this request.">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung dieser Anfrage gespeichert werden.</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
+        <label for="af-datenschutz"><span data-en="I have read the &lt;a href=&quot;datenschutz.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;privacy policy&lt;/a&gt; and agree that my details will be stored to process this order.">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Abwicklung der Bestellung gespeichert werden.</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
       </div>
       <p class="feld-fehler" id="af-datenschutz-fehler"></p>
 
-      <!-- Nur bei verbindlicher Bestellung: AGB und Widerrufsbelehrung
-           müssen vor Vertragsschluss bestätigt werden. Bei der
-           unverbindlichen Anfrage wird dieser Block ausgeblendet UND
-           das required entfernt (macht das Script). -->
-      <div data-wenn="verbindlich" id="agb-check-block">
+      <div class="sichtbar" id="agb-check-block">
         <div class="feld-check" data-feld>
-          <input type="checkbox" id="af-agb" name="AGB und Widerruf" value="gelesen und akzeptiert">
+          <input type="checkbox" id="af-agb" name="AGB und Widerruf" value="gelesen und akzeptiert" required aria-required="true">
           <label for="af-agb"><span data-en="I have read and accept the &lt;a href=&quot;agb.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;terms and cancellation policy&lt;/a&gt;.">Ich habe die <a href="agb.html" target="_blank" rel="noopener">AGB und die Widerrufsbelehrung</a> gelesen und akzeptiere sie.</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
         </div>
         <p class="feld-fehler" id="af-agb-fehler"></p>
       </div>
 
+      <div class="kasse-gesamt" id="kasse-gesamt"></div>
+
       <p class="form-fehler-sammel" id="af-fehler-sammel" role="alert"></p>
 
-      <!-- Beschriftung wechselt je nach Bestellart. Bei einer
-           verbindlichen Bestellung muss auf dem Button unmissver-
-           ständlich stehen, dass sie kostenpflichtig ist (§ 312j
-           Abs. 3 BGB, "Button-Lösung") — deshalb der feste Text
-           "Zahlungspflichtig bestellen". Bitte nicht in etwas
-           Nettes wie "Los geht's" umbenennen. -->
-      <button class="btn btn-fill" type="submit" id="af-submit" style="border:none; cursor:pointer; margin-top:1rem;">Anfrage senden</button>
-      <p class="after-submit-note" id="af-submit-note"><span data-en="Reply usually within 2–3 days">Antwort meist innerhalb von 2–3 Tagen</span> · <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr> <span data-en="Required fields">Pflichtangaben</span></p>
+      <!-- § 312j Abs. 3 BGB ("Button-Lösung"): Der Knopf muss
+           unmissverständlich sagen, dass die Bestellung kostenpflichtig
+           ist. Bitte so lassen. -->
+      <button class="btn btn-fill kasse-knopf" type="submit" id="af-submit" data-en="Order with obligation to pay">Zahlungspflichtig bestellen</button>
+      <p class="after-submit-note" id="af-submit-note"></p>
 
-      <!-- Formspree schickt dem Kunden nur dann eine Bestätigungsmail,
-           wenn ein Feld namens "email" (klein geschrieben) mitkommt.
-           Das Sichtbare heißt "E-Mail" (schöner in deiner Mail), also
-           spiegelt das Script den Wert hierher. -->
       <input type="hidden" name="email" id="af-email-spiegel" value="">
-      <!-- Damit du siehst, in welcher Sprache du antworten solltest -->
       <input type="hidden" name="Sprache" value="Deutsch" data-en-value="English">
-
-      <!-- Ziel nach dem Absenden. ACHTUNG: Formspree wertet dieses
-           Feld auf dem kostenlosen Tarif NICHT aus — dort landet man
-           immer auf der Formspree-Danke-Seite. Deshalb schickt das
-           Script das Formular im Hintergrund ab (fetch) und leitet
-           selbst auf danke.html weiter; siehe formularAbsenden().
-           Das Feld bleibt trotzdem drin: Ohne JavaScript geht das
-           Formular ganz normal ab, und wer irgendwann einen bezahlten
-           Formspree-Tarif hat, bekommt die Weiterleitung dann auch
-           ohne Script. -->
       <input type="hidden" name="_next" id="af-next" value="">
     </form>
   </div>
-</section>
+</dialog>
+
+<!-- ============================================================
+     FRAGE STELLEN (Popup)
+     ============================================================
+     Kleines Kontaktformular für alles außer Bestellungen. Geht an
+     dieselbe Formspree-Adresse; der Betreff beginnt mit
+     [Frage] bzw. dem gewählten Anliegen.
+     ============================================================ -->
+<dialog class="sk-kasse sk-frage" id="sk-frage" aria-labelledby="frage-titel">
+  <div class="sk-kasse-kopf">
+    <h2 id="frage-titel" data-en="Ask a question">Frage stellen</h2>
+    <button type="button" class="sk-zu" data-schliessen aria-label="Schließen" data-en-aria-label="Close">&times;</button>
+  </div>
+  <div class="sk-kasse-inhalt">
+    <form action="https://formspree.io/f/xvzejbje" method="POST" id="frage-form" novalidate>
+      <p class="form-lead" data-en="Market enquiry, image licence, a motif you&#39;re missing or anything else — I usually reply within the next 3 days.">Marktanfrage, Bildlizenz, fehlendes Motiv oder etwas anderes — ich antworte meist innerhalb der nächsten 3 Tage.</p>
+
+      <div class="chips" id="anliegen-chips">
+        <button type="button" class="chip" data-text="Frage" data-key="frage" data-en="Question">Frage</button>
+        <button type="button" class="chip" data-text="Marktanfrage" data-key="markt" data-en="Market enquiry">Marktanfrage</button>
+        <button type="button" class="chip" data-text="Bildlizenz" data-key="lizenz" data-en="Image licence">Bildlizenz</button>
+        <button type="button" class="chip" data-text="Motivwunsch" data-key="motivwunsch" data-en="Motif wish">Motivwunsch</button>
+        <button type="button" class="chip" data-text="Sonstiges" data-key="sonstiges" data-en="Other">Sonstiges</button>
+      </div>
+      <input type="hidden" name="_subject" id="frage-subject" value="[Frage] — BG Naturfotografie">
+
+      <div class="form-feld wunsch-feld" id="wunsch-feld">
+        <label for="af-wunsch"><span data-en="Wish motif to note (optional)">Wunschmotiv vormerken (optional)</span></label>
+        <input type="text" id="af-wunsch" name="Wunschmotiv (vormerken)" list="motiv-namen" autocomplete="off"
+               placeholder="z. B. Graureiher (Postkarte)" data-en-placeholder="e.g. Grey heron (postcard)">
+        <datalist id="motiv-namen"></datalist>
+      </div>
+
+      <div data-feld>
+        <label for="fr-name"><span data-en="Name">Name</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
+        <input type="text" id="fr-name" name="Name" required autocomplete="name">
+        <p class="feld-fehler" id="fr-name-fehler"></p>
+      </div>
+      <div data-feld>
+        <label for="fr-email"><span data-en="Email">E-Mail</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
+        <input type="email" id="fr-email" name="E-Mail" required autocomplete="email" inputmode="email">
+        <p class="feld-fehler" id="fr-email-fehler"></p>
+      </div>
+      <div data-feld>
+        <label for="fr-nachricht"><span data-en="Message">Nachricht</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
+        <textarea id="fr-nachricht" name="Nachricht" required rows="5" placeholder="z. B. Datum &amp; Ort des Markts, gewünschte Bildlizenz-Nutzung oder das Motiv, das dir fehlt ..." data-en-placeholder="e.g. date &amp; place of the market, intended image licence use, or the motif you&#39;re missing ..."></textarea>
+        <p class="feld-fehler" id="fr-nachricht-fehler"></p>
+      </div>
+      <div class="feld-check" data-feld>
+        <input type="checkbox" id="fr-datenschutz" name="Datenschutz" value="gelesen und akzeptiert" required>
+        <label for="fr-datenschutz"><span data-en="I have read the &lt;a href=&quot;datenschutz.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;privacy policy&lt;/a&gt; and agree that my details will be stored to process this request.">Ich habe die <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen und bin einverstanden, dass meine Angaben zur Bearbeitung dieser Anfrage gespeichert werden.</span> <abbr class="pflicht" title="Pflichtangabe" data-en-title="Required">*</abbr></label>
+      </div>
+      <p class="feld-fehler" id="fr-datenschutz-fehler"></p>
+
+      <p class="form-fehler-sammel" id="fr-fehler-sammel" role="alert"></p>
+      <button class="btn btn-fill kasse-knopf" type="submit" id="fr-submit" data-en="Send message">Nachricht senden</button>
+      <input type="hidden" name="email" id="fr-email-spiegel" value="">
+      <input type="hidden" name="Sprache" value="Deutsch" data-en-value="English">
+    </form>
+  </div>
+</dialog>
 
 <!-- ============================================================
      AUSWAHL-LEISTE (unten am Bildschirm)
@@ -1310,7 +1378,7 @@
         <span class="sk-tray-hinweis" id="sk-tray-hinweis"></span>
       </span>
     </button>
-    <a class="btn btn-fill sk-tray-weiter" href="#kontakt-anfrage" id="sk-tray-weiter" data-en="Continue">Weiter</a>
+    <a class="btn btn-fill sk-tray-weiter" href="#kasse" id="sk-tray-weiter" data-kasse-oeffnen data-en="Checkout">Zur Kasse</a>
   </div>
 </div>
 
@@ -1331,7 +1399,7 @@
   <div class="auswahl-summe" id="sk-korb-summe"></div>
   <div class="sk-schublade-fuss">
     <button type="button" class="btn btn-outline" data-schliessen data-en="Keep browsing">Weiter stöbern</button>
-    <a class="btn btn-fill" href="#kontakt-anfrage" id="sk-schublade-weiter" data-en="Continue to request">Weiter zur Anfrage</a>
+    <a class="btn btn-fill" href="#kasse" id="sk-schublade-weiter" data-kasse-oeffnen data-en="Checkout">Zur Kasse</a>
   </div>
 </dialog>
 
@@ -1609,7 +1677,7 @@ BG.bereit(function () {
     return {
       art: artEl ? artEl.getAttribute('data-art') : 'anfrage',
       lieferart: lieferart,
-      zahlweg: zahlEl ? zahlEl.getAttribute('data-zahl') : 'vorab',
+      zahlweg: zahlEl ? zahlEl.getAttribute('data-zahl') : 'ueberweisung',
       hatPhysisches: stueck > 0
     };
   }
@@ -1884,21 +1952,33 @@ BG.bereit(function () {
     document.getElementById('sk-tray-zahl').innerHTML =
       '<b>' + stueck + (stueck === 1 ? BG.t(' Teil', ' item') : BG.t(' Teile', ' items')) + '</b> · ' + euro(warenwert);
 
-    /* Nächste Staffelstufe der größten Gruppe suchen */
+    /* Staffel-Hinweis für das, was zuletzt in den Korb kam: Wer
+       gerade Klappkarten wählt, sieht den Klappkarten-Rabatt, wer
+       Postkarten oder Lesezeichen wählt, den gemeinsamen Rabatt
+       dieser beiden. Gibt es dort keine Stufe mehr, kommt die
+       nächste Gruppe dran, zuletzt der Weg zum kostenlosen Versand. */
     var hinweis = '', anteil = 1;
-    var WORT = {
-      postkarte: [BG.t('Karte', 'card'), BG.t('Karten', 'cards')],
+    var NAME = {
+      postkarte: [BG.t('Postkarte', 'postcard'), BG.t('Postkarten', 'postcards')],
       poster: [BG.t('Poster', 'poster'), BG.t('Poster', 'posters')],
       lesezeichen: [BG.t('Lesezeichen', 'bookmark'), BG.t('Lesezeichen', 'bookmarks')],
       klappkarte: [BG.t('Klappkarte', 'folded card'), BG.t('Klappkarten', 'folded cards')]
     };
-    ['postkarte', 'poster', 'lesezeichen', 'klappkarte'].some(function (typ) {
-      if (staffelTyp(typ) !== typ) { return false; }
+    function gruppenWort(typ, einzahl) {
+      return gruppeVon(typ).filter(function (t) { return NAME[t]; })
+        .map(function (t) { return NAME[t][einzahl ? 0 : 1]; }).join(BG.t(' oder ', ' or '));
+    }
+    var reihenfolge = [];
+    auswahl.slice().reverse().forEach(function (pos) {
+      var st = staffelTyp(pos.typ);
+      if (NAME[pos.typ] && reihenfolge.indexOf(st) === -1) { reihenfolge.push(st); }
+    });
+    reihenfolge.some(function (typ) {
       var menge = staffelMenge(typ);
       if (!menge) { return false; }
       var n = naechsteStufe(typ, menge);
       if (!n) { return false; }
-      var wort = WORT[typ][n.fehlt === 1 ? 0 : 1];
+      var wort = gruppenWort(typ, n.fehlt === 1);
       hinweis = BG.t('Noch ' + n.fehlt + ' ' + wort + ', dann ' + stufeKurz(n.stufe),
                      n.fehlt + ' more ' + wort + ' for ' + stufeKurz(n.stufe));
       anteil = menge / n.stufe.abMenge;
@@ -1929,7 +2009,7 @@ BG.bereit(function () {
      die Auswahl ohnehin vollständig. */
   function badgeBeobachten() {
     var tray = document.getElementById('sk-tray');
-    var ziel = document.getElementById('kontakt-anfrage-section');
+    var ziel = null;   /* Formular steht jetzt im Kassen-Popup, die Leiste bleibt sichtbar */
     if (!ziel || !('IntersectionObserver' in window)) { return; }
     new IntersectionObserver(function (eintraege) {
       tray.classList.toggle('versteckt', eintraege[0].isIntersecting);
@@ -1939,7 +2019,7 @@ BG.bereit(function () {
   /* ---------- Dialoge (Schublade + große Ansicht) ----------
      Klick auf den abgedunkelten Rand oder ein [data-schliessen]
      schließt; Escape erledigt <dialog> von selbst. */
-  ['sk-schublade', 'sk-ansicht'].forEach(function (id) {
+  ['sk-schublade', 'sk-ansicht', 'sk-kasse', 'sk-frage'].forEach(function (id) {
     var dlg = document.getElementById(id);
     dlg.addEventListener('click', function (e) {
       if (e.target === dlg || e.target.closest('[data-schliessen]')) { dlg.close(); }
@@ -1948,10 +2028,7 @@ BG.bereit(function () {
   document.getElementById('sk-tray-oeffnen').addEventListener('click', function () {
     document.getElementById('sk-schublade').showModal();
   });
-  /* "Weiter zur Anfrage" in der Schublade: erst schließen, dann springen */
-  document.getElementById('sk-schublade-weiter').addEventListener('click', function () {
-    document.getElementById('sk-schublade').close();
-  });
+  /* „Zur Kasse“ (Leiste und Schublade) öffnet die Kasse — siehe kasseOeffnen(). */
 
   /* Große Ansicht eines Motivs: Foto + alle Formate mit eigenem "+" */
   var ansichtMotiv = null;
@@ -2155,6 +2232,14 @@ BG.bereit(function () {
     }
   ];
 
+  /* REIHENFOLGE der Formate oben in der Leiste: Lesezeichen zuerst
+     (Bestseller), dann Klappkarten, Postkarten, Poster, Downloads.
+     Zum Umstellen nur diese Liste ändern. */
+  var FORMAT_REIHENFOLGE = ['lesezeichen', 'klappkarte', 'postkarte', 'poster', 'download'];
+  PRODUKTARTEN.sort(function (a, b) {
+    return FORMAT_REIHENFOLGE.indexOf(a.id) - FORMAT_REIHENFOLGE.indexOf(b.id);
+  });
+
   function produktArt(id) {
     for (var i = 0; i < PRODUKTARTEN.length; i++) {
       if (PRODUKTARTEN[i].id === id) { return PRODUKTARTEN[i]; }
@@ -2163,7 +2248,7 @@ BG.bereit(function () {
   }
 
   var shopZustand = {
-    produkt: 'postkarte',
+    produkt: FORMAT_REIHENFOLGE[0],
     serie: 'alle',
     /* Im Shop stehen nur Motive, die gerade vorrätig sind (Stückzahl
        im Admin größer als 0). Andere lassen sich vormerken — siehe
@@ -2508,6 +2593,18 @@ BG.bereit(function () {
     });
     karte.querySelector('.sk-foto-knopf').addEventListener('click', function () { ansichtOeffnen(b); });
 
+    /* Querformat erkennen (nicht bei Lesezeichen, die sind immer hoch) */
+    if (art.id !== 'lesezeichen') {
+      /* Eigenes kleines Probebild statt des Kartenbilds: Das lädt
+         "lazy" erst beim Hinscrollen, dann würde das Raster während
+         des Scrollens umspringen. */
+      var probe = new Image();
+      probe.onload = function () {
+        if (probe.naturalWidth > probe.naturalHeight * 1.1) { karte.classList.add('ist-quer'); }
+      };
+      probe.src = karte.querySelector('.sk-foto img').src;
+    }
+
     aktualisieren();
   }
 
@@ -2713,61 +2810,25 @@ BG.bereit(function () {
     var z = bestellZustand();
     var hatAuswahl = auswahl.length > 0;
 
-    /* --- Bestellart nur zeigen, wenn es etwas zu bestellen gibt --- */
-    var bestellartBlock = document.getElementById('bestellart-block');
-    bestellartBlock.style.display = hatAuswahl ? '' : 'none';
-    /* Leerer Korb -> immer zurück auf "Anfrage", sonst könnte eine
-       verbindliche Bestellung ohne Ware abgeschickt werden. */
-    if (!hatAuswahl) {
-      var anfrageRadio = document.querySelector('input[name="Bestellart"][data-art="anfrage"]');
-      if (anfrageRadio) { anfrageRadio.checked = true; }
-      z = bestellZustand();
-    }
-
     /* --- Lieferart: entfällt bei reinen Downloads --- */
     document.getElementById('lieferart-block').style.display =
       (hatAuswahl && z.hatPhysisches) ? '' : 'none';
 
-    /* --- Blöcke, die nur zur verbindlichen Bestellung gehören --- */
-    document.querySelectorAll('[data-wenn="verbindlich"]').forEach(function (el) {
-      el.classList.toggle('sichtbar', hatAuswahl && z.art === 'verbindlich');
-    });
-
-    /* --- Barzahlung nur bei Abholung anbieten --- */
+    /* --- Barzahlung nur bei Abholung --- */
     var barLabel = document.getElementById('zahlweg-bar');
     var barRadio = barLabel.querySelector('input');
     var barMoeglich = (z.lieferart === 'abholung');
     barLabel.style.display = barMoeglich ? '' : 'none';
-    /* Stand "bar" noch drin, obwohl gerade auf Versand gewechselt
-       wurde? Dann zurück auf Vorkasse — sonst wäre eine unmögliche
-       Kombination gewählt. */
     if (!barMoeglich && barRadio.checked) {
-      document.querySelector('input[name="Zahlweg"][data-zahl="vorab"]').checked = true;
+      document.querySelector('input[name="Zahlweg"][data-zahl="ueberweisung"]').checked = true;
       z = bestellZustand();
     }
 
-    /* --- Adresse: Sichtbarkeit und Pflicht --- */
+    /* --- Adresse: nur bei Versand, dann Pflicht --- */
     var adressFold = document.getElementById('adress-fold');
-    var adressPflicht = (z.art === 'verbindlich' && z.lieferart === 'versand');
-    var adressNoetig = (z.lieferart === 'versand' && z.hatPhysisches && hatAuswahl);
-
-    adressFold.style.display = adressNoetig ? '' : 'none';
-    if (adressPflicht) {
-      adressFold.open = true;
-      adressFold.classList.add('ist-pflicht');
-      document.getElementById('adress-summary').innerHTML =
-        BG.t('Lieferadresse', 'Delivery address') + ' <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr>';
-      document.getElementById('adress-note').textContent =
-        BG.t('Ohne vollständige Adresse kann ich das Paket nicht auf den Weg bringen.', 'Without a complete address I can\'t send the parcel.');
-    } else {
-      adressFold.classList.remove('ist-pflicht');
-      document.getElementById('adress-summary').innerHTML =
-        BG.t('Lieferadresse schon mitgeben', 'Add delivery address now') + ' <span class="optional-tag">optional</span>';
-      document.getElementById('adress-note').textContent =
-        BG.t('Freiwillig — hilft mir nur dabei, dir direkt den richtigen Versandpreis zu nennen, statt noch einmal nachzufragen. Ohne Adresse geht die Anfrage genauso raus.', 'Optional — it only helps me quote the right shipping price straight away instead of asking again. Your request goes out just the same without an address.');
-    }
-
-    /* required an den Adressfeldern setzen bzw. entfernen */
+    var adressPflicht = (z.lieferart === 'versand' && z.hatPhysisches && hatAuswahl);
+    adressFold.style.display = adressPflicht ? '' : 'none';
+    adressFold.open = true;
     ['af-strasse', 'af-plz', 'af-ort', 'af-land'].forEach(function (id) {
       var feld = document.getElementById(id);
       if (adressPflicht) {
@@ -2778,48 +2839,29 @@ BG.bereit(function () {
         feld.removeAttribute('aria-required');
       }
     });
-    /* Die Sternchen an den Adress-Labels mitschalten */
     document.querySelectorAll('[data-pflicht-stern]').forEach(function (stern) {
       stern.hidden = !adressPflicht;
     });
 
-    /* --- AGB-Häkchen nur bei verbindlicher Bestellung Pflicht --- */
-    var agbFeld = document.getElementById('af-agb');
-    if (hatAuswahl && z.art === 'verbindlich') {
-      agbFeld.setAttribute('required', '');
-      agbFeld.setAttribute('aria-required', 'true');
-    } else {
-      agbFeld.removeAttribute('required');
-      agbFeld.removeAttribute('aria-required');
-    }
+    /* --- Gesamtbetrag über dem Knopf und Hinweis darunter --- */
+    var warenwert = warenwertGesamt();
+    var gesamt = warenwert + versandKosten(warenwert, z.lieferart);
+    document.getElementById('kasse-gesamt').innerHTML = hatAuswahl
+      ? '<span>' + BG.t('Gesamt', 'Total') + '</span><b>' + euro(gesamt) + '</b>'
+      : '';
+    document.getElementById('af-submit').disabled = !hatAuswahl;
 
-    /* --- Button, Einleitung und Fußnote --- */
-    var submitBtn = document.getElementById('af-submit');
-    var lead = document.getElementById('form-lead');
     var note = document.getElementById('af-submit-note');
-
-    if (hatAuswahl && z.art === 'verbindlich') {
-      /* Pflichttext nach § 312j BGB — bitte so lassen. */
-      submitBtn.textContent = BG.t('Zahlungspflichtig bestellen', 'Order with obligation to pay');
-      lead.textContent = (z.lieferart === 'abholung')
-        /* Wortwahl passend zu AGB 2.4: Die automatische Mail ist nur
-           eine EINGANGSbestätigung, der Vertrag kommt erst mit deiner
-           Auftragsbestätigung zustande. Bitte so lassen. */
-        ? BG.t('Du bestellst verbindlich zur Abholung in Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; mit meiner Auftragsbestätigung machen wir den Übergabetermin aus.', 'You are placing a binding order for pick-up in Halstenbek. After sending you get an immediate confirmation of receipt; with my order confirmation we will arrange the hand-over.')
-        : BG.t('Du bestellst verbindlich mit Versand aus Halstenbek. Nach dem Absenden bekommst du sofort eine Eingangsbestätigung; meine Auftragsbestätigung mit Zahlungsweg folgt per Mail.', 'You are placing a binding order with shipping from Halstenbek. After sending you get an immediate confirmation of receipt; my order confirmation with payment details follows by e-mail.');
-      note.innerHTML = (z.zahlweg === 'bar')
-        ? BG.t('Bezahlt wird bar bei der Übergabe', 'Payment in cash at hand-over') + ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields')
-        : BG.t('Zahlungsdaten kommen per Mail', 'Payment details follow by e-mail') + ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields');
+    var stern = ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields');
+    if (z.zahlweg === 'bar') {
+      note.innerHTML = BG.t('Bezahlt wird bar bei der Übergabe. Ort und Zeit klären wir per Mail.', 'Payment in cash at hand-over. We arrange place and time by e-mail.') + stern;
+    } else if (z.zahlweg === 'paypal') {
+      note.innerHTML = BG.t('Danach geht es direkt weiter zu PayPal.', 'Next you continue straight to PayPal.') + stern;
     } else {
-      submitBtn.textContent = BG.t('Anfrage senden', 'Send request');
-      lead.textContent = hatAuswahl
-        ? BG.t('Unverbindlich — ich melde mich mit Proforma-Rechnung, Versand- bzw. Abholoption und Zahlungsweg zurück.', 'Non-binding — I will get back to you with a pro-forma invoice, shipping or pick-up option and payment details.')
-        : BG.t('Bestellwunsch, Marktanfrage, Bildlizenz oder fehlendes Motiv — eine kurze Nachricht genügt. Ich melde mich mit Preis, Versand oder Abholung und Zahlungsweg.', 'Order request, market enquiry, image licence or a missing motif — a short message is enough. I will get back to you with price, shipping or pick-up and payment details.');
-      note.innerHTML = BG.t('Antwort meist innerhalb von 2–3 Tagen', 'Reply usually within 2–3 days') + ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields');
+      note.innerHTML = BG.t('Danach siehst du sofort die Kontodaten mit QR-Code.', 'Next you immediately see the bank details with a QR code.') + stern;
     }
 
-    /* Der Versandhinweis in der Lieferart-Kachel zeigt den Preis
-       gleich mit an — spart eine Rückfrage. */
+    /* Versandpreis direkt in der Lieferart-Kachel zeigen */
     var versandSub = document.getElementById('versand-opt-sub');
     if (versandSub && z.hatPhysisches) {
       var stufe = versandStufe();
@@ -2842,134 +2884,75 @@ BG.bereit(function () {
     });
   }
 
-  /* ---------- Anfrageformular: Anliegen-Chips + Subject-Prefix ---------- */
-  function setupAnfrageForm() {
-    var chipsWrap = document.getElementById('anliegen-chips');
-    var subjectEl = document.getElementById('anfrage-subject');
-    var nachrichtEl = document.getElementById('af-nachricht');
-    var wunschEl = document.getElementById('af-wunsch');
+  /* ============================================================
+     TESTMODUS
+     ============================================================
+     Läuft die Seite NICHT auf bg-naturfotografie.de (z. B. in einer
+     Vorschau), wird nichts an Formspree geschickt — man landet
+     direkt auf der Danke-Seite. So kann man gefahrlos durchklicken. */
+  var TESTMODUS = !/(^|\.)bg-naturfotografie\.(de|github\.io)$/.test(window.location.hostname);
+  if (TESTMODUS) {
+    var banner = document.createElement('div');
+    banner.className = 'testbanner';
+    banner.textContent = 'TESTVERSION — Bestellungen und Nachrichten werden hier nicht verschickt.';
+    document.body.insertBefore(banner, document.body.firstChild);
+  }
 
-    /* Motivnamen zum Antippen im Wunschfeld */
-    document.getElementById('motiv-namen').innerHTML = (GALERIE_BILDER || [])
-      .filter(function (b) { return b.imShop !== false; })
-      .map(function (b) { return '<option value="' + escapeHtml(stripHtml(b.beschriftung || b.alt)) + '">'; }).join('');
-
-    /* Betreff: „+ Motivwunsch“ anhängen, solange das Feld gefüllt ist */
-    function wunschImBetreff() {
-      var basis = subjectEl.value.replace(/ \+ Motivwunsch(?= — )/, '');
-      var schonDrin = /\] Motivwunsch /.test(basis);   /* Anliegen ist schon „Motivwunsch“ */
-      subjectEl.value = (wunschEl.value.trim() && !schonDrin) ? basis.replace(' — BG Naturfotografie', ' + Motivwunsch — BG Naturfotografie') : basis;
-      document.getElementById('wunsch-feld').classList.toggle('gefuellt', !!wunschEl.value.trim());
-      /* Nachricht ist Pflicht — bei reinem Wunsch nicht leer lassen */
-      if (wunschEl.value.trim() && !nachrichtEl.value.trim()) {
-        nachrichtEl.value = BG.t('Bitte für mich vormerken: ', 'Please note for me: ') + wunschEl.value.trim();
-      }
-    }
-    wunschEl.addEventListener('input', wunschImBetreff);
-    wunschEl.addEventListener('change', wunschImBetreff);
-
-    /* Links „Wunschmotiv vormerken“: zum Feld springen und es fokussieren */
-    document.addEventListener('click', function (e) {
-      var link = e.target.closest('[data-vormerken-leer]');
-      if (!link) { return; }
-      e.preventDefault();
-      document.getElementById('wunsch-feld').scrollIntoView({ block: 'center' });
-      wunschEl.focus({ preventScroll: true });
+  /* ============================================================
+     PFLICHTFELD-PRÜFUNG (für Kasse und „Frage stellen“)
+     ============================================================
+     Alles mit [required] muss ausgefüllt sein. Meldungen stehen
+     unter dem Feld (<p class="feld-fehler" id="ID-fehler">) und
+     einmal gesammelt über dem Absende-Knopf. */
+  var MELDUNGEN = {
+    name: BG.t('Bitte trag deinen Namen ein.', 'Please enter your name.'),
+    email: BG.t('Bitte trag eine gültige E-Mail-Adresse ein (z. B. name@beispiel.de) — sonst kann ich dir nicht antworten.', 'Please enter a valid email address (e.g. name@example.com) — otherwise I can\'t reply.'),
+    nachricht: BG.t('Bitte schreib kurz, worum es geht.', 'Please write briefly what it\'s about.'),
+    datenschutz: BG.t('Bitte bestätige die Datenschutzerklärung.', 'Please confirm the privacy policy.'),
+    agb: BG.t('Bitte bestätige AGB und Widerrufsbelehrung — ohne das kann ich die Bestellung nicht annehmen.', 'Please confirm the terms and cancellation policy — I can\'t accept the order without it.'),
+    strasse: BG.t('Bitte trag Straße und Hausnummer ein.', 'Please enter street and house number.'),
+    plz: BG.t('Bitte trag die Postleitzahl ein.', 'Please enter the postcode.'),
+    ort: BG.t('Bitte trag den Ort ein.', 'Please enter the town.'),
+    land: BG.t('Bitte trag das Land ein.', 'Please enter the country.')
+  };
+  function meldungFuer(feld) {
+    return MELDUNGEN[feld.id.replace(/^(af|fr)-/, '')] || BG.t('Bitte fülle dieses Feld aus.', 'Please fill in this field.');
+  }
+  function fehlerZeigen(feld, text) {
+    (feld.closest('[data-feld]') || feld.parentNode).classList.add('hat-fehler');
+    feld.setAttribute('aria-invalid', 'true');
+    var meldung = document.getElementById(feld.id + '-fehler');
+    if (meldung) { meldung.textContent = text; meldung.classList.add('sichtbar'); }
+  }
+  function fehlerLoeschen(feld) {
+    (feld.closest('[data-feld]') || feld.parentNode).classList.remove('hat-fehler');
+    feld.removeAttribute('aria-invalid');
+    var meldung = document.getElementById(feld.id + '-fehler');
+    if (meldung) { meldung.textContent = ''; meldung.classList.remove('sichtbar'); }
+  }
+  function feldIstOk(feld) {
+    if (feld.type === 'checkbox') { return feld.checked; }
+    var wert = (feld.value || '').trim();
+    if (!wert) { return false; }
+    if (feld.type === 'email') { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(wert); }
+    return true;
+  }
+  /* Gibt true zurück, wenn alles ausgefüllt ist. */
+  function formularPruefen(form, sammelEl) {
+    var offen = [];
+    form.querySelectorAll('[required]').forEach(function (feld) {
+      if (feldIstOk(feld)) { fehlerLoeschen(feld); } else { fehlerZeigen(feld, meldungFuer(feld)); offen.push(feld); }
     });
-
-    function activate(chip) {
-      chipsWrap.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
-      chip.classList.add('active');
-      subjectEl.value = '[Shop-Anfrage] ' + chip.dataset.text + ' — BG Naturfotografie';
-      // Betreff (für dich) bleibt deutsch, der sichtbare Anfang der
-      // Nachricht folgt der Sprache der Seite
-      var prefix = BG.t('Anliegen: ', 'Topic: ') + chip.textContent.trim() + ' — ';
-      if (!nachrichtEl.value || /^(Anliegen|Topic): .* — $/.test(nachrichtEl.value)) {
-        nachrichtEl.value = prefix;
-      }
-    }
-
-    chipsWrap.querySelectorAll('.chip').forEach(function (chip) {
-      chip.addEventListener('click', function () {
-        activate(chip);
-        wunschImBetreff();   /* „+ Motivwunsch“ im Betreff behalten */
-        nachrichtEl.focus();
-        nachrichtEl.setSelectionRange(nachrichtEl.value.length, nachrichtEl.value.length);
-      });
-    });
-
-    // Vorauswahl über ?anliegen=markt|lizenz|motivwunsch|sonstiges in der URL
-    var params = new URLSearchParams(window.location.search);
-    var vorauswahl = params.get('anliegen');
-    if (vorauswahl) {
-      var match = chipsWrap.querySelector('[data-key="' + vorauswahl + '"]');
-      if (match) { activate(match); }
-    }
-
-    /* ============================================================
-       PFLICHTFELD-PRÜFUNG
-       ============================================================
-       Alles mit Sternchen muss ausgefüllt sein, sonst geht das
-       Formular nicht raus. Die Meldungen stehen direkt unter dem
-       jeweiligen Feld plus einmal gesammelt über dem Absende-Button.
-
-       Neues Pflichtfeld ergänzen: Feld im HTML mit required
-       versehen, ein <p class="feld-fehler" id="ID-fehler"></p>
-       daruntersetzen — mehr ist nicht nötig. */
-    var form = document.getElementById('anfrage-form');
-    var sammelEl = document.getElementById('af-fehler-sammel');
-
-    var MELDUNGEN = {
-      'af-name': BG.t('Bitte trag deinen Namen ein.', 'Please enter your name.'),
-      'af-email': BG.t('Bitte trag eine gültige E-Mail-Adresse ein (z. B. name@beispiel.de) — sonst kann ich dir nicht antworten.', 'Please enter a valid email address (e.g. name@example.com) — otherwise I can\'t reply.'),
-      'af-nachricht': BG.t('Bitte schreib kurz, worum es geht.', 'Please write briefly what it\'s about.'),
-      'af-datenschutz': BG.t('Bitte bestätige die Datenschutzerklärung.', 'Please confirm the privacy policy.'),
-      'af-agb': BG.t('Bitte bestätige AGB und Widerrufsbelehrung — ohne das kann ich die Bestellung nicht annehmen.', 'Please confirm the terms and cancellation policy — I can\'t accept the order without it.'),
-      'af-strasse': BG.t('Bitte trag Straße und Hausnummer ein.', 'Please enter street and house number.'),
-      'af-plz': BG.t('Bitte trag die Postleitzahl ein.', 'Please enter the postcode.'),
-      'af-ort': BG.t('Bitte trag den Ort ein.', 'Please enter the town.'),
-      'af-land': BG.t('Bitte trag das Land ein.', 'Please enter the country.')
-    };
-
-    function fehlerZeigen(feld, text) {
-      var huelle = feld.closest('[data-feld]') || feld.parentNode;
-      huelle.classList.add('hat-fehler');
-      feld.setAttribute('aria-invalid', 'true');
-      var meldung = document.getElementById(feld.id + '-fehler');
-      if (meldung) {
-        meldung.textContent = text;
-        meldung.classList.add('sichtbar');
-      }
-    }
-
-    function fehlerLoeschen(feld) {
-      var huelle = feld.closest('[data-feld]') || feld.parentNode;
-      huelle.classList.remove('hat-fehler');
-      feld.removeAttribute('aria-invalid');
-      var meldung = document.getElementById(feld.id + '-fehler');
-      if (meldung) {
-        meldung.textContent = '';
-        meldung.classList.remove('sichtbar');
-      }
-    }
-
-    function feldIstOk(feld) {
-      if (feld.type === 'checkbox') { return feld.checked; }
-      var wert = (feld.value || '').trim();
-      if (!wert) { return false; }
-      if (feld.type === 'email') { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(wert); }
-      return true;
-    }
-
-    function pflichtfelder() {
-      return Array.prototype.slice.call(form.querySelectorAll('[required]'));
-    }
-
-    /* Fehler verschwinden, sobald jemand das Feld korrigiert.
-       Bewusst auf ALLE Felder gelegt, nicht nur auf die, die beim
-       Laden Pflicht sind: Adresse und AGB werden ja erst später
-       zur Pflicht, wenn jemand auf "verbindlich bestellen"
-       umschaltet — die bräuchten sonst keinen Listener. */
+    if (!offen.length) { sammelEl.classList.remove('sichtbar'); return true; }
+    sammelEl.textContent = (offen.length === 1)
+      ? BG.t('Eine Pflichtangabe fehlt noch — sie ist rot markiert.', 'One required field is still missing — it is marked in red.')
+      : BG.t('Es fehlen noch ' + offen.length + ' Pflichtangaben — sie sind rot markiert.', offen.length + ' required fields are still missing — they are marked in red.');
+    sammelEl.classList.add('sichtbar');
+    offen[0].focus();
+    offen[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return false;
+  }
+  function fehlerBeimTippenLoeschen(form) {
     form.querySelectorAll('input, textarea, select').forEach(function (feld) {
       ['input', 'change', 'blur'].forEach(function (ereignis) {
         feld.addEventListener(ereignis, function () {
@@ -2977,169 +2960,192 @@ BG.bereit(function () {
         });
       });
     });
+  }
+
+  /* ============================================================
+     POPUPS ÖFFNEN: Kasse und „Frage stellen“
+     ============================================================ */
+  var kasseDlg = document.getElementById('sk-kasse');
+  var frageDlg = document.getElementById('sk-frage');
+
+  function kasseOeffnen() {
+    var schublade = document.getElementById('sk-schublade');
+    if (schublade.open) { schublade.close(); }
+    formularAnpassen();
+    renderAuswahlListe();
+    kasseDlg.showModal();
+  }
+
+  function frageOeffnen(anliegen, wunschFokus) {
+    [kasseDlg, document.getElementById('sk-schublade'), document.getElementById('sk-ansicht')].forEach(function (d) {
+      if (d.open) { d.close(); }
+    });
+    if (anliegen) { anliegenWaehlen(anliegen); }
+    frageDlg.showModal();
+    var fokus = document.getElementById(wunschFokus ? 'af-wunsch' : 'fr-name');
+    if (fokus) { fokus.focus(); }
+  }
+
+  document.addEventListener('click', function (e) {
+    var kasseLink = e.target.closest('[data-kasse-oeffnen]');
+    if (kasseLink) { e.preventDefault(); kasseOeffnen(); return; }
+    if (e.target.closest('[data-vormerken-leer]')) { e.preventDefault(); frageOeffnen('motivwunsch', true); return; }
+    if (e.target.closest('[data-frage-oeffnen], a[href="#kontakt-anfrage"]')) { e.preventDefault(); frageOeffnen(); }
+  });
+
+  /* ============================================================
+     FRAGE STELLEN: Anliegen-Chips, Wunschmotiv, Absenden
+     ============================================================ */
+  var chipsWrap = document.getElementById('anliegen-chips');
+  var frageSubject = document.getElementById('frage-subject');
+  var frageNachricht = document.getElementById('fr-nachricht');
+  var wunschEl = document.getElementById('af-wunsch');
+
+  function anliegenWaehlen(key) {
+    var chip = chipsWrap.querySelector('[data-key="' + key + '"]');
+    if (!chip) { return; }
+    chipsWrap.querySelectorAll('.chip').forEach(function (c) { c.classList.remove('active'); });
+    chip.classList.add('active');
+    frageSubject.value = '[' + chip.dataset.text + '] — BG Naturfotografie';
+  }
+  chipsWrap.querySelectorAll('.chip').forEach(function (chip) {
+    chip.addEventListener('click', function () { anliegenWaehlen(chip.dataset.key); frageNachricht.focus(); });
+  });
+
+  /* Motivnamen zum Antippen im Wunschfeld */
+  document.getElementById('motiv-namen').innerHTML = (GALERIE_BILDER || [])
+    .filter(function (b) { return b.imShop !== false; })
+    .map(function (b) { return '<option value="' + escapeHtml(stripHtml(b.beschriftung || b.alt)) + '">'; }).join('');
+
+  /* Ein reiner Motivwunsch braucht keinen langen Text */
+  function wunschUebernehmen() {
+    document.getElementById('wunsch-feld').classList.toggle('gefuellt', !!wunschEl.value.trim());
+    if (wunschEl.value.trim() && !chipsWrap.querySelector('.chip.active')) { anliegenWaehlen('motivwunsch'); }
+  }
+  wunschEl.addEventListener('input', wunschUebernehmen);
+  wunschEl.addEventListener('change', wunschUebernehmen);
+
+  /* Vorauswahl über ?anliegen=markt|lizenz|motivwunsch|sonstiges */
+  var vorauswahl = new URLSearchParams(window.location.search).get('anliegen');
+  if (vorauswahl) { setTimeout(function () { frageOeffnen(vorauswahl); }, 300); }
+
+  var frageForm = document.getElementById('frage-form');
+  var frageSammel = document.getElementById('fr-fehler-sammel');
+  fehlerBeimTippenLoeschen(frageForm);
+  frageForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (wunschEl.value.trim() && !frageNachricht.value.trim()) {
+      frageNachricht.value = BG.t('Bitte für mich vormerken: ', 'Please note for me: ') + wunschEl.value.trim();
+    }
+    if (!formularPruefen(frageForm, frageSammel)) { return; }
+    document.getElementById('fr-email-spiegel').value = document.getElementById('fr-email').value.trim();
+    var basis = window.location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/, '') + 'danke.html';
+    formularAbsenden(frageForm, basis + '?art=anfrage', frageSammel, document.getElementById('fr-submit'));
+  });
+
+  /* ============================================================
+     KASSE: Absenden
+     ============================================================ */
+  function setupAnfrageForm() {
+    var form = document.getElementById('anfrage-form');
+    var sammelEl = document.getElementById('af-fehler-sammel');
+    var nachrichtEl = document.getElementById('af-nachricht');
+    fehlerBeimTippenLoeschen(form);
 
     form.addEventListener('submit', function (e) {
-      var offen = [];
+      e.preventDefault();
+      if (!auswahl.length) { return; }
+      if (!formularPruefen(form, sammelEl)) { return; }
 
-      pflichtfelder().forEach(function (feld) {
-        if (feldIstOk(feld)) {
-          fehlerLoeschen(feld);
-        } else {
-          fehlerZeigen(feld, MELDUNGEN[feld.id] || BG.t('Bitte fülle dieses Feld aus.', 'Please fill in this field.'));
-          offen.push(feld);
-        }
-      });
-
-      if (offen.length) {
-        e.preventDefault();
-        sammelEl.textContent = (offen.length === 1)
-          ? BG.t('Eine Pflichtangabe fehlt noch — sie ist unten rot markiert.', 'One required field is still missing — it is marked in red below.')
-          : BG.t('Es fehlen noch ' + offen.length + ' Pflichtangaben — sie sind rot markiert.', offen.length + ' required fields are still missing — they are marked in red.');
-        sammelEl.classList.add('sichtbar');
-        offen[0].focus();
-        offen[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      }
-
-      sammelEl.classList.remove('sichtbar');
-
-      /* E-Mail in das versteckte Feld spiegeln — davon hängt ab, ob
-         Formspree dem Kunden die Bestätigungsmail schickt. */
       document.getElementById('af-email-spiegel').value = document.getElementById('af-email').value.trim();
 
-      // Falls eine Auswahl besteht, aber noch kein Chip aktiv gewählt
-      // wurde: automatisch "Bestellanfrage" setzen und die
-      // ausgewählten Produkte oben in die Nachricht einfügen.
-      var hatAktivenChip = chipsWrap.querySelector('.chip.active');
-      if (auswahl.length && !hatAktivenChip) {
-        activate(chipsWrap.querySelector('[data-key="bestellung"]'));
-      }
-
       var z = bestellZustand();
+      var liefEl = document.querySelector('input[name="Lieferart"]:checked');
+      var zahlEl = document.querySelector('input[name="Zahlweg"]:checked');
+      var warenwert = warenwertGesamt();
+      var gesamt = warenwert + versandKosten(warenwert, z.lieferart);
 
-      /* Betreff so setzen, dass du im Postfach auf einen Blick
-         siehst, ob etwas verbindlich bestellt wurde oder nur
-         angefragt ist. */
-      if (auswahl.length && z.art === 'verbindlich') {
-        subjectEl.value = '[BESTELLUNG] ' +
-          (z.lieferart === 'abholung' ? 'Abholung' : 'Versand') +
-          ' — BG Naturfotografie';
-      }
+      /* BESTELLNUMMER: BG-0372 usw. = Stunden seit dem 1.11.2026.
+         Steigt also von selbst an, ohne Server. Nur zum Zuordnen der
+         Zahlung (Verwendungszweck) — keine Rechnungsnummer; deine
+         Rechnungen (2026-001 …) schreibst du weiter selbst.
+         Zwei Bestellungen in derselben Stunde bekämen dieselbe
+         Nummer — dann hilft der Name beim Zuordnen. Ab Ende 2027
+         wird die Nummer fünfstellig. */
+      var stunden = Math.floor((Date.now() - Date.UTC(2026, 10, 1)) / 3600000);
+      var nrZahl = String(Math.max(stunden, 0));
+      var nr = 'BG-' + (nrZahl.length < 4 ? ('0000' + nrZahl).slice(-4) : nrZahl);
+      document.getElementById('af-bestellnummer').value = nr;
 
-      if (auswahl.length) {
-        /* Kopfzeile mit den Eckdaten, danach die Positionen.
-           Genau diese Angaben brauchst du für Proforma bzw.
-           Rechnung — deshalb stehen sie gesammelt oben. */
-        var kopf = 'Art: ' + (z.art === 'verbindlich' ? 'VERBINDLICHE BESTELLUNG' : 'Unverbindliche Anfrage') + '\n';
-        if (z.hatPhysisches) {
-          kopf += 'Lieferung: ' + (z.lieferart === 'abholung' ? 'Abholung in Halstenbek' : 'Versand') + '\n';
-        } else {
-          kopf += 'Lieferung: entfällt (nur digitale Downloads)\n';
-        }
-        if (z.art === 'verbindlich') {
-          kopf += 'Zahlweg: ' + (z.zahlweg === 'bar' ? 'bar bei Abholung' : 'PayPal oder Überweisung (vorab)') + '\n';
-        }
+      /* Betreff: im Postfach sofort sichtbar, was zu tun ist */
+      document.getElementById('anfrage-subject').value = '[BESTELLUNG ' + nr + '] ' + euro(gesamt) + ' · ' +
+        (zahlEl ? zahlEl.value : '') + ' · ' + (z.hatPhysisches && liefEl ? liefEl.value : 'Download') + ' — BG Naturfotografie';
 
-        var block = kopf + '\nAusgewählte Produkte:\n' +
-          document.getElementById('auswahl-hidden-field').value + '\n\n';
+      /* Kopf der Mail mit allen Eckdaten, danach die Positionen */
+      var kopf = 'VERBINDLICHE BESTELLUNG ' + nr + '\n' +
+        'Lieferung: ' + (z.hatPhysisches ? (liefEl ? liefEl.value : 'Versand') : 'entfällt (nur Downloads)') + '\n' +
+        'Zahlweg: ' + (zahlEl ? zahlEl.value : '') + '\n' +
+        'Gesamt: ' + gesamt.toFixed(2).replace('.', ',') + ' €\n\n' +
+        'Ausgewählte Produkte:\n' + document.getElementById('auswahl-hidden-field').value + '\n\n';
+      var anmerkung = nachrichtEl.value.indexOf('VERBINDLICHE BESTELLUNG') === 0 ? nachrichtEl.value.split('\n\n').slice(-1)[0] : nachrichtEl.value;
+      nachrichtEl.value = kopf + (anmerkung ? 'Anmerkung: ' + anmerkung : '');
 
-        if (nachrichtEl.value.indexOf('Ausgewählte Produkte:') === -1) {
-          nachrichtEl.value = block + nachrichtEl.value;
-        }
-      }
-
-      var ziel = dankeSeiteVorbereiten(z);
-
-      /* Ab hier übernimmt das Script: Standard-Absenden abbrechen,
-         selbst schicken, danach auf die eigene Danke-Seite.
-         Kann der Browser kein fetch (sehr alt), bleibt es beim
-         normalen Absenden — dann eben mit Formspree-Danke-Seite. */
-      if (window.fetch && ziel) {
-        e.preventDefault();
-        formularAbsenden(form, ziel, sammelEl, document.getElementById('af-submit'));
-      }
+      var ziel = dankeSeiteVorbereiten(z, nr, gesamt);
+      formularAbsenden(form, ziel, sammelEl, document.getElementById('af-submit'));
     });
   }
 
   /* ============================================================
      DANKE-SEITE VORBEREITEN
      ============================================================
-     Formspree leitet nach dem Absenden auf die Adresse im
-     versteckten Feld "_next" weiter. Dort hängen wir eine kurze
-     Zusammenfassung als Parameter an, damit danke.html zeigen
-     kann, was gerade bestellt wurde.
-
-     Warum über die Adresse und nicht über den Browserspeicher:
-     Die Seite kommt bewusst ohne localStorage & Co. aus, damit sie
-     keinen Zustimmungsbanner braucht. Ein Parameter in der Adresse
-     ist kein Speicherzugriff.
-
-     Bewusst NICHT übertragen werden Name, Anschrift und Nachricht —
-     die stünden sonst in der Adresszeile und im Browserverlauf.
-     Die vollständigen Angaben hast du ohnehin in der Mail.
-     ============================================================ */
-  function dankeSeiteVorbereiten(z) {
-    var feld = document.getElementById('af-next');
-    if (!feld) { return; }
-
-    /* Adresse der Danke-Seite im selben Ordner wie diese Seite —
-       funktioniert also auch, wenn die Seite mal woanders liegt. */
+     Die Danke-Seite bekommt über die Adresse, was sie anzeigen
+     soll: Positionen, Summen, Bestellnummer und Zahlweg. Name,
+     Anschrift und Nachricht stehen bewusst NICHT in der Adresse —
+     die hast du in der Mail. Kein localStorage, kein Cookie. */
+  function dankeSeiteVorbereiten(z, nr, gesamt) {
     var basis = window.location.href.split('#')[0].split('?')[0].replace(/[^\/]*$/, '') + 'danke.html';
-
-    /* Gleiche Rechnung wie im Warenkorb (Typsummen, Cent-genau). */
     var warenwert = warenwertGesamt();
     var versand = versandKosten(warenwert, z.lieferart);
-
+    var liefEl = document.querySelector('input[name="Lieferart"]:checked');
     var param = [
-      'art=' + (z.art === 'verbindlich' ? 'bestellung' : 'anfrage'),
+      'art=bestellung',
+      'nr=' + encodeURIComponent(nr),
       'liefer=' + encodeURIComponent(z.hatPhysisches ? z.lieferart : 'digital'),
-      'zahl=' + encodeURIComponent(z.zahlweg || 'vorab'),
+      'zahl=' + encodeURIComponent(z.zahlweg || 'ueberweisung'),
       'ware=' + warenwert.toFixed(2),
-      'versand=' + versand.toFixed(2)
+      'versand=' + versand.toFixed(2),
+      'gesamt=' + gesamt.toFixed(2)
     ];
-
-    /* Positionen kompakt: Menge ~ Motiv ~ Ausführung ~ Zeilensumme,
-       Zeilen mit "|" getrennt. Adressen sollten unter etwa 2000
-       Zeichen bleiben — deshalb wird notfalls gekürzt und die
-       Danke-Seite verweist dann auf die Mail. */
-    var zeilen = auswahl.map(function (pos) {
+    var posText = auswahl.map(function (pos) {
       return [pos.menge, pos.motiv, pos.bezeichnung, zeilenSumme(pos).toFixed(2)].join('~');
-    });
-    var posText = zeilen.join('|');
-    if (auswahl.length && encodeURIComponent(posText).length < 1400) {
+    }).join('|');
+    if (encodeURIComponent(posText).length < 1400) {
       param.push('pos=' + encodeURIComponent(posText));
-    } else if (auswahl.length) {
+    } else {
       param.push('viele=' + auswahl.length);
     }
-
     var ziel = basis + '?' + param.join('&');
-    feld.value = ziel;
+    document.getElementById('af-next').value = ziel;
     return ziel;
   }
 
   /* ============================================================
      ABSENDEN IM HINTERGRUND (fetch) + eigene Weiterleitung
      ============================================================
-     Warum nicht einfach das Formular abschicken? Weil Formspree die
-     eigene Danke-Seite nur in bezahlten Tarifen erlaubt. Auf dem
-     kostenlosen Tarif landet man sonst immer auf deren Seite mit
-     "Das Formular wurde erfolgreich übermittelt".
-
-     Deshalb: Wir schicken dieselben Formulardaten selbst per fetch
-     an Formspree und leiten danach auf danke.html weiter. Mit dem
-     Kopf "Accept: application/json" antwortet Formspree mit einer
-     kurzen JSON-Meldung statt mit einer Seite.
-
-     Geht dabei etwas schief (kein Netz, Formspree gestört, Monats-
-     kontingent voll), wird NICHT weitergeleitet — dann steht die
-     Fehlermeldung direkt über dem Knopf und die Eingaben bleiben
-     erhalten, damit nichts verloren geht.
-     ============================================================ */
+     Formspree erlaubt die eigene Danke-Seite nur in bezahlten
+     Tarifen. Deshalb schicken wir die Daten selbst per fetch und
+     leiten danach auf danke.html weiter. Geht etwas schief, bleibt
+     alles stehen und die Fehlermeldung erscheint über dem Knopf. */
   function formularAbsenden(form, ziel, sammelEl, submitBtn) {
     var knopfText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = BG.t('Wird gesendet …', 'Sending …');
     sammelEl.classList.remove('sichtbar');
+
+    if (TESTMODUS) {
+      setTimeout(function () { window.location.href = ziel + '&test=1'; }, 500);
+      return;
+    }
 
     function fehler(text) {
       submitBtn.disabled = false;
@@ -3158,7 +3164,6 @@ BG.bereit(function () {
         window.location.href = ziel;
         return null;
       }
-      /* Formspree schickt bei Problemen eine Begründung mit. */
       return antwort.json().catch(function () { return null; }).then(function (daten) {
         var grund = (daten && daten.errors && daten.errors.length)
           ? daten.errors.map(function (f) { return f.message; }).join(' ')
@@ -3219,7 +3224,10 @@ BG.bereit(function () {
     }
 
     var bildId = istLesezeichen ? hash.slice('lz-'.length) : hash.slice('motiv-'.length);
-    if (istLesezeichen) { shopProduktSetzen('lesezeichen'); }
+    /* Links "#motiv-…" (Galerie, Geschichten, QR-Codes) zeigen das
+       Motiv wie früher als Postkarte, auch wenn der Shop jetzt mit
+       Lesezeichen startet. */
+    shopProduktSetzen(istLesezeichen ? 'lesezeichen' : 'postkarte');
 
     /* Serienfilter aufheben und so weit nachladen, dass das Motiv
        wirklich im Raster steht. */
