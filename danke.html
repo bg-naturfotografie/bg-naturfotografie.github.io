@@ -139,6 +139,59 @@
 
   .danke-knoepfe{ display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2.4rem; }
 
+  /* JETZT BEZAHLEN */
+  .bezahlen{
+    margin:1.6rem 0; padding:1.4rem; border:1px solid var(--accent);
+    border-radius:var(--radius); background:var(--bg-panel-2);
+  }
+  .bezahlen h2{ margin:0 0 1rem !important; border:0 !important; padding:0 !important; font-size:1.3rem !important; }
+  .bezahlen-raster{ display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1.4rem; align-items:start; }
+  .bezahlen dl{ margin:0; display:grid; grid-template-columns:auto minmax(0,1fr); gap:.55rem 1rem; }
+  .bezahlen dt{ color:var(--text-muted); font-size:.85rem; }
+  .bezahlen dd{ margin:0; font-family:'JetBrains Mono', monospace; font-size:.92rem; color:var(--text-light); word-break:break-word; }
+  .bezahlen dd.betrag-gross{ font-size:1.25rem; color:var(--accent-soft); }
+  .kopieren{
+    margin-left:.5rem; padding:.15rem .55rem; font-size:.72rem; cursor:pointer;
+    background:transparent; color:var(--accent-soft); border:1px solid var(--line); border-radius:3px;
+    font-family:'Work Sans', sans-serif;
+  }
+  .kopieren:hover{ border-color:var(--accent); }
+  .qr-box{ background:#fff; padding:10px; border-radius:4px; width:180px; }
+  .qr-box svg, .qr-box img{ display:block; width:100%; height:auto; }
+  .qr-unter{ font-size:.75rem !important; text-align:center; margin:.5rem 0 0 !important; max-width:180px; }
+  .paypal-knopf{
+    display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+    background:#ffc439; color:#111 !important; font-weight:600; font-size:1.05rem;
+    padding:.9em 1.6em; border-radius:999px; text-decoration:none; margin:.4rem 0 1rem;
+  }
+  .paypal-knopf:hover{ background:#f2b72f; }
+  .spaeter{
+    margin:0 0 1.3rem; padding:1rem 1.1rem; border:1px dashed var(--line-strong, var(--line));
+    border-radius:var(--radius);
+  }
+  .spaeter p{ margin:0 0 .8rem !important; font-size:.9rem !important; }
+  .spaeter p b{ color:var(--text-light); font-weight:500; }
+  .spaeter-knoepfe{ display:flex; flex-wrap:wrap; gap:.6rem; }
+  .spaeter-knopf{
+    cursor:pointer; padding:.6em 1.1em; border-radius:999px; font:inherit; font-size:.88rem; font-weight:500;
+    background:transparent; color:var(--accent-soft); border:1px solid var(--accent);
+  }
+  .spaeter-knopf:hover{ background:rgba(201,124,61,0.15); }
+  .storno{ margin:0 0 1.2rem; }
+  .storno .spaeter-knopf{ display:inline-block; text-decoration:none; }
+  .bezahlen .klein{ font-size:.82rem !important; margin:.8rem 0 0 !important; }
+  .test-hinweis{ background:#b5532a; color:#fff !important; padding:.5rem .8rem; border-radius:3px; font-size:.82rem !important; }
+  @media (max-width:560px){
+    .bezahlen-raster{ grid-template-columns:1fr; }
+    .qr-box{ margin:0 auto; }
+    .qr-unter{ margin:.5rem auto 0 !important; }
+  }
+  @media print{
+    .nav, footer, .danke-knoepfe, .kopieren, .spaeter-knoepfe, .sprunglink, .testbanner{ display:none !important; }
+    body{ background:#fff !important; color:#000 !important; }
+    .danke-wrap{ padding-top:1rem; }
+  }
+
   @media (max-width:520px){
     .danke-kopf{ flex-direction:column; gap:.9rem; }
     .danke-uebersicht{ padding:1rem; }
@@ -177,11 +230,19 @@
     </div>
   </div>
 
+  <!-- JETZT BEZAHLEN — nur bei Bestellung mit Überweisung oder PayPal.
+       Füllt das Skript unten aus (Kontodaten stehen in ZAHLUNG). -->
+  <div class="bezahlen" id="bezahlen" hidden>
+    <h2 id="bezahlen-titel">Jetzt bezahlen</h2>
+    <div id="bezahlen-inhalt"></div>
+  </div>
+
   <!-- Rechtlicher Hinweis, nur bei einer verbindlichen Bestellung -->
   <div class="danke-hinweis" id="danke-vertrag" hidden>
-    <p data-en="&lt;strong&gt;This page and the automatic e-mail are a confirmation of receipt — not yet an acceptance of your order.&lt;/strong&gt; The purchase contract is concluded as soon as I expressly confirm the order by e-mail (order confirmation, usually within 2–3 working days) or hand over or ship the goods."><strong>Diese Seite und die automatische E-Mail sind eine Eingangsbestätigung — noch keine Annahme deiner Bestellung.</strong>
-      Der Kaufvertrag kommt zustande, sobald ich dir die Bestellung ausdrücklich per E-Mail bestätige (Auftragsbestätigung, in der Regel innerhalb von 2–3 Werktagen) oder die Ware übergebe bzw. verschicke.</p>
-    <p data-en="If I do not accept your order within 5 working days, you are no longer bound by it. See the &lt;a href=&quot;agb.html&quot;&gt;terms, section 2.4&lt;/a&gt; (German).">Nehme ich deine Bestellung nicht innerhalb von 5 Werktagen an, bist du nicht mehr daran gebunden. Nachzulesen in den <a href="agb.html">AGB unter Punkt 2.4</a>.</p>
+    <p id="vertrag-text"><strong>Mit den Zahlungsdaten oben nehme ich deine Bestellung an.</strong>
+      Bitte bezahle innerhalb von 7 Tagen. Nach Zahlungseingang bekommst du die Rechnung per E-Mail und deine Bestellung geht auf den Weg.
+      Sollte ein Motiv doch nicht mehr vorrätig sein, melde ich mich sofort.</p>
+    <p data-en="Details in the &lt;a href=&quot;agb.html&quot;&gt;terms, section 2.4&lt;/a&gt; (German).">Nachzulesen in den <a href="agb.html">AGB unter Punkt 2.4</a>.</p>
   </div>
 
   <!-- Bestellübersicht — nur, wenn Parameter in der Adresse stehen -->
@@ -198,12 +259,19 @@
   <ol class="danke-schritte" id="danke-schritte"></ol>
 
   <h2 data-en="If you change your mind">Falls du es dir anders überlegst</h2>
+  <!-- STORNIEREN: Bis zum Versand bzw. zur Übergabe kostenlos per Mail.
+       Der Knopf öffnet das Mailprogramm mit fertigem Text. -->
+  <div class="storno" id="storno" hidden>
+    <p id="storno-text"></p>
+    <a class="spaeter-knopf" id="storno-knopf" href="#">Bestellung stornieren</a>
+  </div>
   <p id="danke-widerruf" data-en="Just write to me — as long as I haven&#39;t confirmed or shipped anything yet, a change is no problem at all.">Schreib mir einfach — solange ich noch nichts bestätigt oder verschickt habe, ist eine Änderung völlig unkompliziert.</p>
 
-  <h2 data-en="No e-mail received?">Keine E-Mail bekommen?</h2>
-  <p data-en="The confirmation is sent immediately. If it hasn&#39;t arrived after a few minutes, please check your spam folder. If it isn&#39;t there either, get in touch via the &lt;a href=&quot;produkte-bestellen.html#kontakt-anfrage&quot;&gt;form in the shop&lt;/a&gt; or directly at &lt;a href=&quot;mailto:impressum.skarvaan@web.de&quot;&gt;impressum.skarvaan@web.de&lt;/a&gt; — then something went wrong with the delivery and I&#39;ll send you everything again.">Die Bestätigung kommt sofort. Taucht sie nach ein paar Minuten nicht auf, schau bitte kurz in den Spam-Ordner. Ist sie auch dort nicht, melde dich über das <a href="produkte-bestellen.html#kontakt-anfrage">Formular im Shop</a> oder direkt per E-Mail an <a href="mailto:impressum.skarvaan@web.de">impressum.skarvaan@web.de</a> — dann ist bei der Zustellung etwas schiefgegangen und ich schicke dir alles noch einmal.</p>
+  <h2 id="keine-mail-titel" hidden data-en="No e-mail received?">Keine E-Mail bekommen?</h2>
+  <p id="keine-mail-text" hidden data-en="The confirmation is sent immediately. If it hasn&#39;t arrived after a few minutes, please check your spam folder. If it isn&#39;t there either, get in touch via the &lt;a href=&quot;produkte-bestellen.html#kontakt-anfrage&quot;&gt;form in the shop&lt;/a&gt; or directly at &lt;a href=&quot;mailto:impressum.skarvaan@web.de&quot;&gt;impressum.skarvaan@web.de&lt;/a&gt; — then something went wrong with the delivery and I&#39;ll send you everything again.">Die Bestätigung kommt sofort. Taucht sie nach ein paar Minuten nicht auf, schau bitte kurz in den Spam-Ordner. Ist sie auch dort nicht, melde dich über das <a href="produkte-bestellen.html#kontakt-anfrage">Formular im Shop</a> oder direkt per E-Mail an <a href="mailto:impressum.skarvaan@web.de">impressum.skarvaan@web.de</a> — dann ist bei der Zustellung etwas schiefgegangen und ich schicke dir alles noch einmal.</p>
 
   <div class="danke-knoepfe">
+    <button type="button" class="btn btn-outline" id="drucken-knopf" hidden style="cursor:pointer;background:transparent;font:inherit;font-weight:500;" data-en="Print / save as PDF">Drucken / als PDF speichern</button>
     <a class="btn btn-fill" href="produkte-bestellen.html" data-en="Back to the shop">Weiter im Shop</a>
     <a class="btn btn-outline" href="geschichten.html" data-en="Read the stories">Geschichten lesen</a>
     <a class="btn btn-outline" href="index.html" data-en="Go to the home page">Zur Startseite</a>
@@ -217,9 +285,35 @@
   </div>
 </footer>
 
+<!-- QR-Code-Erzeuger (MIT-Lizenz, Kazuhiko Arase), liegt auf der
+     eigenen Seite — kein fremder Server, kein Datenabfluss. -->
+<script src="bibliotheken/qrcode-generator-1.4.4.js"></script>
 <script>
 (function () {
   'use strict';
+
+  /* ============================================================
+     ZAHLUNGSDATEN — HIER EINTRAGEN
+     ============================================================
+     Die Werte stehen verschlüsselt da (rückwärts + Base64), damit
+     IBAN und PayPal-Name nicht im Klartext im Quelltext stehen und
+     von Suchmaschinen oder Adress-Sammlern nicht gefunden werden.
+     Sichtbar werden sie erst nach einer Bestellung.
+     Ehrlich: Wer sich sehr bemüht, kann das entschlüsseln — es
+     ist ein Sichtschutz, kein Tresor.
+     Neue Werte erzeugen: Claude fragen (oder in der Browser-
+     Konsole: btoa('DE12...'.split('').reverse().join('')) ).
+     ============================================================ */
+  var ZAHLUNG = {
+    empfaenger: 'ZWlmYXJnb3RvZnJ1dGFOIEdC',          /* PLATZHALTER */
+    iban: 'MDAwMDAwMDAwMDAwMDAwMDAwMDBFRA==',        /* PLATZHALTER */
+    bic: '',
+    paypalMe: 'RU1BTk5JRUQ='                         /* PLATZHALTER */
+  };
+  function entschluesseln(wert) {
+    if (!wert) { return ''; }
+    try { return decodeURIComponent(escape(atob(wert))).split('').reverse().join(''); } catch (e) { return ''; }
+  }
 
   /* ---------- Kleine Helfer ---------- */
 
@@ -287,7 +381,11 @@
   var p = new URLSearchParams(window.location.search);
   var istBestellung = (p.get('art') === 'bestellung');
   var liefer = p.get('liefer') || 'versand';          /* versand | abholung | digital */
-  var barzahlung = (p.get('zahl') === 'bar');
+  var zahlweg = p.get('zahl') || 'ueberweisung';     /* ueberweisung | paypal | bar */
+  var barzahlung = (zahlweg === 'bar');
+  var nr = (p.get('nr') || '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 20);
+  var gesamtParam = parseFloat(p.get('gesamt'));
+  var istTest = (p.get('test') === '1');
   var ware = parseFloat(p.get('ware'));
   var versand = parseFloat(p.get('versand'));
   var posRoh = p.get('pos');
@@ -303,9 +401,22 @@
 
   if (istBestellung) {
     setzeText('danke-titel', T('Bestellung eingegangen', 'Order received'));
-    setzeText('danke-unter', T('Vielen Dank. Deine Bestellung liegt bei mir — die Bestätigung mit allen Angaben ist gerade unterwegs in dein Postfach.',
-      'Thank you. Your order is with me — the confirmation with all the details is on its way to your inbox.'));
+    setzeText('danke-unter', (nr ? T('Bestellnummer ', 'Order number ') + nr + ' · ' : '') +
+      T('Vielen Dank! Speichere oder drucke dir diese Seite — sie ist deine Bestellbestätigung.',
+        'Thank you! Save or print this page — it is your order confirmation.'));
+    document.getElementById('drucken-knopf').hidden = false;
+    /* Formspree schickt im kostenlosen Tarif keine Mail an Kunden —
+       deshalb hier keinen Hinweis auf eine automatische E-Mail. */
+    document.getElementById('keine-mail-titel').hidden = true;
+    document.getElementById('keine-mail-text').hidden = true;
     document.getElementById('danke-vertrag').hidden = false;
+    if (barzahlung) {
+      document.getElementById('vertrag-text').innerHTML = T(
+        '<strong>Deine Bestellung ist bei mir.</strong> Ich melde mich per E-Mail mit einem Vorschlag für Ort und Zeit der Übergabe — damit nehme ich die Bestellung an. Bezahlt wird bar bei der Übergabe, die Rechnung bekommst du dann gleich mit.',
+        '<strong>Your order is with me.</strong> I will e-mail you a suggestion for place and time of the hand-over — that is my acceptance. You pay in cash at the hand-over and get the invoice right there.');
+    } else if (EN) {
+      document.getElementById('vertrag-text').innerHTML = '<strong>With the payment details above I accept your order.</strong> Please pay within 7 days. Once payment arrives, you get the invoice by e-mail and your order is on its way. If a motif turns out to be out of stock, I will let you know straight away.';
+    }
     document.title = T('Bestellung eingegangen | BG Naturfotografie', 'Order received | BG Naturfotografie');
     var titelTag = document.querySelector('title'); if (titelTag) titelTag.removeAttribute('data-en');
   } else if (!ohneAngaben) {
@@ -361,37 +472,249 @@
   var schritte = document.getElementById('danke-schritte');
 
   if (istBestellung) {
-    schritte.appendChild(schritt(T('Bestätigung im Postfach.', 'Confirmation in your inbox.'),
-      T('Du bekommst sofort eine E-Mail mit allem, was du gerade abgeschickt hast.', 'You will immediately get an e-mail with everything you just sent.')));
-
-    if (barzahlung && liefer === 'abholung') {
-      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
-        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und wir machen einen Termin für die Übergabe in Halstenbek aus.', 'Within 2–3 working days I confirm your order and we arrange a time for the hand-over in Halstenbek.')));
-      schritte.appendChild(schritt(T('Bezahlt wird vor Ort.', 'You pay on the spot.'),
-        T('Bar bei der Übergabe. Passend wäre schön, Wechselgeld habe ich aber dabei.', 'Cash at the hand-over. Exact change is nice, but I will bring change.')));
+    if (barzahlung) {
+      schritte.appendChild(schritt(T('Ich melde mich per Mail.', 'I get back to you by e-mail.'),
+        T('Innerhalb der nächsten 3 Tage schreibe ich dir und wir machen Ort und Zeit für die Übergabe in Halstenbek aus.', 'Within the next 3 days I write to you and we arrange place and time for the hand-over in Halstenbek.')));
+      schritte.appendChild(schritt(T('Bezahlt wird bei der Übergabe.', 'You pay at the hand-over.'),
+        T('Bar. Passend wäre schön, Wechselgeld habe ich aber dabei. Die Rechnung bekommst du dann gleich mit.', 'In cash. Exact change is nice, but I will bring change. You get the invoice right there.')));
     } else if (liefer === 'abholung') {
-      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
-        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.', 'Within 2–3 working days I confirm your order and send you the payment details.')));
-      schritte.appendChild(schritt(T('Abholung in Halstenbek.', 'Pick-up in Halstenbek.'),
-        T('Sobald die Zahlung da ist, machen wir einen Termin aus.', 'As soon as the payment has arrived, we arrange a time.')));
+      schritte.appendChild(schritt(T('Bezahlen.', 'Payment.'), T('Wie oben beschrieben, innerhalb von 7 Tagen.', 'As described above, within 7 days.')));
+      schritte.appendChild(schritt(T('Ich melde mich per Mail.', 'I get back to you by e-mail.'),
+        T('Sobald das Geld da ist, bekommst du innerhalb der nächsten 3 Tage die Rechnung und wir machen Ort und Zeit für die Übergabe in Halstenbek aus.', 'As soon as the money arrives, you get the invoice within the next 3 days and we arrange place and time for the hand-over in Halstenbek.')));
     } else if (liefer === 'digital') {
-      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
-        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten.', 'Within 2–3 working days I confirm your order and send you the payment details.')));
+      schritte.appendChild(schritt(T('Bezahlen.', 'Payment.'), T('Wie oben beschrieben.', 'As described above.')));
       schritte.appendChild(schritt(T('Datei per E-Mail.', 'File by e-mail.'),
         T('Nach dem Zahlungseingang bekommst du das Bild zum Herunterladen.', 'Once payment is received, you get the image to download.')));
     } else {
-      schritte.appendChild(schritt(T('Ich melde mich.', 'I get back to you.'),
-        T('Innerhalb von 2–3 Werktagen bestätige ich dir die Bestellung und schicke dir die Zahlungsdaten für PayPal oder Überweisung.', 'Within 2–3 working days I confirm your order and send you the payment details for PayPal or bank transfer.')));
+      schritte.appendChild(schritt(T('Bezahlen.', 'Payment.'), T('Wie oben beschrieben, innerhalb von 7 Tagen.', 'As described above, within 7 days.')));
+      schritte.appendChild(schritt(T('Rechnung per Mail.', 'Invoice by e-mail.'), T('Sobald das Geld da ist, bekommst du innerhalb der nächsten 3 Tage die Rechnung per E-Mail.', 'As soon as the money arrives, you get the invoice by e-mail within the next 3 days.')));
       schritte.appendChild(schritt(T('Verpacken und ab die Post.', 'Packed and posted.'),
-        T('Vorrätige Motive gehen in der Regel innerhalb von 3 Werktagen nach Zahlungseingang von mir aus Halstenbek raus. Wird ein Motiv nachgedruckt, dauert es ein bis zwei Wochen länger — das steht dann in meiner Bestätigung.', 'Motifs in stock usually leave Halstenbek within 3 working days of payment. If a motif is being reprinted, it takes one to two weeks longer — my confirmation will say so.')));
+        T('Vorrätige Motive gehen in der Regel innerhalb der nächsten 3 Tage nach Zahlungseingang von mir aus Halstenbek raus. Wird ein Motiv nachgedruckt, dauert es ein bis zwei Wochen länger — dann melde ich mich vorher.', 'Motifs in stock usually leave Halstenbek within the next 3 days after payment. If a motif is being reprinted, it takes one to two weeks longer — I will let you know beforehand.')));
     }
   } else {
     schritte.appendChild(schritt(T('Eingang bestätigt.', 'Receipt confirmed.'),
-      T('Du bekommst sofort eine E-Mail mit deiner Nachricht — damit du weißt, dass alles angekommen ist.', 'You immediately get an e-mail with your message — so you know everything has arrived.')));
+      T('Deine Nachricht ist bei mir angekommen. Eine automatische Kopie per Mail gibt es nicht, ich antworte persönlich.', 'Your message has reached me. There is no automatic copy by e-mail, I reply personally.')));
     schritte.appendChild(schritt(T('Mein Angebot.', 'My offer.'),
-      T('Innerhalb von 2–3 Werktagen melde ich mich mit Preis, Versand- oder Abholoption und Zahlungsweg.', 'Within 2–3 working days I get back to you with price, shipping or pick-up option and payment details.')));
+      T('Innerhalb der nächsten 3 Tage melde ich mich mit einer Antwort bzw. einem Angebot.', 'Within the next 3 days I get back to you with an answer or an offer.')));
     schritte.appendChild(schritt(T('Du entscheidest.', 'You decide.'),
       T('Erst wenn du zusagst, wird daraus eine Bestellung. Vorher ist nichts verbindlich.', 'Only when you say yes does it become an order. Until then nothing is binding.')));
+  }
+
+  /* ---------- Jetzt bezahlen ---------- */
+
+  var gesamtBetrag = !isNaN(gesamtParam) ? gesamtParam : (isNaN(ware) ? NaN : ware + (isNaN(versand) ? 0 : versand));
+
+  if (istBestellung && !barzahlung && !isNaN(gesamtBetrag) && gesamtBetrag > 0) {
+    /* Zahlungsdaten erst JETZT entschlüsseln — also nur, wenn
+       wirklich eine Bestellung angezeigt wird. */
+    var Z = {
+      empfaenger: entschluesseln(ZAHLUNG.empfaenger),
+      iban: entschluesseln(ZAHLUNG.iban).replace(/\s+/g, '').toUpperCase(),
+      bic: entschluesseln(ZAHLUNG.bic),
+      paypalMe: entschluesseln(ZAHLUNG.paypalMe)
+    };
+    var box = document.getElementById('bezahlen');
+    var inhalt = document.getElementById('bezahlen-inhalt');
+    /* Sind noch keine echten Zahlungsdaten eingetragen (Platzhalter),
+       zeigt die Seite KEINE falschen Daten, sondern verspricht eine
+       Mail mit den Zahlungsdaten. */
+    var platzhalter = !/^[A-Z]{2}\d{2}/.test(Z.iban) || /^DE0+$/.test(Z.iban) || Z.paypalMe === 'DEINNAME';
+    var zweck = nr || 'Bestellung';
+    var istPaypal = (zahlweg === 'paypal');
+    var paypalLink = 'https://www.paypal.com/paypalme/' + encodeURIComponent(Z.paypalMe) + '/' + gesamtBetrag.toFixed(2) + 'EUR';
+    var ibanSchoen = Z.iban.replace(/(.{4})/g, '$1 ').trim();
+    box.hidden = false;
+
+    if (platzhalter && !istTest) {
+      setzeText('bezahlen-titel', T('Zahlungsdaten folgen per Mail', 'Payment details follow by e-mail'));
+      var ph = document.createElement('p');
+      ph.textContent = T('Innerhalb der nächsten 3 Tage schicke ich dir die Zahlungsdaten über ' + euro(gesamtBetrag) + ' per E-Mail. Deine Bestellnummer: ' + zweck + '.',
+        'Within the next 3 days I will send you the payment details for ' + euro(gesamtBetrag) + ' by e-mail. Your order number: ' + zweck + '.');
+      inhalt.appendChild(ph);
+      document.getElementById('vertrag-text').innerHTML = T('<strong>Deine Bestellung ist bei mir.</strong> Mit meiner Mail mit den Zahlungsdaten nehme ich sie an.', '<strong>Your order is with me.</strong> My e-mail with the payment details is my acceptance.');
+    } else {
+    if (istTest) {
+      var th = document.createElement('p');
+      th.className = 'test-hinweis';
+      th.textContent = 'Testversion: Kontodaten und PayPal-Name sind Platzhalter, es wurde nichts verschickt.';
+      inhalt.appendChild(th);
+    }
+
+    /* GiroCode (EPC-QR-Code) einmal bauen — für Anzeige und Bild */
+    var qr = null;
+    if (!istPaypal && window.qrcode) {
+      var epc = ['BCD', '002', '1', 'SCT', Z.bic || '', Z.empfaenger.slice(0, 70), Z.iban,
+        'EUR' + gesamtBetrag.toFixed(2), '', '', zweck.slice(0, 140)].join('\n');
+      qr = qrcode(0, 'M');
+      qrcode.stringToBytes = qrcode.stringToBytesFuncs['UTF-8'];
+      qr.addData(epc, 'Byte');
+      qr.make();
+    }
+
+    /* --- Später bezahlen: speichern, mailen, drucken (ganz oben) --- */
+    var spaeter = document.createElement('div');
+    spaeter.className = 'spaeter';
+    var spaeterText = document.createElement('p');
+    spaeterText.innerHTML = '<b>' + T('Gerade keine Zeit zum Bezahlen?', 'No time to pay right now?') + '</b> ' +
+      T('Speichere dir die Zahlungsdaten und bezahle innerhalb von 7 Tagen. Falls es untergeht, erinnere ich dich einmal per Mail.',
+        'Save the payment details and pay within 7 days. If it slips your mind, I will remind you once by e-mail.');
+    spaeter.appendChild(spaeterText);
+    var knoepfe = document.createElement('div');
+    knoepfe.className = 'spaeter-knoepfe';
+    function knopf(text, fn) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'spaeter-knopf'; b.textContent = text;
+      b.addEventListener('click', fn);
+      knoepfe.appendChild(b);
+      return b;
+    }
+    knopf(T('Als Bild speichern', 'Save as image'), function () { alsBildSpeichern(); });
+    knopf(T('Mir selbst mailen', 'E-mail to myself'), function () {
+      var text = T('Meine Bestellung bei BG Naturfotografie', 'My order from BG Naturfotografie') + '\n\n' +
+        T('Bestellnummer: ', 'Order number: ') + zweck + '\n' +
+        T('Betrag: ', 'Amount: ') + euro(gesamtBetrag) + '\n\n' +
+        (istPaypal
+          ? 'PayPal: ' + paypalLink + '\n' + T('(Bestellnummer bitte ins Nachrichtenfeld)', '(please put the order number in the message field)')
+          : T('Empfänger: ', 'Recipient: ') + Z.empfaenger + '\nIBAN: ' + ibanSchoen + (Z.bic ? '\nBIC: ' + Z.bic : '') + '\n' +
+            T('Verwendungszweck: ', 'Reference: ') + zweck);
+      window.location.href = 'mailto:?subject=' + encodeURIComponent(T('Zahlung Bestellung ', 'Payment order ') + zweck) +
+        '&body=' + encodeURIComponent(text);
+    });
+    knopf(T('Drucken / PDF', 'Print / PDF'), function () { window.print(); });
+    spaeter.appendChild(knoepfe);
+    inhalt.appendChild(spaeter);
+
+    if (istPaypal) {
+      setzeText('bezahlen-titel', T('Jetzt mit PayPal bezahlen', 'Pay now with PayPal'));
+      var pp = document.createElement('a');
+      pp.className = 'paypal-knopf';
+      pp.href = paypalLink;
+      pp.target = '_blank';
+      pp.rel = 'noopener';
+      pp.textContent = T('Mit PayPal bezahlen · ', 'Pay with PayPal · ') + euro(gesamtBetrag);
+      inhalt.appendChild(pp);
+      var ppHinweis = document.createElement('p');
+      ppHinweis.textContent = T('Der Betrag ist schon eingetragen. Schreib bei PayPal bitte deine Bestellnummer ' + zweck + ' in das Nachrichtenfeld, dann kann ich die Zahlung sofort zuordnen.',
+        'The amount is already filled in. Please add your order number ' + zweck + ' in the PayPal message field so I can match the payment straight away.');
+      inhalt.appendChild(ppHinweis);
+    } else {
+      setzeText('bezahlen-titel', T('Jetzt überweisen', 'Pay now by bank transfer'));
+      var raster = document.createElement('div');
+      raster.className = 'bezahlen-raster';
+      var dl = document.createElement('dl');
+      var angabe = function (label, wert, kopierbar, gross) {
+        var dt = document.createElement('dt'); dt.textContent = label;
+        var dd = document.createElement('dd'); dd.textContent = wert;
+        if (gross) { dd.className = 'betrag-gross'; }
+        if (kopierbar && navigator.clipboard) {
+          var k = document.createElement('button');
+          k.type = 'button'; k.className = 'kopieren'; k.textContent = T('kopieren', 'copy');
+          k.addEventListener('click', function () {
+            navigator.clipboard.writeText(kopierbar).then(function () { k.textContent = T('kopiert ✓', 'copied ✓'); });
+          });
+          dd.appendChild(k);
+        }
+        dl.appendChild(dt); dl.appendChild(dd);
+      };
+      angabe(T('Betrag', 'Amount'), euro(gesamtBetrag), gesamtBetrag.toFixed(2).replace('.', ','), true);
+      angabe(T('Empfänger', 'Recipient'), Z.empfaenger, Z.empfaenger);
+      angabe('IBAN', ibanSchoen, Z.iban);
+      if (Z.bic) { angabe('BIC', Z.bic, Z.bic); }
+      angabe(T('Verwendungszweck', 'Reference'), zweck, zweck);
+      raster.appendChild(dl);
+
+      if (qr) {
+        var qrWrap = document.createElement('div');
+        var qrBox = document.createElement('div');
+        qrBox.className = 'qr-box';
+        qrBox.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+        qrWrap.appendChild(qrBox);
+        var qrText = document.createElement('p');
+        qrText.className = 'qr-unter';
+        qrText.textContent = T('Mit der Banking-App scannen (Foto-Überweisung / GiroCode) — alles ist schon ausgefüllt.', 'Scan with your banking app (photo transfer / GiroCode) — everything is filled in.');
+        qrWrap.appendChild(qrText);
+        raster.appendChild(qrWrap);
+      }
+      inhalt.appendChild(raster);
+    }
+
+    var weiterHinweis = document.createElement('p');
+    weiterHinweis.className = 'klein';
+    weiterHinweis.textContent = T('Sobald das Geld da ist, verschicke ich deine Bestellung bzw. melde mich wegen der Übergabe.', 'As soon as the money arrives, I ship your order or get in touch about the hand-over.');
+    inhalt.appendChild(weiterHinweis);
+
+    /* --- Zahlungsdaten als Bild (PNG) zum Speichern --- */
+    var alsBildSpeichern = function () {
+      var W = 900, H = qr ? 1180 : 760;
+      var c = document.createElement('canvas');
+      c.width = W; c.height = H;
+      var g = c.getContext('2d');
+      g.fillStyle = '#ffffff'; g.fillRect(0, 0, W, H);
+      g.fillStyle = '#1b1f17';
+      g.font = 'bold 44px sans-serif';
+      g.fillText('BG Naturfotografie', 60, 100);
+      g.font = '30px sans-serif';
+      g.fillStyle = '#555';
+      g.fillText(T('Zahlungsdaten zu deiner Bestellung', 'Payment details for your order'), 60, 150);
+      var y = 240;
+      function zeileMalen(label, wert, gross) {
+        g.fillStyle = '#777'; g.font = '26px sans-serif'; g.fillText(label, 60, y);
+        g.fillStyle = gross ? '#b5532a' : '#1b1f17'; g.font = (gross ? 'bold 44px' : '34px') + ' monospace';
+        g.fillText(wert, 60, y + 46);
+        y += gross ? 120 : 105;
+      }
+      zeileMalen(T('Betrag', 'Amount'), euro(gesamtBetrag), true);
+      if (istPaypal) {
+        zeileMalen('PayPal', 'paypal.me/' + Z.paypalMe);
+        zeileMalen(T('Nachricht bei PayPal', 'PayPal message'), zweck);
+      } else {
+        zeileMalen(T('Empfänger', 'Recipient'), Z.empfaenger);
+        zeileMalen('IBAN', ibanSchoen);
+        if (Z.bic) { zeileMalen('BIC', Z.bic); }
+        zeileMalen(T('Verwendungszweck', 'Reference'), zweck);
+      }
+      if (qr) {
+        var n = qr.getModuleCount(), groesse = 360, zelle = groesse / n, x0 = (W - groesse) / 2;
+        g.fillStyle = '#000';
+        for (var r = 0; r < n; r++) {
+          for (var s = 0; s < n; s++) {
+            if (qr.isDark(r, s)) { g.fillRect(x0 + s * zelle, y + r * zelle, Math.ceil(zelle), Math.ceil(zelle)); }
+          }
+        }
+        g.fillStyle = '#777'; g.font = '24px sans-serif'; g.textAlign = 'center';
+        g.fillText(T('Mit der Banking-App scannen', 'Scan with your banking app'), W / 2, y + groesse + 40);
+        g.textAlign = 'left';
+      }
+      var a = document.createElement('a');
+      a.download = 'Zahlung-' + zweck + '.png';
+      a.href = c.toDataURL('image/png');
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    };
+    }
+  }
+
+  /* Nach dem Bestellen oben anfangen (Zahlungsdaten zuerst) */
+  if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+  window.scrollTo(0, 0);
+  window.addEventListener('load', function () { window.scrollTo(0, 0); });
+
+  document.getElementById('drucken-knopf').addEventListener('click', function () { window.print(); });
+
+  /* ---------- Stornieren ---------- */
+
+  if (istBestellung) {
+    var stornoNr = nr || T('meine Bestellung', 'my order');
+    document.getElementById('storno').hidden = false;
+    document.getElementById('storno-text').textContent = T(
+      'Du kannst deine Bestellung kostenlos stornieren, solange ich sie noch nicht verschickt oder übergeben habe. Ein Klick auf den Knopf öffnet dein Mailprogramm mit fertigem Text. Hast du schon bezahlt, bekommst du das Geld vollständig zurück.',
+      'You can cancel your order free of charge as long as I have not shipped or handed it over yet. The button opens your e-mail program with a ready-made text. If you have already paid, you get the full amount back.');
+    var sk = document.getElementById('storno-knopf');
+    sk.textContent = T('Bestellung stornieren', 'Cancel order');
+    sk.href = 'mailto:impressum.skarvaan@web.de?subject=' + encodeURIComponent('Stornierung ' + stornoNr) +
+      '&body=' + encodeURIComponent(T('Hallo Bene,\n\nbitte storniere meine Bestellung ' + stornoNr + '.\n\nName: \n\nDanke!',
+                                       'Hello Bene,\n\nplease cancel my order ' + stornoNr + '.\n\nName: \n\nThank you!'));
   }
 
   /* ---------- Widerruf ---------- */
