@@ -40,6 +40,16 @@ const MAX_GESAMT = 500;          // Bestellungen darüber: keine Automatik
 const MAX_POSITIONEN = 40;
 
 export default {
+  /* WACHHALTEN: Brevo-Schlüssel verfallen nach 90 Tagen ohne Nutzung.
+     Ein wöchentlicher Zeitplan (Cron Trigger, siehe Anleitung) ruft
+     hier kurz die Kontoinfo ab, dann bleibt der Schlüssel aktiv.
+     Braucht beim Schlüssel die Berechtigung „Konto: Lesen“. */
+  async scheduled(event, env) {
+    await fetch('https://api.brevo.com/v3/account', {
+      headers: { 'api-key': env.BREVO_API_KEY || '', 'Accept': 'application/json' },
+    }).catch(() => null);
+  },
+
   async fetch(request, env) {
     const erlaubt = (env.ERLAUBTE_SEITE || 'https://bg-naturfotografie.de').replace(/\/$/, '');
     const origin = request.headers.get('Origin') || '';

@@ -29,7 +29,10 @@ Solange die Einrichtung nicht fertig ist, läuft der Shop genau wie jetzt. Es ge
 3. In einem zweiten Tab bei deinem **Domain-Anbieter** die **DNS-Einstellungen** von `bg-naturfotografie.de` öffnen und jeden Eintrag genau so anlegen, wie Brevo ihn zeigt (Typ, Name, Wert). **Bestehende Einträge nicht löschen**, vor allem nicht die für GitHub Pages.
    - Zurück bei Brevo **Verify** klicken. Das kann bis zu ein paar Stunden dauern, dann einfach später noch mal klicken.
 4. **Absender anlegen:** **Senders** → **Add a sender** → Name `BG Naturfotografie`, E-Mail `shop@bg-naturfotografie.de`. Ein Postfach brauchst du dafür nicht: Antworten der Kunden gehen an deine normale Adresse (Teil C).
-5. **API-Schlüssel holen:** oben rechts → **SMTP & API** → Reiter **API Keys** → **Generate a new API key** → Name `bestellmail` → kopieren und kurz in einer Notiz-App zwischenspeichern. Er wird nur einmal angezeigt.
+5. **API-Schlüssel holen:** oben rechts → **SMTP & API** → Reiter **API Keys** → **Generate a new API key** → Name `bestellmail`.
+   - Zugriff: **Eingeschränkt**. Berechtigungen: **Transaktions-E-Mails: Alle**, **Konto: Lesen**, alles andere **Keine**.
+   - Ablauf: den längsten Zeitraum wählen und das Ablaufdatum im Kalender notieren (dann neuen Schlüssel erzeugen und in Schritt 12 austauschen).
+   - Kopieren und kurz in einer Notiz-App zwischenspeichern. Er wird nur einmal angezeigt. Nicht per Chat oder Mail weitergeben.
 6. **Auftragsverarbeitung (DSGVO):** Brevo stellt den AV-Vertrag in den Kontoeinstellungen bereit (meist unter *Settings → Security / Legal* oder als Häkchen bei der Anmeldung). Einmal annehmen bzw. als PDF speichern und zu deinen Unterlagen legen.
 
 ## Teil B: Turnstile (unsichtbarer Spam-Schutz)
@@ -68,6 +71,8 @@ So wie beim Admin-Login, nur mit anderem Code:
 | `ERLAUBTE_SEITE` | Text | `https://bg-naturfotografie.de` |
 
 → **Deploy** bzw. speichern. Die IBAN steht damit nur noch bei Cloudflare und nicht in der Mail-Logik der Website.
+
+12b. **Wachhalten einschalten:** Brevo-Schlüssel verfallen nach 90 Tagen ohne Nutzung. Damit das bei wenigen Bestellungen nicht passiert: im Worker **Settings** → **Trigger Events** (bzw. **Triggers** → **Cron Triggers**) → **Add** → **Cron expression** `0 6 * * 1` (jeden Montag früh) → speichern. Der Worker fragt dann einmal pro Woche kurz bei Brevo nach, mehr nicht.
 
 ## Teil D: Den Shop einschalten
 
