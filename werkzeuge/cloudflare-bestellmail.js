@@ -11,6 +11,8 @@
        3. schickt dir eine unsichtbare Kopie (BCC),
        4. meldet dem Shop „verschickt“ oder „fehlgeschlagen“. Das
           steht dann in deiner Formspree-Bestellmail.
+   Außerdem (seit Nov. 2026): Widerrufe von der Seite widerruf.html
+   bekommen sofort eine Eingangsbestätigung (Pflicht nach § 356a BGB).
    Die Bestellung selbst geht wie bisher über Formspree an dich.
    Fällt dieser Dienst aus, geht also keine Bestellung verloren,
    nur die Kundenmail fehlt (und deine Bestellmail sagt dir das).
@@ -81,6 +83,11 @@ export default {
     const ts = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', { method: 'POST', body: pruefung })
       .then(r => r.json()).catch(() => ({ success: false }));
     if (!ts.success) return antwort(403, { ok: false, grund: 'Spam-Schutz' });
+
+    /* ---------- WIDERRUF (Seite widerruf.html, § 356a BGB) ----------
+       Schickt dem Kunden sofort eine Eingangsbestätigung mit Inhalt,
+       Datum und Uhrzeit, und dir eine Kopie (BCC). */
+    if (d.typ === 'widerruf') return widerrufBestaetigen(d, env, antwort);
 
     /* ---------- 2. Eingaben prüfen und säubern ---------- */
     const sauber = (s, max) => String(s == null ? '' : s)
@@ -211,3 +218,73 @@ export default {
     return antwort(200, { ok: true, id: info.messageId || '' });
   },
 };
+
+/* ============================================================
+   WIDERRUF: Eingangsbestätigung
+   Der Text sagt bewusst nur „eingegangen“, nicht „wirksam“.
+   ============================================================ */
+async function widerrufBestaetigen(d, env, antwort) {
+  const sauber = (s, max) => String(s == null ? '' : s)
+    .replace(/https?:\/\/\S+|www\.\S+/gi, '')
+    .replace(/[<>]/g, '')
+    .replace(/\s+/g, ' ').trim().slice(0, max);
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const email = String(d.email || '').trim().slice(0, 120);
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return antwort(400, { ok: false, grund: 'E-Mail' });
+  const name = sauber(d.name, 80);
+  const bestellung = sauber(d.bestellung, 80);
+  const teil = sauber(d.teil, 300);
+  if (!name || !bestellung) return antwort(400, { ok: false, grund: 'Angaben fehlen' });
+  const en = d.sprache === 'en';
+  const T = (de, eng) => (en ? eng : de);
+
+  const zeit = new Date().toLocaleString('de-DE', {
+    timeZone: 'Europe/Berlin', day: '2-digit', month: '2-digit', year: 'numeric',
+    hour: '2-digit', minute: '2-digit',
+  }) + ' Uhr';
+
+  const zeilen = [
+    [T('Eingang', 'Received'), zeit],
+    ['Name', name],
+    [T('Bestellung', 'Order'), bestellung],
+    [T('Umfang', 'Scope'), teil ? T('nur: ', 'only: ') + teil : T('ganze Bestellung', 'whole order')],
+    [T('Erklärung', 'Statement'), T('Hiermit widerrufe ich den oben genannten Vertrag.', 'I hereby withdraw from the contract named above.')],
+  ];
+  const weiter = T(
+    'Zurückschicken musst du nichts, die Ware darfst du behalten. Ist der Widerruf wirksam, bekommst du dein Geld innerhalb von 14 Tagen auf demselben Weg zurück, auf dem du bezahlt hast. Ich melde mich dazu noch persönlich.',
+    'You do not need to send anything back, you may keep the goods. If the withdrawal is valid, you will get your money back within 14 days via the same payment method. I will also get in touch personally.');
+
+  const text = T('Hallo ', 'Hello ') + name + ',\n\n' +
+    T('hiermit bestätige ich den Eingang deines Widerrufs:', 'this confirms receipt of your withdrawal:') + '\n\n' +
+    zeilen.map(z => z[0] + ': ' + z[1]).join('\n') + '\n\n' + weiter + '\n\n' +
+    T('Herzliche Grüße', 'Kind regards') + '\nBenedict Gertz · BG Naturfotografie\nhttps://bg-naturfotografie.de';
+  const html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#222;max-width:560px">' +
+    '<p>' + T('Hallo ', 'Hello ') + esc(name) + ',</p>' +
+    '<p>' + T('hiermit bestätige ich den Eingang deines Widerrufs:', 'this confirms receipt of your withdrawal:') + '</p>' +
+    '<table cellpadding="4" style="border-collapse:collapse">' +
+    zeilen.map(z => '<tr><td style="color:#555;vertical-align:top">' + esc(z[0]) + '</td><td><strong>' + esc(z[1]) + '</strong></td></tr>').join('') +
+    '</table><p>' + esc(weiter) + '</p>' +
+    '<p>' + T('Herzliche Grüße', 'Kind regards') + '<br>Benedict Gertz · BG Naturfotografie<br><a href="https://bg-naturfotografie.de">bg-naturfotografie.de</a></p></div>';
+
+  const mail = {
+    sender: { name: 'BG Naturfotografie', email: env.ABSENDER },
+    to: [{ email, name }],
+    replyTo: { email: env.ANTWORT_AN || env.ABSENDER, name: 'Benedict Gertz' },
+    subject: T('Eingangsbestätigung deines Widerrufs (' + bestellung + ')', 'Confirmation of receipt of your withdrawal (' + bestellung + ')'),
+    textContent: text,
+    htmlContent: html,
+    tags: ['widerruf'],
+  };
+  if (env.KOPIE_AN) mail.bcc = [{ email: env.KOPIE_AN }];
+
+  const brevo = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': env.BREVO_API_KEY || '', 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(mail),
+  }).catch(() => null);
+  if (!brevo || !brevo.ok) {
+    const fehler = brevo ? (await brevo.text()).slice(0, 200) : 'keine Verbindung';
+    return antwort(502, { ok: false, grund: 'Brevo: ' + fehler });
+  }
+  return antwort(200, { ok: true, zeit });
+}

@@ -1153,6 +1153,14 @@ footer{
 footer .wrap{display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;}
 footer a{color:var(--text-muted);}
 footer a:hover{color:var(--accent-soft);}
+/* Widerrufsbutton (Pflicht seit 19.06.2026, § 356a BGB):
+   auf jeder Seite gut sichtbar, deshalb als umrahmter Knopf. */
+footer a.widerruf-knopf{
+  display:inline-block; padding:.25rem .6rem; margin-left:.2rem;
+  border:1px solid var(--line-strong); border-radius:var(--radius);
+  color:var(--text-light); text-decoration:none; white-space:nowrap;
+}
+footer a.widerruf-knopf:hover, footer a.widerruf-knopf:focus-visible{border-color:var(--accent-soft); color:var(--accent-soft);}
 
 
 /* ============================================================
