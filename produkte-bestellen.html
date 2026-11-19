@@ -1166,6 +1166,9 @@
       </div>
       <input type="hidden" name="Ausgewählte Produkte" id="auswahl-hidden-field" value="">
       <input type="hidden" name="Bestellnummer" id="af-bestellnummer" value="">
+      <!-- Ergebnis der automatischen Kundenmail (siehe BESTELLMAIL unten).
+           Steht in deiner Formspree-Mail als „Kundenmail: …“. -->
+      <input type="hidden" name="Kundenmail" id="af-kundenmail" value="aus (nicht eingerichtet)">
 
       <!-- In der Kasse wird immer verbindlich bestellt. Die Schalter
            bleiben (unsichtbar) drin, weil das Skript sie abfragt. -->
@@ -1282,6 +1285,11 @@
       </div>
 
       <div class="kasse-gesamt" id="kasse-gesamt"></div>
+
+      <!-- Spam-Schutz (Cloudflare Turnstile) — erscheint nur, wenn die
+           automatische Bestellmail eingerichtet ist, und ist meist
+           unsichtbar. -->
+      <div id="af-turnstile" style="margin:.6rem 0"></div>
 
       <p class="form-fehler-sammel" id="af-fehler-sammel" role="alert"></p>
 
@@ -2892,6 +2900,21 @@ BG.bereit(function () {
      Vorschau), wird nichts an Formspree geschickt — man landet
      direkt auf der Danke-Seite. So kann man gefahrlos durchklicken. */
   var TESTMODUS = !/(^|\.)bg-naturfotografie\.(de|github\.io)$/.test(window.location.hostname);
+
+  /* ============================================================
+     BESTELLMAIL — HIER EINTRAGEN (Anleitung: ANLEITUNG-BESTELLMAIL.md)
+     ============================================================
+     Beide leer = aus. Dann läuft alles wie bisher, nur ohne Mail an
+     den Kunden. Eingetragen = nach jeder Bestellung bekommt der
+     Kunde automatisch eine Mail mit Zahlungsdaten und AGB-PDF, und
+     du eine Kopie.
+       BESTELLMAIL_URL   Adresse deines Cloudflare Workers
+                         z. B. 'https://bestellmail.DEINNAME.workers.dev'
+       TURNSTILE_SITEKEY „Site Key“ von Cloudflare Turnstile
+                         (der öffentliche, NICHT der geheime) */
+  var BESTELLMAIL_URL = '';
+  var TURNSTILE_SITEKEY = '';
+  var BESTELLMAIL_AN = !!(BESTELLMAIL_URL && TURNSTILE_SITEKEY);
   if (TESTMODUS) {
     var banner = document.createElement('div');
     banner.className = 'testbanner';
@@ -2975,6 +2998,59 @@ BG.bereit(function () {
     formularAnpassen();
     renderAuswahlListe();
     kasseDlg.showModal();
+    turnstileLaden();
+  }
+
+  /* Spam-Schutz erst laden, wenn jemand wirklich zur Kasse geht —
+     beim normalen Stöbern wird nichts von Cloudflare geladen. */
+  var turnstileId = null;
+  function turnstileLaden() {
+    if (!BESTELLMAIL_AN || TESTMODUS || turnstileId !== null) { return; }
+    turnstileId = 'laedt';
+    window.bgTurnstileBereit = function () {
+      turnstileId = window.turnstile.render('#af-turnstile', {
+        sitekey: TURNSTILE_SITEKEY,
+        appearance: 'interaction-only',
+        language: BG.sprache === 'en' ? 'en' : 'de'
+      });
+    };
+    var sk = document.createElement('script');
+    sk.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=bgTurnstileBereit&render=explicit';
+    sk.async = true;
+    document.head.appendChild(sk);
+  }
+
+  /* Kundenmail über den Worker. Liefert immer ein Ergebnis (nie
+     einen Fehler), damit die Bestellung bei Formspree auf jeden
+     Fall ankommt. Wartet höchstens 10 Sekunden. */
+  var kundenmailErgebnis = {};   /* je Bestellnummer: nicht doppelt mailen, wenn Formspree hakt und man nochmal klickt */
+  function kundenmailSenden(daten) {
+    if (!BESTELLMAIL_AN || TESTMODUS) { return Promise.resolve({ ok: false, text: 'aus (nicht eingerichtet)' }); }
+    if (kundenmailErgebnis[daten.nr] && kundenmailErgebnis[daten.nr].ok) { return Promise.resolve(kundenmailErgebnis[daten.nr]); }
+    var token = (window.turnstile && turnstileId && turnstileId !== 'laedt') ? window.turnstile.getResponse(turnstileId) : '';
+    daten.turnstile = token || '';
+    var abbruch = new Promise(function (fertig) {
+      setTimeout(function () { fertig({ ok: false, text: 'FEHLGESCHLAGEN (keine Antwort) — bitte selbst schreiben' }); }, 10000);
+    });
+    var senden = fetch(BESTELLMAIL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(daten)
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (j) {
+        return j && j.ok
+          ? { ok: true, text: 'verschickt (Kopie in deinem Postfach, Zustellung im Brevo-Protokoll)' }
+          : { ok: false, text: 'FEHLGESCHLAGEN (' + ((j && j.grund) || r.status) + ') — bitte selbst schreiben' };
+      });
+    }).catch(function () {
+      return { ok: false, text: 'FEHLGESCHLAGEN (keine Verbindung) — bitte selbst schreiben' };
+    });
+    return Promise.race([senden, abbruch]).then(function (erg) {
+      kundenmailErgebnis[daten.nr] = erg;
+      /* Turnstile-Zeichen gilt nur einmal: für einen zweiten Versuch neu holen */
+      if (!erg.ok && window.turnstile && turnstileId && turnstileId !== 'laedt') { window.turnstile.reset(turnstileId); }
+      return erg;
+    });
   }
 
   function frageOeffnen(anliegen, wunschFokus) {
@@ -3103,7 +3179,31 @@ BG.bereit(function () {
       nachrichtEl.value = kopf + (anmerkung ? 'Anmerkung: ' + anmerkung : '');
 
       var ziel = dankeSeiteVorbereiten(z, nr, gesamt);
-      formularAbsenden(form, ziel, sammelEl, document.getElementById('af-submit'));
+      var submitBtn = document.getElementById('af-submit');
+      if (!BESTELLMAIL_AN || TESTMODUS) {
+        formularAbsenden(form, ziel, sammelEl, submitBtn);
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = BG.t('Wird gesendet …', 'Sending …');
+      var warenwertMail = warenwertGesamt();
+      kundenmailSenden({
+        nr: nr,
+        name: document.getElementById('af-name').value.trim(),
+        email: document.getElementById('af-email').value.trim(),
+        lieferart: z.hatPhysisches ? (liefEl ? liefEl.value : 'Versand') : 'Download',
+        zahlweg: z.zahlweg || 'ueberweisung',
+        versand: versandKosten(warenwertMail, z.lieferart),
+        sprache: BG.sprache === 'en' ? 'en' : 'de',
+        positionen: auswahl.map(function (pos) {
+          return { menge: pos.menge, text: [pos.motiv, pos.bezeichnung].filter(Boolean).join(' · '), summe: zeilenSumme(pos) };
+        })
+      }).then(function (erg) {
+        document.getElementById('af-kundenmail').value = erg.text;
+        submitBtn.disabled = false;
+        submitBtn.textContent = BG.t('Zahlungspflichtig bestellen', 'Order with obligation to pay');
+        formularAbsenden(form, erg.ok ? ziel + '&mail=1' : ziel, sammelEl, submitBtn);
+      });
     });
   }
 

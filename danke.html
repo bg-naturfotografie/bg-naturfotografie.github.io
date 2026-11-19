@@ -407,10 +407,17 @@
       T('Vielen Dank! Speichere oder drucke dir diese Seite — sie ist deine Bestellbestätigung.',
         'Thank you! Save or print this page — it is your order confirmation.'));
     document.getElementById('drucken-knopf').hidden = false;
-    /* Formspree schickt im kostenlosen Tarif keine Mail an Kunden —
-       deshalb hier keinen Hinweis auf eine automatische E-Mail. */
-    document.getElementById('keine-mail-titel').hidden = true;
-    document.getElementById('keine-mail-text').hidden = true;
+    /* mail=1 kommt nur, wenn der Bestellmail-Dienst (Cloudflare
+       Worker + Brevo) die Mail wirklich verschickt hat. Sonst gibt
+       es keinen Hinweis auf eine automatische E-Mail. */
+    var mailRaus = (p.get('mail') === '1');
+    if (mailRaus) {
+      setzeText('danke-unter', (nr ? T('Bestellnummer ', 'Order number ') + nr + ' · ' : '') +
+        T('Vielen Dank! Alles Wichtige, auch die Zahlungsdaten und meine AGB, kommt gleich per E-Mail zu dir.',
+          'Thank you! Everything important, including payment details and my terms, is on its way to you by e-mail.'));
+    }
+    document.getElementById('keine-mail-titel').hidden = !mailRaus;
+    document.getElementById('keine-mail-text').hidden = !mailRaus;
     document.getElementById('danke-vertrag').hidden = false;
     if (barzahlung) {
       document.getElementById('vertrag-text').innerHTML = T(
