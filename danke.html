@@ -383,7 +383,8 @@
   var istBestellung = (p.get('art') === 'bestellung');
   var istStorno = (p.get('art') === 'storno');
   var liefer = p.get('liefer') || 'versand';          /* versand | abholung | digital */
-  var zahlweg = p.get('zahl') || 'ueberweisung';     /* ueberweisung | paypal | bar */
+  var zahlweg = p.get('zahl') || 'ueberweisung';     /* ueberweisung | bar (PayPal seit 19.11.2026 abgeschaltet) */
+  if (zahlweg === 'paypal') { zahlweg = 'ueberweisung'; }
   var barzahlung = (zahlweg === 'bar');
   var nr = (p.get('nr') || '').replace(/[^A-Za-z0-9-]/g, '').slice(0, 20);
   var gesamtParam = parseFloat(p.get('gesamt'));

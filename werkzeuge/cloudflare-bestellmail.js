@@ -99,7 +99,7 @@ export default {
     const name = sauber(d.name, 80) || 'Kundin/Kunde';
     const nr = String(d.nr || '');
     if (!/^BG-\d{4,6}$/.test(nr)) return antwort(400, { ok: false, grund: 'Bestellnummer' });
-    const zahlweg = ['ueberweisung', 'paypal', 'bar'].includes(d.zahlweg) ? d.zahlweg : 'ueberweisung';
+    const zahlweg = d.zahlweg === 'bar' ? 'bar' : 'ueberweisung';   // PayPal seit 19.11.2026 abgeschaltet
     const liefer = sauber(d.lieferart, 80) || 'Versand';
     const en = d.sprache === 'en';
 
