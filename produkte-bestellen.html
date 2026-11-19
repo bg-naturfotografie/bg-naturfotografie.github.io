@@ -865,7 +865,7 @@
     {
       "@type": "Question",
       "name": "Wie l\u00e4uft eine Bestellung bei BG Naturfotografie ab?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Motiv und Menge ausw\u00e4hlen, in den Warenkorb legen, an der Kasse Versand oder Abholung und Zahlungsweg w\u00e4hlen und bestellen. Direkt danach stehen die Zahlungsdaten (\u00dcberweisung mit QR-Code oder PayPal) auf dem Bildschirm. Verschickt wird aus Halstenbek, Abholung ist auch m\u00f6glich." }
+      "acceptedAnswer": { "@type": "Answer", "text": "Motiv und Menge ausw\u00e4hlen, in den Warenkorb legen, an der Kasse Versand oder Abholung und Zahlungsweg w\u00e4hlen und bestellen. Direkt danach stehen die Zahlungsdaten (\u00dcberweisung mit QR-Code) auf dem Bildschirm. Verschickt wird aus Halstenbek, Abholung ist auch m\u00f6glich." }
     },
     {
       "@type": "Question",
@@ -1057,11 +1057,11 @@
       <details class="info-fold">
         <summary data-en="How ordering works">So läuft eine Bestellung ab</summary>
         <div class="fold-body">
-          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark, folded card or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Basket.</b> The bar at the bottom shows everything you have picked, with the price.</li><li><b>Checkout.</b> Choose shipping or pick-up, bank transfer, PayPal or cash on pick-up — and “Order with obligation to pay”.</li><li><b>Pay.</b> Right afterwards you see my bank details with a QR code for your banking app, or the PayPal button with the amount filled in. Once payment arrives, I ship everything from Halstenbek.</li>">
+          <ol class="fold-steps" data-en="<li><b>Choose format and motif.</b> Pick postcard, poster (A4), bookmark, folded card or download at the top, then tap the + on a motif — you can change the quantity at any time.</li><li><b>Basket.</b> The bar at the bottom shows everything you have picked, with the price.</li><li><b>Checkout.</b> Choose shipping or pick-up, bank transfer or cash on pick-up — and “Order with obligation to pay”.</li><li><b>Pay.</b> Right afterwards you see my bank details with a QR code for your banking app. Once payment arrives, I ship everything from Halstenbek.</li>">
             <li><b>Format und Motiv wählen.</b> Oben Postkarte, Poster (A4), Lesezeichen, Klappkarte oder Download wählen, dann beim Motiv auf das + tippen — die Menge kannst du jederzeit ändern.</li>
             <li><b>Warenkorb.</b> Die Leiste unten am Bildschirm zeigt alles, was du ausgesucht hast, samt Preis.</li>
-            <li><b>Zur Kasse.</b> Versand oder Abholung wählen, Überweisung, PayPal oder bar bei Abholung — und „Zahlungspflichtig bestellen“.</li>
-            <li><b>Bezahlen.</b> Direkt danach siehst du die Kontodaten mit QR-Code für die Banking-App bzw. den PayPal-Knopf mit fertigem Betrag. Nach Zahlungseingang verschicke ich alles von mir aus Halstenbek.</li>
+            <li><b>Zur Kasse.</b> Versand oder Abholung wählen, Überweisung oder bar bei Abholung — und „Zahlungspflichtig bestellen“.</li>
+            <li><b>Bezahlen.</b> Direkt danach siehst du die Kontodaten mit QR-Code für die Banking-App. Nach Zahlungseingang verschicke ich alles von mir aus Halstenbek.</li>
           </ol>
         </div>
       </details>
@@ -1105,7 +1105,7 @@
               </ul>
             </div>
           </div>
-          <p class="fold-note" id="preis-fussnote">Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden, ab 30 € Warenwert versandkostenfrei). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.</p>
+          <p class="fold-note" id="preis-fussnote">Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden, ab 30 € Warenwert versandkostenfrei). Bei Abholung und Downloads kein Versand. Bezahlt wird per Überweisung, bei Abholung auch bar.</p>
         </div>
       </details>
 
@@ -1146,7 +1146,7 @@
      Schublade. Hier steht die ganze Bestellung, Lieferart,
      Zahlungsweg, Adresse und der Knopf „Zahlungspflichtig
      bestellen“. Danach geht es auf danke.html — dort stehen die
-     Zahlungsdaten (Überweisung mit QR-Code bzw. PayPal-Knopf).
+     Zahlungsdaten (Überweisung mit QR-Code).
      ============================================================ -->
 <dialog class="sk-kasse" id="sk-kasse" aria-labelledby="kasse-titel">
   <div class="sk-kasse-kopf">
@@ -1204,11 +1204,6 @@
             <input type="radio" name="Zahlweg" value="Überweisung" data-zahl="ueberweisung" checked>
             <span class="opt-name" data-en="Bank transfer">Überweisung</span>
             <span class="opt-sub" data-en="Right after ordering you get my bank details and a QR code for your banking app.">Direkt nach dem Bestellen bekommst du die Kontodaten und einen QR-Code für deine Banking-App.</span>
-          </label>
-          <label class="wahl-opt">
-            <input type="radio" name="Zahlweg" value="PayPal" data-zahl="paypal">
-            <span class="opt-name">PayPal</span>
-            <span class="opt-sub" data-en="Right after ordering, one click takes you to PayPal — the amount is already filled in.">Direkt nach dem Bestellen geht es mit einem Klick zu PayPal, der Betrag ist schon eingetragen.</span>
           </label>
           <label class="wahl-opt" id="zahlweg-bar">
             <input type="radio" name="Zahlweg" value="Bar bei Übergabe" data-zahl="bar">
@@ -2864,8 +2859,6 @@ BG.bereit(function () {
     var stern = ' · <abbr class="pflicht" title="' + BG.t('Pflichtangabe', 'Required') + '">*</abbr> ' + BG.t('Pflichtangaben', 'Required fields');
     if (z.zahlweg === 'bar') {
       note.innerHTML = BG.t('Bezahlt wird bar bei der Übergabe. Ort und Zeit klären wir per Mail.', 'Payment in cash at hand-over. We arrange place and time by e-mail.') + stern;
-    } else if (z.zahlweg === 'paypal') {
-      note.innerHTML = BG.t('Danach geht es direkt weiter zu PayPal.', 'Next you continue straight to PayPal.') + stern;
     } else {
       note.innerHTML = BG.t('Danach siehst du sofort die Kontodaten mit QR-Code.', 'Next you immediately see the bank details with a QR code.') + stern;
     }
@@ -3417,8 +3410,8 @@ BG.bereit(function () {
     if (fuss) {
       var frei = (VERSAND.kostenlosAb !== null);
       fuss.textContent = BG.t(
-        'Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden' + (frei ? ', ab ' + euro(VERSAND.kostenlosAb) + ' Warenwert versandkostenfrei' : '') + '). Bei Abholung und Downloads kein Versand. Bezahlt wird per PayPal oder Überweisung — bei Abholung auch bar.',
-        'All prices are final prices, plus shipping from Halstenbek (shown in the basket before sending' + (frei ? ', free shipping from ' + euro(VERSAND.kostenlosAb) + ' order value' : '') + '). No shipping for pick-up and downloads. Payment by PayPal or bank transfer — cash too when picking up.');
+        'Alle Preise sind Endpreise, zzgl. Versand aus Halstenbek (steht im Warenkorb vor dem Absenden' + (frei ? ', ab ' + euro(VERSAND.kostenlosAb) + ' Warenwert versandkostenfrei' : '') + '). Bei Abholung und Downloads kein Versand. Bezahlt wird per Überweisung, bei Abholung auch bar.',
+        'All prices are final prices, plus shipping from Halstenbek (shown in the basket before sending' + (frei ? ', free shipping from ' + euro(VERSAND.kostenlosAb) + ' order value' : '') + '). No shipping for pick-up and downloads. Payment by bank transfer, cash too when picking up.');
       fuss.removeAttribute('data-en');
     }
     document.querySelectorAll('[data-druckpartner]').forEach(function (el) {

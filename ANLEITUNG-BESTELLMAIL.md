@@ -6,7 +6,7 @@ Stand: 19.11.2026. Dauer: etwa 1 Stunde. Kosten: 0 €.
 
 Jemand klickt „Zahlungspflichtig bestellen“. Dann:
 
-1. **Der Kunde** bekommt sofort eine Mail mit Bestellnummer, Artikeln, Betrag und deinen Zahlungsdaten (IBAN bzw. PayPal-Knopf). Deine AGB mit Widerrufsbelehrung hängen als PDF an.
+1. **Der Kunde** bekommt sofort eine Mail mit Bestellnummer, Artikeln, Betrag und deinen Zahlungsdaten (IBAN mit Verwendungszweck). Deine AGB mit Widerrufsbelehrung hängen als PDF an.
 2. **Du** bekommst eine unsichtbare Kopie dieser Mail (BCC).
 3. **Deine Formspree-Bestellmail** kommt wie bisher und hat eine neue Zeile **„Kundenmail: verschickt …“** oder **„Kundenmail: FEHLGESCHLAGEN … bitte selbst schreiben“**.
 4. **Zustellung prüfen:** In Brevo unter *Transactional → Logs* siehst du bei jeder Mail „Delivered“ (angekommen) oder „Hard bounce“ (Adresse falsch).
@@ -17,7 +17,7 @@ Solange die Einrichtung nicht fertig ist, läuft der Shop genau wie jetzt. Es ge
 
 - dein Cloudflare-Konto (das gleiche wie für das Admin-Login)
 - den Zugang zu deinem Domain-Anbieter (dort, wo du `bg-naturfotografie.de` gekauft hast)
-- deine IBAN und deinen PayPal.me-Namen
+- deine IBAN
 
 ---
 
@@ -63,7 +63,7 @@ So wie beim Admin-Login, nur mit anderem Code:
 | `IBAN` | **Secret** | deine IBAN |
 | `KONTOINHABER` | Text | Name genau wie auf dem Konto |
 | `BIC` | Text | optional, sonst weglassen |
-| `PAYPAL_ME` | Text | nur der Name, z. B. `bgnaturfotografie` (ohne Link) |
+| `PAYPAL_ME` | Text | wird nicht mehr gebraucht (PayPal seit 19.11.2026 abgeschaltet), darf aber stehen bleiben |
 | `ABSENDER` | Text | `shop@bg-naturfotografie.de` |
 | `ANTWORT_AN` | Text | deine normale Mailadresse |
 | `KOPIE_AN` | Text | wohin deine Kopie gehen soll (meist dieselbe) |
@@ -134,5 +134,5 @@ Seit 19.06.2026 muss jeder Onlineshop einen Knopf **„Vertrag widerrufen“** h
 ## Später ändern
 
 - **AGB geändert?** Dann muss auch das PDF neu: `agb.html` im Browser öffnen → Drucken → „Als PDF speichern“ → auf GitHub in den Ordner `dokumente/` hochladen und `agb-und-widerruf.pdf` ersetzen. (Oder sag Claude Bescheid.)
-- **IBAN oder PayPal ändern:** nur bei Cloudflare (Schritt 12). Zusätzlich wie gehabt den verschlüsselten Block in `danke.html` mit `zahlungsdaten-verschluesseln.html` erneuern.
+- **IBAN ändern:** nur bei Cloudflare (Schritt 12). Zusätzlich wie gehabt den verschlüsselten Block in `danke.html` mit `zahlungsdaten-verschluesseln.html` erneuern.
 - **Ausschalten:** in `produkte-bestellen.html` die beiden Werte wieder leeren (`''`).
