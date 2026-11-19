@@ -1,6 +1,6 @@
 # Automatische Bestellmail an Kunden einrichten
 
-Stand: 17.11.2026. Dauer: etwa 1 Stunde. Kosten: 0 €.
+Stand: 19.11.2026. Dauer: etwa 1 Stunde. Kosten: 0 €.
 
 ## Was danach passiert
 
@@ -31,7 +31,7 @@ Solange die Einrichtung nicht fertig ist, läuft der Shop genau wie jetzt. Es ge
 4. **Absender anlegen:** **Senders** → **Add a sender** → Name `BG Naturfotografie`, E-Mail `shop@bg-naturfotografie.de`. Ein Postfach brauchst du dafür nicht: Antworten der Kunden gehen an deine normale Adresse (Teil C).
 5. **API-Schlüssel holen:** oben rechts → **SMTP & API** → Reiter **API Keys** → **Generate a new API key** → Name `bestellmail`.
    - Zugriff: **Eingeschränkt**. Berechtigungen: **Transaktions-E-Mails: Alle**, **Konto: Lesen**, alles andere **Keine**.
-   - Ablauf: den längsten Zeitraum wählen und das Ablaufdatum im Kalender notieren (dann neuen Schlüssel erzeugen und in Schritt 12 austauschen).
+   - Ablauf (Feld *Expiry*): **„No expiration“ / „Kein Ablauf“** wählen. Dann hält ihn der wöchentliche Wachhalter aus Schritt 12b dauerhaft aktiv. Hast du stattdessen „1 Jahr“ gewählt: Ablaufdatum in den Kalender, eine Woche vorher neuen Schlüssel erzeugen und in Schritt 12 bei `BREVO_API_KEY` austauschen. Brevo mailt dir 3 Tage vorher.
    - Kopieren und kurz in einer Notiz-App zwischenspeichern. Er wird nur einmal angezeigt. Nicht per Chat oder Mail weitergeben.
 6. **Auftragsverarbeitung (DSGVO):** Brevo stellt den AV-Vertrag in den Kontoeinstellungen bereit (meist unter *Settings → Security / Legal* oder als Häkchen bei der Anmeldung). Einmal annehmen bzw. als PDF speichern und zu deinen Unterlagen legen.
 
@@ -110,6 +110,26 @@ So wie beim Admin-Login, nur mit anderem Code:
 | Kundenmail landet im Spam | DNS-Einträge aus Schritt 3 fehlen oder sind noch nicht bestätigt |
 
 In jedem Fall gilt: **Die Bestellung kommt trotzdem bei dir an.** Dann schreibst du dem Kunden wie früher selbst.
+
+## Was läuft ab, was muss ich mir merken?
+
+Nur **eine** Sache kann ablaufen: der **Brevo-API-Schlüssel** (`BREVO_API_KEY`).
+
+- Mit „No expiration“ + Wachhalter (Schritt 12b): läuft nicht ab. Brevo deaktiviert sonst nur Schlüssel, die 90 Tage lang nicht benutzt wurden, und der Wachhalter benutzt ihn jede Woche.
+- Mit festem Datum (z. B. 1 Jahr): an diesem Tag ist Schluss. Dann vorher neuen Schlüssel erzeugen (Schritt 5) und bei Cloudflare austauschen (Schritt 12).
+- Ob er noch lebt: Brevo → **SMTP & API** → **API Keys**. Dort stehen „Expires on“ und „Last used on“. „Last used“ sollte höchstens eine Woche alt sein.
+- Wenn er doch abläuft: Es geht **keine Bestellung verloren**. Die Formspree-Mail sagt dann „Kundenmail: FEHLGESCHLAGEN (Brevo: …unauthorized…)“, und du schreibst dem Kunden selbst.
+
+Nicht ablaufen: der Worker, Turnstile (Site Key und Secret Key), die DNS-Einträge, der Brevo-Free-Tarif.
+
+## Widerrufsfunktion (seit Nov. 2026)
+
+Seit 19.06.2026 muss jeder Onlineshop einen Knopf **„Vertrag widerrufen“** haben (§ 356a BGB). Er steht unten auf jeder Seite und führt zu `widerruf.html`. Dort trägt der Kunde Name, Bestellung und E-Mail ein und klickt **„Widerruf bestätigen“**.
+
+- Der Worker schickt ihm sofort eine **Eingangsbestätigung** mit Datum und Uhrzeit, du bekommst eine Kopie (BCC). Dafür muss der Worker-Code aktuell sein: Cloudflare → Worker `bestellmail` → **Edit code** → alles ersetzen durch den Inhalt von `werkzeuge/cloudflare-bestellmail.js` → **Deploy**. Variablen bleiben, wie sie sind.
+- Klappt das nicht, kommt der Widerruf über Formspree bei dir an, Betreff **„[WIDERRUF …] Eingangsbestätigung bitte VON HAND senden“**. Dann bitte am selben Tag selbst kurz antworten: „Ich bestätige den Eingang deines Widerrufs vom [Datum, Uhrzeit] zu Bestellung [Nr.].“
+- Danach: Geld innerhalb von 14 Tagen auf demselben Weg zurück. Zurückschicken muss der Kunde nichts.
+- Ändern sich Worker-Adresse oder Site Key, müssen sie auch in `widerruf.html` angepasst werden (gleiche zwei Zeilen wie in Schritt 13).
 
 ## Später ändern
 

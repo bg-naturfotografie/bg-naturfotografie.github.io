@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ============================================================
+     SEO — Titel, Beschreibung, Kanonische Adresse
+     Der Titel steht im Google-Treffer und im Browser-Tab,
+     die description darunter als grauer Fließtext.
+     ============================================================ -->
+<title data-en="Withdraw from contract | BG Naturfotografie">Vertrag widerrufen | BG Naturfotografie</title>
+<meta name="description" content="Hier widerrufst du eine Bestellung bei BG Naturfotografie online. Zurückschicken musst du nichts.">
+<link rel="canonical" href="https://bg-naturfotografie.de/widerruf.html">
+<meta name="robots" content="noindex, follow">
+<meta name="author" content="Benedict Gertz">
+<meta name="geo.region" content="DE-SH">
+<meta name="geo.placename" content="Halstenbek">
+<meta name="theme-color" content="#11140F">
+<link rel="icon" href="bilder/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="bilder/logo.png">
+
+<!-- ============================================================
+     VORSCHAUBILD BEIM TEILEN
+     Gilt für WhatsApp, Signal, Facebook, LinkedIn, Mastodon,
+     Instagram-DMs, Discord … — also überall dort, wo jemand
+     einen Link von dir weiterschickt. Steht bewusst auf JEDER
+     Unterseite, nicht nur auf der Startseite.
+     Bild bitte immer als volle https-Adresse angeben.
+     ============================================================ -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BG Naturfotografie">
+<meta property="og:locale" content="de_DE">
+<meta property="og:title" content="Vertrag widerrufen | BG Naturfotografie">
+<meta property="og:description" content="Hier widerrufst du eine Bestellung bei BG Naturfotografie online. Zurückschicken musst du nichts.">
+<meta property="og:url" content="https://bg-naturfotografie.de/widerruf.html">
+<meta property="og:image" content="https://bg-naturfotografie.de/bilder/waldleben-01.jpg">
+<meta property="og:image:secure_url" content="https://bg-naturfotografie.de/bilder/waldleben-01.jpg">
+<meta property="og:image:alt" content="BG Naturfotografie">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vertrag widerrufen | BG Naturfotografie">
+<meta name="twitter:description" content="Hier widerrufst du eine Bestellung bei BG Naturfotografie online. Zurückschicken musst du nichts.">
+<meta name="twitter:image" content="https://bg-naturfotografie.de/bilder/waldleben-01.jpg">
+<meta name="twitter:image:alt" content="BG Naturfotografie">
+
+<!-- Schriften liegen selbst im Projekt (Ordner "schriften/").
+     Keine Verbindung zu Google mehr — siehe styles.css ganz oben.
+     Die zwei wichtigsten werden vorgeladen, damit der Text beim
+     Aufbau nicht kurz die Schrift wechselt. -->
+<link rel="preload" href="schriften/worksans-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="schriften/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
+<!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
+<script src="sprache.js"></script>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
+</head>
+<body>
+
+
+<!-- Sprunglink: erste Station für Tastatur- und Screenreader-Nutzung.
+     Unsichtbar, bis er den Fokus bekommt. -->
+<a class="sprunglink" href="#inhalt" data-en="Skip to content">Direkt zum Inhalt</a>
+<nav class="nav" aria-label="Hauptmenü" data-en-aria-label="Main menu">
+  <div class="wrap">
+    <a class="brand" href="index.html#top"><img src="bilder/logo.png" alt="BG Naturfotografie Logo" class="brand-logo">
+      <b>BG</b> Naturfotografie</a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen und schließen" data-en-aria-label="Open and close menu">
+    <label for="nav-toggle" class="nav-burger" aria-hidden="true"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html#galerie" data-en="Gallery">Galerie</a></li>
+      <li><a href="produkte-bestellen.html">Shop</a></li>
+      <li><a href="geschichten.html" data-en="Stories">Geschichten</a></li>
+      <li><a href="karte.html" data-en="Map">Karte</a></li>
+      <li><a href="index.html#ueber-mich" data-en="About me">Über mich</a></li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .wf label{ display:block; font-size:.86rem; color:var(--text-light); margin:1.1rem 0 .35rem; }
+  .wf input, .wf textarea{
+    width:100%; box-sizing:border-box; padding:.7rem .8rem; font:inherit; font-size:.95rem;
+    background:var(--bg-panel-2); color:var(--text-light);
+    border:1px solid var(--line-strong); border-radius:var(--radius);
+  }
+  .wf textarea{ min-height:4.5rem; resize:vertical; }
+  .wf .hinweis{ font-size:.8rem; color:var(--text-muted); margin:.3rem 0 0; }
+  .wf .knopf{
+    margin-top:1.6rem; padding:.85rem 1.4rem; font:inherit; font-size:1rem; font-weight:600;
+    background:var(--accent); color:#111; border:0; border-radius:var(--radius); cursor:pointer;
+  }
+  .wf .knopf:disabled{ opacity:.6; cursor:wait; }
+  .wf .fehler{ color:#e2896f; font-size:.88rem; margin-top:1rem; }
+  .wf-ok{
+    background:var(--bg-panel); border:1px solid var(--line); border-left:2px solid var(--accent);
+    padding:1.2rem 1.4rem; margin:1rem 0 2rem;
+  }
+  .wf-ok p{ color:var(--text-light); }
+</style>
+
+<div class="legal" id="inhalt" tabindex="-1">
+  <a class="zurueck" href="index.html" data-en="← Back to the home page">← Zurück zur Startseite</a>
+  <h1 data-en="Withdraw from contract">Vertrag widerrufen</h1>
+
+  <!-- ============================================================
+       WIDERRUFSFUNKTION nach § 356a BGB (Pflicht seit 19.06.2026)
+       Schritt 1: Knopf „Vertrag widerrufen“ unten auf jeder Seite.
+       Schritt 2: dieses Formular mit Knopf „Widerruf bestätigen“.
+       Abgefragt werden nur Name, Bestellung und E-Mail für die
+       Eingangsbestätigung. Nach dem Grund darf NICHT gefragt werden.
+       Die Eingangsbestätigung verschickt der Worker „bestellmail“
+       (Brevo). Klappt das nicht, geht der Widerruf über Formspree
+       an Bene, mit dem Hinweis, die Bestätigung von Hand zu senden.
+       ============================================================ -->
+
+  <div id="wf-start">
+    <p data-en="Here you can withdraw from an order placed in my online shop, within 14 days of receiving the goods. You don't need to give a reason. <strong>You don't have to send anything back</strong>, you may keep the goods. Your money comes back within 14 days.">Hier kannst du eine Bestellung aus meinem Onlineshop widerrufen, innerhalb von 14 Tagen
+    nach Erhalt der Ware. Einen Grund musst du nicht nennen. <strong>Zurückschicken musst du
+    nichts</strong>, die Ware darfst du behalten. Dein Geld bekommst du innerhalb von 14 Tagen zurück.</p>
+    <p data-en="After sending, you will immediately receive a confirmation of receipt by e-mail. Details: <a href=&quot;agb.html&quot;>terms &amp; cancellation policy</a>, section 7.">Nach dem Absenden bekommst du sofort eine Eingangsbestätigung per E-Mail. Alles Weitere
+    steht in den <a href="agb.html">AGB &amp; Widerrufsbelehrung</a> unter Punkt 7.</p>
+
+    <form class="wf" id="wf-form" novalidate>
+      <label for="wf-name"><span data-en="Your name">Dein Name</span> <span class="pflicht">*</span></label>
+      <input id="wf-name" name="name" type="text" autocomplete="name" required maxlength="80">
+
+      <label for="wf-nr"><span data-en="Which order?">Welche Bestellung?</span> <span class="pflicht">*</span></label>
+      <input id="wf-nr" name="bestellung" type="text" required maxlength="80"
+        placeholder="z. B. BG-1234" data-en-placeholder="e.g. BG-1234">
+      <p class="hinweis" data-en="Order number from your confirmation e-mail. If you don't have it: order date and what you ordered.">Bestellnummer aus deiner Bestellmail. Falls du sie nicht hast: Bestelldatum und was du bestellt hast.</p>
+
+      <label for="wf-teil"><span data-en="Only part of the order? Which items?">Nur einen Teil widerrufen? Welche Artikel?</span> <span class="optional-tag" data-en="optional">optional</span></label>
+      <textarea id="wf-teil" name="teil" maxlength="300"></textarea>
+      <p class="hinweis" data-en="Leave empty to withdraw from the whole order.">Leer lassen, wenn du die ganze Bestellung widerrufst.</p>
+
+      <label for="wf-mail"><span data-en="E-mail for the confirmation of receipt">E-Mail für die Eingangsbestätigung</span> <span class="pflicht">*</span></label>
+      <input id="wf-mail" name="email" type="email" autocomplete="email" required maxlength="120">
+
+      <div id="wf-turnstile" style="margin-top:1rem"></div>
+      <button class="knopf" id="wf-knopf" type="submit" data-en="Confirm withdrawal">Widerruf bestätigen</button>
+      <p class="fehler" id="wf-fehler" role="alert" hidden></p>
+    </form>
+
+    <p class="hinweis" style="margin-top:2rem;font-size:.82rem" data-en="You can also withdraw by e-mail or letter (address in the legal notice). Purchases at my market stall cannot be withdrawn, as no statutory right of withdrawal applies there.">Du kannst auch per E-Mail oder Brief widerrufen (Adresse im <a href="impressum.html">Impressum</a>).
+    Käufe an meinem Marktstand sind kein Onlinekauf; dafür gibt es kein gesetzliches Widerrufsrecht.</p>
+  </div>
+
+  <div class="wf-ok" id="wf-ok" hidden tabindex="-1">
+    <p><strong data-en="Your withdrawal has been received.">Dein Widerruf ist eingegangen.</strong></p>
+    <p id="wf-ok-zeit"></p>
+    <p id="wf-ok-mail"></p>
+  </div>
+
+  <p class="stand">Stand: November 2026</p>
+</div>
+
+<script>
+(function () {
+  /* Gleiche Werte wie in produkte-bestellen.html (BESTELLMAIL — HIER EINTRAGEN) */
+  var BESTELLMAIL_URL = 'https://bestellmail.benedict-gertz.workers.dev/';
+  var TURNSTILE_SITEKEY = '0x4AAAAAAGF2N3WZysZZmmAg';
+  var FORMSPREE = 'https://formspree.io/f/xvzejbje';
+  var LIVE = /(^|\.)bg-naturfotografie\.de$/.test(window.location.hostname);
+  var T = function (de, en) { return (window.BG && BG.sprache === 'en') ? en : de; };
+
+  var form = document.getElementById('wf-form');
+  var knopf = document.getElementById('wf-knopf');
+  var fehlerEl = document.getElementById('wf-fehler');
+
+  var tsId = null;
+  if (LIVE && BESTELLMAIL_URL && TURNSTILE_SITEKEY) {
+    window.bgWfTurnstile = function () {
+      tsId = window.turnstile.render('#wf-turnstile', {
+        sitekey: TURNSTILE_SITEKEY, appearance: 'interaction-only',
+        language: T('de', 'en')
+      });
+    };
+    var sk = document.createElement('script');
+    sk.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?onload=bgWfTurnstile&render=explicit';
+    sk.async = true;
+    document.head.appendChild(sk);
+  }
+
+  function zeigeFehler(text) {
+    fehlerEl.textContent = text; fehlerEl.hidden = false;
+    knopf.disabled = false; knopf.textContent = T('Widerruf bestätigen', 'Confirm withdrawal');
+  }
+
+  function fertig(zeitText, mailOk, email) {
+    document.getElementById('wf-start').hidden = true;
+    var ok = document.getElementById('wf-ok');
+    document.getElementById('wf-ok-zeit').textContent = T('Eingang: ', 'Received: ') + zeitText;
+    document.getElementById('wf-ok-mail').textContent = mailOk
+      ? T('Die Eingangsbestätigung ist unterwegs an ' + email + '. Schau bitte auch im Spam-Ordner nach.',
+          'The confirmation of receipt is on its way to ' + email + '. Please also check your spam folder.')
+      : T('Ich schicke dir die Eingangsbestätigung in Kürze persönlich an ' + email + '.',
+          'I will send you the confirmation of receipt personally to ' + email + ' shortly.');
+    ok.hidden = false; ok.focus();
+  }
+
+  function jetzt() {
+    return new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin', dateStyle: 'medium', timeStyle: 'short' }) + ' Uhr';
+  }
+
+  /* Ersatzweg: Formspree an Bene, damit der Widerruf nie verloren geht */
+  function ueberFormspree(d, grund) {
+    var fd = new FormData();
+    fd.append('_subject', '[WIDERRUF ' + d.bestellung + '] Eingangsbestätigung bitte VON HAND senden');
+    fd.append('Art', 'Widerruf (Online-Widerrufsfunktion)');
+    fd.append('Name', d.name);
+    fd.append('Bestellung', d.bestellung);
+    fd.append('Nur diese Artikel', d.teil || '(ganze Bestellung)');
+    fd.append('email', d.email);
+    fd.append('Eingang', jetzt());
+    fd.append('Automatische Bestätigung', 'FEHLGESCHLAGEN (' + grund + '): bitte sofort selbst eine Eingangsbestätigung mit Datum/Uhrzeit an den Kunden mailen');
+    return fetch(FORMSPREE, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
+      .then(function (r) { if (!r.ok) { throw new Error('formspree'); } });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    fehlerEl.hidden = true;
+    var d = {
+      typ: 'widerruf',
+      name: document.getElementById('wf-name').value.trim(),
+      bestellung: document.getElementById('wf-nr').value.trim(),
+      teil: document.getElementById('wf-teil').value.trim(),
+      email: document.getElementById('wf-mail').value.trim(),
+      sprache: T('de', 'en')
+    };
+    if (!d.name || !d.bestellung || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)) {
+      zeigeFehler(T('Bitte Name, Bestellung und eine gültige E-Mail-Adresse angeben.', 'Please enter your name, the order and a valid e-mail address.'));
+      return;
+    }
+    knopf.disabled = true; knopf.textContent = T('Wird gesendet …', 'Sending …');
+
+    if (!LIVE) {   /* Testmodus außerhalb der echten Seite: nichts verschicken */
+      fertig(jetzt() + ' (TEST, nichts verschickt)', true, d.email);
+      return;
+    }
+
+    d.turnstile = (window.turnstile && tsId !== null) ? window.turnstile.getResponse(tsId) : '';
+    var abbruch = new Promise(function (r) { setTimeout(function () { r({ ok: false, grund: 'keine Antwort' }); }, 12000); });
+    var senden = fetch(BESTELLMAIL_URL, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d)
+    }).then(function (r) { return r.json().catch(function () { return { ok: false, grund: r.status }; }); })
+      .catch(function () { return { ok: false, grund: 'keine Verbindung' }; });
+
+    Promise.race([senden, abbruch]).then(function (erg) {
+      if (erg && erg.ok) { fertig(erg.zeit || jetzt(), true, d.email); return; }
+      return ueberFormspree(d, (erg && erg.grund) || 'unbekannt').then(function () {
+        fertig(jetzt(), false, d.email);
+      });
+    }).catch(function () {
+      if (window.turnstile && tsId !== null) { window.turnstile.reset(tsId); }
+      zeigeFehler(T('Das Absenden hat leider nicht geklappt. Bitte versuch es gleich noch einmal oder widerrufe per E-Mail an impressum.skarvaan@web.de.',
+        'Sorry, sending didn\'t work. Please try again in a moment or withdraw by e-mail to impressum.skarvaan@web.de.'));
+    });
+  });
+})();
+</script>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 BG Naturfotografie</span>
+    <span><a href="produkte-bestellen.html">Shop</a> &middot; <a href="impressum.html" data-en="Legal notice">Impressum</a> &middot; <a href="datenschutz.html" data-en="Privacy">Datenschutz</a> &middot; <a href="agb.html" data-en="Terms &amp; cancellation">AGB &amp; Widerruf</a> &middot; <a href="widerruf.html" class="widerruf-knopf" data-en="Withdraw from contract">Vertrag widerrufen</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
