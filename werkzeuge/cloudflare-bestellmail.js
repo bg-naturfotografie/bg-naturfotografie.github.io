@@ -122,7 +122,7 @@ export default {
     const iban = String(env.IBAN || '').replace(/\s+/g, '').toUpperCase();
     const ibanSchoen = iban.replace(/(.{4})/g, '$1 ').trim();
     const paypalLink = env.PAYPAL_ME
-      ? 'https://paypal.me/' + encodeURIComponent(env.PAYPAL_ME) + '/' + gesamt.toFixed(2) + 'EUR' : '';
+      ? 'https://paypal.me/' + encodeURIComponent(env.PAYPAL_ME) + '/' + gesamt.toFixed(2) : '';   // ohne „EUR“: sonst zeigt die PayPal-App oft 0,00 €
 
     let zahlungText, zahlungHtml;
     if (zahlweg === 'bar') {
@@ -131,11 +131,11 @@ export default {
       zahlungHtml = '<p>' + esc(zahlungText) + '</p>';
     } else if (zahlweg === 'paypal' && paypalLink) {
       zahlungText = T('Bitte bezahle innerhalb von 7 Tagen per PayPal:', 'Please pay within 7 days via PayPal:') + '\n' + paypalLink +
-        '\n' + T('Schreib bitte die Bestellnummer ' + nr + ' ins Nachrichtenfeld.', 'Please put the order number ' + nr + ' in the message field.');
+        '\n' + T('Steht bei PayPal 0,00 €, trag bitte ' + euro(gesamt) + ' ein. Wichtig: Schreib die Bestellnummer ' + nr + ' in das Feld „Mitteilung“.', 'If PayPal shows 0.00, please enter ' + euro(gesamt) + '. Important: put the order number ' + nr + ' in the message field.');
       zahlungHtml = '<p>' + T('Bitte bezahle innerhalb von 7 Tagen per PayPal:', 'Please pay within 7 days via PayPal:') + '</p>' +
         '<p><a href="' + esc(paypalLink) + '" style="display:inline-block;background:#ffc439;color:#111;padding:10px 18px;border-radius:6px;text-decoration:none;font-weight:bold">' +
         T('Mit PayPal bezahlen', 'Pay with PayPal') + ' · ' + euro(gesamt) + '</a></p>' +
-        '<p>' + esc(T('Schreib bitte die Bestellnummer ' + nr + ' ins Nachrichtenfeld.', 'Please put the order number ' + nr + ' in the message field.')) + '</p>';
+        '<p>' + esc(T('Steht bei PayPal 0,00 €, trag bitte ' + euro(gesamt) + ' ein. Wichtig: Schreib die Bestellnummer ' + nr + ' in das Feld „Mitteilung“.', 'If PayPal shows 0.00, please enter ' + euro(gesamt) + '. Important: put the order number ' + nr + ' in the message field.')) + '</p>';
     } else {
       const zeilen = [
         [T('Empfänger', 'Recipient'), env.KONTOINHABER || ''],

@@ -540,7 +540,9 @@
     var platzhalter = !/^[A-Z]{2}\d{2}/.test(Z.iban) || /^DE0+$/.test(Z.iban) || Z.paypalMe === 'DEINNAME';
     var zweck = nr || 'Bestellung';
     var istPaypal = (zahlweg === 'paypal');
-    var paypalLink = 'https://www.paypal.com/paypalme/' + encodeURIComponent(Z.paypalMe) + '/' + gesamtBetrag.toFixed(2) + 'EUR';
+    /* Ohne „EUR“ am Ende: mit Währungskürzel öffnet die PayPal-App
+       den Link oft mit 0,00 €. Ohne Kürzel gilt die Kontowährung (Euro). */
+    var paypalLink = 'https://paypal.me/' + encodeURIComponent(Z.paypalMe) + '/' + gesamtBetrag.toFixed(2);
     var ibanSchoen = Z.iban.replace(/(.{4})/g, '$1 ').trim();
     box.hidden = false;
 
@@ -613,8 +615,8 @@
       pp.textContent = T('Mit PayPal bezahlen · ', 'Pay with PayPal · ') + euro(gesamtBetrag);
       inhalt.appendChild(pp);
       var ppHinweis = document.createElement('p');
-      ppHinweis.textContent = T('Der Betrag ist schon eingetragen. Schreib bei PayPal bitte deine Bestellnummer ' + zweck + ' in das Nachrichtenfeld, dann kann ich die Zahlung sofort zuordnen.',
-        'The amount is already filled in. Please add your order number ' + zweck + ' in the PayPal message field so I can match the payment straight away.');
+      ppHinweis.textContent = T('Der Betrag ist normalerweise schon eingetragen. Steht bei PayPal 0,00 €, trag bitte ' + euro(gesamtBetrag) + ' ein. Wichtig: Schreib deine Bestellnummer ' + zweck + ' in das Feld „Mitteilung“, dann kann ich die Zahlung zuordnen.',
+        'The amount is normally filled in already. If PayPal shows 0.00, please enter ' + euro(gesamtBetrag) + '. Important: put your order number ' + zweck + ' in the message field so I can match the payment.');
       inhalt.appendChild(ppHinweis);
     } else {
       setzeText('bezahlen-titel', T('Jetzt überweisen', 'Pay now by bank transfer'));
