@@ -1822,6 +1822,7 @@
           "de": "Am Feldrand in Heede",
           "en": "At the edge of a field in Heede"
         },
+        "region": "Heede",
         "koordinaten": "53.78366, 9.79648",
         "radius": 2000,
         "polygon": ""

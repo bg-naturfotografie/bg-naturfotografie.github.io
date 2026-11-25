@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     ADMIN-ÜBERSICHT — bg-naturfotografie.de/admin/uebersicht.html
+     ============================================================
+     Zwei Listen auf einen Blick, ohne jedes Motiv einzeln zu öffnen:
+
+     1. BESTAND & NUMMERN
+        Alle Motive mit Bild. Daneben je Produktart (Lesezeichen,
+        Postkarte, Klappkarte, Poster):
+          - „vorrätig“ (Häkchen)
+          - Stückzahl
+          - interne Nummer (L1, M1, K1 …)
+        Ändern, unten auf „Speichern“ — fertig. Gespeichert wird in
+        dieselbe Datei wie im Admin-Formular (daten/motive.json),
+        nur die geänderten Felder. Nach 1–2 Minuten ist es live.
+
+     2. OHNE GESCHICHTE
+        Welche Fotos im Shop (als Druck vorrätig) noch keine
+        Geschichte haben.
+
+     ANMELDUNG
+     Die Seite nutzt deine Anmeldung aus dem Admin-Bereich. Bist du
+     dort angemeldet, kannst du hier speichern. Sonst zeigt die
+     Seite nur an und bittet dich, dich zuerst anzumelden.
+     Kein fremder Dienst, keine Kosten: gespeichert wird direkt
+     über GitHub, genau wie im Admin-Formular.
+     ============================================================ -->
+<meta name="robots" content="noindex, nofollow">
+<title>Bestand & Nummern · Admin</title>
+<link rel="icon" href="../bilder/logo.png" type="image/png">
+<style>
+  :root{
+    --bg:#f5f3ee; --panel:#fff; --text:#1f241b; --muted:#6a7360; --line:#e2ded3;
+    --accent:#b86a2e; --accent-weich:#f6e7d8; --ok:#2f6b3a; --warn:#b3261e; --warn-weich:#fbe4e2;
+    --geaendert:#fff4c2;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121510; --panel:#1b2017; --text:#ede7d6; --muted:#a5b396; --line:#2f3629;
+      --accent:#e0a46c; --accent-weich:#3a2b1d; --ok:#7fc28b; --warn:#ff8a80; --warn-weich:#3d1f1c;
+      --geaendert:#4a4020;
+    }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--text); font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;}
+  a{color:var(--accent);}
+  header{position:sticky; top:0; z-index:5; background:var(--panel); border-bottom:1px solid var(--line); padding:12px 16px;}
+  .kopf{display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; max-width:1200px; margin:0 auto;}
+  .kopf h1{font-size:18px; margin:0; flex:1 1 auto;}
+  .reiter{display:flex; gap:6px;}
+  .reiter button{border:1px solid var(--line); background:transparent; color:var(--text); border-radius:999px; padding:6px 14px; cursor:pointer; font:inherit;}
+  .reiter button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff;}
+  main{max-width:1200px; margin:0 auto; padding:16px 16px 120px;}
+  .hinweis{background:var(--accent-weich); border-radius:8px; padding:10px 14px; margin:0 0 14px;}
+  .hinweis.warn{background:var(--warn-weich);}
+  .filter{display:flex; flex-wrap:wrap; gap:8px 14px; align-items:center; margin:0 0 14px;}
+  .filter .gruppe{display:flex; gap:4px; flex-wrap:wrap;}
+  .filter .gruppe button{border:1px solid var(--line); background:var(--panel); color:var(--text); border-radius:6px; padding:5px 10px; cursor:pointer; font:inherit; font-size:14px;}
+  .filter .gruppe button.an{border-color:var(--accent); background:var(--accent-weich); font-weight:600;}
+  .filter input[type=search]{flex:1 1 180px; max-width:280px; padding:6px 10px; border:1px solid var(--line); border-radius:6px; background:var(--panel); color:var(--text); font:inherit;}
+  .filter label{font-size:14px; color:var(--muted); display:flex; gap:6px; align-items:center;}
+
+  /* --- Tabelle Bestand & Nummern --- */
+  .zeile{display:grid; grid-template-columns:96px minmax(150px,1fr) repeat(var(--spalten,4), minmax(150px,190px)); gap:10px; align-items:center;
+    background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:8px; margin-bottom:8px;}
+  .zeile.kopfzeile{background:transparent; border:0; padding:0 8px; margin-bottom:4px; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em;}
+  .bild{width:96px; height:72px; object-fit:cover; border-radius:4px; background:var(--line); display:block;}
+  .bild.lz{width:40px; height:110px; object-fit:cover; margin:0 auto;}
+  .titel b{display:block;}
+  .titel small{color:var(--muted); display:block; font-size:12px;}
+  .produkt{align-self:stretch; align-content:start; border:1px solid var(--line); border-radius:6px; padding:6px 8px; display:grid; grid-template-columns:auto 1fr; gap:4px 8px; align-items:center; font-size:13px;}
+  .produkt.aus{opacity:.55;}
+  .produkt .name{grid-column:1 / -1; font-weight:600; font-size:12px; color:var(--muted); display:none;}
+  .produkt input[type=number], .produkt input[type=text]{width:100%; padding:4px 6px; border:1px solid var(--line); border-radius:4px; background:var(--bg); color:var(--text); font:inherit;}
+  .produkt input.geaendert, .produkt label.geaendert{background:var(--geaendert);}
+  .produkt input.fehler{border-color:var(--warn); background:var(--warn-weich);}
+  .produkt label{display:flex; gap:5px; align-items:center; grid-column:1 / -1; cursor:pointer; border-radius:4px;}
+  .produkt .doppelt{grid-column:1 / -1; color:var(--warn); font-size:12px;}
+  @media (max-width:820px){
+    .zeile{grid-template-columns:80px 1fr; }
+    .zeile.kopfzeile{display:none;}
+    .bild{width:80px; height:64px;}
+    .zeile .produkt{grid-column:1 / -1;}
+    .produkt .name{display:block;}
+  }
+
+  /* --- Ohne Geschichte --- */
+  .liste{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px;}
+  .karte{background:var(--panel); border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .karte img{width:100%; height:150px; object-fit:cover; display:block; background:var(--line);}
+  .karte div{padding:8px 10px;}
+  .karte small{display:block; color:var(--muted);}
+  .marke{display:inline-block; font-size:11px; border-radius:999px; padding:1px 8px; margin:4px 4px 0 0; background:var(--accent-weich);}
+  details{margin-top:22px;}
+  summary{cursor:pointer; color:var(--muted);}
+
+  /* --- Speicherleiste --- */
+  .speichern{position:fixed; left:0; right:0; bottom:0; background:var(--panel); border-top:1px solid var(--line); padding:12px 16px; z-index:6;
+    display:flex; gap:12px; align-items:center; justify-content:center; flex-wrap:wrap; box-shadow:0 -4px 14px rgba(0,0,0,.08);}
+  .speichern[hidden]{display:none;}
+  .speichern button{border:0; border-radius:6px; padding:9px 18px; font:inherit; font-weight:600; cursor:pointer;}
+  .speichern .los{background:var(--accent); color:#fff;}
+  .speichern .verwerfen{background:transparent; color:var(--muted); border:1px solid var(--line);}
+  .speichern button:disabled{opacity:.5; cursor:default;}
+  .meldung{font-size:14px;}
+  .meldung.ok{color:var(--ok);} .meldung.warn{color:var(--warn);}
+  .leer{color:var(--muted); font-style:italic;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kopf">
+    <h1>Übersicht</h1>
+    <div class="reiter" role="tablist">
+      <button type="button" role="tab" data-reiter="bestand" aria-selected="true">Bestand & Nummern</button>
+      <button type="button" role="tab" data-reiter="geschichten" aria-selected="false">Ohne Geschichte</button>
+    </div>
+    <a href="./">← zurück zum Admin</a>
+  </div>
+</header>
+
+<main>
+  <div id="anmelde-hinweis" class="hinweis warn" hidden></div>
+
+  <!-- ============ REITER 1: BESTAND & NUMMERN ============ -->
+  <section id="reiter-bestand">
+    <p class="hinweis">Hier änderst du Stückzahl und interne Nummer aller Motive auf einmal. Nummern je Produktart:
+      <b>L</b>1, L2 … für Lesezeichen, <b>M</b>1, M2 … für Postkarten, <b>K</b>1, K2 … für Klappkarten.
+      Geänderte Felder werden gelb. Unten auf <b>Speichern</b> – nach 1–2 Minuten ist es auf der Webseite.</p>
+    <div class="filter">
+      <div class="gruppe" id="art-filter"></div>
+      <input type="search" id="suche" placeholder="Suchen: Tier, Nummer, ID …" aria-label="Motive durchsuchen">
+      <label><input type="checkbox" id="nur-vorraetig"> nur mit Produkt vorrätig</label>
+      <label><input type="checkbox" id="nach-nummer"> nach Nummer sortieren</label>
+    </div>
+    <div id="tabelle"><p class="leer">Lade Motive …</p></div>
+  </section>
+
+  <!-- ============ REITER 2: OHNE GESCHICHTE ============ -->
+  <section id="reiter-geschichten" hidden>
+    <div id="geschichten-liste"><p class="leer">Lade …</p></div>
+  </section>
+</main>
+
+<div class="speichern" id="speicherleiste" hidden>
+  <span class="meldung" id="meldung"></span>
+  <button type="button" class="verwerfen" id="verwerfen">Änderungen verwerfen</button>
+  <button type="button" class="los" id="speichern">Speichern</button>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---- Einstellungen ---- */
+  var REPO = 'bg-naturfotografie/bg-naturfotografie.github.io';
+  var ZWEIG = 'main';
+  var DATEI_MOTIVE = 'daten/motive.json';
+  var DATEI_GESCHICHTEN = 'daten/geschichten.json';
+
+  /* Produktarten in der Reihenfolge der Spalten.
+     praefix = Anfangsbuchstabe der internen Nummer (null = keine Nummer) */
+  var ARTEN = [
+    { id: 'lesezeichen', name: 'Lesezeichen', praefix: 'L' },
+    { id: 'postkarte',   name: 'Postkarte',   praefix: 'M' },
+    { id: 'klappkarte',  name: 'Klappkarte',  praefix: 'K' },
+    { id: 'poster',      name: 'Poster A4',   praefix: null }
+  ];
+
+  var zustand = {
+    motive: [],          // Stand aus der Datei
+    aenderungen: {},     // { motivId: { 'lesezeichen.bestand': 12, ... } }
+    filterArt: 'alle',
+    token: null,
+    geladen: false
+  };
+
+  function $(id) { return document.getElementById(id); }
+  function esc(t) {
+    return String(t == null ? '' : t).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function normal(t) {
+    return String(t || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  }
+
+  /* ---- Anmeldung aus dem Admin-Bereich übernehmen ----
+     Sveltia CMS legt die GitHub-Anmeldung im Browser unter
+     "sveltia-cms.user" ab. Dieselbe Adresse → dieselbe Anmeldung. */
+  function tokenHolen() {
+    try {
+      var u = JSON.parse(localStorage.getItem('sveltia-cms.user') || 'null');
+      return (u && u.backendName === 'github' && u.token) ? u.token : null;
+    } catch (e) { return null; }
+  }
+
+  /* ---- Dateien lesen ----
+     Mit Anmeldung direkt von GitHub (immer der neueste Stand, auch
+     wenn die Webseite noch nicht neu veröffentlicht ist).
+     Ohne Anmeldung die Datei von der Webseite (nur ansehen). */
+  function b64NachText(b64) {
+    var bin = atob(b64.replace(/\n/g, ''));
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder('utf-8').decode(bytes);
+  }
+  function textNachB64(text) {
+    var bytes = new TextEncoder().encode(text);
+    var bin = '';
+    for (var i = 0; i < bytes.length; i += 0x8000) {
+      bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    }
+    return btoa(bin);
+  }
+  function api(pfad, optionen) {
+    optionen = optionen || {};
+    optionen.headers = Object.assign({
+      'Authorization': 'token ' + zustand.token,
+      'Accept': 'application/vnd.github+json'
+    }, optionen.headers || {});
+    optionen.cache = 'no-store';
+    return fetch('https://api.github.com/repos/' + REPO + pfad, optionen);
+  }
+  function dateiLesen(pfad) {
+    if (zustand.token) {
+      return api('/contents/' + pfad + '?ref=' + ZWEIG).then(function (r) {
+        if (r.status === 401) throw new Error('anmeldung');
+        if (!r.ok) throw new Error('GitHub antwortet mit ' + r.status);
+        return r.json();
+      }).then(function (j) {
+        return { daten: JSON.parse(b64NachText(j.content)), sha: j.sha };
+      });
+    }
+    return fetch('../' + pfad, { cache: 'no-cache' }).then(function (r) {
+      if (!r.ok) throw new Error(pfad);
+      return r.json();
+    }).then(function (d) { return { daten: d, sha: null }; });
+  }
+
+  /* ---- Bilder ---- */
+  function bildPfad(p) { return p ? '..' + (p.charAt(0) === '/' ? '' : '/') + p : ''; }
+  function kleinPfad(p) {
+    if (!p) return p;
+    var s = String(p).replace(/^\//, '');
+    if (s.indexOf('bilder/') !== 0 || s.indexOf('bilder/klein/') === 0) return bildPfad(p);
+    return '../bilder/klein/' + s.slice('bilder/'.length);
+  }
+  /* Wie im Shop: eigenes Lesezeichen-Foto, sonst bilder/lesezeichen/<Datei>, sonst <id>.jpg */
+  function lesezeichenKandidaten(m) {
+    var l = [];
+    if (m.bildLesezeichen) l.push(bildPfad(m.bildLesezeichen));
+    var datei = String(m.bild || '').split('/').pop();
+    if (datei) l.push('../bilder/lesezeichen/' + datei);
+    l.push('../bilder/lesezeichen/' + m.id + '.jpg');
+    l.push(kleinPfad(m.bild));
+    return l.filter(function (p, i) { return l.indexOf(p) === i; });
+  }
+  window.bgNaechstesBild = function (img) {
+    var rest = (img.getAttribute('data-rest') || '').split('|').filter(Boolean);
+    if (!rest.length) { img.onerror = null; return; }
+    img.setAttribute('data-rest', rest.slice(1).join('|'));
+    img.src = rest[0];
+  };
+  function bildTag(m, alsLesezeichen) {
+    var liste = alsLesezeichen ? lesezeichenKandidaten(m) : [kleinPfad(m.bild), bildPfad(m.bild)];
+    return '<img class="bild' + (alsLesezeichen ? ' lz' : '') + '" loading="lazy" alt="" src="' + esc(liste[0]) +
+      '" data-rest="' + esc(liste.slice(1).join('|')) + '" onerror="bgNaechstesBild(this)">';
+  }
+
+  function titelVon(m) {
+    var art = (m.art && m.art.de) || m.id;
+    var zusatz = m.zusatz && m.zusatz.de;
+    return { art: art, zusatz: zusatz || '' };
+  }
+
+  /* ---- Werte lesen: geänderter Wert hat Vorrang ---- */
+  function wert(m, art, feld) {
+    var a = zustand.aenderungen[m.id];
+    var schluessel = art + '.' + feld;
+    if (a && Object.prototype.hasOwnProperty.call(a, schluessel)) return a[schluessel];
+    var o = m[art] || {};
+    return o[feld];
+  }
+  function originalWert(m, art, feld) { return (m[art] || {})[feld]; }
+  function gleich(a, b) {
+    var leer = function (x) { return x === undefined || x === null || x === ''; };
+    if (leer(a) && leer(b)) return true;
+    if (typeof a === 'boolean' || typeof b === 'boolean') return !!a === !!b;
+    return String(a) === String(b);
+  }
+  function setzen(id, art, feld, neu) {
+    var m = zustand.motive.filter(function (x) { return x.id === id; })[0];
+    if (!m) return;
+    var a = zustand.aenderungen[id] || (zustand.aenderungen[id] = {});
+    var schluessel = art + '.' + feld;
+    if (gleich(originalWert(m, art, feld), neu)) delete a[schluessel];
+    else a[schluessel] = neu;
+    if (!Object.keys(a).length) delete zustand.aenderungen[id];
+  }
+  function anzahlAenderungen() {
+    return Object.keys(zustand.aenderungen).reduce(function (n, id) {
+      return n + Object.keys(zustand.aenderungen[id]).length;
+    }, 0);
+  }
+
+  /* ---- Doppelte Nummern finden (je Produktart) ---- */
+  function doppelteNummern() {
+    var doppelt = {};
+    ARTEN.forEach(function (art) {
+      if (!art.praefix) return;
+      var gesehen = {};
+      zustand.motive.forEach(function (m) {
+        var n = String(wert(m, art.id, 'nummer') || '').trim().toUpperCase();
+        if (!n) return;
+        (gesehen[n] = gesehen[n] || []).push(m.id);
+      });
+      Object.keys(gesehen).forEach(function (n) {
+        if (gesehen[n].length > 1) gesehen[n].forEach(function (id) { doppelt[art.id + ':' + id] = n; });
+      });
+    });
+    return doppelt;
+  }
+  function nummerGueltig(art, n) {
+    if (!n) return true;
+    return new RegExp('^' + art.praefix + '[0-9]{1,3}$').test(n);
+  }
+
+  /* ---- Tabelle zeichnen ---- */
+  function sichtbareArten() {
+    return zustand.filterArt === 'alle' ? ARTEN : ARTEN.filter(function (a) { return a.id === zustand.filterArt; });
+  }
+  function nummerZahl(n) { var z = parseInt(String(n || '').replace(/\D/g, ''), 10); return isNaN(z) ? 1e9 : z; }
+
+  function tabelleZeichnen() {
+    var arten = sichtbareArten();
+    var suche = normal($('suche').value);
+    var nurVorraetig = $('nur-vorraetig').checked;
+    var doppelt = doppelteNummern();
+
+    var liste = zustand.motive.filter(function (m) {
+      if (nurVorraetig && !arten.some(function (a) { return wert(m, a.id, 'vorraetig') === true; })) return false;
+      if (!suche) return true;
+      var t = titelVon(m);
+      var heu = [t.art, t.zusatz, m.id, m.code].concat(ARTEN.map(function (a) { return wert(m, a.id, 'nummer'); })).join(' ');
+      return normal(heu).indexOf(suche) !== -1;
+    });
+    if ($('nach-nummer').checked) {
+      var art0 = arten.filter(function (a) { return a.praefix; })[0] || ARTEN[0];
+      liste = liste.slice().sort(function (a, b) {
+        return nummerZahl(wert(a, art0.id, 'nummer')) - nummerZahl(wert(b, art0.id, 'nummer'));
+      });
+    }
+
+    var html = '<div class="zeile kopfzeile" style="--spalten:' + arten.length + '"><span>Bild</span><span>Motiv</span>' +
+      arten.map(function (a) { return '<span>' + esc(a.name) + '</span>'; }).join('') + '</div>';
+    if (!liste.length) html += '<p class="leer">Keine Motive passen zur Suche.</p>';
+
+    liste.forEach(function (m) {
+      var t = titelVon(m);
+      var nurLz = zustand.filterArt === 'lesezeichen';
+      html += '<div class="zeile" style="--spalten:' + arten.length + '">' + bildTag(m, nurLz) +
+        '<div class="titel"><b>' + esc(t.art) + '</b>' + (t.zusatz ? esc(t.zusatz) : '') +
+        '<small>' + esc(m.id) + (m.code ? ' · alt: ' + esc(m.code) : '') + (m.versteckt ? ' · ausgeblendet' : '') +
+        (m.imShop === false ? ' · nicht im Shop' : '') + '</small></div>';
+      arten.forEach(function (a) {
+        var vor = wert(m, a.id, 'vorraetig') === true;
+        var best = wert(m, a.id, 'bestand');
+        var nr = wert(m, a.id, 'nummer') || '';
+        var ae = zustand.aenderungen[m.id] || {};
+        var g = function (f) { return Object.prototype.hasOwnProperty.call(ae, a.id + '.' + f) ? ' geaendert' : ''; };
+        var fehler = a.praefix && (!nummerGueltig(a, nr) || doppelt[a.id + ':' + m.id]);
+        html += '<div class="produkt' + (vor ? '' : ' aus') + '" data-id="' + esc(m.id) + '" data-art="' + a.id + '">' +
+          '<span class="name">' + esc(a.name) + '</span>' +
+          '<label class="' + g('vorraetig').trim() + '"><input type="checkbox" data-feld="vorraetig"' + (vor ? ' checked' : '') + '> vorrätig</label>' +
+          '<span>Stück</span><input type="number" min="0" step="1" inputmode="numeric" data-feld="bestand" class="' + g('bestand').trim() +
+            '" value="' + (best === null || best === undefined ? '' : esc(best)) + '" aria-label="' + esc(a.name) + ' Stückzahl ' + esc(t.art) + '">' +
+          (a.praefix
+            ? '<span>Nr.</span><input type="text" data-feld="nummer" maxlength="4" placeholder="' + a.praefix + '…" class="' +
+              (g('nummer') + (fehler ? ' fehler' : '')).trim() + '" value="' + esc(nr) + '" aria-label="' + esc(a.name) + ' Nummer ' + esc(t.art) + '">' +
+              (doppelt[a.id + ':' + m.id] ? '<span class="doppelt">' + esc(doppelt[a.id + ':' + m.id]) + ' gibt es doppelt</span>'
+                : (!nummerGueltig(a, nr) ? '<span class="doppelt">Format: ' + a.praefix + '1, ' + a.praefix + '2 …</span>' : ''))
+            : '') +
+          '</div>';
+      });
+      html += '</div>';
+    });
+    $('tabelle').innerHTML = html;
+    leisteAktualisieren();
+  }
+
+  /* Eingaben: ein Listener für alles */
+  $('tabelle').addEventListener('change', eingabe);
+  $('tabelle').addEventListener('input', function (e) {
+    // Nummern beim Tippen gleich groß schreiben
+    if (e.target.getAttribute('data-feld') === 'nummer') {
+      var pos = e.target.selectionStart;
+      e.target.value = e.target.value.toUpperCase().replace(/\s/g, '');
+      try { e.target.setSelectionRange(pos, pos); } catch (x) {}
+    }
+  });
+  function eingabe(e) {
+    var feld = e.target.getAttribute('data-feld');
+    if (!feld) return;
+    var box = e.target.closest('.produkt');
+    var id = box.getAttribute('data-id'), art = box.getAttribute('data-art');
+    var neu;
+    if (feld === 'vorraetig') neu = e.target.checked;
+    else if (feld === 'bestand') {
+      neu = e.target.value === '' ? null : Math.max(0, parseInt(e.target.value, 10) || 0);
+      // Stückzahl eingetragen, aber noch nicht „vorrätig“? Dann gleich anhaken.
+      var m = zustand.motive.filter(function (x) { return x.id === id; })[0];
+      if (neu > 0 && wert(m, art, 'vorraetig') !== true) setzen(id, art, 'vorraetig', true);
+    } else neu = e.target.value.trim().toUpperCase();
+    setzen(id, art, feld, neu);
+    var scrollY = window.scrollY;
+    tabelleZeichnen();
+    window.scrollTo(0, scrollY);
+  }
+
+  function leisteAktualisieren(meldung, klasse) {
+    var n = anzahlAenderungen();
+    var leiste = $('speicherleiste');
+    var fehler = Object.keys(doppelteNummern()).length > 0;
+    leiste.hidden = !n && !meldung;
+    $('speichern').disabled = !n || !zustand.token;
+    $('verwerfen').hidden = !n;
+    var m = $('meldung');
+    if (meldung) { m.textContent = meldung; m.className = 'meldung ' + (klasse || ''); return; }
+    m.className = 'meldung' + (fehler ? ' warn' : '');
+    m.textContent = n + (n === 1 ? ' Änderung' : ' Änderungen') +
+      (fehler ? ' · Achtung: eine Nummer ist doppelt vergeben (rot markiert)' : '') +
+      (!zustand.token ? ' · zum Speichern bitte erst im Admin-Bereich anmelden' : '');
+  }
+
+  /* ---- Speichern ----
+     Holt die Datei frisch von GitHub, trägt NUR die geänderten Felder
+     ein und speichert. So geht nichts verloren, was du in der
+     Zwischenzeit im Admin-Formular geändert hast. */
+  function speichern(versuch) {
+    versuch = versuch || 1;
+    var aenderungen = zustand.aenderungen;
+    var motivAnzahl = Object.keys(aenderungen).length;
+    $('speichern').disabled = true;
+    leisteAktualisieren('Speichere …');
+    return dateiLesen(DATEI_MOTIVE).then(function (f) {
+      var fehlt = [];
+      Object.keys(aenderungen).forEach(function (id) {
+        var m = (f.daten.motive || []).filter(function (x) { return x.id === id; })[0];
+        if (!m) { fehlt.push(id); return; }
+        Object.keys(aenderungen[id]).forEach(function (schluessel) {
+          var teile = schluessel.split('.');
+          if (!m[teile[0]] || typeof m[teile[0]] !== 'object') m[teile[0]] = {};
+          m[teile[0]][teile[1]] = aenderungen[id][schluessel];
+        });
+      });
+      var text = JSON.stringify(f.daten, null, 2) + '\n';
+      return api('/contents/' + DATEI_MOTIVE, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: 'Admin: Bestand & Nummern geändert (' + motivAnzahl + (motivAnzahl === 1 ? ' Motiv)' : ' Motive)'),
+          content: textNachB64(text),
+          sha: f.sha,
+          branch: ZWEIG
+        })
+      }).then(function (r) {
+        if ((r.status === 409 || r.status === 422) && versuch < 3) return speichern(versuch + 1);
+        if (r.status === 401) throw new Error('anmeldung');
+        if (!r.ok) throw new Error('GitHub antwortet mit ' + r.status);
+        zustand.motive = f.daten.motive || [];
+        zustand.aenderungen = {};
+        tabelleZeichnen();
+        leisteAktualisieren('✓ Gespeichert. In 1–2 Minuten ist es auf der Webseite.' +
+          (fehlt.length ? ' (Nicht gefunden: ' + fehlt.join(', ') + ')' : ''), 'ok');
+        setTimeout(function () { if (!anzahlAenderungen()) $('speicherleiste').hidden = true; }, 6000);
+      });
+    }).catch(function (e) {
+      $('speichern').disabled = false;
+      leisteAktualisieren(e.message === 'anmeldung'
+        ? 'Anmeldung abgelaufen. Bitte im Admin-Bereich neu anmelden, dann hier nochmal speichern (Änderungen bleiben stehen, solange du die Seite offen lässt).'
+        : 'Speichern hat nicht geklappt (' + e.message + '). Bitte nochmal versuchen.', 'warn');
+    });
+  }
+  $('speichern').addEventListener('click', function () { speichern(1); });
+  $('verwerfen').addEventListener('click', function () {
+    zustand.aenderungen = {};
+    tabelleZeichnen();
+  });
+  window.addEventListener('beforeunload', function (e) {
+    if (anzahlAenderungen()) { e.preventDefault(); e.returnValue = ''; }
+  });
+
+  /* ---- Filter ---- */
+  function filterKnoepfe() {
+    var html = [{ id: 'alle', name: 'Alle Produkte' }].concat(ARTEN).map(function (a) {
+      return '<button type="button" data-art="' + a.id + '" class="' + (zustand.filterArt === a.id ? 'an' : '') + '">' + esc(a.name) + '</button>';
+    }).join('');
+    $('art-filter').innerHTML = html;
+  }
+  $('art-filter').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    zustand.filterArt = b.getAttribute('data-art');
+    filterKnoepfe(); tabelleZeichnen();
+  });
+  $('suche').addEventListener('input', tabelleZeichnen);
+  $('nur-vorraetig').addEventListener('change', tabelleZeichnen);
+  $('nach-nummer').addEventListener('change', tabelleZeichnen);
+
+  /* ---- Reiter ---- */
+  function reiterZeigen(name) {
+    document.querySelectorAll('[data-reiter]').forEach(function (b) {
+      b.setAttribute('aria-selected', b.getAttribute('data-reiter') === name ? 'true' : 'false');
+    });
+    $('reiter-bestand').hidden = name !== 'bestand';
+    $('reiter-geschichten').hidden = name !== 'geschichten';
+    if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
+  }
+  document.querySelector('.reiter').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-reiter]'); if (b) reiterZeigen(b.getAttribute('data-reiter'));
+  });
+
+  /* ---- Ohne Geschichte ----
+     „Im Shop“ = als Druck (Lesezeichen, Postkarte, Klappkarte oder
+     Poster) vorrätig mit Stückzahl über 0 — genau die Motive, die
+     im Shop zu sehen sind. Motive, die es nur als Download gibt,
+     stehen eingeklappt darunter. */
+  function produkteVorraetig(m) {
+    return ARTEN.filter(function (a) {
+      var o = m[a.id] || {};
+      return o.vorraetig === true && Number(o.bestand) > 0;
+    });
+  }
+  function geschichtenZeichnen(motive, geschichten) {
+    var mitText = {};
+    (geschichten.geschichten || []).forEach(function (g) {
+      if (g && g.id && g.geschichte && String(g.geschichte.de || '').trim()) mitText[g.id] = true;
+    });
+    var kandidaten = motive.filter(function (m) { return m.versteckt !== true && m.imShop !== false && !mitText[m.id]; });
+    var imShop = kandidaten.filter(function (m) { return produkteVorraetig(m).length; });
+    var nurDownload = kandidaten.filter(function (m) { return !produkteVorraetig(m).length; });
+
+    function karte(m) {
+      var t = titelVon(m);
+      return '<div class="karte">' + bildTag(m, false).replace('class="bild"', '') + '<div><b>' + esc(t.art) + '</b> ' + esc(t.zusatz) +
+        '<small>' + esc(m.id) + '</small>' +
+        produkteVorraetig(m).map(function (a) {
+          var nr = (m[a.id] || {}).nummer;
+          return '<span class="marke">' + esc(a.name) + (nr ? ' ' + esc(nr) : '') + '</span>';
+        }).join('') + '</div></div>';
+    }
+    var html = '<p class="hinweis"><b>' + imShop.length + (imShop.length === 1 ? ' Foto' : ' Fotos') +
+      '</b> im Shop ' + (imShop.length === 1 ? 'hat' : 'haben') + ' noch keine Geschichte. ' +
+      'Anlegen: <a href="./#/collections/_singletons/entries/geschichten">Admin → Geschichten</a> → neuen Eintrag hinzufügen und das Motiv auswählen.</p>';
+    html += imShop.length ? '<div class="liste">' + imShop.map(karte).join('') + '</div>'
+      : '<p class="leer">Alle Shop-Fotos haben eine Geschichte. 🎉</p>';
+    if (nurDownload.length) {
+      html += '<details><summary>' + nurDownload.length + ' weitere Fotos ohne Geschichte, die es gerade nur als Download gibt</summary>' +
+        '<div class="liste" style="margin-top:12px">' + nurDownload.map(karte).join('') + '</div></details>';
+    }
+    $('geschichten-liste').innerHTML = html;
+    document.querySelector('[data-reiter="geschichten"]').textContent = 'Ohne Geschichte (' + imShop.length + ')';
+  }
+
+  /* ---- Start ---- */
+  function start() {
+    zustand.token = tokenHolen();
+    if (!zustand.token) {
+      var h = $('anmelde-hinweis');
+      h.hidden = false;
+      h.innerHTML = 'Du bist nicht angemeldet – du siehst den Stand der Webseite, kannst aber nichts speichern. ' +
+        '<a href="./">Im Admin-Bereich anmelden</a> und dann diese Seite neu öffnen.';
+    }
+    filterKnoepfe();
+    reiterZeigen(location.hash === '#geschichten' ? 'geschichten' : 'bestand');
+    Promise.all([dateiLesen(DATEI_MOTIVE), dateiLesen(DATEI_GESCHICHTEN)]).then(function (r) {
+      zustand.motive = r[0].daten.motive || [];
+      zustand.geladen = true;
+      tabelleZeichnen();
+      geschichtenZeichnen(zustand.motive, r[1].daten);
+    }).catch(function (e) {
+      if (e.message === 'anmeldung' && zustand.token) {   // Anmeldung abgelaufen → nur ansehen
+        zustand.token = null;
+        return start();
+      }
+      $('tabelle').innerHTML = '<p class="hinweis warn">Konnte die Daten nicht laden (' + esc(e.message) + '). Bitte Seite neu laden.</p>';
+    });
+  }
+  start();
+})();
+</script>
+</body>
+</html>
