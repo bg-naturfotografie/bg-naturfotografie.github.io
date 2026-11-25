@@ -209,6 +209,34 @@ Hand bearbeiten.
 Nach dem Speichern baut GitHub die Seite neu — meist **1–2 Minuten**.
 Danach einmal neu laden.
 
+### Übersicht „Bestand & Nummern“ und „Ohne Geschichte“
+
+Unten links im Admin-Bereich stehen zwei Knöpfe:
+
+- **📋 Bestand & Nummern** öffnet eine Liste aller Motive mit Bild.
+  Daneben je Produktart (Lesezeichen, Postkarte, Klappkarte, Poster)
+  „vorrätig“, Stückzahl und interne Nummer. Nummern je Art:
+  **L1, L2 …** Lesezeichen, **M1, M2 …** Postkarten, **K1, K2 …**
+  Klappkarten. Ändern → unten **Speichern**. Geänderte Felder werden
+  gelb, doppelt vergebene Nummern rot. Oben „Lesezeichen“ wählen zeigt
+  das Lesezeichen-Bild wie im Shop.
+- **📖 … ohne Geschichte** zeigt, welche Fotos im Shop (als Druck
+  vorrätig) noch keine Geschichte haben.
+
+Die Übersicht nutzt deine Anmeldung aus dem Admin-Bereich. Nach dem
+Speichern dort einmal zurück zum Admin gehen — dann lädt er den neuen
+Stand. Die Nummern stehen auch im Motiv-Formular bei Postkarte,
+Lesezeichen und Klappkarte; der alte Code M-01 … bleibt nur zum
+Nachschauen stehen.
+
+### Ort auf der Karte
+
+Die Karte zeigt über der Karte Ortsknöpfe („Halstenbek“, „Schenefeld“,
+„Hamburg“, „Schottland“ …). Den Ort erkennt sie selbst aus den
+Koordinaten. Soll dort etwas anderes stehen, im Motiv unter
+„Aufnahmeort“ das Feld **Ort für die Kartenliste** ausfüllen
+(z. B. „Heede“).
+
 ### Etwas kaputt gemacht?
 
 Jede Speicherung ist eine eigene Version auf GitHub (Einträge

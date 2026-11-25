@@ -111,6 +111,73 @@ BG.bereit(function () {
     gruppen[schluessel].motive.push(motiv);
   });
 
+  /* ---- In welchem ORT liegt ein Punkt? ---------------------------
+     Für die Ortsknöpfe über der Karte und die Bilderleiste darunter
+     („Halstenbek · Spielplatz Krupunder“).
+     1. Im Admin-Bereich unter „Ort für die Kartenliste“ eingetragen
+        → das gilt immer.
+     2. Sonst: Liegt der Punkt in einem der Umrisse aus
+        daten/orte-gebiete.js (Halstenbek, Schenefeld, Hamburg …)?
+     3. Sonst: grobe Rechtecke für weiter weg (WEITERE_REGIONEN).
+     4. Sonst: „Weitere Orte“.
+     Alles passiert im Browser — kein fremder Dienst, keine Kosten. */
+  var WEITERE_REGIONEN = [
+    // [Name, Süden, Westen, Norden, Osten]
+    ['Schottland', 54.6, -8.7, 61.0, -0.7]
+  ];
+  var REGION_ENGLISCH = { 'Schottland': 'Scotland', 'Rund um Barmstedt': 'Around Barmstedt', 'Weitere Orte': 'Other places' };
+  function regionAnzeige(name) { return BG.t(name, REGION_ENGLISCH[name] || name); }
+
+  function imRing(lat, lng, ring) {
+    var drin = false;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      var yi = ring[i][0], xi = ring[i][1], yj = ring[j][0], xj = ring[j][1];
+      if ((yi > lat) !== (yj > lat) && lng < (xj - xi) * (lat - yi) / (yj - yi) + xi) drin = !drin;
+    }
+    return drin;
+  }
+  function mittelpunktVon(ort) {
+    if (ort.polygon && ort.polygon.length >= 3) {
+      var la = 0, ln = 0;
+      ort.polygon.forEach(function (p) { la += p[0]; ln += p[1]; });
+      return [la / ort.polygon.length, ln / ort.polygon.length];
+    }
+    return [ort.lat, ort.lng];
+  }
+  function regionVon(ort) {
+    if (ort.region) return ort.region;
+    var p = mittelpunktVon(ort);
+    var gebiete = window.ORTE_GEBIETE || [];
+    for (var g = 0; g < gebiete.length; g++) {
+      var treffer = 0;   // gerade/ungerade über alle Ringe = Löcher werden richtig behandelt
+      gebiete[g].ringe.forEach(function (r) { if (imRing(p[0], p[1], r)) treffer++; });
+      if (treffer % 2) return gebiete[g].name;
+    }
+    for (var w = 0; w < WEITERE_REGIONEN.length; w++) {
+      var b = WEITERE_REGIONEN[w];
+      if (p[0] >= b[1] && p[0] <= b[3] && p[1] >= b[2] && p[1] <= b[4]) return b[0];
+    }
+    return 'Weitere Orte';
+  }
+
+  function normal(t) {
+    return String(t || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/ß/g, 'ss');
+  }
+  // „Halstenbek · Trampelpfad“ — aber nicht „Halstenbek · Halstenbek, Trampelpfad“
+  function ortsZeile(gruppe) {
+    var region = regionAnzeige(gruppe.region);
+    var label = gruppe.ort.label;
+    if (!label) return region;
+    if (normal(label).indexOf(normal(gruppe.region)) !== -1) return label;
+    return region + ' \u00b7 ' + label;
+  }
+
+  Object.keys(gruppen).forEach(function (schluessel) {
+    var gruppe = gruppen[schluessel];
+    gruppe.region = regionVon(gruppe.ort);
+    gruppe.motive.forEach(function (m) { m._gruppe = gruppe; });
+  });
+
   /* ---- Inhalt des Hover-Vorschaufensters ----
      Ein Motiv → kleines Bild mit Titel.
      Mehrere    → Ortsname und Anzahl, damit klar ist, dass ein
@@ -131,7 +198,7 @@ BG.bereit(function () {
      offen, bis man daneben auf die Karte klickt (Leaflet-Standard). */
   function popupHtml(gruppe) {
     var kopf = '<div class="karte-popup-kopf">' +
-      escapeAttr(gruppe.ort.label || BG.t('Aufnahmeort', 'Location')) +
+      escapeAttr(ortsZeile(gruppe)) +
       (gruppe.motive.length > 1 ? ' <span>&middot; ' + gruppe.motive.length + BG.t(' Motive', ' motifs') + '</span>' : '') +
       '</div>';
 
@@ -202,7 +269,11 @@ BG.bereit(function () {
 
     // Beim Öffnen des Fensters die Hover-Vorschau ausblenden,
     // damit sich beides nicht überlagert.
-    element.on('popupopen', function () { element.closeTooltip(); });
+    element.on('popupopen', function () {
+      element.closeTooltip();
+      leisteMarkieren(gruppe);
+    });
+    gruppe.element = element;
   });
 
   // ---- STARTANSICHT: nah an Halstenbek ----
@@ -293,5 +364,191 @@ BG.bereit(function () {
         karte.setView([zielMotiv.ort.lat, zielMotiv.ort.lng], 13);
       }
     }
+  }
+
+  /* ============================================================
+     SUCHE, ORTSKNÖPFE und BILDERLEISTE
+     ============================================================
+     - Suchfeld: filtert nach Tier, Zusatz, Ortsname, Ort und Serie.
+     - Ortsknöpfe („Halstenbek 25“, „Schenefeld 19“ …): zeigt nur
+       die Motive dieses Ortes und zoomt dorthin. Nochmal klicken
+       = wieder alle.
+     - Bilderleiste unter der Karte: alle passenden Motive, auf dem
+       Desktop 5 pro Seite (Pfeile oder wischen). Klick auf ein
+       Bild → Karte springt zum Punkt und öffnet ihn.
+     Punkte, die nicht passen, werden blass statt zu verschwinden. */
+  var suchFeld = document.getElementById('karte-suche');
+  var ortKnoepfe = document.getElementById('karte-orte');
+  var leiste = document.getElementById('karte-leiste');
+  var spur = document.getElementById('karte-leiste-spur');
+  var leisteInfo = document.getElementById('karte-leiste-info');
+  var knopfZurueck = document.getElementById('karte-leiste-zurueck');
+  var knopfWeiter = document.getElementById('karte-leiste-weiter');
+  if (!spur || !ortKnoepfe) return;
+
+  var filter = { region: null, suche: '' };
+
+  // Orte nach Anzahl der Motive sortiert (Halstenbek zuerst)
+  var regionAnzahl = {};
+  motiveMitOrt.forEach(function (m) { regionAnzahl[m._gruppe.region] = (regionAnzahl[m._gruppe.region] || 0) + 1; });
+  var regionen = Object.keys(regionAnzahl).sort(function (a, b) {
+    if (a === 'Weitere Orte') return 1;
+    if (b === 'Weitere Orte') return -1;
+    return regionAnzahl[b] - regionAnzahl[a] || a.localeCompare(b, 'de');
+  });
+
+  // Leiste: erst nach Ort, dann nach Ortsname, dann Reihenfolge der Daten
+  var leistenMotive = motiveMitOrt.slice().sort(function (a, b) {
+    return regionen.indexOf(a._gruppe.region) - regionen.indexOf(b._gruppe.region) ||
+      String(a.ort.label || '').localeCompare(String(b.ort.label || ''), 'de');
+  });
+
+  function knoepfeZeichnen() {
+    var html = '<button type="button" class="karte-ort" data-region="" aria-pressed="' + (!filter.region) + '">' +
+      BG.t('Alle Orte', 'All places') + '<span>' + motiveMitOrt.length + '</span></button>';
+    regionen.forEach(function (r) {
+      html += '<button type="button" class="karte-ort" data-region="' + escapeAttr(r) + '" aria-pressed="' + (filter.region === r) + '">' +
+        escapeAttr(regionAnzeige(r)) + '<span>' + regionAnzahl[r] + '</span></button>';
+    });
+    ortKnoepfe.innerHTML = html;
+  }
+
+  function passt(m) {
+    if (filter.region && m._gruppe.region !== filter.region) return false;
+    if (!filter.suche) return true;
+    var heu = normal([m.art, m.zusatz, m.ort.label, m._gruppe.region, regionAnzeige(m._gruppe.region), m.kategorieName].join(' '));
+    return filter.suche.split(/\s+/).every(function (wort) { return heu.indexOf(wort) !== -1; });
+  }
+
+  function leisteZeichnen() {
+    var liste = leistenMotive.filter(passt);
+    leiste.hidden = false;
+    if (!liste.length) {
+      spur.innerHTML = '<p class="karte-leiste-leer">' + BG.t('Nichts gefunden — versuch einen anderen Begriff.', 'Nothing found — try another word.') + '</p>';
+    } else {
+      spur.innerHTML = liste.map(function (m) {
+        return '<button type="button" class="karte-leiste-bild" data-id="' + escapeAttr(m.id) + '" title="' + escapeAttr(titelVon(m)) + '">' +
+          '<img loading="lazy" src="' + escapeAttr(BG.klein(m.bild)) + '"' + BG.bildFallback(m.bild) + ' alt="' + escapeAttr(m.alt || titelVon(m)) + '">' +
+          '<b>' + escapeAttr(m.art || titelVon(m)) + '</b>' +
+          '<small>' + escapeAttr(ortsZeile(m._gruppe)) + '</small>' +
+          '</button>';
+      }).join('');
+    }
+    spur.scrollTo({ left: 0, behavior: 'instant' });
+    seitenInfo();
+
+    // Punkte auf der Karte abblenden, die nichts Passendes enthalten
+    var gefiltert = !!(filter.region || filter.suche);
+    Object.keys(gruppen).forEach(function (k) {
+      var g = gruppen[k];
+      var el = g.element && g.element.getElement && g.element.getElement();
+      if (!el) return;
+      var treffer = !gefiltert || g.motive.some(passt);
+      el.classList.toggle('karte-gedimmt', !treffer);
+    });
+    return liste;
+  }
+
+  /* Bereich der Karte, der alle passenden Motive zeigt */
+  function zuTreffernZoomen(liste) {
+    var punkte = [];
+    liste.forEach(function (m) {
+      if (m.ort.polygon) m.ort.polygon.forEach(function (p) { punkte.push(p); });
+      else punkte.push([m.ort.lat, m.ort.lng]);
+    });
+    if (!punkte.length) return;
+    karte.closePopup();
+    if (punkte.length === 1) karte.setView(punkte[0], 14);
+    else karte.fitBounds(punkte, { padding: [40, 40], maxZoom: 15 });
+  }
+
+  /* „Bilder 1–5 von 54“ und Pfeile an/aus */
+  function seitenInfo() {
+    var karten = spur.querySelectorAll('.karte-leiste-bild');
+    var n = karten.length;
+    if (!n) { leisteInfo.textContent = ''; knopfZurueck.disabled = knopfWeiter.disabled = true; return; }
+    var abstand = parseFloat(getComputedStyle(spur).columnGap) || 0;
+    var breite = karten[0].getBoundingClientRect().width + abstand;
+    var erstes = Math.min(n - 1, Math.round(spur.scrollLeft / breite));
+    var sichtbar = Math.max(1, Math.floor((spur.clientWidth + abstand + 2) / breite));
+    var letztes = Math.min(n, erstes + sichtbar);
+    leisteInfo.textContent = (n === 1 ? BG.t('1 Bild', '1 photo')
+      : BG.t('Bilder ', 'Photos ') + (erstes + 1) + '–' + letztes + BG.t(' von ', ' of ') + n);
+    knopfZurueck.disabled = spur.scrollLeft <= 2;
+    knopfWeiter.disabled = spur.scrollLeft + spur.clientWidth >= spur.scrollWidth - 2;
+  }
+  var infoTimer;
+  spur.addEventListener('scroll', function () { clearTimeout(infoTimer); infoTimer = setTimeout(seitenInfo, 60); });
+  window.addEventListener('resize', seitenInfo);
+  knopfZurueck.addEventListener('click', function () { spur.scrollBy({ left: -spur.clientWidth, behavior: 'smooth' }); });
+  knopfWeiter.addEventListener('click', function () { spur.scrollBy({ left: spur.clientWidth, behavior: 'smooth' }); });
+
+  /* Klick auf ein Bild der Leiste → zum Punkt springen und öffnen */
+  spur.addEventListener('click', function (e) {
+    var b = e.target.closest('.karte-leiste-bild');
+    if (!b) return;
+    var m = motiveMitOrt.filter(function (x) { return x.id === b.getAttribute('data-id'); })[0];
+    if (!m) return;
+    var g = m._gruppe;
+    var oben = kartenElement.getBoundingClientRect().top;
+    if (oben < 0 || oben > window.innerHeight * 0.5) kartenElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    karte.closePopup();
+    if (g.ort.polygon && g.element.getBounds) karte.fitBounds(g.element.getBounds(), { padding: [40, 40], maxZoom: 15 });
+    else if (g.ort.bereich && g.element.getBounds) karte.fitBounds(g.element.getBounds(), { padding: [20, 20], maxZoom: 14 });
+    else karte.setView([g.ort.lat, g.ort.lng], Math.max(karte.getZoom(), 16));
+    karte.once('moveend', function () { g.element.openPopup(); });
+    // Falls die Karte schon an der Stelle war, gibt es kein moveend
+    setTimeout(function () { if (!g.element.isPopupOpen()) g.element.openPopup(); }, 700);
+  });
+
+  /* Beim Öffnen eines Punktes dessen Bilder in der Leiste hervorheben */
+  function leisteMarkieren(gruppe) {
+    if (!spur) return;
+    var ids = gruppe.motive.map(function (m) { return m.id; });
+    var erstes = null;
+    spur.querySelectorAll('.karte-leiste-bild').forEach(function (el) {
+      var an = ids.indexOf(el.getAttribute('data-id')) !== -1;
+      el.classList.toggle('aktiv', an);
+      if (an && !erstes) erstes = el;
+    });
+    if (erstes) {
+      var links = erstes.offsetLeft - spur.offsetLeft;
+      if (links < spur.scrollLeft || links > spur.scrollLeft + spur.clientWidth - erstes.offsetWidth) {
+        spur.scrollTo({ left: links, behavior: 'smooth' });
+      }
+    }
+  }
+  karte.on('popupclose', function () {
+    spur.querySelectorAll('.karte-leiste-bild.aktiv').forEach(function (el) { el.classList.remove('aktiv'); });
+  });
+
+  ortKnoepfe.addEventListener('click', function (e) {
+    var b = e.target.closest('.karte-ort');
+    if (!b) return;
+    var r = b.getAttribute('data-region') || null;
+    filter.region = (r && filter.region !== r) ? r : null;
+    knoepfeZeichnen();
+    var liste = leisteZeichnen();
+    if (filter.region || filter.suche) zuTreffernZoomen(liste);
+    else zeigeHalstenbek();
+  });
+
+  var suchTimer;
+  if (suchFeld) {
+    suchFeld.addEventListener('input', function () {
+      clearTimeout(suchTimer);
+      suchTimer = setTimeout(function () {
+        filter.suche = normal(suchFeld.value).trim();
+        var liste = leisteZeichnen();
+        if (liste.length && (filter.suche || filter.region)) zuTreffernZoomen(liste);
+      }, 250);
+    });
+  }
+
+  knoepfeZeichnen();
+  leisteZeichnen();
+  if (zielId) {
+    var ziel = motiveMitOrt.filter(function (m) { return m.id === zielId; })[0];
+    if (ziel) leisteMarkieren(ziel._gruppe);
   }
 }); // Ende BG.bereit

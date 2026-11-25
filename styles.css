@@ -1045,7 +1045,8 @@ textarea{min-height:120px; resize:vertical;}
    KARTE (karte.html)
    ============================================================ */
 #foto-karte{
-  width:100%; height:74vh; min-height:420px;
+  width:100%; height:64vh; min-height:400px;
+  scroll-margin-top:80px;   /* Platz für die feste Navigation beim Hinspringen */
   border-radius:var(--radius-foto);
   overflow:hidden;
   border:1px solid var(--line);
@@ -1120,6 +1121,77 @@ textarea{min-height:120px; resize:vertical;}
 .karte-popup-raster .karte-popup-eintrag:only-child{grid-column:1 / -1;}
 .karte-popup-raster .karte-popup-eintrag:only-child img{height:150px;}
 @media (max-width:520px){ .karte-popup-raster{width:200px;} }
+
+/* Knöpfe „Halstenbek“ / „Alle Orte“ oben rechts in der Karte:
+   Leaflet macht sie sonst 26 px schmal, dann bricht der Text um. */
+.karte-ansicht a{
+  width:auto !important; padding:0 .75em; white-space:nowrap;
+  font-family:'Work Sans', sans-serif; font-size:.78rem; color:var(--bg-deep);
+}
+
+/* ---- Suche und Ortsknöpfe über der Karte ---- */
+.karte-werkzeuge{ display:flex; flex-direction:column; gap:.8rem; margin-bottom:1rem; }
+.karte-suche input{
+  width:100%; max-width:520px; padding:.65em .9em;
+  background:var(--bg-panel); color:var(--text-light);
+  border:1px solid var(--line-strong); border-radius:var(--radius);
+  font:inherit; font-size:.95rem;
+}
+.karte-suche input::placeholder{ color:var(--text-muted); }
+.karte-suche input:focus{ outline:2px solid var(--fokus); outline-offset:1px; }
+.karte-orte{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.karte-ort{
+  background:transparent; color:var(--text-light); cursor:pointer;
+  border:1px solid var(--line-strong); border-radius:999px;
+  padding:.3em .85em; font:inherit; font-size:.82rem;
+}
+.karte-ort span{ color:var(--text-muted); margin-left:.25em; }
+.karte-ort:hover{ border-color:var(--accent); }
+.karte-ort[aria-pressed="true"]{ background:var(--accent); border-color:var(--accent); color:var(--bg-deep); }
+.karte-ort[aria-pressed="true"] span{ color:var(--bg-deep); }
+
+/* Punkte, die nicht zur Suche passen, treten zurück */
+.karte-punkt.karte-gedimmt{ fill-opacity:.18; stroke-opacity:.3; }
+.karte-gebiet.karte-gedimmt{ fill-opacity:.07; }
+
+/* ---- Bilderleiste unter der Karte ----
+   Desktop 5 Bilder pro Seite, Tablet 3, Handy gut 2 (wischen). */
+.karte-leiste{ margin-top:1rem; }
+.karte-leiste-kopf{
+  display:flex; justify-content:space-between; align-items:center; gap:1rem;
+  font-family:'JetBrains Mono', monospace; font-size:.72rem; color:var(--text-muted);
+  letter-spacing:.04em; margin-bottom:.5rem;
+}
+.karte-leiste-pfeile{ display:flex; gap:.4rem; }
+.karte-leiste-pfeile button{
+  width:2.2rem; height:2.2rem; cursor:pointer; font-size:1rem;
+  background:var(--bg-panel); color:var(--text-light);
+  border:1px solid var(--line-strong); border-radius:var(--radius);
+}
+.karte-leiste-pfeile button:hover:not(:disabled){ border-color:var(--accent); color:var(--accent-soft); }
+.karte-leiste-pfeile button:disabled{ opacity:.35; cursor:default; }
+.karte-leiste-spur{
+  --leiste-gap:.75rem; --pro-seite:5;
+  display:flex; gap:var(--leiste-gap); overflow-x:auto; scroll-snap-type:x mandatory;
+  scroll-behavior:smooth; padding-bottom:.4rem;
+  scrollbar-width:thin; scrollbar-color:var(--line) transparent;
+}
+.karte-leiste-bild{
+  flex:0 0 calc((100% - (var(--pro-seite) - 1) * var(--leiste-gap)) / var(--pro-seite));
+  scroll-snap-align:start; text-align:left; cursor:pointer; min-width:0; overflow:hidden;
+  background:none; border:1px solid transparent; padding:0; color:var(--text-light); font:inherit;
+}
+.karte-leiste-bild img{ width:100%; aspect-ratio:4 / 3; object-fit:cover; display:block; transition:opacity .15s; }
+.karte-leiste-bild:hover img{ opacity:.85; }
+.karte-leiste-bild.aktiv{ border-color:var(--accent); }
+.karte-leiste-bild b{ display:block; font-family:'Work Sans', sans-serif; font-size:.78rem; font-weight:600; padding:.35em .3em 0; line-height:1.25; }
+.karte-leiste-bild small{
+  display:block; font-family:'JetBrains Mono', monospace; font-size:.66rem; color:var(--text-muted);
+  padding:.15em .3em .3em; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.karte-leiste-leer{ color:var(--text-muted); font-size:.9rem; font-style:italic; }
+@media (max-width:900px){ .karte-leiste-spur{ --pro-seite:3; } }
+@media (max-width:560px){ .karte-leiste-spur{ --pro-seite:2.3; } #foto-karte{ height:56vh; } }
 
 .leaflet-control-zoom{ border:none !important; box-shadow:none !important; }
 .leaflet-control-zoom a{

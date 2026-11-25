@@ -36,7 +36,7 @@
 <!-- ?v=… zwingt den Browser, die neue Datei zu laden statt einer
      gespeicherten alten. Bei Änderungen an styles.css / karte.js
      einfach die Zeichen hinter ?v= ändern (z. B. Datum). -->
-<link rel="stylesheet" href="styles.css?v=2026-09-17">
+<link rel="stylesheet" href="styles.css?v=2026-11-25">
 <!-- Sprache (Deutsch/Englisch), ohne defer — siehe sprache.js -->
 <script src="sprache.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="f4f909bb-06ff-41f6-933c-db0c0deac7b4"></script>
@@ -76,14 +76,33 @@
   <div class="wrap">
     <a href="index.html#galerie" class="zurueck-link" data-en="&larr; Back to the gallery">&larr; Zur&uuml;ck zur Galerie</a>
     <h1 data-en="Where the photos were taken">Wo die Fotos entstanden sind</h1>
-    <p class="lead" data-en="Click a spot to see all the motifs from that place — and from there go on to each story.">Klick auf einen Punkt, um alle Motive dieses Ortes zu sehen — und von dort weiter zur jeweiligen Geschichte.</p>
+    <p class="lead" data-en="Click a spot to see all the motifs from that place — and from there go on to each story. Or search for an animal or place, or click a photo in the strip below the map.">Klick auf einen Punkt, um alle Motive dieses Ortes zu sehen — und von dort weiter zur jeweiligen Geschichte. Oder such nach Tier oder Ort bzw. klick ein Bild in der Leiste unter der Karte an.</p>
   </div>
 </header>
 
 <!-- ============ KARTE ============ -->
 <section style="padding-top:2rem;">
   <div class="wrap">
+    <!-- Suche + Orte: karte.js füllt die Ortsknöpfe automatisch -->
+    <div class="karte-werkzeuge">
+      <label class="karte-suche">
+        <span class="nur-vorlesen" data-en="Search motifs or places">Motive oder Orte suchen</span>
+        <input type="search" id="karte-suche" autocomplete="off" placeholder="Suchen: Tier oder Ort, z. B. Eichhörnchen, Schenefeld …" data-en-placeholder="Search: animal or place, e.g. squirrel, Hamburg …">
+      </label>
+      <div class="karte-orte" id="karte-orte" role="group" aria-label="Orte" data-en-aria-label="Places"></div>
+    </div>
     <div id="foto-karte"></div>
+    <!-- Bilderleiste: Klick auf ein Bild springt zum Punkt auf der Karte -->
+    <div class="karte-leiste" id="karte-leiste" hidden>
+      <div class="karte-leiste-kopf">
+        <span id="karte-leiste-info" aria-live="polite"></span>
+        <span class="karte-leiste-pfeile">
+          <button type="button" id="karte-leiste-zurueck" aria-label="Vorherige Bilder" data-en-aria-label="Previous photos">&larr;</button>
+          <button type="button" id="karte-leiste-weiter" aria-label="Weitere Bilder" data-en-aria-label="More photos">&rarr;</button>
+        </span>
+      </div>
+      <div class="karte-leiste-spur" id="karte-leiste-spur"></div>
+    </div>
     <p id="karte-leer-hinweis" style="display:none; color:var(--text-muted); margin-top:1.5rem; font-size:.9rem;" data-en="No photo locations yet — the map will fill up bit by bit.">Noch sind keine Fotostandorte hinterlegt — die Karte füllt sich nach und nach.</p>
 
     <div class="info-folds">
@@ -107,6 +126,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="daten.js" data-brauche="motive" defer></script>
-<script src="karte.js?v=2026-10-09" defer></script>
+<script src="daten/orte-gebiete.js?v=2026-11-25" defer></script>
+<script src="karte.js?v=2026-11-25" defer></script>
 </body>
 </html>

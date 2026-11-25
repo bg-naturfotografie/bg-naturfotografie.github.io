@@ -253,7 +253,10 @@
             label: label,
             // Gruppierungs-Schlüssel für die Karte: immer der DEUTSCHE
             // Name, damit die Gruppen in beiden Sprachen gleich sind.
-            schluessel: (o.label && o.label.de) || label
+            schluessel: (o.label && o.label.de) || label,
+            // Ort für die Kartenliste, von Hand gesetzt (sonst leer →
+            // karte.js erkennt ihn selbst aus den Koordinaten)
+            region: o.region ? String(o.region).trim() : ''
           };
           if (o.art === 'flaeche') {
             try {
